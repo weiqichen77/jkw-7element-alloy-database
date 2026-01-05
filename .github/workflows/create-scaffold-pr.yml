@@ -21,7 +21,6 @@ jobs:
           # README.md
           cat > README.md <<'EOF'
 # Alloy Materials Database Scaffold
-
 - Frontend: frontend/ (static)
 - Backend: backend/api/ (serverless demo API)
 - Script: scripts/generate-sample-data.js
@@ -141,3 +140,4 @@ EOF
           body: |
             Add full scaffold files for frontend, backend, docs and scripts.
           labels: scaffold
+
