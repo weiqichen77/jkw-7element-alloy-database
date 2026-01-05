@@ -1,5 +1,17 @@
-- name: Generate scaffold files
-        run:|
+name: Create Scaffold PR
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create-scaffold:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Generate scaffold files
+        run: |
           set -e
           mkdir -p frontend/css frontend/js backend/api scripts docs backend/data
 
