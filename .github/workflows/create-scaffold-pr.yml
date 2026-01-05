@@ -121,12 +121,40 @@ jobs:
             '- Run scripts/generate-sample-data.js to generate sample data for development/CI.' \
             > deploy-guide.md
 
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git add -A
+          if git diff --cached --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No changes detected"
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Changes detected"
+          fi
+
       - name: Create PR
-        uses: peter-evans/create-pull-request@v4
+        if: steps.check_changes.outputs.has_changes == 'true'
+        uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: scaffold/frontend-backend-structure
+          delete-branch: true
+          commit-message: "Add scaffold files for 7-element alloy database"
           title: "Scaffold: frontend/backend structure for 7-element alloy database"
           body: |
             Add full scaffold files for frontend, backend, docs and scripts.
+            
+            This PR includes:
+            - Frontend HTML/CSS/JS files
+            - Backend API (Node.js)
+            - Sample data generator script
+            - Documentation
           labels: scaffold
+          assignees: ${{ github.actor }}
+          add-paths: |
+            frontend/
+            backend/
+            scripts/
+            docs/
+            *.md
