@@ -1,5 +1,5 @@
-      - name: Generate scaffold files
-        run: |
+- name: Generate scaffold files
+        run:|
           set -e
           mkdir -p frontend/css frontend/js backend/api scripts docs backend/data
 
@@ -115,3 +115,4 @@
             echo "- Frontend (GitHub Pages/Vercel): see frontend/"
             echo "- Run scripts/generate-sample-data.js to generate sample data for development/CI."
           } > deploy-guide.md
+
