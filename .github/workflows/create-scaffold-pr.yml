@@ -1,143 +1,117 @@
-name: Create scaffold PR via script
-
-on:
-  workflow_dispatch:
-
-jobs:
-  scaffold:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '18'
       - name: Generate scaffold files
         run: |
           set -e
           mkdir -p frontend/css frontend/js backend/api scripts docs backend/data
 
           # README.md
-          cat > README.md <<'EOF'
-# Alloy Materials Database Scaffold
-- Frontend: frontend/ (static)
-- Backend: backend/api/ (serverless demo API)
-- Script: scripts/generate-sample-data.js
-- Documentation: docs/
-EOF
+          {
+            echo "# Alloy Materials Database Scaffold"
+            echo "- Frontend: frontend/ (static)"
+            echo "- Backend: backend/api/ (serverless demo API)"
+            echo "- Script: scripts/generate-sample-data.js"
+            echo "- Documentation: docs/"
+          } > README.md
 
           # frontend/index.html
-          cat > frontend/index.html <<'EOF'
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Alloy Materials Database Demo</title>
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
-  <header><h1>Alloy Materials Scaffold</h1></header>
-  <input id="q" placeholder="Search" />
-  <button id="search">Search</button>
-  <div id="table"></div>
-  <script src="js/app.js"></script>
-</body>
-</html>
-EOF
+          {
+            echo "<!doctype html>"
+            echo "<html lang=\"en\">"
+            echo "<head>"
+            echo "  <meta charset=\"utf-8\" />"
+            echo "  <meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />"
+            echo "  <title>Alloy Materials Database Demo</title>"
+            echo "  <link rel=\"stylesheet\" href=\"css/style.css\" />"
+            echo "</head>"
+            echo "<body>"
+            echo "  <header><h1>Alloy Materials Scaffold</h1></header>"
+            echo "  <input id=\"q\" placeholder=\"Search\" />"
+            echo "  <button id=\"search\">Search</button>"
+            echo "  <div id=\"table\"></div>"
+            echo "  <script src=\"js/app.js\"></script>"
+            echo "</body>"
+            echo "</html>"
+          } > frontend/index.html
 
           # frontend/js/app.js
-          cat > frontend/js/app.js <<'EOF'
-// Minimal demo app.js
-async function fetchData() {
-  const q = document.getElementById('q').value;
-  const r = await fetch('/api/materials?q='+encodeURIComponent(q)).then(r=>r.json());
-  let html='<table><tr><th>ID</th><th>Name</th><th>Type</th><th>Elements</th><th>Density</th></tr>';
-  for(const x of r.results) html+=`<tr><td>${x.id}</td><td>${x.name}</td><td>${x.type}</td><td>${x.elements.join(',')}</td><td>${x.density||''}</td></tr>`;
-  html+='</table>'; document.getElementById('table').innerHTML=html;
-}
-document.getElementById('search').onclick=fetchData;
-EOF
+          {
+            echo "// Minimal demo app.js"
+            echo "async function fetchData() {"
+            echo "  const q = document.getElementById('q').value;"
+            echo "  const r = await fetch('/api/materials?q='+encodeURIComponent(q)).then(r=>r.json());"
+            echo "  let html='<table><tr><th>ID</th><th>Name</th><th>Type</th><th>Elements</th><th>Density</th></tr>';"
+            echo "  for(const x of r.results) html+=\`<tr><td>\${x.id}</td><td>\${x.name}</td><td>\${x.type}</td><td>\${x.elements.join(',')}</td><td>\${x.density||''}</td></tr>\`;"
+            echo "  html+='</table>'; document.getElementById('table').innerHTML=html;"
+            echo "}"
+            echo "document.getElementById('search').onclick=fetchData;"
+          } > frontend/js/app.js
 
           # frontend/css/style.css
-          cat > frontend/css/style.css <<'EOF'
-body{font-family:Arial,Helvetica,sans-serif;background:#f5f7fb;color:#222;padding:16px}
-h1{margin:1em 0;}
-table{border-collapse:collapse;width:100%;}
-td,th{border:1px solid #ddd;padding:6px 8px;}
-th{background:#e3eefc;}
-tr:nth-child(even){background:#f5f7fb;}
-EOF
+          {
+            echo "body{font-family:Arial,Helvetica,sans-serif;background:#f5f7fb;color:#222;padding:16px}"
+            echo "h1{margin:1em 0;}"
+            echo "table{border-collapse:collapse;width:100%;}"
+            echo "td,th{border:1px solid #ddd;padding:6px 8px;}"
+            echo "th{background:#e3eefc;}"
+            echo "tr:nth-child(even){background:#f5f7fb;}"
+          } > frontend/css/style.css
 
           # backend/api/materials.js
-          cat > backend/api/materials.js <<'EOF'
-// Demo CRUD, file-based, token auth
-const fs=require('fs'),path=require('path');
-const DATA_DIR=path.join(__dirname,'..','data'),DATA_PATH=path.join(DATA_DIR,'materials.json');
-function load(){if(!fs.existsSync(DATA_PATH))return[];try{return JSON.parse(fs.readFileSync(DATA_PATH))}catch(e){return[]}}
-function save(data){fs.mkdirSync(DATA_DIR,{recursive:true});fs.writeFileSync(DATA_PATH,JSON.stringify(data,null,2));}
-function token(req){return req.headers['x-api-token']||req.query.token||process.env.ADMIN_TOKEN||'';}
-function checkAuth(req){const t=process.env.ADMIN_TOKEN;if(!t)return false;return token(req)===t;}
-module.exports=(req,res)=>{
-  const m=req.method.toUpperCase();
-  const [,,'materials',id]=req.url.split(/\/|\?/);
-  let data=load();
-  if(m==='GET'&&!id){
-    const {q='',page=1,per_page=25,type,element} = req.query;
-    let r=data.filter(x=>(!type||x.type===type)&&(!element||x.elements.includes(element))&&((x.name+x.elements.join()+' '+JSON.stringify(x.properties)).toLowerCase().includes((q||'').toLowerCase())));
-    const total=r.length, p=+page,pp=+per_page; r=r.slice((p-1)*pp,p*pp);
-    return res.json({total,page:p,per_page:pp,results:r});
-  }
-  if(m==='GET'&&id){const x=data.find(x=>x.id==id);if(!x)return res.status(404).json({error:'not found'});return res.json(x);}
-  if(['POST','PUT','PATCH','DELETE'].includes(m)&&!checkAuth(req)) return res.status(401).json({error:'unauthorized'});
-  if(m==='POST'){const b=req.body||{},i=data.reduce((a,x)=>Math.max(a,x.id),0)+1;x={id:i,...b};data.push(x);save(data);return res.status(201).json(x);}
-  if(['PUT','PATCH'].includes(m)&&id){const idx=data.findIndex(x=>x.id==id);if(idx==-1)return res.status(404).json({error:'not found'});data[idx]={...data[idx],...(req.body||{})};save(data);return res.json(data[idx]);}
-  if(m==='DELETE'&&id){const idx=data.findIndex(x=>x.id==id);if(idx==-1)return res.status(404).json({error:'not found'});const del=data.splice(idx,1);save(data);return res.json({deleted:del[0]});}
-  res.status(405).json({error:'method not allowed'});
-};
-EOF
+          {
+            echo "// Demo CRUD, file-based, token auth"
+            echo "const fs=require('fs'),path=require('path');"
+            echo "const DATA_DIR=path.join(__dirname,'..','data'),DATA_PATH=path.join(DATA_DIR,'materials.json');"
+            echo "function load(){if(!fs.existsSync(DATA_PATH))return[];try{return JSON.parse(fs.readFileSync(DATA_PATH))}catch(e){return[]}}"
+            echo "function save(data){fs.mkdirSync(DATA_DIR,{recursive:true});fs.writeFileSync(DATA_PATH,JSON.stringify(data,null,2));}"
+            echo "function token(req){return req.headers['x-api-token']||req.query.token||process.env.ADMIN_TOKEN||'';}"
+            echo "function checkAuth(req){const t=process.env.ADMIN_TOKEN;if(!t)return false;return token(req)===t;}"
+            echo "module.exports=(req,res)=>{"
+            echo "  const m=req.method.toUpperCase();"
+            echo "  const [,,'materials',id]=req.url.split(/\\/|\\?/);"
+            echo "  let data=load();"
+            echo "  if(m==='GET'&&!id){"
+            echo "    const {q='',page=1,per_page=25,type,element} = req.query;"
+            echo "    let r=data.filter(x=>(!type||x.type===type)&&(!element||x.elements.includes(element))&&((x.name+x.elements.join()+' '+JSON.stringify(x.properties)).toLowerCase().includes((q||'').toLowerCase())));"
+            echo "    const total=r.length, p=+page,pp=+per_page; r=r.slice((p-1)*pp,p*pp);"
+            echo "    return res.json({total,page:p,per_page:pp,results:r});"
+            echo "  }"
+            echo "  if(m==='GET'&&id){const x=data.find(x=>x.id==id);if(!x)return res.status(404).json({error:'not found'});return res.json(x);}"
+            echo "  if(['POST','PUT','PATCH','DELETE'].includes(m)&&!checkAuth(req)) return res.status(401).json({error:'unauthorized'});"
+            echo "  if(m==='POST'){const b=req.body||{},i=data.reduce((a,x)=>Math.max(a,x.id),0)+1;x={id:i,...b};data.push(x);save(data);return res.status(201).json(x);}"
+            echo "  if(['PUT','PATCH'].includes(m)&&id){const idx=data.findIndex(x=>x.id==id);if(idx==-1)return res.status(404).json({error:'not found'});data[idx]={...data[idx],...(req.body||{})};save(data);return res.json(data[idx]);}"
+            echo "  if(m==='DELETE'&&id){const idx=data.findIndex(x=>x.id==id);if(idx==-1)return res.status(404).json({error:'not found'});const del=data.splice(idx,1);save(data);return res.json({deleted:del[0]});}"
+            echo "  res.status(405).json({error:'method not allowed'});"
+            echo "};"
+          } > backend/api/materials.js
 
           # scripts/generate-sample-data.js
-          cat > scripts/generate-sample-data.js <<'EOF'
-// Generate 50 alloy data records (7 elements combination)
-const fs = require('fs'), path = require('path');
-const OUT_DIR = path.join(__dirname,'..','backend','data');
-fs.mkdirSync(OUT_DIR,{recursive:true});
-const OUT_FILE = path.join(OUT_DIR,'materials.json');
-const ELEMENTS = ['Al','Ni','Cu','Zr','Nb','Ta','W'];
-function rn(a,b){return Math.round((Math.random()*(b-a)+a)*10000)/10000;}
-function pick(arr,n){ const s=new Set(); while(s.size<n)s.add(arr[~~(Math.random()*arr.length)]);return Array.from(s);}
-const N=50;const types=['amorphous','crystalline','interface'];const out=[];
-for(let i=1;i<=N;i++){ const t=types[i%3]; out.push({ id:i, name:`${t}-Sample-${i}`, type:t, elements:pick(ELEMENTS,2+(i%3)), density:rn(2.0,9.5), properties:{specific_heat:rn(100,900)} });}
-fs.writeFileSync(OUT_FILE,JSON.stringify(out,null,2),'utf8');
-console.log('Wrote',N,'records to',OUT_FILE);
-EOF
+          {
+            echo "// Generate 50 alloy data records (7 elements combination)"
+            echo "const fs = require('fs'), path = require('path');"
+            echo "const OUT_DIR = path.join(__dirname,'..','backend','data');"
+            echo "fs.mkdirSync(OUT_DIR,{recursive:true});"
+            echo "const OUT_FILE = path.join(OUT_DIR,'materials.json');"
+            echo "const ELEMENTS = ['Al','Ni','Cu','Zr','Nb','Ta','W'];"
+            echo "function rn(a,b){return Math.round((Math.random()*(b-a)+a)*10000)/10000;}"
+            echo "function pick(arr,n){ const s=new Set(); while(s.size<n)s.add(arr[~~(Math.random()*arr.length)]);return Array.from(s);}"
+            echo "const N=50;const types=['amorphous','crystalline','interface'];const out=[];"
+            echo "for(let i=1;i<=N;i++){ const t=types[i%3]; out.push({ id:i, name:\`\${t}-Sample-\${i}\`, type:t, elements:pick(ELEMENTS,2+(i%3)), density:rn(2.0,9.5), properties:{specific_heat:rn(100,900)} });}"
+            echo "fs.writeFileSync(OUT_FILE,JSON.stringify(out,null,2),'utf8');"
+            echo "console.log('Wrote',N,'records to',OUT_FILE);"
+          } > scripts/generate-sample-data.js
 
           # docs/API.md
-          cat > docs/API.md <<'EOF'
-# API Documentation
-GET /api/materials
-GET /api/materials/:id
-POST/PUT/DELETE /api/materials (requires x-api-token)
-Production use: recommend real DB and OAuth.
-EOF
+          {
+            echo "# API Documentation"
+            echo "GET /api/materials"
+            echo "GET /api/materials/:id"
+            echo "POST/PUT/DELETE /api/materials (requires x-api-token)"
+            echo "Production use: recommend real DB and OAuth."
+          } > docs/API.md
 
           # deploy-guide.md
-          cat > deploy-guide.md <<'EOF'
-# Deployment Guide
-- Backend (recommend Vercel, configure ENV ADMIN_TOKEN)
-- Frontend (GitHub Pages/Vercel): see frontend/
-- Run scripts/generate-sample-data.js to generate sample data for development/CI.
-EOF
-
-      - name: Create PR
-        uses: peter-evans/create-pull-request@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: scaffold/frontend-backend-structure
-          title: "Scaffold: frontend/backend structure for 7-element alloy database"
-          body: |
-            Add full scaffold files for frontend, backend, docs and scripts.
-          labels: scaffold
-
+          {
+            echo "# Deployment Guide"
+            echo "- Backend (recommend Vercel, configure ENV ADMIN_TOKEN)"
+            echo "- Frontend (GitHub Pages/Vercel): see frontend/"
+            echo "- Run scripts/generate-sample-data.js to generate sample data for development/CI."
+          } > deploy-guide.md
