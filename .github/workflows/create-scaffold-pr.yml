@@ -1,4 +1,4 @@
-name: Create scaffold PR
+name: Create scaffold PR (full, use GITHUB_TOKEN)
 
 on:
   workflow_dispatch:
@@ -17,187 +17,140 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Create scaffold pull request (files mapping)
+      - name: Create scaffold PR with full files
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: scaffold/frontend-backend-structure
           title: "Scaffold: frontend/backend structure for 7-element alloy database"
           body: |
-            This PR adds an initial scaffold for the 7-element alloy database:
-            - frontend/ static pages (search, pagination, CRUD UI)
-            - backend/api/ serverless APIs (materials CRUD, search, stats)
-            - scripts/generate-sample-data.js (creates sample records using elements Al,Ni,Cu,Zr,Nb,Ta,W)
-            - docs and deploy guide
-            Notes:
-            - Write operations require token auth via header x-api-token (ADMIN_TOKEN).
-            - For production, migrate storage to a DB (Postgres/Typesense/Elastic) and replace simple token auth with OAuth or RBAC.
+            This PR adds a full scaffold for the 7-element alloy database:
+            - frontend/: 静态页面（材料检索、分页、增删改查、表格、统计图表等）
+            - backend/api/: serverless demo API（基于文件的 CRUD，后端用 token 鉴权，仅示例，可本地持久，生产请替换为 Postgres/Typesense/Elastic）
+            - scripts/: generate-sample-data.js 生成样例数据（50条，7元素组合，仅在本地/CI运行）
+            - docs/: 部署与API说明
+            > 👷 合并后建议用 Vercel 部署 backend/，并在 ENV 配置 ADMIN_TOKEN，用前端交互或 curl 测试 CRUD。
+            ---
+            ⚠️ 本 PR 文件全部为初版 demo，仅供演示学习，不建议用作生产！
           labels: scaffold
           files: |
             README.md: |
-              # 非晶合金 / 合金 / 非晶-晶体界面材料数据库（7-element 模板）
-              
-              本仓库为“非晶合金、合金及非晶-晶体界面材料数据库”模板：
-              - 前端：静态页面（适合 GitHub Pages）
-              - 后端：Vercel 风格 serverless API（api/*.js）
-              - 样例数据可生成于 backend/data/materials.json（使用脚本生成）
-              - 脚本：scripts/generate-sample-data.js（用于生成样例数据）
-              
-              快速开始：
-              1. 在 Actions -> Create scaffold PR -> Run workflow 触发本 workflow
-              2. 合并 PR 到 main 后，根据 deploy-guide.md 部署前端（GitHub Pages）和后端（Vercel）
+              # 非晶/合金/界面 材料全栈 Scaffold（7 元素 demo）
+              - 前端见 frontend/，后端 serverless API 见 backend/api/
+              - scripts/generate-sample-data.js 生成材料样例数据 backend/data/materials.json
+              - 文档见 docs/，deploy/ci 见 .github/workflows/
+              生产请换真正数据库和用户认证，详见 deploy-guide.md
 
             deploy-guide.md: |
-              # 部署指南（快速）
-              
-              前端（GitHub Pages）
-              - 将 frontend/ 内容发布到 GitHub Pages（可用 gh-pages 分支或 docs/）。
-              
-              后端（Vercel）
-              - 在 Vercel 控制台新建项目并连接本仓库。
-              - Vercel 会将 backend/api/*.js 识别为 Serverless 函数。
-              - 在 Vercel 项目设置 -> Environment Variables 中设置 ADMIN_TOKEN（用于简单 token 验证）。
-              
-              本地测试
-              - 合并 PR 后可在本地运行 scripts/generate-sample-data.js 生成示例数据并用 vercel dev 或本地代理测试。
+              # 部署指南
+              ## 后端
+              - 推荐部署 Vercel（或本地/云函数）。
+              - 环境变量需配置 ADMIN_TOKEN（写操作鉴权）。
+              - 默认采用文件存储本地 backend/data/materials.json，仅适用于 demo。
+              ## 前端
+              - frontend/ 可用 GitHub Pages，或 Vercel 静态部署。
+              ## 本地测试快速步骤
+              ```bash
+              git checkout scaffold/frontend-backend-structure
+              npm i -g vercel
+              node scripts/generate-sample-data.js
+              vercel dev
+              cd frontend && python -m http.server 8080
+              ```
 
+            docs/API.md: |
+              # API 文档
+              ## GET /api/materials
+              - 支持参数: q, page, per_page, type, element
+              ## GET /api/materials/:id
+              - 单条
+              ## POST/PUT/DELETE /api/materials 需 x-api-token:ADMIN_TOKEN
+              - 生产请替换 token 为 OAuth/RBAC
+              ## GET /api/stats
+              - 类型分布统计
+
+            scripts/generate-sample-data.js: |
+              // 生成 50 条 7元素组合材料样例数据
+              const fs = require('fs'), path = require('path');
+              const OUT_DIR = path.join(__dirname,'..','backend','data');
+              fs.mkdirSync(OUT_DIR,{recursive:true});
+              const OUT_FILE = path.join(OUT_DIR,'materials.json');
+              const ELEMENTS = ['Al','Ni','Cu','Zr','Nb','Ta','W'];
+              function rn(a,b){return Math.round((Math.random()*(b-a)+a)*10000)/10000;}
+              function pick(arr,n){ const s=new Set(); while(s.size<n)s.add(arr[~~(Math.random()*arr.length)]);return Array.from(s);}
+              const N=50;const types=['amorphous','crystalline','interface'];const out=[];
+              for(let i=1;i<=N;i++){ const t=types[i%3]; out.push({ id:i, name:`${t}-Sample-${i}`, type:t, elements:pick(ELEMENTS,2+(i%3)), density:rn(2.0,9.5), properties:{specific_heat:rn(100,900)} });}
+              fs.writeFileSync(OUT_FILE,JSON.stringify(out,null,2),'utf8');
+              console.log('Wrote',N,'records to',OUT_FILE);
+
+            backend/api/materials.js: |
+              // demo CRUD, 文件存储，token 鉴权
+              const fs=require('fs'),path=require('path');
+              const DATA_DIR=path.join(__dirname,'..','data'),DATA_PATH=path.join(DATA_DIR,'materials.json');
+              function load(){if(!fs.existsSync(DATA_PATH))return[];try{return JSON.parse(fs.readFileSync(DATA_PATH))}catch(e){return[]}}
+              function save(data){fs.mkdirSync(DATA_DIR,{recursive:true});fs.writeFileSync(DATA_PATH,JSON.stringify(data,null,2));}
+              function token(req){return req.headers['x-api-token']||req.query.token||process.env.ADMIN_TOKEN||'';}
+              function checkAuth(req){const t=process.env.ADMIN_TOKEN;if(!t)return false;return token(req)===t;}
+              module.exports=(req,res)=>{
+                  const m=req.method.toUpperCase();
+                  const [,,'materials',id]=req.url.split(/\/|\?/);
+                  let data=load();
+                  if(m==='GET'&&!id){ // 列表
+                     const {q='',page=1,per_page=25,type,element} = req.query;
+                     let r=data.filter(x=>(!type||x.type===type)&&(!element||x.elements.includes(element))&&((x.name+x.elements.join()+' '+JSON.stringify(x.properties)).toLowerCase().includes((q||'').toLowerCase())));
+                     const total=r.length, p=+page,pp=+per_page; r=r.slice((p-1)*pp,p*pp);
+                     return res.json({total,page:p,per_page:pp,results:r});
+                  }
+                  if(m==='GET'&&id){const x=data.find(x=>x.id==id);if(!x)return res.status(404).json({error:'not found'});return res.json(x);}
+                  if(['POST','PUT','PATCH','DELETE'].includes(m)&&!checkAuth(req)) return res.status(401).json({error:'unauthorized'});
+                  if(m==='POST'){const b=req.body||{},i=data.reduce((a,x)=>Math.max(a,x.id),0)+1;x={id:i,...b};data.push(x);save(data);return res.status(201).json(x);}
+                  if(['PUT','PATCH'].includes(m)&&id){const idx=data.findIndex(x=>x.id==id);if(idx==-1)return res.status(404).json({error:'not found'});data[idx]={...data[idx],...(req.body||{})};save(data);return res.json(data[idx]);}
+                  if(m==='DELETE'&&id){const idx=data.findIndex(x=>x.id==id);if(idx==-1)return res.status(404).json({error:'not found'});const del=data.splice(idx,1);save(data);return res.json({deleted:del[0]});}
+                  res.status(405).json({error:'method not allowed'});
+              };
+            backend/api/stats.js: |
+              // 返回类型分布
+              const fs=require('fs'),path=require('path');
+              const DATA=path.join(__dirname,'..','data','materials.json');
+              module.exports=(req,res)=>{
+                const d=fs.existsSync(DATA)?JSON.parse(fs.readFileSync(DATA)):[];
+                const typeCounts={amorphous:0,crystalline:0,interface:0};
+                d.forEach(r=>typeCounts[r.type]=(typeCounts[r.type]||0)+1);
+                res.json({total:d.length,typeCounts});
+              };
             frontend/index.html: |
               <!doctype html>
               <html lang="zh-CN">
               <head>
                 <meta charset="utf-8" />
                 <meta name="viewport" content="width=device-width,initial-scale=1" />
-                <title>材料数据库 — 浏览与检索</title>
+                <title>材料数据库 — 浏览</title>
                 <link rel="stylesheet" href="css/style.css" />
-                <link rel="stylesheet" href="css/chart.css" />
-                <script src="https://cdn.jsdelivr.net/npm/chart.js@4.9.0/dist/chart.umd.min.js"></script>
               </head>
               <body>
-                <header>
-                  <h1>非晶/合金/界面 材料数据库</h1>
-                  <div class="controls">
-                    <input id="searchInput" placeholder="搜索材料名、元素或属性..." />
-                    <select id="typeFilter">
-                      <option value="">全部类型</option>
-                      <option value="amorphous">非晶合金</option>
-                      <option value="crystalline">合金</option>
-                      <option value="interface">非晶-晶体界面</option>
-                    </select>
-                    <select id="elementFilter"><option value="">元素</option></select>
-                    <button id="searchBtn">搜索</button>
-                    <button id="newBtn">新增条目</button>
-                  </div>
-                </header>
-                <main>
-                  <section id="summary" class="card">
-                    <h2>统计概览</h2>
-                    <div id="statBoxes"></div>
-                    <canvas id="typeChart" width="400" height="160"></canvas>
-                  </section>
-                  <section id="results" class="card">
-                    <h2>检索结果</h2>
-                    <div id="tableContainer"></div>
-                    <div id="pagination"></div>
-                  </section>
-                  <section id="detail" class="card">
-                    <h2>材料详情</h2>
-                    <div id="detailView">选中行以查看详情</div>
-                  </section>
-                </main>
-                <footer>
-                  <small>模板 — 需结合生产数据库与真实认证</small>
-                </footer>
+                <header><h1>材料数据库（7元素 Demo）</h1></header>
+                <div id="app">
+                  <input id="q" placeholder="搜索" />
+                  <button id="search">搜索</button>
+                  <div id="table"></div>
+                </div>
                 <script src="js/app.js"></script>
-                <script src="js/table-manager.js"></script>
-                <script src="js/chart-manager.js"></script>
-                <script src="js/github-auth.js"></script>
               </body>
               </html>
-
-            frontend/css/style.css: |
-              /* 基本布局 */
-              body { font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 0; background: #f5f7fb; color:#222; }
-              header { background: #0b4a6f; color: #fff; padding: 12px 20px; display:flex; flex-direction:column; gap:8px; }
-              header h1 { margin:0; font-size:1.2rem; }
-              .controls { display:flex; gap:8px; align-items:center; }
-              .controls input, .controls select { padding:6px 8px; border-radius:4px; border:1px solid #ccc; }
-              main { display:grid; grid-template-columns: 1fr 400px; gap: 18px; padding: 20px; }
-              .card { background: #fff; padding: 12px; border-radius:6px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-              #tableContainer { overflow:auto; max-height:420px; }
-
             frontend/js/app.js: |
-              // 前端主逻辑（简化版）
-              const API_BASE = '/api';
-              const ADMIN_TOKEN = '';
-              const state = { page: 1, per_page: 25, q: '', type: '', element: '' };
-              async function init() {
-                document.getElementById('searchBtn').addEventListener('click', onSearch);
-                document.getElementById('newBtn').addEventListener('click', createNew);
-                await loadStats(); await loadPage(1);
+              // demo 前端：仅供本地/CI测试
+              async function fetchData() {
+                const q = document.getElementById('q').value;
+                const r = await fetch('/api/materials?q='+encodeURIComponent(q)).then(r=>r.json());
+                let html='<table><tr><th>ID</th><th>Name</th><th>Type</th><th>Elements</th><th>Density</th></tr>';
+                for(const x of r.results) html+=`<tr><td>${x.id}</td><td>${x.name}</td><td>${x.type}</td><td>${x.elements.join(',')}</td><td>${x.density||''}</td></tr>`;
+                html+='</table>'; document.getElementById('table').innerHTML=html;
               }
-              async function fetchAPI(path, params={}, options={}) {
-                let url = new URL(API_BASE + path, location.origin);
-                Object.entries(params).forEach(([k,v])=>{ if(v!==undefined && v!=='') url.searchParams.set(k,v); });
-                const fetchOpts = Object.assign({ headers: {} }, options);
-                if (ADMIN_TOKEN) fetchOpts.headers['x-api-token'] = ADMIN_TOKEN;
-                const res = await fetch(url, fetchOpts);
-                if(!res.ok) throw new Error('API error: ' + res.status + ' ' + await res.text());
-                return res.json();
-              }
-              /* 渲染表格、分页、CRUD 等函数略（可在 PR review 后拓展） */
-              window.addEventListener('load', init);
-
-            backend/api/materials.js: |
-              // materials API (file-backed simple implementation)
-              const fs = require('fs');
-              const path = require('path');
-              const DATA_DIR = path.join(__dirname, '..', 'data');
-              const DATA_PATH = path.join(DATA_DIR, 'materials.json');
-              function loadData(){ if(!fs.existsSync(DATA_PATH)) return []; try{return JSON.parse(fs.readFileSync(DATA_PATH,'utf8'))}catch(e){console.error(e);return[]} }
-              function saveData(d){ if(!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR,{recursive:true}); fs.writeFileSync(DATA_PATH, JSON.stringify(d,null,2),'utf8'); }
-              function getAuthToken(req){ const header = req.headers['x-api-token'] || req.headers['X-Api-Token']; const q = req.query.token || req.query.api_token; return header || q || process.env.ADMIN_TOKEN || null; }
-              function checkAuth(req){ const admin = process.env.ADMIN_TOKEN || ''; if(!admin) return true; const t = getAuthToken(req); return t && t===admin; }
-              module.exports = (req,res) => {
-                const method = req.method.toUpperCase();
-                const parts = req.url.split('?')[0].split('/').filter(Boolean);
-                const idPart = parts[2];
-                const data = loadData();
-                if (method==='GET' && !idPart) {
-                  const q=(req.query.q||'').toLowerCase(); const page=Math.max(1,parseInt(req.query.page||'1',10)); const per_page=Math.min(200,Math.max(1,parseInt(req.query.per_page||'25',10)));
-                  const type=req.query.type||''; const element=req.query.element||'';
-                  let results = data.slice();
-                  if(type) results = results.filter(r=>r.type===type);
-                  if(element) results = results.filter(r=> (r.elements||[]).includes(element));
-                  if(q) results = results.filter(r=> (r.name+' '+(r.elements||[]).join(' ')+' '+JSON.stringify(r.properties||{})).toLowerCase().includes(q));
-                  const total=results.length; const start=(page-1)*per_page; const paged=results.slice(start,start+per_page);
-                  const typeCounts={amorphous:0,crystalline:0,interface:0}; const allElements=new Set();
-                  for(const r of data){ typeCounts[r.type]=(typeCounts[r.type]||0)+1; (r.elements||[]).forEach(e=>allElements.add(e)); }
-                  return res.json({ total, page, per_page, results: paged, typeCounts, allElements: Array.from(allElements).sort() });
-                }
-                if(method==='GET' && idPart){ const id=Number(idPart); const rec=data.find(r=>r.id===id); if(!rec) return res.status(404).json({error:'not found'}); return res.json(rec); }
-                if(!checkAuth(req)) return res.status(401).json({ error: 'unauthorized' });
-                if(method==='POST' && !idPart){ const body=req.body||{}; const maxId=data.reduce((m,r)=>Math.max(m,Number(r.id||0)),0); const newRec=Object.assign({id:maxId+1,name:body.name||`new-${Date.now()}`,type:body.type||'amorphous',elements:body.elements||[],density:Number(body.density||0)}, body); data.push(newRec); saveData(data); return res.status(201).json(newRec); }
-                if((method==='PUT' || method==='PATCH') && idPart){ const id=Number(idPart); const idx=data.findIndex(r=>r.id===id); if(idx===-1) return res.status(404).json({error:'not found'}); const body=req.body||{}; data[idx]=Object.assign({}, data[idx], body); saveData(data); return res.json(data[idx]); }
-                if(method==='DELETE' && idPart){ const id=Number(idPart); const idx=data.findIndex(r=>r.id===id); if(idx===-1) return res.status(404).json({error:'not found'}); const removed=data.splice(idx,1); saveData(data); return res.json({deleted: removed[0]}); }
-                return res.status(405).json({ error: 'method not allowed' });
-              }
-
-            scripts/generate-sample-data.js: |
-              // Generate sample data (simple)
-              const fs = require('fs');
-              const path = require('path');
-              const OUT_DIR = path.join(__dirname, '..', 'backend', 'data');
-              if(!fs.existsSync(OUT_DIR)) fs.mkdirSync(OUT_DIR,{recursive:true});
-              const OUT_FILE = path.join(OUT_DIR, 'materials.json');
-              const ELEMENTS = ['Al','Ni','Cu','Zr','Nb','Ta','W'];
-              function rnd(min,max,d=4){ return Number((Math.random()*(max-min)+min).toFixed(d)); }
-              function pickN(arr,n){ const s=new Set(); while(s.size<n) s.add(arr[Math.floor(Math.random()*arr.length)]); return Array.from(s); }
-              const N = 50; const types=['amorphous','crystalline','interface']; const out=[];
-              for(let i=1;i<=N;i++){ const t=types[i%types.length]; const elems=pickN(ELEMENTS,2+(i%3)); out.push({ id:i, name:`${t}-Sample-${i}`, type:t, elements:elems, density:rnd(2.0,9.5), properties:{ specific_heat:rnd(100,900), expansion_coeff:rnd(1,20) } }); }
-              fs.writeFileSync(OUT_FILE, JSON.stringify(out,null,2),'utf8'); console.log(`Wrote ${N} records to ${OUT_FILE}`);
-
-            docs/API.md: |
-              # API 文档（模板）
-              ## GET /api/materials
-              支持参数： q, page, per_page, type, element
-              返回： { total, page, per_page, results, typeCounts, allElements }
+              document.getElementById('search').onclick=fetchData;
+            frontend/css/style.css: |
+              body{font-family:-apple-system,BlinkMacSystemFont,Arial;background:#f9fbfd;color:#222;}
+              h1{margin:1em 0;}
+              table{border-collapse:collapse;width:100%;}
+              td,th{border:1px solid #ddd;padding:6px 8px;}
+              th{background:#e3eefc;}
+              tr:nth-child(even){background:#f5f7fb;}
