@@ -22,10 +22,10 @@ jobs:
           cat > README.md <<'EOF'
 # Alloy Materials Database Scaffold
 
--Frontend: frontend/ (static)
--Backend: backend/api/ (serverless demo API)
--Script: scripts/generate-sample-data.js
--Documentation: docs/
+- Frontend: frontend/ (static)
+- Backend: backend/api/ (serverless demo API)
+- Script: scripts/generate-sample-data.js
+- Documentation: docs/
 EOF
 
           # frontend/index.html
@@ -46,7 +46,7 @@ EOF
   <script src="js/app.js"></script>
 </body>
 </html>
-          EOF
+EOF
 
           # frontend/js/app.js
           cat > frontend/js/app.js <<'EOF'
@@ -59,7 +59,7 @@ async function fetchData() {
   html+='</table>'; document.getElementById('table').innerHTML=html;
 }
 document.getElementById('search').onclick=fetchData;
-          EOF
+EOF
 
           # frontend/css/style.css
           cat > frontend/css/style.css <<'EOF'
@@ -69,7 +69,7 @@ table{border-collapse:collapse;width:100%;}
 td,th{border:1px solid #ddd;padding:6px 8px;}
 th{background:#e3eefc;}
 tr:nth-child(even){background:#f5f7fb;}
-          EOF
+EOF
 
           # backend/api/materials.js
           cat > backend/api/materials.js <<'EOF'
@@ -140,5 +140,4 @@ EOF
           title: "Scaffold: frontend/backend structure for 7-element alloy database"
           body: |
             Add full scaffold files for frontend, backend, docs and scripts.
-
           labels: scaffold
