@@ -130,9 +130,14 @@ To update existing data or add new materials:
 ### Troubleshooting
 
 **Validation errors:**
-- Check that all required fields are present
-- Verify element symbols are valid (Al, Ni, Cu, Zr, Nb, Ta, W)
+- Check that all required fields are present (name, type, elements)
 - Ensure material type is one of: crystalline, amorphous, interface
+- Verify elements array is not empty
+
+**Warnings about elements:**
+- If using elements outside the primary system (Al, Ni, Cu, Zr, Nb, Ta, W), you will see a warning
+- This is informational only - conversion will still succeed
+- Non-primary elements are fully supported
 
 **Deployment not updating:**
 - Check the Actions tab on GitHub for workflow status
@@ -272,9 +277,14 @@ GitHub Actions工作流将：
 ### 故障排除
 
 **验证错误：**
-- 检查所有必填字段是否存在
-- 验证元素符号是否有效（Al、Ni、Cu、Zr、Nb、Ta、W）
+- 检查所有必填字段是否存在（name、type、elements）
 - 确保材料类型是以下之一：crystalline、amorphous、interface
+- 验证元素数组不为空
+
+**元素警告：**
+- 如果使用主要体系（Al、Ni、Cu、Zr、Nb、Ta、W）之外的元素，会显示警告信息
+- 这仅是提示性质 - 转换仍会成功完成
+- 完全支持非主要元素
 
 **部署未更新：**
 - 检查GitHub上的Actions选项卡查看工作流状态
