@@ -100,62 +100,214 @@ jobs:
         run: |
           # Update app.js to use the mock API for GitHub Pages
           cat > _site/js/app.js << 'EOF'
+          // 全局状态
+          let allData = [];
+          let currentType = 'all';
+          let currentProperty = 'structure';
+          
           // Load the API mock
           const script = document.createElement('script');
           script.src = './api-mock.js';
           document.head.appendChild(script);
           
           script.onload = function() {
-            // Initialize the app after API mock is loaded
             initApp();
           };
           
-          function initApp() {
-            document.getElementById('search').onclick = fetchData;
+          async function initApp() {
+            // 加载所有数据
+            const response = await fetch('./data/materials.json');
+            allData = await response.json();
+            
+            // 绑定事件
+            document.getElementById('search').onclick = () => filterAndDisplay();
             document.getElementById('q').addEventListener('keypress', function(e) {
-              if (e.key === 'Enter') fetchData();
+              if (e.key === 'Enter') filterAndDisplay();
             });
             
-            // Load data on page load
-            fetchData();
+            // 材料类型切换
+            document.querySelectorAll('.type-tab').forEach(tab => {
+              tab.addEventListener('click', function() {
+                document.querySelectorAll('.type-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                currentType = this.dataset.type;
+                filterAndDisplay();
+              });
+            });
+            
+            // 性质分类切换
+            document.querySelectorAll('.property-tab').forEach(tab => {
+              tab.addEventListener('click', function() {
+                document.querySelectorAll('.property-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                currentProperty = this.dataset.property;
+                filterAndDisplay();
+              });
+            });
+            
+            // 初始显示
+            filterAndDisplay();
           }
           
-          async function fetchData() {
-            const q = document.getElementById('q').value;
-            const typeFilter = document.getElementById('typeFilter')?.value || '';
-            const elementFilter = document.getElementById('elementFilter')?.value || '';
+          function filterAndDisplay() {
+            const searchTerm = document.getElementById('q').value.toLowerCase();
             
-            const query = { q, page: 1, per_page: 50 };
-            if (typeFilter) query.type = typeFilter;
-            if (elementFilter) query.element = elementFilter;
+            // 筛选数据
+            let filtered = allData;
             
-            try {
-              const data = await window.MaterialsAPI.search(query);
-              displayResults(data);
-            } catch (error) {
-              console.error('Error fetching data:', error);
-              document.getElementById('table').innerHTML = '<p style="color:red;">Error loading data</p>';
+            // 按类型筛选
+            if (currentType !== 'all') {
+              filtered = filtered.filter(item => item.type === currentType);
             }
+            
+            // 按搜索词筛选
+            if (searchTerm) {
+              filtered = filtered.filter(item => 
+                item.name.toLowerCase().includes(searchTerm) ||
+                item.elements.some(el => el.toLowerCase().includes(searchTerm))
+              );
+            }
+            
+            displayResults(filtered);
           }
           
           function displayResults(data) {
-            let html = '<div style="margin-bottom:1em;">找到 ' + data.total + ' 条结果</div>';
-            html += '<table><thead><tr><th>ID</th><th>名称</th><th>类型</th><th>元素</th><th>密度 (g/cm³)</th><th>比热容 (J/kg·K)</th></tr></thead><tbody>';
+            const container = document.getElementById('table');
             
-            for (const x of data.results) {
-              const specificHeat = x.properties?.specific_heat || '-';
+            if (data.length === 0) {
+              container.innerHTML = '<p class="no-data">未找到匹配的数据</p>';
+              return;
+            }
+            
+            let html = '<div class="result-count">找到 ' + data.length + ' 条结果</div>';
+            
+            // 根据选中的性质类别显示不同的表格
+            if (currentProperty === 'structure') {
+              html += displayStructureTable(data);
+            } else if (currentProperty === 'thermodynamics') {
+              html += displayThermodynamicsTable(data);
+            } else if (currentProperty === 'mechanics') {
+              html += displayMechanicsTable(data);
+            } else if (currentProperty === 'defects') {
+              html += displayDefectsTable(data);
+            }
+            
+            container.innerHTML = html;
+          }
+          
+          function displayStructureTable(data) {
+            let html = '<div class="table-wrapper"><table><thead><tr>';
+            html += '<th>ID</th><th>名称</th><th>类型</th><th>元素</th><th>密度<br/>(g/cm³)</th>';
+            html += '<th>晶格常数 a<br/>(Å)</th><th>晶格常数 b<br/>(Å)</th><th>晶格常数 c<br/>(Å)</th>';
+            html += '<th>径向分布函数</th>';
+            html += '</tr></thead><tbody>';
+            
+            for (const x of data) {
               html += '<tr>';
               html += '<td>' + x.id + '</td>';
               html += '<td>' + x.name + '</td>';
               html += '<td>' + translateType(x.type) + '</td>';
               html += '<td>' + x.elements.join(', ') + '</td>';
-              html += '<td>' + (x.density ? x.density.toFixed(2) : '-') + '</td>';
-              html += '<td>' + (typeof specificHeat === 'number' ? specificHeat.toFixed(2) : specificHeat) + '</td>';
+              html += '<td>' + formatValue(x.density, 3) + '</td>';
+              html += '<td>' + formatValue(x.structure?.lattice_constant?.a, 3) + '</td>';
+              html += '<td>' + formatValue(x.structure?.lattice_constant?.b, 3) + '</td>';
+              html += '<td>' + formatValue(x.structure?.lattice_constant?.c, 3) + '</td>';
+              html += '<td>' + formatFile(x.structure?.radial_distribution) + '</td>';
               html += '</tr>';
             }
             
-            html += '</tbody></table>';
-            document.getElementById('table').innerHTML = html;
+            html += '</tbody></table></div>';
+            return html;
+          }
+          
+          function displayThermodynamicsTable(data) {
+            let html = '<div class="table-wrapper"><table><thead><tr>';
+            html += '<th>ID</th><th>名称</th><th>类型</th><th>元素</th>';
+            html += '<th>比热容<br/>(J/kg·K)</th><th>混合焓<br/>(kJ/mol)</th>';
+            html += '<th>扩散系数<br/>(m²/s)</th><th>热膨胀系数<br/>(1/K)</th>';
+            html += '</tr></thead><tbody>';
+            
+            for (const x of data) {
+              html += '<tr>';
+              html += '<td>' + x.id + '</td>';
+              html += '<td>' + x.name + '</td>';
+              html += '<td>' + translateType(x.type) + '</td>';
+              html += '<td>' + x.elements.join(', ') + '</td>';
+              html += '<td>' + formatValue(x.thermodynamics?.specific_heat, 2) + '</td>';
+              html += '<td>' + formatValue(x.thermodynamics?.mixing_enthalpy, 2) + '</td>';
+              html += '<td>' + formatScientific(x.thermodynamics?.diffusion_coefficient) + '</td>';
+              html += '<td>' + formatScientific(x.thermodynamics?.thermal_expansion) + '</td>';
+              html += '</tr>';
+            }
+            
+            html += '</tbody></table></div>';
+            return html;
+          }
+          
+          function displayMechanicsTable(data) {
+            let html = '<div class="table-wrapper"><table><thead><tr>';
+            html += '<th>ID</th><th>名称</th><th>类型</th><th>元素</th>';
+            html += '<th>C11<br/>(GPa)</th><th>C12<br/>(GPa)</th><th>C44<br/>(GPa)</th>';
+            html += '<th>杨氏模量<br/>(GPa)</th><th>泊松比</th><th>应力应变曲线</th>';
+            html += '</tr></thead><tbody>';
+            
+            for (const x of data) {
+              html += '<tr>';
+              html += '<td>' + x.id + '</td>';
+              html += '<td>' + x.name + '</td>';
+              html += '<td>' + translateType(x.type) + '</td>';
+              html += '<td>' + x.elements.join(', ') + '</td>';
+              html += '<td>' + formatValue(x.mechanics?.elastic_constants?.C11, 2) + '</td>';
+              html += '<td>' + formatValue(x.mechanics?.elastic_constants?.C12, 2) + '</td>';
+              html += '<td>' + formatValue(x.mechanics?.elastic_constants?.C44, 2) + '</td>';
+              html += '<td>' + formatValue(x.mechanics?.youngs_modulus, 2) + '</td>';
+              html += '<td>' + formatValue(x.mechanics?.poisson_ratio, 3) + '</td>';
+              html += '<td>' + formatFile(x.mechanics?.stress_strain_curve) + '</td>';
+              html += '</tr>';
+            }
+            
+            html += '</tbody></table></div>';
+            return html;
+          }
+          
+          function displayDefectsTable(data) {
+            let html = '<div class="table-wrapper"><table><thead><tr>';
+            html += '<th>ID</th><th>名称</th><th>类型</th><th>元素</th>';
+            html += '<th>空位形成能<br/>(eV)</th><th>间隙形成能<br/>(eV)</th><th>层错能<br/>(mJ/m²)</th>';
+            html += '</tr></thead><tbody>';
+            
+            for (const x of data) {
+              html += '<tr>';
+              html += '<td>' + x.id + '</td>';
+              html += '<td>' + x.name + '</td>';
+              html += '<td>' + translateType(x.type) + '</td>';
+              html += '<td>' + x.elements.join(', ') + '</td>';
+              html += '<td>' + formatValue(x.defects?.vacancy_formation_energy, 3) + '</td>';
+              html += '<td>' + formatValue(x.defects?.interstitial_formation_energy, 3) + '</td>';
+              html += '<td>' + formatValue(x.defects?.stacking_fault_energy, 2) + '</td>';
+              html += '</tr>';
+            }
+            
+            html += '</tbody></table></div>';
+            return html;
+          }
+          
+          function formatValue(val, decimals = 2) {
+            if (val === null || val === undefined) return '-';
+            if (typeof val === 'number') return val.toFixed(decimals);
+            return val;
+          }
+          
+          function formatScientific(val) {
+            if (val === null || val === undefined) return '-';
+            if (typeof val === 'number') return val.toExponential(2);
+            return val;
+          }
+          
+          function formatFile(file) {
+            if (!file) return '-';
+            const filename = file.split('/').pop();
+            return '<a href="' + file + '" target="_blank">📄 ' + filename + '</a>';
           }
           
           function translateType(type) {
@@ -187,16 +339,40 @@ jobs:
             </header>
             
             <main>
+              <!-- 搜索面板 -->
               <div class="search-panel">
                 <div class="search-group">
                   <input id="q" placeholder="搜索材料名称或元素..." />
                   <button id="search" class="btn-primary">🔍 搜索</button>
                 </div>
                 <div class="info-badge">
-                  <span>💡 提示：输入元素符号（如 Al, Ni）或材料类型进行搜索</span>
+                  <span>💡 提示：选择材料类型和性质分类，或使用搜索功能查找特定材料</span>
                 </div>
               </div>
               
+              <!-- 材料类型选择 -->
+              <div class="tabs-container">
+                <h3>📊 材料类型</h3>
+                <div class="tabs">
+                  <button class="type-tab active" data-type="all">全部</button>
+                  <button class="type-tab" data-type="crystalline">晶态</button>
+                  <button class="type-tab" data-type="amorphous">非晶态</button>
+                  <button class="type-tab" data-type="interface">界面</button>
+                </div>
+              </div>
+              
+              <!-- 性质分类选择 -->
+              <div class="tabs-container">
+                <h3>🔍 性质分类</h3>
+                <div class="tabs">
+                  <button class="property-tab active" data-property="structure">结构信息</button>
+                  <button class="property-tab" data-property="thermodynamics">热力学/动力学</button>
+                  <button class="property-tab" data-property="mechanics">力学性能</button>
+                  <button class="property-tab" data-property="defects">缺陷性质</button>
+                </div>
+              </div>
+              
+              <!-- 数据显示区 -->
               <div id="table" class="results-container">
                 <p class="loading">加载中...</p>
               </div>
@@ -207,7 +383,7 @@ jobs:
                 <a href="https://github.com/wqchen007/jkw-7element-alloy-database" target="_blank">
                   📚 GitHub仓库
                 </a> | 
-                <a href="./docs/API.md" target="_blank">API文档</a> |
+                <a href="https://github.com/wqchen007/jkw-7element-alloy-database/blob/main/README.md" target="_blank">使用说明</a> |
                 数据更新时间: <span id="updateTime"></span>
               </p>
             </footer>
@@ -248,6 +424,243 @@ jobs:
           
           h1 {
             color: #667eea;
+            margin-bottom: 0.5em;
+            font-size: 2em;
+          }
+          
+          .subtitle {
+            color: #666;
+            font-size: 1.1em;
+          }
+          
+          main {
+            background: white;
+            border-radius: 12px;
+            padding: 2em;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2em;
+          }
+          
+          .search-panel {
+            margin-bottom: 2em;
+          }
+          
+          .search-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1em;
+          }
+          
+          input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+          }
+          
+          input:focus {
+            outline: none;
+            border-color: #667eea;
+          }
+          
+          .btn-primary {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: 500;
+          }
+          
+          .btn-primary:hover {
+            background: #5568d3;
+          }
+          
+          .info-badge {
+            background: #f0f7ff;
+            border-left: 4px solid #667eea;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #555;
+          }
+          
+          .tabs-container {
+            margin-bottom: 1.5em;
+          }
+          
+          .tabs-container h3 {
+            color: #667eea;
+            margin-bottom: 0.8em;
+            font-size: 1.1em;
+          }
+          
+          .tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+          }
+          
+          .type-tab, .property-tab {
+            padding: 10px 20px;
+            background: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95em;
+            font-weight: 500;
+          }
+          
+          .type-tab:hover, .property-tab:hover {
+            background: #e8eeff;
+            border-color: #667eea;
+          }
+          
+          .type-tab.active, .property-tab.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+          }
+          
+          .results-container {
+            margin-top: 1.5em;
+          }
+          
+          .result-count {
+            margin-bottom: 1em;
+            padding: 10px;
+            background: #f0f7ff;
+            border-radius: 6px;
+            color: #667eea;
+            font-weight: 500;
+          }
+          
+          .table-wrapper {
+            overflow-x: auto;
+          }
+          
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+            min-width: 800px;
+          }
+          
+          thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+          }
+          
+          th {
+            padding: 14px 10px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9em;
+          }
+          
+          td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.9em;
+          }
+          
+          tr:hover {
+            background: #f8f9fa;
+          }
+          
+          tbody tr:nth-child(even) {
+            background: #fafbfc;
+          }
+          
+          tbody tr:nth-child(even):hover {
+            background: #f0f2f5;
+          }
+          
+          .loading, .no-data {
+            text-align: center;
+            padding: 3em 2em;
+            color: #666;
+            font-size: 1.1em;
+          }
+          
+          .no-data {
+            background: #fff3cd;
+            border-radius: 8px;
+            color: #856404;
+          }
+          
+          footer {
+            text-align: center;
+            color: white;
+            padding: 1em;
+          }
+          
+          footer a {
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+            transition: border-bottom-color 0.3s;
+          }
+          
+          footer a:hover {
+            border-bottom-color: white;
+          }
+          
+          /* 表格内链接样式 */
+          table a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+          }
+          
+          table a:hover {
+            text-decoration: underline;
+          }
+          
+          @media (max-width: 768px) {
+            body {
+              padding: 10px;
+            }
+            
+            h1 {
+              font-size: 1.5em;
+            }
+            
+            .search-group {
+              flex-direction: column;
+            }
+            
+            .tabs {
+              justify-content: flex-start;
+            }
+            
+            .type-tab, .property-tab {
+              flex: 1 1 auto;
+              min-width: 100px;
+              text-align: center;
+            }
+            
+            table {
+              font-size: 0.85em;
+              min-width: 600px;
+            }
+            
+            th, td {
+              padding: 8px 6px;
+            }
+            
+            .table-wrapper {
+              border: 1px solid #e0e0e0;
+              border-radius: 8px;
+            }
+          }
+          EOF
             margin-bottom: 0.5em;
             font-size: 2em;
           }

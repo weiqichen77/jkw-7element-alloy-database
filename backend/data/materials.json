@@ -1,0 +1,1835 @@
+[
+  {
+    "id": 1,
+    "name": "crystalline-Sample-1",
+    "type": "crystalline",
+    "elements": [
+      "Al",
+      "Zr",
+      "Nb"
+    ],
+    "density": 9.106,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": "data/rdf_728.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": null,
+      "mixing_enthalpy": null,
+      "diffusion_coefficient": 7.2814072e-11,
+      "thermal_expansion": 0.00002451
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 212.95,
+        "C12": 99.78,
+        "C44": 65.2
+      },
+      "stress_strain_curve": "data/stress_strain_927.dat",
+      "youngs_modulus": 159.4,
+      "poisson_ratio": 0.263
+    },
+    "defects": {
+      "vacancy_formation_energy": 1.947,
+      "interstitial_formation_energy": 4.566,
+      "stacking_fault_energy": 75.12
+    }
+  },
+  {
+    "id": 2,
+    "name": "interface-Sample-2",
+    "type": "interface",
+    "elements": [
+      "Al",
+      "Ta",
+      "W",
+      "Cu"
+    ],
+    "density": 5.023,
+    "structure": {
+      "lattice_constant": {
+        "a": 4.488,
+        "b": 3.438,
+        "c": 4.597
+      },
+      "radial_distribution": "data/rdf_728.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": null,
+      "mixing_enthalpy": 41.75,
+      "diffusion_coefficient": null,
+      "thermal_expansion": null
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 219.25,
+        "C12": 138.82,
+        "C44": 85.62
+      },
+      "stress_strain_curve": "data/stress_strain_262.dat",
+      "youngs_modulus": 131.17,
+      "poisson_ratio": null
+    },
+    "defects": {
+      "vacancy_formation_energy": 2.959,
+      "interstitial_formation_energy": 3.475,
+      "stacking_fault_energy": 89.24
+    }
+  },
+  {
+    "id": 3,
+    "name": "amorphous-Sample-3",
+    "type": "amorphous",
+    "elements": [
+      "Al",
+      "Zr"
+    ],
+    "density": 6.02,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": null
+    },
+    "thermodynamics": {
+      "specific_heat": null,
+      "mixing_enthalpy": -35.38,
+      "diffusion_coefficient": null,
+      "thermal_expansion": 0.00001984
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 150.43,
+        "C12": 111.67,
+        "C44": 67.31
+      },
+      "stress_strain_curve": "data/stress_strain_104.dat",
+      "youngs_modulus": null,
+      "poisson_ratio": 0.239
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 4,
+    "name": "crystalline-Sample-4",
+    "type": "crystalline",
+    "elements": [
+      "Cu",
+      "W",
+      "Ta"
+    ],
+    "density": 7.82,
+    "structure": {
+      "lattice_constant": {
+        "a": 4.504,
+        "b": 3.244,
+        "c": 3.886
+      },
+      "radial_distribution": null
+    },
+    "thermodynamics": {
+      "specific_heat": null,
+      "mixing_enthalpy": 0.79,
+      "diffusion_coefficient": null,
+      "thermal_expansion": 0.00002117
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 186.27,
+        "C12": 138.2,
+        "C44": 72.96
+      },
+      "stress_strain_curve": "data/stress_strain_604.dat",
+      "youngs_modulus": 131.58,
+      "poisson_ratio": 0.305
+    },
+    "defects": {
+      "vacancy_formation_energy": 2.525,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": 77.18
+    }
+  },
+  {
+    "id": 5,
+    "name": "interface-Sample-5",
+    "type": "interface",
+    "elements": [
+      "W",
+      "Al",
+      "Ta",
+      "Cu"
+    ],
+    "density": 5.747,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": null
+    },
+    "thermodynamics": {
+      "specific_heat": 328.67,
+      "mixing_enthalpy": 39.81,
+      "diffusion_coefficient": 5.4668595e-11,
+      "thermal_expansion": 0.00001512
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 189.67,
+        "C12": 116.89,
+        "C44": 50.04
+      },
+      "stress_strain_curve": null,
+      "youngs_modulus": null,
+      "poisson_ratio": 0.251
+    },
+    "defects": {
+      "vacancy_formation_energy": 0.754,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": 167.9
+    }
+  },
+  {
+    "id": 6,
+    "name": "amorphous-Sample-6",
+    "type": "amorphous",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "density": 7.499,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": "data/rdf_866.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": 591.25,
+      "mixing_enthalpy": 19,
+      "diffusion_coefficient": null,
+      "thermal_expansion": null
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 284.95,
+        "C12": 51.85,
+        "C44": 73.32
+      },
+      "stress_strain_curve": "data/stress_strain_521.dat",
+      "youngs_modulus": null,
+      "poisson_ratio": 0.306
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 7,
+    "name": "crystalline-Sample-7",
+    "type": "crystalline",
+    "elements": [
+      "Ni",
+      "Cu",
+      "Al"
+    ],
+    "density": 5.221,
+    "structure": {
+      "lattice_constant": {
+        "a": 3.515,
+        "b": 3.933,
+        "c": 4.961
+      },
+      "radial_distribution": null
+    },
+    "thermodynamics": {
+      "specific_heat": 182.92,
+      "mixing_enthalpy": null,
+      "diffusion_coefficient": 1.3761822e-11,
+      "thermal_expansion": 0.00001709
+    },
+    "mechanics": {
+      "elastic_constants": null,
+      "stress_strain_curve": null,
+      "youngs_modulus": null,
+      "poisson_ratio": 0.23
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": 4.477,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 8,
+    "name": "interface-Sample-8",
+    "type": "interface",
+    "elements": [
+      "Ni",
+      "Al",
+      "Ta",
+      "Zr"
+    ],
+    "density": 7.022,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": null
+    },
+    "thermodynamics": {
+      "specific_heat": null,
+      "mixing_enthalpy": -34.8,
+      "diffusion_coefficient": 3.2525226e-11,
+      "thermal_expansion": 0.00002888
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 122.63,
+        "C12": 133.77,
+        "C44": 88.28
+      },
+      "stress_strain_curve": null,
+      "youngs_modulus": 137.11,
+      "poisson_ratio": 0.344
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": 3.165,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 9,
+    "name": "amorphous-Sample-9",
+    "type": "amorphous",
+    "elements": [
+      "W",
+      "Ni"
+    ],
+    "density": 7.735,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": "data/rdf_24.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": 307.67,
+      "mixing_enthalpy": 22.91,
+      "diffusion_coefficient": 4.278297e-11,
+      "thermal_expansion": null
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 120.02,
+        "C12": 113.58,
+        "C44": 50.15
+      },
+      "stress_strain_curve": null,
+      "youngs_modulus": 161.01,
+      "poisson_ratio": null
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 10,
+    "name": "crystalline-Sample-10",
+    "type": "crystalline",
+    "elements": [
+      "Zr",
+      "Ni",
+      "Nb"
+    ],
+    "density": 5.121,
+    "structure": {
+      "lattice_constant": {
+        "a": 4.797,
+        "b": 3.296,
+        "c": 4.318
+      },
+      "radial_distribution": "data/rdf_106.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": 154.75,
+      "mixing_enthalpy": 49,
+      "diffusion_coefficient": null,
+      "thermal_expansion": 0.00002399
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 270.17,
+        "C12": 145.54,
+        "C44": 130.14
+      },
+      "stress_strain_curve": "data/stress_strain_39.dat",
+      "youngs_modulus": 149.67,
+      "poisson_ratio": 0.241
+    },
+    "defects": {
+      "vacancy_formation_energy": 1.727,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 11,
+    "name": "interface-Sample-11",
+    "type": "interface",
+    "elements": [
+      "Ni",
+      "Cu",
+      "Ta",
+      "Al"
+    ],
+    "density": 3.628,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": "data/rdf_596.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": 587.38,
+      "mixing_enthalpy": -41.27,
+      "diffusion_coefficient": 8.7874375e-11,
+      "thermal_expansion": 0.00001998
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 200.19,
+        "C12": 141.05,
+        "C44": 81.19
+      },
+      "stress_strain_curve": "data/stress_strain_497.dat",
+      "youngs_modulus": null,
+      "poisson_ratio": 0.342
+    },
+    "defects": {
+      "vacancy_formation_energy": 1.405,
+      "interstitial_formation_energy": 1.823,
+      "stacking_fault_energy": 112.65
+    }
+  },
+  {
+    "id": 12,
+    "name": "amorphous-Sample-12",
+    "type": "amorphous",
+    "elements": [
+      "W",
+      "Zr"
+    ],
+    "density": 8.083,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": "data/rdf_547.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": 606.29,
+      "mixing_enthalpy": -27.75,
+      "diffusion_coefficient": null,
+      "thermal_expansion": null
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 131.98,
+        "C12": 65.3,
+        "C44": 138.9
+      },
+      "stress_strain_curve": "data/stress_strain_356.dat",
+      "youngs_modulus": null,
+      "poisson_ratio": 0.317
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 13,
+    "name": "crystalline-Sample-13",
+    "type": "crystalline",
+    "elements": [
+      "W",
+      "Nb",
+      "Ni"
+    ],
+    "density": 8.426,
+    "structure": {
+      "lattice_constant": {
+        "a": 4.054,
+        "b": 3.734,
+        "c": 3.786
+      },
+      "radial_distribution": null
+    },
+    "thermodynamics": {
+      "specific_heat": 621.87,
+      "mixing_enthalpy": null,
+      "diffusion_coefficient": null,
+      "thermal_expansion": 0.00002462
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 167.07,
+        "C12": 121.14,
+        "C44": 70.41
+      },
+      "stress_strain_curve": "data/stress_strain_146.dat",
+      "youngs_modulus": 145.36,
+      "poisson_ratio": 0.27
+    },
+    "defects": {
+      "vacancy_formation_energy": 0.639,
+      "interstitial_formation_energy": 3.356,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 14,
+    "name": "interface-Sample-14",
+    "type": "interface",
+    "elements": [
+      "Nb",
+      "Zr",
+      "Ta",
+      "Al"
+    ],
+    "density": 8.649,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": "data/rdf_962.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": 152.88,
+      "mixing_enthalpy": -45.73,
+      "diffusion_coefficient": 1.5283819e-11,
+      "thermal_expansion": null
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 140.79,
+        "C12": 119.53,
+        "C44": 116.13
+      },
+      "stress_strain_curve": "data/stress_strain_694.dat",
+      "youngs_modulus": 55.13,
+      "poisson_ratio": 0.39
+    },
+    "defects": {
+      "vacancy_formation_energy": 1.054,
+      "interstitial_formation_energy": 1.867,
+      "stacking_fault_energy": 121.99
+    }
+  },
+  {
+    "id": 15,
+    "name": "amorphous-Sample-15",
+    "type": "amorphous",
+    "elements": [
+      "Ta",
+      "Zr"
+    ],
+    "density": 3.364,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": "data/rdf_620.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": 695.45,
+      "mixing_enthalpy": 5.29,
+      "diffusion_coefficient": 5.083817e-12,
+      "thermal_expansion": null
+    },
+    "mechanics": {
+      "elastic_constants": null,
+      "stress_strain_curve": null,
+      "youngs_modulus": 113.78,
+      "poisson_ratio": 0.351
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 16,
+    "name": "crystalline-Sample-16",
+    "type": "crystalline",
+    "elements": [
+      "Al",
+      "W",
+      "Nb"
+    ],
+    "density": 8.792,
+    "structure": {
+      "lattice_constant": {
+        "a": 4.718,
+        "b": 4.59,
+        "c": 3.306
+      },
+      "radial_distribution": "data/rdf_122.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": 594.4,
+      "mixing_enthalpy": null,
+      "diffusion_coefficient": 3.8688656e-11,
+      "thermal_expansion": null
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 228.83,
+        "C12": 57.35,
+        "C44": 63.14
+      },
+      "stress_strain_curve": "data/stress_strain_953.dat",
+      "youngs_modulus": 170.78,
+      "poisson_ratio": 0.368
+    },
+    "defects": {
+      "vacancy_formation_energy": 2.508,
+      "interstitial_formation_energy": 2.672,
+      "stacking_fault_energy": 45.9
+    }
+  },
+  {
+    "id": 17,
+    "name": "interface-Sample-17",
+    "type": "interface",
+    "elements": [
+      "Cu",
+      "Ni",
+      "Zr",
+      "Nb"
+    ],
+    "density": 4.806,
+    "structure": {
+      "lattice_constant": {
+        "a": 3.032,
+        "b": 4.205,
+        "c": 3.595
+      },
+      "radial_distribution": null
+    },
+    "thermodynamics": {
+      "specific_heat": null,
+      "mixing_enthalpy": null,
+      "diffusion_coefficient": 3.3542656e-11,
+      "thermal_expansion": 0.00001802
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 124.05,
+        "C12": 74.56,
+        "C44": 53.22
+      },
+      "stress_strain_curve": null,
+      "youngs_modulus": 63.74,
+      "poisson_ratio": 0.264
+    },
+    "defects": {
+      "vacancy_formation_energy": 2.788,
+      "interstitial_formation_energy": 2.265,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 18,
+    "name": "amorphous-Sample-18",
+    "type": "amorphous",
+    "elements": [
+      "Nb",
+      "Ta"
+    ],
+    "density": 7.218,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": null
+    },
+    "thermodynamics": {
+      "specific_heat": null,
+      "mixing_enthalpy": 15.42,
+      "diffusion_coefficient": 7.06592e-11,
+      "thermal_expansion": 0.00002966
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 201.23,
+        "C12": 111.1,
+        "C44": 123.15
+      },
+      "stress_strain_curve": "data/stress_strain_212.dat",
+      "youngs_modulus": 123.47,
+      "poisson_ratio": 0.37
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 19,
+    "name": "crystalline-Sample-19",
+    "type": "crystalline",
+    "elements": [
+      "W",
+      "Cu",
+      "Ni"
+    ],
+    "density": 4.459,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": null
+    },
+    "thermodynamics": {
+      "specific_heat": 640.32,
+      "mixing_enthalpy": -37.05,
+      "diffusion_coefficient": 5.7944685e-11,
+      "thermal_expansion": 0.00001427
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 283.26,
+        "C12": 94.81,
+        "C44": 71.51
+      },
+      "stress_strain_curve": "data/stress_strain_792.dat",
+      "youngs_modulus": 185.16,
+      "poisson_ratio": null
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": 3.036,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 20,
+    "name": "interface-Sample-20",
+    "type": "interface",
+    "elements": [
+      "W",
+      "Ta",
+      "Nb",
+      "Zr"
+    ],
+    "density": 7.252,
+    "structure": {
+      "lattice_constant": {
+        "a": 4.045,
+        "b": 3.822,
+        "c": 4.677
+      },
+      "radial_distribution": "data/rdf_340.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": 630.46,
+      "mixing_enthalpy": 40.98,
+      "diffusion_coefficient": 8.4807856e-11,
+      "thermal_expansion": 0.00000625
+    },
+    "mechanics": {
+      "elastic_constants": null,
+      "stress_strain_curve": "data/stress_strain_812.dat",
+      "youngs_modulus": 143.99,
+      "poisson_ratio": 0.393
+    },
+    "defects": {
+      "vacancy_formation_energy": 1.451,
+      "interstitial_formation_energy": 1.316,
+      "stacking_fault_energy": 68.92
+    }
+  },
+  {
+    "id": 21,
+    "name": "amorphous-Sample-21",
+    "type": "amorphous",
+    "elements": [
+      "Cu",
+      "Ni"
+    ],
+    "density": 8.835,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": "data/rdf_783.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": null,
+      "mixing_enthalpy": null,
+      "diffusion_coefficient": null,
+      "thermal_expansion": null
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 103.57,
+        "C12": 127.85,
+        "C44": 53.71
+      },
+      "stress_strain_curve": "data/stress_strain_675.dat",
+      "youngs_modulus": 58.07,
+      "poisson_ratio": 0.381
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 22,
+    "name": "crystalline-Sample-22",
+    "type": "crystalline",
+    "elements": [
+      "Nb",
+      "Ta",
+      "W"
+    ],
+    "density": 9.472,
+    "structure": {
+      "lattice_constant": {
+        "a": 4.247,
+        "b": 4.761,
+        "c": 3.4
+      },
+      "radial_distribution": "data/rdf_264.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": null,
+      "mixing_enthalpy": null,
+      "diffusion_coefficient": 4.7775666e-11,
+      "thermal_expansion": 0.00002787
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 202.35,
+        "C12": 107.97,
+        "C44": 76.04
+      },
+      "stress_strain_curve": null,
+      "youngs_modulus": 120.77,
+      "poisson_ratio": 0.307
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": 2.931,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 23,
+    "name": "interface-Sample-23",
+    "type": "interface",
+    "elements": [
+      "Nb",
+      "Ni",
+      "Cu",
+      "Zr"
+    ],
+    "density": 5.509,
+    "structure": {
+      "lattice_constant": {
+        "a": 4.273,
+        "b": 4.135,
+        "c": 3.463
+      },
+      "radial_distribution": null
+    },
+    "thermodynamics": {
+      "specific_heat": 788.39,
+      "mixing_enthalpy": -7.25,
+      "diffusion_coefficient": 9.6186237e-11,
+      "thermal_expansion": null
+    },
+    "mechanics": {
+      "elastic_constants": null,
+      "stress_strain_curve": "data/stress_strain_758.dat",
+      "youngs_modulus": 115.64,
+      "poisson_ratio": 0.221
+    },
+    "defects": {
+      "vacancy_formation_energy": 1.26,
+      "interstitial_formation_energy": 2.396,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 24,
+    "name": "amorphous-Sample-24",
+    "type": "amorphous",
+    "elements": [
+      "Ta",
+      "Zr"
+    ],
+    "density": 8.018,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": "data/rdf_733.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": 174.38,
+      "mixing_enthalpy": -40.24,
+      "diffusion_coefficient": 4.8206139e-11,
+      "thermal_expansion": 0.00000675
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 135.83,
+        "C12": 91.2,
+        "C44": 129.04
+      },
+      "stress_strain_curve": null,
+      "youngs_modulus": 89.28,
+      "poisson_ratio": 0.202
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 25,
+    "name": "crystalline-Sample-25",
+    "type": "crystalline",
+    "elements": [
+      "Al",
+      "Ta",
+      "Zr"
+    ],
+    "density": 3.943,
+    "structure": {
+      "lattice_constant": {
+        "a": 4.963,
+        "b": 3.299,
+        "c": 4.173
+      },
+      "radial_distribution": "data/rdf_717.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": 429.23,
+      "mixing_enthalpy": 19.72,
+      "diffusion_coefficient": null,
+      "thermal_expansion": 0.00001661
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 269.48,
+        "C12": 130.3,
+        "C44": 127.91
+      },
+      "stress_strain_curve": "data/stress_strain_232.dat",
+      "youngs_modulus": 166.87,
+      "poisson_ratio": 0.251
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": 2.962,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 26,
+    "name": "interface-Sample-26",
+    "type": "interface",
+    "elements": [
+      "Cu",
+      "Ta",
+      "Nb",
+      "Al"
+    ],
+    "density": 6.246,
+    "structure": {
+      "lattice_constant": {
+        "a": 3.653,
+        "b": 3.679,
+        "c": 4.892
+      },
+      "radial_distribution": "data/rdf_453.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": null,
+      "mixing_enthalpy": 24.62,
+      "diffusion_coefficient": 5.2326677e-11,
+      "thermal_expansion": 0.00002793
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 221.17,
+        "C12": 93.6,
+        "C44": 99.92
+      },
+      "stress_strain_curve": "data/stress_strain_340.dat",
+      "youngs_modulus": null,
+      "poisson_ratio": null
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 27,
+    "name": "amorphous-Sample-27",
+    "type": "amorphous",
+    "elements": [
+      "Cu",
+      "Al"
+    ],
+    "density": 5.45,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": "data/rdf_162.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": null,
+      "mixing_enthalpy": -27.65,
+      "diffusion_coefficient": 8.5005855e-11,
+      "thermal_expansion": 0.00001633
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 157.61,
+        "C12": 56.23,
+        "C44": 56.1
+      },
+      "stress_strain_curve": null,
+      "youngs_modulus": null,
+      "poisson_ratio": 0.355
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 28,
+    "name": "crystalline-Sample-28",
+    "type": "crystalline",
+    "elements": [
+      "Nb",
+      "Cu",
+      "Al"
+    ],
+    "density": 9.004,
+    "structure": {
+      "lattice_constant": {
+        "a": 4.488,
+        "b": 3.815,
+        "c": 4.925
+      },
+      "radial_distribution": "data/rdf_958.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": 865.68,
+      "mixing_enthalpy": null,
+      "diffusion_coefficient": null,
+      "thermal_expansion": 0.00001143
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 115.12,
+        "C12": 106.77,
+        "C44": 95.55
+      },
+      "stress_strain_curve": "data/stress_strain_880.dat",
+      "youngs_modulus": 97.52,
+      "poisson_ratio": 0.33
+    },
+    "defects": {
+      "vacancy_formation_energy": 1.235,
+      "interstitial_formation_energy": 1.189,
+      "stacking_fault_energy": 10.01
+    }
+  },
+  {
+    "id": 29,
+    "name": "interface-Sample-29",
+    "type": "interface",
+    "elements": [
+      "Ni",
+      "Nb",
+      "Zr",
+      "Cu"
+    ],
+    "density": 5.329,
+    "structure": {
+      "lattice_constant": {
+        "a": 3.682,
+        "b": 3.43,
+        "c": 3.658
+      },
+      "radial_distribution": null
+    },
+    "thermodynamics": {
+      "specific_heat": 870.41,
+      "mixing_enthalpy": null,
+      "diffusion_coefficient": 7.6515382e-11,
+      "thermal_expansion": 0.00000961
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 240.36,
+        "C12": 103.33,
+        "C44": 108.97
+      },
+      "stress_strain_curve": null,
+      "youngs_modulus": 197.36,
+      "poisson_ratio": null
+    },
+    "defects": {
+      "vacancy_formation_energy": 0.816,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 30,
+    "name": "amorphous-Sample-30",
+    "type": "amorphous",
+    "elements": [
+      "Ta",
+      "Nb"
+    ],
+    "density": 6.067,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": "data/rdf_627.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": 759.41,
+      "mixing_enthalpy": 28.31,
+      "diffusion_coefficient": 1.833386e-12,
+      "thermal_expansion": 0.00002342
+    },
+    "mechanics": {
+      "elastic_constants": null,
+      "stress_strain_curve": null,
+      "youngs_modulus": 83.29,
+      "poisson_ratio": 0.264
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 31,
+    "name": "crystalline-Sample-31",
+    "type": "crystalline",
+    "elements": [
+      "Ni",
+      "Ta",
+      "Zr"
+    ],
+    "density": 2.339,
+    "structure": {
+      "lattice_constant": {
+        "a": 4.531,
+        "b": 4.964,
+        "c": 3.73
+      },
+      "radial_distribution": "data/rdf_915.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": 661.92,
+      "mixing_enthalpy": -37.64,
+      "diffusion_coefficient": null,
+      "thermal_expansion": null
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 291.09,
+        "C12": 55.19,
+        "C44": 139.83
+      },
+      "stress_strain_curve": "data/stress_strain_512.dat",
+      "youngs_modulus": 163.61,
+      "poisson_ratio": 0.323
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": 2.894,
+      "stacking_fault_energy": 129.49
+    }
+  },
+  {
+    "id": 32,
+    "name": "interface-Sample-32",
+    "type": "interface",
+    "elements": [
+      "Al",
+      "Zr",
+      "Ni",
+      "W"
+    ],
+    "density": 5.286,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": null
+    },
+    "thermodynamics": {
+      "specific_heat": 787.84,
+      "mixing_enthalpy": 16.68,
+      "diffusion_coefficient": 4.1928184e-11,
+      "thermal_expansion": 0.00000731
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 255.36,
+        "C12": 106.56,
+        "C44": 58.86
+      },
+      "stress_strain_curve": null,
+      "youngs_modulus": null,
+      "poisson_ratio": null
+    },
+    "defects": {
+      "vacancy_formation_energy": 1.09,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": 88.3
+    }
+  },
+  {
+    "id": 33,
+    "name": "amorphous-Sample-33",
+    "type": "amorphous",
+    "elements": [
+      "Zr",
+      "Ni"
+    ],
+    "density": 3.026,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": "data/rdf_403.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": 493.86,
+      "mixing_enthalpy": null,
+      "diffusion_coefficient": 6.4924705e-11,
+      "thermal_expansion": 0.00000313
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 128.54,
+        "C12": 127.11,
+        "C44": 55.39
+      },
+      "stress_strain_curve": null,
+      "youngs_modulus": 115.28,
+      "poisson_ratio": 0.361
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 34,
+    "name": "crystalline-Sample-34",
+    "type": "crystalline",
+    "elements": [
+      "Al",
+      "Ni",
+      "Zr"
+    ],
+    "density": 4.126,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": null
+    },
+    "thermodynamics": {
+      "specific_heat": 694.89,
+      "mixing_enthalpy": -0.89,
+      "diffusion_coefficient": null,
+      "thermal_expansion": null
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 121.14,
+        "C12": 71.46,
+        "C44": 68.44
+      },
+      "stress_strain_curve": "data/stress_strain_104.dat",
+      "youngs_modulus": 54.34,
+      "poisson_ratio": 0.217
+    },
+    "defects": {
+      "vacancy_formation_energy": 2.334,
+      "interstitial_formation_energy": 2.294,
+      "stacking_fault_energy": 100.93
+    }
+  },
+  {
+    "id": 35,
+    "name": "interface-Sample-35",
+    "type": "interface",
+    "elements": [
+      "Ta",
+      "Zr",
+      "Ni",
+      "Cu"
+    ],
+    "density": 3.861,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": "data/rdf_77.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": null,
+      "mixing_enthalpy": 33.93,
+      "diffusion_coefficient": 4.0753923e-11,
+      "thermal_expansion": null
+    },
+    "mechanics": {
+      "elastic_constants": null,
+      "stress_strain_curve": "data/stress_strain_286.dat",
+      "youngs_modulus": null,
+      "poisson_ratio": 0.281
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": 42.24
+    }
+  },
+  {
+    "id": 36,
+    "name": "amorphous-Sample-36",
+    "type": "amorphous",
+    "elements": [
+      "Ni",
+      "Cu"
+    ],
+    "density": 3.716,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": "data/rdf_478.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": 793.51,
+      "mixing_enthalpy": 32.91,
+      "diffusion_coefficient": 9.9938245e-11,
+      "thermal_expansion": 0.00000773
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 204.05,
+        "C12": 131.98,
+        "C44": 73.96
+      },
+      "stress_strain_curve": null,
+      "youngs_modulus": 137.82,
+      "poisson_ratio": null
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 37,
+    "name": "crystalline-Sample-37",
+    "type": "crystalline",
+    "elements": [
+      "Ni",
+      "Nb",
+      "Al"
+    ],
+    "density": 5.151,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": null
+    },
+    "thermodynamics": {
+      "specific_heat": null,
+      "mixing_enthalpy": 6.93,
+      "diffusion_coefficient": 5.0580629e-11,
+      "thermal_expansion": 0.0000116
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 160.8,
+        "C12": 59,
+        "C44": 65.86
+      },
+      "stress_strain_curve": "data/stress_strain_26.dat",
+      "youngs_modulus": null,
+      "poisson_ratio": 0.326
+    },
+    "defects": {
+      "vacancy_formation_energy": 2.751,
+      "interstitial_formation_energy": 2.016,
+      "stacking_fault_energy": 197.37
+    }
+  },
+  {
+    "id": 38,
+    "name": "interface-Sample-38",
+    "type": "interface",
+    "elements": [
+      "W",
+      "Ni",
+      "Zr",
+      "Ta"
+    ],
+    "density": 4.355,
+    "structure": {
+      "lattice_constant": {
+        "a": 4.129,
+        "b": 3.16,
+        "c": 4.673
+      },
+      "radial_distribution": null
+    },
+    "thermodynamics": {
+      "specific_heat": null,
+      "mixing_enthalpy": null,
+      "diffusion_coefficient": null,
+      "thermal_expansion": 0.00001608
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 172.89,
+        "C12": 111.97,
+        "C44": 60.53
+      },
+      "stress_strain_curve": "data/stress_strain_887.dat",
+      "youngs_modulus": 144.48,
+      "poisson_ratio": 0.251
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": 66.45
+    }
+  },
+  {
+    "id": 39,
+    "name": "amorphous-Sample-39",
+    "type": "amorphous",
+    "elements": [
+      "Cu",
+      "Ta"
+    ],
+    "density": 3.868,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": "data/rdf_724.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": 250.88,
+      "mixing_enthalpy": -26.36,
+      "diffusion_coefficient": 4.8129289e-11,
+      "thermal_expansion": 0.0000228
+    },
+    "mechanics": {
+      "elastic_constants": null,
+      "stress_strain_curve": "data/stress_strain_330.dat",
+      "youngs_modulus": 176.97,
+      "poisson_ratio": 0.346
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 40,
+    "name": "crystalline-Sample-40",
+    "type": "crystalline",
+    "elements": [
+      "Zr",
+      "Ni",
+      "W"
+    ],
+    "density": 6.193,
+    "structure": {
+      "lattice_constant": {
+        "a": 3.725,
+        "b": 3.762,
+        "c": 4.361
+      },
+      "radial_distribution": null
+    },
+    "thermodynamics": {
+      "specific_heat": null,
+      "mixing_enthalpy": 17.38,
+      "diffusion_coefficient": 5.915561e-12,
+      "thermal_expansion": 0.00000915
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 229.4,
+        "C12": 113.81,
+        "C44": 77.8
+      },
+      "stress_strain_curve": "data/stress_strain_46.dat",
+      "youngs_modulus": 149.52,
+      "poisson_ratio": 0.39
+    },
+    "defects": {
+      "vacancy_formation_energy": 1.514,
+      "interstitial_formation_energy": 4.193,
+      "stacking_fault_energy": 126.3
+    }
+  },
+  {
+    "id": 41,
+    "name": "interface-Sample-41",
+    "type": "interface",
+    "elements": [
+      "Nb",
+      "Ni",
+      "Cu",
+      "W"
+    ],
+    "density": 8.399,
+    "structure": {
+      "lattice_constant": {
+        "a": 4.749,
+        "b": 4.631,
+        "c": 4.208
+      },
+      "radial_distribution": null
+    },
+    "thermodynamics": {
+      "specific_heat": null,
+      "mixing_enthalpy": null,
+      "diffusion_coefficient": 7.1242999e-11,
+      "thermal_expansion": 0.00002237
+    },
+    "mechanics": {
+      "elastic_constants": null,
+      "stress_strain_curve": "data/stress_strain_133.dat",
+      "youngs_modulus": 191.97,
+      "poisson_ratio": null
+    },
+    "defects": {
+      "vacancy_formation_energy": 1.524,
+      "interstitial_formation_energy": 1.947,
+      "stacking_fault_energy": 29.88
+    }
+  },
+  {
+    "id": 42,
+    "name": "amorphous-Sample-42",
+    "type": "amorphous",
+    "elements": [
+      "Zr",
+      "Al"
+    ],
+    "density": 7.817,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": null
+    },
+    "thermodynamics": {
+      "specific_heat": null,
+      "mixing_enthalpy": 33.34,
+      "diffusion_coefficient": 4.0749642e-11,
+      "thermal_expansion": 0.00000463
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 186.36,
+        "C12": 131.47,
+        "C44": 113.31
+      },
+      "stress_strain_curve": "data/stress_strain_530.dat",
+      "youngs_modulus": 198.06,
+      "poisson_ratio": 0.264
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 43,
+    "name": "crystalline-Sample-43",
+    "type": "crystalline",
+    "elements": [
+      "Ta",
+      "Cu",
+      "Al"
+    ],
+    "density": 2.898,
+    "structure": {
+      "lattice_constant": {
+        "a": 4.621,
+        "b": 4.132,
+        "c": 4.751
+      },
+      "radial_distribution": "data/rdf_644.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": 335.11,
+      "mixing_enthalpy": 41.07,
+      "diffusion_coefficient": null,
+      "thermal_expansion": 0.00002547
+    },
+    "mechanics": {
+      "elastic_constants": null,
+      "stress_strain_curve": "data/stress_strain_574.dat",
+      "youngs_modulus": 111.49,
+      "poisson_ratio": 0.372
+    },
+    "defects": {
+      "vacancy_formation_energy": 2.152,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 44,
+    "name": "interface-Sample-44",
+    "type": "interface",
+    "elements": [
+      "Cu",
+      "W",
+      "Zr",
+      "Ni"
+    ],
+    "density": 3.736,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": null
+    },
+    "thermodynamics": {
+      "specific_heat": 874.01,
+      "mixing_enthalpy": -23.07,
+      "diffusion_coefficient": 4.1076399e-11,
+      "thermal_expansion": null
+    },
+    "mechanics": {
+      "elastic_constants": null,
+      "stress_strain_curve": "data/stress_strain_342.dat",
+      "youngs_modulus": 142.34,
+      "poisson_ratio": 0.257
+    },
+    "defects": {
+      "vacancy_formation_energy": 0.642,
+      "interstitial_formation_energy": 4.468,
+      "stacking_fault_energy": 186.7
+    }
+  },
+  {
+    "id": 45,
+    "name": "amorphous-Sample-45",
+    "type": "amorphous",
+    "elements": [
+      "W",
+      "Ta"
+    ],
+    "density": 3.716,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": "data/rdf_221.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": null,
+      "mixing_enthalpy": null,
+      "diffusion_coefficient": 5.8863674e-11,
+      "thermal_expansion": 0.00002128
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 108.02,
+        "C12": 141.98,
+        "C44": 79.56
+      },
+      "stress_strain_curve": "data/stress_strain_237.dat",
+      "youngs_modulus": null,
+      "poisson_ratio": 0.319
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 46,
+    "name": "crystalline-Sample-46",
+    "type": "crystalline",
+    "elements": [
+      "Zr",
+      "Ta",
+      "W"
+    ],
+    "density": 5.881,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": "data/rdf_827.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": 498.41,
+      "mixing_enthalpy": null,
+      "diffusion_coefficient": 5.7622e-13,
+      "thermal_expansion": null
+    },
+    "mechanics": {
+      "elastic_constants": null,
+      "stress_strain_curve": "data/stress_strain_162.dat",
+      "youngs_modulus": null,
+      "poisson_ratio": null
+    },
+    "defects": {
+      "vacancy_formation_energy": 1.568,
+      "interstitial_formation_energy": 2.571,
+      "stacking_fault_energy": 33
+    }
+  },
+  {
+    "id": 47,
+    "name": "interface-Sample-47",
+    "type": "interface",
+    "elements": [
+      "Ta",
+      "Zr",
+      "Al",
+      "Nb"
+    ],
+    "density": 3.244,
+    "structure": {
+      "lattice_constant": {
+        "a": 3.5,
+        "b": 4.703,
+        "c": 3.349
+      },
+      "radial_distribution": "data/rdf_803.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": 279.37,
+      "mixing_enthalpy": -40.14,
+      "diffusion_coefficient": 2.8120042e-11,
+      "thermal_expansion": 0.00000596
+    },
+    "mechanics": {
+      "elastic_constants": null,
+      "stress_strain_curve": "data/stress_strain_830.dat",
+      "youngs_modulus": null,
+      "poisson_ratio": 0.207
+    },
+    "defects": {
+      "vacancy_formation_energy": 2.323,
+      "interstitial_formation_energy": 3.897,
+      "stacking_fault_energy": 30.24
+    }
+  },
+  {
+    "id": 48,
+    "name": "amorphous-Sample-48",
+    "type": "amorphous",
+    "elements": [
+      "Nb",
+      "Ta"
+    ],
+    "density": 8.05,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": "data/rdf_917.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": 598.99,
+      "mixing_enthalpy": null,
+      "diffusion_coefficient": 9.704405e-12,
+      "thermal_expansion": null
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 118.18,
+        "C12": 96.37,
+        "C44": 96.27
+      },
+      "stress_strain_curve": "data/stress_strain_452.dat",
+      "youngs_modulus": null,
+      "poisson_ratio": 0.272
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": null
+    }
+  },
+  {
+    "id": 49,
+    "name": "crystalline-Sample-49",
+    "type": "crystalline",
+    "elements": [
+      "Nb",
+      "Zr",
+      "Ta"
+    ],
+    "density": 7.904,
+    "structure": {
+      "lattice_constant": {
+        "a": 4.536,
+        "b": 3.113,
+        "c": 3.893
+      },
+      "radial_distribution": "data/rdf_742.dat"
+    },
+    "thermodynamics": {
+      "specific_heat": 491.92,
+      "mixing_enthalpy": null,
+      "diffusion_coefficient": 6.603391e-11,
+      "thermal_expansion": 0.00001189
+    },
+    "mechanics": {
+      "elastic_constants": {
+        "C11": 206.37,
+        "C12": 57.5,
+        "C44": 79.79
+      },
+      "stress_strain_curve": null,
+      "youngs_modulus": null,
+      "poisson_ratio": null
+    },
+    "defects": {
+      "vacancy_formation_energy": null,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": 28.44
+    }
+  },
+  {
+    "id": 50,
+    "name": "interface-Sample-50",
+    "type": "interface",
+    "elements": [
+      "W",
+      "Ta",
+      "Ni",
+      "Zr"
+    ],
+    "density": 3.857,
+    "structure": {
+      "lattice_constant": null,
+      "radial_distribution": null
+    },
+    "thermodynamics": {
+      "specific_heat": 482.39,
+      "mixing_enthalpy": 13.4,
+      "diffusion_coefficient": 3.1892732e-11,
+      "thermal_expansion": 0.00001119
+    },
+    "mechanics": {
+      "elastic_constants": null,
+      "stress_strain_curve": null,
+      "youngs_modulus": 74.96,
+      "poisson_ratio": 0.348
+    },
+    "defects": {
+      "vacancy_formation_energy": 0.502,
+      "interstitial_formation_energy": null,
+      "stacking_fault_energy": 129.43
+    }
+  }
+]
