@@ -350,6 +350,15 @@ jobs:
             
             // Initial display
             filterAndDisplay();
+            
+            // Event delegation for material detail links
+            document.getElementById('table').addEventListener('click', function(e) {
+              if (e.target.classList.contains('material-link')) {
+                e.preventDefault();
+                const materialId = e.target.getAttribute('data-id');
+                showDetail(materialId);
+              }
+            });
           }
           
           function filterAndDisplay() {
@@ -409,13 +418,12 @@ jobs:
             html += '<th>' + t('table.latticeB') + '<br/>(Å)</th>';
             html += '<th>' + t('table.latticeC') + '<br/>(Å)</th>';
             html += '<th>' + t('table.rdf') + '</th>';
-            html += '<th>' + t('viewDetails') + '</th>';
             html += '</tr></thead><tbody>';
             
             for (const x of data) {
               html += '<tr>';
               html += '<td>' + x.id + '</td>';
-              html += '<td>' + x.name + '</td>';
+              html += '<td><a href="#" class="material-link" data-id="' + x.id + '">' + x.name + '</a></td>';
               html += '<td>' + translateType(x.type) + '</td>';
               html += '<td>' + x.elements.join(', ') + '</td>';
               html += '<td>' + formatValue(x.density, 3) + '</td>';
@@ -423,7 +431,6 @@ jobs:
               html += '<td>' + formatValue(x.structure?.latticeConstants?.b, 3) + '</td>';
               html += '<td>' + formatValue(x.structure?.latticeConstants?.c, 3) + '</td>';
               html += '<td>' + formatFile(x.structure?.rdf) + '</td>';
-              html += '<td><button class="btn-detail" onclick="showDetail(\'' + x.id + '\')">👁️</button></td>';
               html += '</tr>';
             }
             
@@ -441,20 +448,18 @@ jobs:
             html += '<th>' + t('table.mixingEnthalpy') + '<br/>(kJ/mol)</th>';
             html += '<th>' + t('table.diffusionCoeff') + '<br/>(m²/s)</th>';
             html += '<th>' + t('table.thermalExpansion') + '<br/>(10⁻⁶/K)</th>';
-            html += '<th>' + t('viewDetails') + '</th>';
             html += '</tr></thead><tbody>';
             
             for (const x of data) {
               html += '<tr>';
               html += '<td>' + x.id + '</td>';
-              html += '<td>' + x.name + '</td>';
+              html += '<td><a href="#" class="material-link" data-id="' + x.id + '">' + x.name + '</a></td>';
               html += '<td>' + translateType(x.type) + '</td>';
               html += '<td>' + x.elements.join(', ') + '</td>';
               html += '<td>' + formatValue(x.thermodynamics?.specificHeat, 2) + '</td>';
               html += '<td>' + formatValue(x.thermodynamics?.mixingEnthalpy, 2) + '</td>';
               html += '<td>' + formatScientific(x.thermodynamics?.diffusionCoefficient) + '</td>';
               html += '<td>' + formatScientific(x.thermodynamics?.thermalExpansion) + '</td>';
-              html += '<td><button class="btn-detail" onclick="showDetail(\'' + x.id + '\')">👁️</button></td>';
               html += '</tr>';
             }
             
@@ -474,13 +479,12 @@ jobs:
             html += '<th>' + t('table.youngsModulus') + '<br/>(GPa)</th>';
             html += '<th>' + t('table.poissonsRatio') + '</th>';
             html += '<th>' + t('table.stressStrain') + '</th>';
-            html += '<th>' + t('viewDetails') + '</th>';
             html += '</tr></thead><tbody>';
             
             for (const x of data) {
               html += '<tr>';
               html += '<td>' + x.id + '</td>';
-              html += '<td>' + x.name + '</td>';
+              html += '<td><a href="#" class="material-link" data-id="' + x.id + '">' + x.name + '</a></td>';
               html += '<td>' + translateType(x.type) + '</td>';
               html += '<td>' + x.elements.join(', ') + '</td>';
               html += '<td>' + formatValue(x.mechanics?.elasticConstants?.C11, 2) + '</td>';
@@ -489,7 +493,6 @@ jobs:
               html += '<td>' + formatValue(x.mechanics?.youngsModulus, 2) + '</td>';
               html += '<td>' + formatValue(x.mechanics?.poissonsRatio, 3) + '</td>';
               html += '<td>' + formatFile(x.mechanics?.stressStrain) + '</td>';
-              html += '<td><button class="btn-detail" onclick="showDetail(\'' + x.id + '\')">👁️</button></td>';
               html += '</tr>';
             }
             
@@ -506,19 +509,17 @@ jobs:
             html += '<th>' + t('table.vacancyEnergy') + '<br/>(eV)</th>';
             html += '<th>' + t('table.interstitialEnergy') + '<br/>(eV)</th>';
             html += '<th>' + t('table.stackingFault') + '<br/>(mJ/m²)</th>';
-            html += '<th>' + t('viewDetails') + '</th>';
             html += '</tr></thead><tbody>';
             
             for (const x of data) {
               html += '<tr>';
               html += '<td>' + x.id + '</td>';
-              html += '<td>' + x.name + '</td>';
+              html += '<td><a href="#" class="material-link" data-id="' + x.id + '">' + x.name + '</a></td>';
               html += '<td>' + translateType(x.type) + '</td>';
               html += '<td>' + x.elements.join(', ') + '</td>';
               html += '<td>' + formatValue(x.defects?.vacancyFormationEnergy, 3) + '</td>';
               html += '<td>' + formatValue(x.defects?.interstitialFormationEnergy, 3) + '</td>';
               html += '<td>' + formatValue(x.defects?.stackingFaultEnergy, 2) + '</td>';
-              html += '<td><button class="btn-detail" onclick="showDetail(\'' + x.id + '\')">👁️</button></td>';
               html += '</tr>';
             }
             
@@ -1082,20 +1083,22 @@ jobs:
             text-decoration: underline;
           }
           
-          .btn-detail {
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
+          .material-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
             cursor: pointer;
-            font-size: 1.1em;
-            transition: all 0.3s;
+            transition: all 0.2s;
+            position: relative;
           }
           
-          .btn-detail:hover {
-            background: #5568d3;
-            transform: scale(1.1);
+          .material-link:hover {
+            color: #5568d3;
+            text-decoration: underline;
+          }
+          
+          .material-link:active {
+            color: #4557c2;
           }
           
           /* Modal Styles */
