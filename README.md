@@ -30,8 +30,6 @@ Features:
 - Material classification and filtering
 - Property category tabs (structure, thermodynamics, mechanics, defects)
 - Search functionality
-- Bilingual interface (English/Chinese)
-- Responsive design
 
 ### Material Properties
 
@@ -146,8 +144,6 @@ Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for data prepa
 - 材料分类与筛选
 - 属性类别标签页（结构、热力学、力学、缺陷）
 - 搜索功能
-- 双语界面（中英文）
-- 响应式设计
 
 ### 材料性质
 
