@@ -256,7 +256,12 @@ jobs:
           document.head.appendChild(script);
           
           script.onload = function() {
+            console.log('api-mock.js loaded, calling initApp');
             initApp();
+          };
+          
+          script.onerror = function() {
+            console.error('Failed to load api-mock.js');
           };
           
           // Translation function
@@ -308,9 +313,11 @@ jobs:
           }
           
           async function initApp() {
+            console.log('initApp started');
             // Load all data
             const response = await fetch('./data/materials.json');
             allData = await response.json();
+            console.log('Data loaded:', allData.length, 'materials');
             
             // Initialize UI text
             updateUIText();
@@ -352,7 +359,9 @@ jobs:
             filterAndDisplay();
             
             // Event delegation for material detail links
-            document.getElementById('table').addEventListener('click', function(e) {
+            const tableElement = document.getElementById('table');
+            console.log('Table element found:', tableElement);
+            tableElement.addEventListener('click', function(e) {
               console.log('Table clicked, target:', e.target);
               // Find closest material-link (handles clicks on child elements)
               const link = e.target.closest('.material-link');
