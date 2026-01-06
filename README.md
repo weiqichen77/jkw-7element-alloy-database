@@ -1,119 +1,240 @@
-# 7-Element Alloy Materials Database
+# 7-Element Alloy Materials Database / 七元合金材料数据库
 
 [![GitHub Pages](https://img.shields.io/badge/Demo-GitHub%20Pages-blue)](https://wqchen007.github.io/jkw-7element-alloy-database/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-非晶合金、合金及非晶-晶体界面材料数据库 - 7元素体系
+[English](#english) | [中文](#中文)
 
-## 🌐 在线访问
+---
 
-**网页版数据库：** [https://wqchen007.github.io/jkw-7element-alloy-database/](https://wqchen007.github.io/jkw-7element-alloy-database/)
+## English
 
-在线网页提供：
-- 🔍 材料数据检索和筛选
-- 📊 数据可视化展示
-- 📥 数据导出功能
-- 📱 响应式界面设计
+### Overview
 
-## 📚 数据集说明
+A comprehensive materials database for 7-element alloy systems, including crystalline alloys, amorphous alloys, and crystal-amorphous interfaces.
 
-本数据库包含7元素合金体系的材料数据：
-- **元素体系**: Al, Ni, Cu, Zr, Nb, Ta, W
-- **材料类型**: 非晶态 (amorphous)、晶态 (crystalline)、界面 (interface)
-- **数据规模**: 50+ 样例数据（可扩展）
+**Element System:** Al, Ni, Cu, Zr, Nb, Ta, W
 
-### 数据集结构
+**Material Types:**
+- Crystalline
+- Amorphous
+- Interface
 
-| 数据集 | 说明 | 数据量 |
-|--------|------|--------|
-| backend/data/materials.json | 主数据文件 | 50条 |
-| scripts/generate-sample-data.js | 数据生成脚本 | - |
+### Access
 
-### 数据字段
+**Live Website:** [https://wqchen007.github.io/jkw-7element-alloy-database/](https://wqchen007.github.io/jkw-7element-alloy-database/)
 
-每条材料数据包含以下字段：
-- `id`: 唯一标识符
-- `name`: 材料名称
-- `type`: 材料类型（amorphous/crystalline/interface）
-- `elements`: 元素组成（数组）
-- `density`: 密度 (g/cm³)
-- `properties`: 材料性能参数
-  - `specific_heat`: 比热容 (J/kg·K)
+Features:
+- Material classification and filtering
+- Property category tabs (structure, thermodynamics, mechanics, defects)
+- Search functionality
+- Bilingual interface (English/Chinese)
+- Responsive design
 
-## 🚀 快速开始
+### Material Properties
 
-### 在线使用
+**Structure:**
+- Lattice constants
+- Radial distribution function (RDF)
 
-直接访问：[https://wqchen007.github.io/jkw-7element-alloy-database/](https://wqchen007.github.io/jkw-7element-alloy-database/)
+**Thermodynamics:**
+- Specific heat capacity
+- Mixing enthalpy
+- Diffusion coefficient
+- Thermal expansion coefficient
 
-### 本地部署
+**Mechanics:**
+- Elastic constants
+- Stress-strain curves
+- Young's modulus
+- Poisson's ratio
+
+**Defects:**
+- Vacancy formation energy
+- Interstitial formation energy
+- Stacking fault energy
+
+### Quick Start
+
+**View Online:**
+Visit [https://wqchen007.github.io/jkw-7element-alloy-database/](https://wqchen007.github.io/jkw-7element-alloy-database/)
+
+**Add Your Data:**
+
+1. Prepare data in CSV, JSON, or TSV format
+2. Convert to standard format:
+   ```bash
+   node scripts/convert-data.js your-data.csv real-data/materials.json
+   ```
+3. Commit and push:
+   ```bash
+   git add real-data/materials.json
+   git commit -m "Add material data"
+   git push origin main
+   ```
+4. Website updates automatically via GitHub Actions
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed instructions.
+
+### Local Development
 
 ```bash
-# 1. 克隆仓库
+# Clone repository
 git clone https://github.com/wqchen007/jkw-7element-alloy-database.git
 cd jkw-7element-alloy-database
 
-# 2. 生成样例数据
-cd scripts
-node generate-sample-data.js
+# Generate sample data
+node scripts/generate-sample-data.js
 
-# 3. 启动本地服务器
-cd ..
-python3 -m http.server 8000
+# Serve locally
+python -m http.server 8000
 
-# 4. 访问 http://localhost:8000/frontend/
+# Open browser
+open http://localhost:8000/frontend/
 ```
 
-## 📁 项目结构
+### Project Structure
 
 ```
-jkw-7element-alloy-database/
-├── frontend/              # 前端静态页面
-│   ├── index.html        # 主页面
-│   ├── css/              # 样式文件
-│   └── js/               # JavaScript脚本
-├── backend/              # 后端API（可选）
-│   ├── api/              # Serverless API
-│   └── data/             # 数据文件
-├── scripts/              # 工具脚本
-│   └── generate-sample-data.js
-├── docs/                 # 文档
-│   └── API.md           # API文档
-└── README.md            # 本文件
+├── backend/
+│   └── data/
+│       └── materials.json        # Auto-generated from real or sample data
+├── frontend/
+│   ├── index.html                # Main web interface
+│   ├── css/style.css             # Styling
+│   └── js/app.js                 # Application logic
+├── scripts/
+│   ├── convert-data.js           # Data conversion tool
+│   └── generate-sample-data.js   # Sample data generator
+├── real-data/
+│   └── materials.json            # Place real data here (optional)
+├── docs/
+│   ├── API.md                    # API documentation
+│   └── DATA_STRUCTURE.md         # Data schema reference
+└── CONTRIBUTING.md               # Data upload guide
 ```
 
-## 🔧 技术栈
+### Contributing
 
-- **前端**: HTML5, CSS3, Vanilla JavaScript
-- **后端**: Node.js (可选，用于API)
-- **部署**: GitHub Pages (前端), Vercel (后端API)
-- **数据格式**: JSON
+Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for data preparation and upload instructions.
 
-## 📖 API使用
+### License
 
-### 获取所有材料
+MIT License - see [LICENSE](LICENSE) file for details.
+
+---
+
+## 中文
+
+### 概述
+
+七元合金体系的综合材料数据库，包含晶体合金、非晶合金和晶体-非晶界面材料。
+
+**元素体系：** Al、Ni、Cu、Zr、Nb、Ta、W
+
+**材料类型：**
+- 晶体（Crystalline）
+- 非晶（Amorphous）
+- 界面（Interface）
+
+### 访问
+
+**在线网站：** [https://wqchen007.github.io/jkw-7element-alloy-database/](https://wqchen007.github.io/jkw-7element-alloy-database/)
+
+功能特性：
+- 材料分类与筛选
+- 属性类别标签页（结构、热力学、力学、缺陷）
+- 搜索功能
+- 双语界面（中英文）
+- 响应式设计
+
+### 材料性质
+
+**结构性质：**
+- 晶格常数
+- 径向分布函数（RDF）
+
+**热力学性质：**
+- 比热容
+- 混合焓
+- 扩散系数
+- 热膨胀系数
+
+**力学性能：**
+- 弹性常数
+- 应力-应变曲线
+- 杨氏模量
+- 泊松比
+
+**缺陷性质：**
+- 空位形成能
+- 间隙形成能
+- 层错能
+
+### 快速开始
+
+**在线查看：**
+访问 [https://wqchen007.github.io/jkw-7element-alloy-database/](https://wqchen007.github.io/jkw-7element-alloy-database/)
+
+**添加数据：**
+
+1. 准备CSV、JSON或TSV格式的数据
+2. 转换为标准格式：
+   ```bash
+   node scripts/convert-data.js your-data.csv real-data/materials.json
+   ```
+3. 提交并推送：
+   ```bash
+   git add real-data/materials.json
+   git commit -m "Add material data"
+   git push origin main
+   ```
+4. GitHub Actions自动更新网站
+
+详细说明请参见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+
+### 本地开发
 
 ```bash
-GET /api/materials?q=Al&type=amorphous&page=1&per_page=25
+# 克隆仓库
+git clone https://github.com/wqchen007/jkw-7element-alloy-database.git
+cd jkw-7element-alloy-database
+
+# 生成示例数据
+node scripts/generate-sample-data.js
+
+# 本地运行
+python -m http.server 8000
+
+# 打开浏览器
+open http://localhost:8000/frontend/
 ```
 
-### 获取单个材料
+### 项目结构
 
-```bash
-GET /api/materials/:id
+```
+├── backend/
+│   └── data/
+│       └── materials.json        # 从真实数据或示例数据自动生成
+├── frontend/
+│   ├── index.html                # 主网页界面
+│   ├── css/style.css             # 样式表
+│   └── js/app.js                 # 应用逻辑
+├── scripts/
+│   ├── convert-data.js           # 数据转换工具
+│   └── generate-sample-data.js   # 示例数据生成器
+├── real-data/
+│   └── materials.json            # 放置真实数据（可选）
+├── docs/
+│   ├── API.md                    # API文档
+│   └── DATA_STRUCTURE.md         # 数据架构参考
+└── CONTRIBUTING.md               # 数据上传指南
 ```
 
-详细API文档见 [docs/API.md](docs/API.md)
+### 贡献
 
-## 🤝 贡献
+欢迎贡献。数据准备和上传说明请参见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
-欢迎贡献数据和代码！请查看 [贡献指南](CONTRIBUTING.md)
+### 许可证
 
-## 📄 许可证
-
-MIT License - 详见 [LICENSE](LICENSE) 文件
-
-## 📮 联系方式
-
-- GitHub Issues: [提交问题](https://github.com/wqchen007/jkw-7element-alloy-database/issues)
-- 项目维护者: [@wqchen007](https://github.com/wqchen007)
+MIT许可证 - 详见 [LICENSE](LICENSE) 文件。

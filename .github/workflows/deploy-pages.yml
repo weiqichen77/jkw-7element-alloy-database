@@ -31,10 +31,30 @@ jobs:
         with:
           node-version: '18'
       
+      - name: Check for real data
+        id: check_data
+        run: |
+          if [ -f "real-data/materials.json" ]; then
+            echo "has_real_data=true" >> $GITHUB_OUTPUT
+            echo "Using real data from real-data/materials.json"
+          else
+            echo "has_real_data=false" >> $GITHUB_OUTPUT
+            echo "No real data found, will generate sample data"
+          fi
+      
       - name: Generate sample data
+        if: steps.check_data.outputs.has_real_data == 'false'
         run: |
           cd scripts
           node generate-sample-data.js
+          echo "Generated sample data"
+      
+      - name: Use real data
+        if: steps.check_data.outputs.has_real_data == 'true'
+        run: |
+          mkdir -p backend/data
+          cp real-data/materials.json backend/data/materials.json
+          echo "Copied real data to backend/data/"
       
       - name: Prepare deployment
         run: |
@@ -98,12 +118,115 @@ jobs:
       
       - name: Update frontend to use mock API
         run: |
-          # Update app.js to use the mock API for GitHub Pages
+          # Update app.js to use the mock API for GitHub Pages with i18n support
           cat > _site/js/app.js << 'EOF'
-          // 全局状态
+          // Internationalization
+          const translations = {
+            en: {
+              title: '7-Element Alloy Materials Database',
+              subtitle: 'Al-Ni-Cu-Zr-Nb-Ta-W System Material Properties',
+              search: 'Search',
+              searchPlaceholder: 'Search materials or elements...',
+              infoText: 'Tip: Select material type and property category, or use search to find specific materials',
+              typeTitle: 'Material Type',
+              propertyTitle: 'Property Category',
+              loading: 'Loading...',
+              noData: 'No matching data found',
+              resultsCount: 'Found {count} results',
+              githubLink: 'GitHub Repository',
+              docsLink: 'Documentation',
+              updateLabel: 'Data Updated:',
+              type: {
+                all: 'All',
+                crystalline: 'Crystalline',
+                amorphous: 'Amorphous',
+                interface: 'Interface'
+              },
+              property: {
+                structure: 'Structure',
+                thermodynamics: 'Thermodynamics',
+                mechanics: 'Mechanics',
+                defects: 'Defects'
+              },
+              table: {
+                id: 'ID',
+                name: 'Name',
+                type: 'Type',
+                elements: 'Elements',
+                density: 'Density',
+                latticeA: 'Lattice a',
+                latticeB: 'Lattice b',
+                latticeC: 'Lattice c',
+                rdf: 'RDF',
+                specificHeat: 'Specific Heat',
+                mixingEnthalpy: 'Mixing Enthalpy',
+                diffusionCoeff: 'Diffusion Coeff.',
+                thermalExpansion: 'Thermal Expansion',
+                elasticConstants: 'Elastic Constants',
+                stressStrain: 'Stress-Strain',
+                youngsModulus: "Young's Modulus",
+                poissonsRatio: "Poisson's Ratio",
+                vacancyEnergy: 'Vacancy Energy',
+                interstitialEnergy: 'Interstitial Energy',
+                stackingFault: 'Stacking Fault'
+              }
+            },
+            zh: {
+              title: '7元素合金材料数据库',
+              subtitle: 'Al-Ni-Cu-Zr-Nb-Ta-W 体系材料性能数据',
+              search: '搜索',
+              searchPlaceholder: '搜索材料名称或元素...',
+              infoText: '提示：选择材料类型和性质分类，或使用搜索功能查找特定材料',
+              typeTitle: '材料类型',
+              propertyTitle: '性质分类',
+              loading: '加载中...',
+              noData: '未找到匹配的数据',
+              resultsCount: '找到 {count} 条结果',
+              githubLink: 'GitHub 仓库',
+              docsLink: '使用说明',
+              updateLabel: '数据更新时间:',
+              type: {
+                all: '全部',
+                crystalline: '晶态',
+                amorphous: '非晶态',
+                interface: '界面'
+              },
+              property: {
+                structure: '结构信息',
+                thermodynamics: '热力学/动力学',
+                mechanics: '力学性能',
+                defects: '缺陷性质'
+              },
+              table: {
+                id: 'ID',
+                name: '名称',
+                type: '类型',
+                elements: '元素',
+                density: '密度',
+                latticeA: '晶格常数 a',
+                latticeB: '晶格常数 b',
+                latticeC: '晶格常数 c',
+                rdf: '径向分布函数',
+                specificHeat: '比热容',
+                mixingEnthalpy: '混合焓',
+                diffusionCoeff: '扩散系数',
+                thermalExpansion: '热膨胀系数',
+                elasticConstants: '弹性常数',
+                stressStrain: '应力-应变曲线',
+                youngsModulus: '杨氏模量',
+                poissonsRatio: '泊松比',
+                vacancyEnergy: '空位形成能',
+                interstitialEnergy: '间隙形成能',
+                stackingFault: '层错能'
+              }
+            }
+          };
+          
+          // Global state
           let allData = [];
           let currentType = 'all';
           let currentProperty = 'structure';
+          let currentLang = localStorage.getItem('lang') || 'en';
           
           // Load the API mock
           const script = document.createElement('script');
@@ -114,18 +237,76 @@ jobs:
             initApp();
           };
           
+          // Translation function
+          function t(key) {
+            const keys = key.split('.');
+            let value = translations[currentLang];
+            for (const k of keys) {
+              value = value[k];
+              if (!value) return key;
+            }
+            return value;
+          }
+          
+          // Update UI text
+          function updateUIText() {
+            document.getElementById('title').textContent = t('title');
+            document.getElementById('subtitle').textContent = t('subtitle');
+            document.getElementById('searchBtnText').textContent = t('search');
+            document.getElementById('q').placeholder = t('searchPlaceholder');
+            document.getElementById('infoText').textContent = t('infoText');
+            document.getElementById('typeTitle').textContent = t('typeTitle');
+            document.getElementById('propertyTitle').textContent = t('propertyTitle');
+            document.getElementById('loading').textContent = t('loading');
+            document.getElementById('githubLink').textContent = t('githubLink');
+            document.getElementById('docsLink').textContent = t('docsLink');
+            document.getElementById('updateLabel').textContent = t('updateLabel');
+            document.getElementById('langText').textContent = currentLang === 'en' ? '中文' : 'English';
+            
+            // Update data-i18n elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+              el.textContent = t(el.dataset.i18n);
+            });
+            
+            // Update date format
+            const dateOptions = currentLang === 'zh' ? 
+              { year: 'numeric', month: '2-digit', day: '2-digit', locale: 'zh-CN' } :
+              { year: 'numeric', month: 'short', day: 'numeric', locale: 'en-US' };
+            document.getElementById('updateTime').textContent = new Date().toLocaleDateString(
+              currentLang === 'zh' ? 'zh-CN' : 'en-US'
+            );
+            
+            // Update HTML lang attribute
+            document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+            
+            // Re-render table if data is loaded
+            if (allData.length > 0) {
+              filterAndDisplay();
+            }
+          }
+          
           async function initApp() {
-            // 加载所有数据
+            // Load all data
             const response = await fetch('./data/materials.json');
             allData = await response.json();
             
-            // 绑定事件
+            // Initialize UI text
+            updateUIText();
+            
+            // Bind events
             document.getElementById('search').onclick = () => filterAndDisplay();
             document.getElementById('q').addEventListener('keypress', function(e) {
               if (e.key === 'Enter') filterAndDisplay();
             });
             
-            // 材料类型切换
+            // Language toggle
+            document.getElementById('langToggle').addEventListener('click', function() {
+              currentLang = currentLang === 'en' ? 'zh' : 'en';
+              localStorage.setItem('lang', currentLang);
+              updateUIText();
+            });
+            
+            // Material type tabs
             document.querySelectorAll('.type-tab').forEach(tab => {
               tab.addEventListener('click', function() {
                 document.querySelectorAll('.type-tab').forEach(t => t.classList.remove('active'));
@@ -135,7 +316,7 @@ jobs:
               });
             });
             
-            // 性质分类切换
+            // Property category tabs
             document.querySelectorAll('.property-tab').forEach(tab => {
               tab.addEventListener('click', function() {
                 document.querySelectorAll('.property-tab').forEach(t => t.classList.remove('active'));
@@ -145,22 +326,22 @@ jobs:
               });
             });
             
-            // 初始显示
+            // Initial display
             filterAndDisplay();
           }
           
           function filterAndDisplay() {
             const searchTerm = document.getElementById('q').value.toLowerCase();
             
-            // 筛选数据
+            // Filter data
             let filtered = allData;
             
-            // 按类型筛选
+            // Filter by type
             if (currentType !== 'all') {
               filtered = filtered.filter(item => item.type === currentType);
             }
             
-            // 按搜索词筛选
+            // Filter by search term
             if (searchTerm) {
               filtered = filtered.filter(item => 
                 item.name.toLowerCase().includes(searchTerm) ||
@@ -175,13 +356,13 @@ jobs:
             const container = document.getElementById('table');
             
             if (data.length === 0) {
-              container.innerHTML = '<p class="no-data">未找到匹配的数据</p>';
+              container.innerHTML = '<p class="no-data">' + t('noData') + '</p>';
               return;
             }
             
-            let html = '<div class="result-count">找到 ' + data.length + ' 条结果</div>';
+            let html = '<div class="result-count">' + t('resultsCount').replace('{count}', data.length) + '</div>';
             
-            // 根据选中的性质类别显示不同的表格
+            // Display different tables based on selected property category
             if (currentProperty === 'structure') {
               html += displayStructureTable(data);
             } else if (currentProperty === 'thermodynamics') {
@@ -197,9 +378,15 @@ jobs:
           
           function displayStructureTable(data) {
             let html = '<div class="table-wrapper"><table><thead><tr>';
-            html += '<th>ID</th><th>名称</th><th>类型</th><th>元素</th><th>密度<br/>(g/cm³)</th>';
-            html += '<th>晶格常数 a<br/>(Å)</th><th>晶格常数 b<br/>(Å)</th><th>晶格常数 c<br/>(Å)</th>';
-            html += '<th>径向分布函数</th>';
+            html += '<th>' + t('table.id') + '</th>';
+            html += '<th>' + t('table.name') + '</th>';
+            html += '<th>' + t('table.type') + '</th>';
+            html += '<th>' + t('table.elements') + '</th>';
+            html += '<th>' + t('table.density') + '<br/>(g/cm³)</th>';
+            html += '<th>' + t('table.latticeA') + '<br/>(Å)</th>';
+            html += '<th>' + t('table.latticeB') + '<br/>(Å)</th>';
+            html += '<th>' + t('table.latticeC') + '<br/>(Å)</th>';
+            html += '<th>' + t('table.rdf') + '</th>';
             html += '</tr></thead><tbody>';
             
             for (const x of data) {
@@ -209,10 +396,10 @@ jobs:
               html += '<td>' + translateType(x.type) + '</td>';
               html += '<td>' + x.elements.join(', ') + '</td>';
               html += '<td>' + formatValue(x.density, 3) + '</td>';
-              html += '<td>' + formatValue(x.structure?.lattice_constant?.a, 3) + '</td>';
-              html += '<td>' + formatValue(x.structure?.lattice_constant?.b, 3) + '</td>';
-              html += '<td>' + formatValue(x.structure?.lattice_constant?.c, 3) + '</td>';
-              html += '<td>' + formatFile(x.structure?.radial_distribution) + '</td>';
+              html += '<td>' + formatValue(x.structure?.latticeConstants?.a, 3) + '</td>';
+              html += '<td>' + formatValue(x.structure?.latticeConstants?.b, 3) + '</td>';
+              html += '<td>' + formatValue(x.structure?.latticeConstants?.c, 3) + '</td>';
+              html += '<td>' + formatFile(x.structure?.rdf) + '</td>';
               html += '</tr>';
             }
             
@@ -222,9 +409,14 @@ jobs:
           
           function displayThermodynamicsTable(data) {
             let html = '<div class="table-wrapper"><table><thead><tr>';
-            html += '<th>ID</th><th>名称</th><th>类型</th><th>元素</th>';
-            html += '<th>比热容<br/>(J/kg·K)</th><th>混合焓<br/>(kJ/mol)</th>';
-            html += '<th>扩散系数<br/>(m²/s)</th><th>热膨胀系数<br/>(1/K)</th>';
+            html += '<th>' + t('table.id') + '</th>';
+            html += '<th>' + t('table.name') + '</th>';
+            html += '<th>' + t('table.type') + '</th>';
+            html += '<th>' + t('table.elements') + '</th>';
+            html += '<th>' + t('table.specificHeat') + '<br/>(J/kg·K)</th>';
+            html += '<th>' + t('table.mixingEnthalpy') + '<br/>(kJ/mol)</th>';
+            html += '<th>' + t('table.diffusionCoeff') + '<br/>(m²/s)</th>';
+            html += '<th>' + t('table.thermalExpansion') + '<br/>(10⁻⁶/K)</th>';
             html += '</tr></thead><tbody>';
             
             for (const x of data) {
@@ -233,10 +425,10 @@ jobs:
               html += '<td>' + x.name + '</td>';
               html += '<td>' + translateType(x.type) + '</td>';
               html += '<td>' + x.elements.join(', ') + '</td>';
-              html += '<td>' + formatValue(x.thermodynamics?.specific_heat, 2) + '</td>';
-              html += '<td>' + formatValue(x.thermodynamics?.mixing_enthalpy, 2) + '</td>';
-              html += '<td>' + formatScientific(x.thermodynamics?.diffusion_coefficient) + '</td>';
-              html += '<td>' + formatScientific(x.thermodynamics?.thermal_expansion) + '</td>';
+              html += '<td>' + formatValue(x.thermodynamics?.specificHeat, 2) + '</td>';
+              html += '<td>' + formatValue(x.thermodynamics?.mixingEnthalpy, 2) + '</td>';
+              html += '<td>' + formatScientific(x.thermodynamics?.diffusionCoefficient) + '</td>';
+              html += '<td>' + formatScientific(x.thermodynamics?.thermalExpansion) + '</td>';
               html += '</tr>';
             }
             
@@ -246,9 +438,16 @@ jobs:
           
           function displayMechanicsTable(data) {
             let html = '<div class="table-wrapper"><table><thead><tr>';
-            html += '<th>ID</th><th>名称</th><th>类型</th><th>元素</th>';
-            html += '<th>C11<br/>(GPa)</th><th>C12<br/>(GPa)</th><th>C44<br/>(GPa)</th>';
-            html += '<th>杨氏模量<br/>(GPa)</th><th>泊松比</th><th>应力应变曲线</th>';
+            html += '<th>' + t('table.id') + '</th>';
+            html += '<th>' + t('table.name') + '</th>';
+            html += '<th>' + t('table.type') + '</th>';
+            html += '<th>' + t('table.elements') + '</th>';
+            html += '<th>C11<br/>(GPa)</th>';
+            html += '<th>C12<br/>(GPa)</th>';
+            html += '<th>C44<br/>(GPa)</th>';
+            html += '<th>' + t('table.youngsModulus') + '<br/>(GPa)</th>';
+            html += '<th>' + t('table.poissonsRatio') + '</th>';
+            html += '<th>' + t('table.stressStrain') + '</th>';
             html += '</tr></thead><tbody>';
             
             for (const x of data) {
@@ -257,12 +456,12 @@ jobs:
               html += '<td>' + x.name + '</td>';
               html += '<td>' + translateType(x.type) + '</td>';
               html += '<td>' + x.elements.join(', ') + '</td>';
-              html += '<td>' + formatValue(x.mechanics?.elastic_constants?.C11, 2) + '</td>';
-              html += '<td>' + formatValue(x.mechanics?.elastic_constants?.C12, 2) + '</td>';
-              html += '<td>' + formatValue(x.mechanics?.elastic_constants?.C44, 2) + '</td>';
-              html += '<td>' + formatValue(x.mechanics?.youngs_modulus, 2) + '</td>';
-              html += '<td>' + formatValue(x.mechanics?.poisson_ratio, 3) + '</td>';
-              html += '<td>' + formatFile(x.mechanics?.stress_strain_curve) + '</td>';
+              html += '<td>' + formatValue(x.mechanics?.elasticConstants?.C11, 2) + '</td>';
+              html += '<td>' + formatValue(x.mechanics?.elasticConstants?.C12, 2) + '</td>';
+              html += '<td>' + formatValue(x.mechanics?.elasticConstants?.C44, 2) + '</td>';
+              html += '<td>' + formatValue(x.mechanics?.youngsModulus, 2) + '</td>';
+              html += '<td>' + formatValue(x.mechanics?.poissonsRatio, 3) + '</td>';
+              html += '<td>' + formatFile(x.mechanics?.stressStrain) + '</td>';
               html += '</tr>';
             }
             
@@ -272,8 +471,13 @@ jobs:
           
           function displayDefectsTable(data) {
             let html = '<div class="table-wrapper"><table><thead><tr>';
-            html += '<th>ID</th><th>名称</th><th>类型</th><th>元素</th>';
-            html += '<th>空位形成能<br/>(eV)</th><th>间隙形成能<br/>(eV)</th><th>层错能<br/>(mJ/m²)</th>';
+            html += '<th>' + t('table.id') + '</th>';
+            html += '<th>' + t('table.name') + '</th>';
+            html += '<th>' + t('table.type') + '</th>';
+            html += '<th>' + t('table.elements') + '</th>';
+            html += '<th>' + t('table.vacancyEnergy') + '<br/>(eV)</th>';
+            html += '<th>' + t('table.interstitialEnergy') + '<br/>(eV)</th>';
+            html += '<th>' + t('table.stackingFault') + '<br/>(mJ/m²)</th>';
             html += '</tr></thead><tbody>';
             
             for (const x of data) {
@@ -282,9 +486,9 @@ jobs:
               html += '<td>' + x.name + '</td>';
               html += '<td>' + translateType(x.type) + '</td>';
               html += '<td>' + x.elements.join(', ') + '</td>';
-              html += '<td>' + formatValue(x.defects?.vacancy_formation_energy, 3) + '</td>';
-              html += '<td>' + formatValue(x.defects?.interstitial_formation_energy, 3) + '</td>';
-              html += '<td>' + formatValue(x.defects?.stacking_fault_energy, 2) + '</td>';
+              html += '<td>' + formatValue(x.defects?.vacancyFormationEnergy, 3) + '</td>';
+              html += '<td>' + formatValue(x.defects?.interstitialFormationEnergy, 3) + '</td>';
+              html += '<td>' + formatValue(x.defects?.stackingFaultEnergy, 2) + '</td>';
               html += '</tr>';
             }
             
@@ -312,11 +516,18 @@ jobs:
           
           function translateType(type) {
             const typeMap = {
-              'amorphous': '非晶态',
-              'crystalline': '晶态',
-              'interface': '界面'
+              en: {
+                'amorphous': 'Amorphous',
+                'crystalline': 'Crystalline',
+                'interface': 'Interface'
+              },
+              zh: {
+                'amorphous': '非晶态',
+                'crystalline': '晶态',
+                'interface': '界面'
+              }
             };
-            return typeMap[type] || type;
+            return typeMap[currentLang][type] || type;
           }
           EOF
       
@@ -328,69 +539,73 @@ jobs:
           <head>
             <meta charset="utf-8" />
             <meta name="viewport" content="width=device-width,initial-scale=1" />
-            <title>7元素合金材料数据库</title>
-            <meta name="description" content="非晶合金、合金及非晶-晶体界面材料数据库" />
+            <title>7-Element Alloy Database / 7元素合金材料数据库</title>
+            <meta name="description" content="7-element alloy materials database - Al-Ni-Cu-Zr-Nb-Ta-W system" />
             <link rel="stylesheet" href="css/style.css" />
           </head>
           <body>
             <header>
-              <h1>🔬 7元素合金材料数据库</h1>
-              <p class="subtitle">Al-Ni-Cu-Zr-Nb-Ta-W 体系材料性能数据</p>
+              <div class="header-content">
+                <div>
+                  <h1 id="title">7-Element Alloy Materials Database</h1>
+                  <p class="subtitle" id="subtitle">Al-Ni-Cu-Zr-Nb-Ta-W System Material Properties</p>
+                </div>
+                <button id="langToggle" class="lang-toggle" title="Switch Language / 切换语言">
+                  <span id="langText">中文</span>
+                </button>
+              </div>
             </header>
             
             <main>
-              <!-- 搜索面板 -->
+              <!-- Search Panel -->
               <div class="search-panel">
                 <div class="search-group">
-                  <input id="q" placeholder="搜索材料名称或元素..." />
-                  <button id="search" class="btn-primary">🔍 搜索</button>
+                  <input id="q" placeholder="Search materials or elements..." />
+                  <button id="search" class="btn-primary"><span id="searchBtnText">Search</span></button>
                 </div>
                 <div class="info-badge">
-                  <span>💡 提示：选择材料类型和性质分类，或使用搜索功能查找特定材料</span>
+                  <span id="infoText">Tip: Select material type and property category, or use search to find specific materials</span>
                 </div>
               </div>
               
-              <!-- 材料类型选择 -->
+              <!-- Material Type Selection -->
               <div class="tabs-container">
-                <h3>📊 材料类型</h3>
+                <h3 id="typeTitle">Material Type</h3>
                 <div class="tabs">
-                  <button class="type-tab active" data-type="all">全部</button>
-                  <button class="type-tab" data-type="crystalline">晶态</button>
-                  <button class="type-tab" data-type="amorphous">非晶态</button>
-                  <button class="type-tab" data-type="interface">界面</button>
+                  <button class="type-tab active" data-type="all"><span data-i18n="type.all">All</span></button>
+                  <button class="type-tab" data-type="crystalline"><span data-i18n="type.crystalline">Crystalline</span></button>
+                  <button class="type-tab" data-type="amorphous"><span data-i18n="type.amorphous">Amorphous</span></button>
+                  <button class="type-tab" data-type="interface"><span data-i18n="type.interface">Interface</span></button>
                 </div>
               </div>
               
-              <!-- 性质分类选择 -->
+              <!-- Property Category Selection -->
               <div class="tabs-container">
-                <h3>🔍 性质分类</h3>
+                <h3 id="propertyTitle">Property Category</h3>
                 <div class="tabs">
-                  <button class="property-tab active" data-property="structure">结构信息</button>
-                  <button class="property-tab" data-property="thermodynamics">热力学/动力学</button>
-                  <button class="property-tab" data-property="mechanics">力学性能</button>
-                  <button class="property-tab" data-property="defects">缺陷性质</button>
+                  <button class="property-tab active" data-property="structure"><span data-i18n="property.structure">Structure</span></button>
+                  <button class="property-tab" data-property="thermodynamics"><span data-i18n="property.thermodynamics">Thermodynamics</span></button>
+                  <button class="property-tab" data-property="mechanics"><span data-i18n="property.mechanics">Mechanics</span></button>
+                  <button class="property-tab" data-property="defects"><span data-i18n="property.defects">Defects</span></button>
                 </div>
               </div>
               
-              <!-- 数据显示区 -->
+              <!-- Data Display Area -->
               <div id="table" class="results-container">
-                <p class="loading">加载中...</p>
+                <p class="loading" id="loading">Loading...</p>
               </div>
             </main>
             
             <footer>
               <p>
-                <a href="https://github.com/wqchen007/jkw-7element-alloy-database" target="_blank">
-                  📚 GitHub仓库
+                <a href="https://github.com/wqchen007/jkw-7element-alloy-database" target="_blank" id="githubLink">
+                  GitHub Repository
                 </a> | 
-                <a href="https://github.com/wqchen007/jkw-7element-alloy-database/blob/main/README.md" target="_blank">使用说明</a> |
-                数据更新时间: <span id="updateTime"></span>
+                <a href="https://github.com/wqchen007/jkw-7element-alloy-database/blob/main/README.md" target="_blank" id="docsLink">Documentation</a> |
+                <span id="updateLabel">Data Updated:</span> <span id="updateTime"></span>
               </p>
             </footer>
             
-            <script>
-              document.getElementById('updateTime').textContent = new Date().toLocaleDateString('zh-CN');
-            </script>
             <script src="js/app.js"></script>
           </body>
           </html>
@@ -419,7 +634,42 @@ jobs:
             padding: 2em;
             margin-bottom: 2em;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+          }
+          
+          .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+          }
+          
+          .header-content > div {
+            flex: 1;
             text-align: center;
+          }
+          
+          .lang-toggle {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s;
+            white-space: nowrap;
+          }
+          
+          .lang-toggle:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+          }
+          
+          .lang-toggle:active {
+            transform: translateY(0);
           }
           
           h1 {

@@ -1,0 +1,5 @@
+# Real Data Directory
+
+Place your converted materials.json file here to replace sample data.
+
+When materials.json exists in this directory, the website will use it instead of generating sample data.
