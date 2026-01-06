@@ -137,6 +137,16 @@ jobs:
               githubLink: 'GitHub Repository',
               docsLink: 'Documentation',
               updateLabel: 'Data Updated:',
+              viewDetails: 'View Details',
+              closeDetails: 'Close',
+              allProperties: 'All Properties',
+              basicInfo: 'Basic Information',
+              structureInfo: 'Structure Properties',
+              thermoInfo: 'Thermodynamics Properties',
+              mechInfo: 'Mechanics Properties',
+              defectInfo: 'Defect Properties',
+              noDataAvailable: 'No data available',
+              plotData: 'Plot Data',
               type: {
                 all: 'All',
                 crystalline: 'Crystalline',
@@ -187,6 +197,16 @@ jobs:
               githubLink: 'GitHub 仓库',
               docsLink: '使用说明',
               updateLabel: '数据更新时间:',
+              viewDetails: '查看详情',
+              closeDetails: '关闭',
+              allProperties: '所有性质',
+              basicInfo: '基本信息',
+              structureInfo: '结构性质',
+              thermoInfo: '热力学性质',
+              mechInfo: '力学性能',
+              defectInfo: '缺陷性质',
+              noDataAvailable: '无数据',
+              plotData: '绘制数据',
               type: {
                 all: '全部',
                 crystalline: '晶态',
@@ -389,6 +409,7 @@ jobs:
             html += '<th>' + t('table.latticeB') + '<br/>(Å)</th>';
             html += '<th>' + t('table.latticeC') + '<br/>(Å)</th>';
             html += '<th>' + t('table.rdf') + '</th>';
+            html += '<th>' + t('viewDetails') + '</th>';
             html += '</tr></thead><tbody>';
             
             for (const x of data) {
@@ -402,6 +423,7 @@ jobs:
               html += '<td>' + formatValue(x.structure?.latticeConstants?.b, 3) + '</td>';
               html += '<td>' + formatValue(x.structure?.latticeConstants?.c, 3) + '</td>';
               html += '<td>' + formatFile(x.structure?.rdf) + '</td>';
+              html += '<td><button class="btn-detail" onclick="showDetail(\'' + x.id + '\')">👁️</button></td>';
               html += '</tr>';
             }
             
@@ -419,6 +441,7 @@ jobs:
             html += '<th>' + t('table.mixingEnthalpy') + '<br/>(kJ/mol)</th>';
             html += '<th>' + t('table.diffusionCoeff') + '<br/>(m²/s)</th>';
             html += '<th>' + t('table.thermalExpansion') + '<br/>(10⁻⁶/K)</th>';
+            html += '<th>' + t('viewDetails') + '</th>';
             html += '</tr></thead><tbody>';
             
             for (const x of data) {
@@ -431,6 +454,7 @@ jobs:
               html += '<td>' + formatValue(x.thermodynamics?.mixingEnthalpy, 2) + '</td>';
               html += '<td>' + formatScientific(x.thermodynamics?.diffusionCoefficient) + '</td>';
               html += '<td>' + formatScientific(x.thermodynamics?.thermalExpansion) + '</td>';
+              html += '<td><button class="btn-detail" onclick="showDetail(\'' + x.id + '\')">👁️</button></td>';
               html += '</tr>';
             }
             
@@ -450,6 +474,7 @@ jobs:
             html += '<th>' + t('table.youngsModulus') + '<br/>(GPa)</th>';
             html += '<th>' + t('table.poissonsRatio') + '</th>';
             html += '<th>' + t('table.stressStrain') + '</th>';
+            html += '<th>' + t('viewDetails') + '</th>';
             html += '</tr></thead><tbody>';
             
             for (const x of data) {
@@ -464,6 +489,7 @@ jobs:
               html += '<td>' + formatValue(x.mechanics?.youngsModulus, 2) + '</td>';
               html += '<td>' + formatValue(x.mechanics?.poissonsRatio, 3) + '</td>';
               html += '<td>' + formatFile(x.mechanics?.stressStrain) + '</td>';
+              html += '<td><button class="btn-detail" onclick="showDetail(\'' + x.id + '\')">👁️</button></td>';
               html += '</tr>';
             }
             
@@ -480,6 +506,7 @@ jobs:
             html += '<th>' + t('table.vacancyEnergy') + '<br/>(eV)</th>';
             html += '<th>' + t('table.interstitialEnergy') + '<br/>(eV)</th>';
             html += '<th>' + t('table.stackingFault') + '<br/>(mJ/m²)</th>';
+            html += '<th>' + t('viewDetails') + '</th>';
             html += '</tr></thead><tbody>';
             
             for (const x of data) {
@@ -491,6 +518,7 @@ jobs:
               html += '<td>' + formatValue(x.defects?.vacancyFormationEnergy, 3) + '</td>';
               html += '<td>' + formatValue(x.defects?.interstitialFormationEnergy, 3) + '</td>';
               html += '<td>' + formatValue(x.defects?.stackingFaultEnergy, 2) + '</td>';
+              html += '<td><button class="btn-detail" onclick="showDetail(\'' + x.id + '\')">👁️</button></td>';
               html += '</tr>';
             }
             
@@ -531,6 +559,177 @@ jobs:
             };
             return typeMap[currentLang][type] || type;
           }
+          
+          // Show material detail in modal
+          window.showDetail = function(materialId) {
+            const material = allData.find(m => m.id === materialId);
+            if (!material) return;
+            
+            const modal = document.getElementById('detailModal');
+            const content = document.getElementById('detailContent');
+            
+            let html = '<h2>' + material.name + '</h2>';
+            
+            // Basic Information
+            html += '<div class="detail-section">';
+            html += '<h3>' + t('basicInfo') + '</h3>';
+            html += '<div class="detail-grid">';
+            html += '<div class="detail-item"><label>ID:</label><span>' + material.id + '</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.name') + ':</label><span>' + material.name + '</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.type') + ':</label><span>' + translateType(material.type) + '</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.elements') + ':</label><span>' + material.elements.join(', ') + '</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.density') + ':</label><span>' + formatValue(material.density, 3) + ' g/cm³</span></div>';
+            html += '</div></div>';
+            
+            // Structure Properties
+            html += '<div class="detail-section">';
+            html += '<h3>' + t('structureInfo') + '</h3>';
+            html += '<div class="detail-grid">';
+            if (material.structure?.latticeConstants) {
+              html += '<div class="detail-item"><label>' + t('table.latticeA') + ':</label><span>' + formatValue(material.structure.latticeConstants.a, 3) + ' Å</span></div>';
+              html += '<div class="detail-item"><label>' + t('table.latticeB') + ':</label><span>' + formatValue(material.structure.latticeConstants.b, 3) + ' Å</span></div>';
+              html += '<div class="detail-item"><label>' + t('table.latticeC') + ':</label><span>' + formatValue(material.structure.latticeConstants.c, 3) + ' Å</span></div>';
+            }
+            html += '</div>';
+            if (material.structure?.rdf) {
+              html += '<div class="chart-container">';
+              html += '<h4>' + t('table.rdf') + '</h4>';
+              html += renderChart(material.structure.rdf, 'rdf-' + material.id, 'RDF');
+              html += '</div>';
+            }
+            html += '</div>';
+            
+            // Thermodynamics Properties
+            html += '<div class="detail-section">';
+            html += '<h3>' + t('thermoInfo') + '</h3>';
+            html += '<div class="detail-grid">';
+            html += '<div class="detail-item"><label>' + t('table.specificHeat') + ':</label><span>' + formatValue(material.thermodynamics?.specificHeat, 2) + ' J/kg·K</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.mixingEnthalpy') + ':</label><span>' + formatValue(material.thermodynamics?.mixingEnthalpy, 2) + ' kJ/mol</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.diffusionCoeff') + ':</label><span>' + formatScientific(material.thermodynamics?.diffusionCoefficient) + ' m²/s</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.thermalExpansion') + ':</label><span>' + formatScientific(material.thermodynamics?.thermalExpansion) + ' 10⁻⁶/K</span></div>';
+            html += '</div></div>';
+            
+            // Mechanics Properties
+            html += '<div class="detail-section">';
+            html += '<h3>' + t('mechInfo') + '</h3>';
+            html += '<div class="detail-grid">';
+            if (material.mechanics?.elasticConstants) {
+              html += '<div class="detail-item"><label>C11:</label><span>' + formatValue(material.mechanics.elasticConstants.C11, 2) + ' GPa</span></div>';
+              html += '<div class="detail-item"><label>C12:</label><span>' + formatValue(material.mechanics.elasticConstants.C12, 2) + ' GPa</span></div>';
+              html += '<div class="detail-item"><label>C44:</label><span>' + formatValue(material.mechanics.elasticConstants.C44, 2) + ' GPa</span></div>';
+            }
+            html += '<div class="detail-item"><label>' + t('table.youngsModulus') + ':</label><span>' + formatValue(material.mechanics?.youngsModulus, 2) + ' GPa</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.poissonsRatio') + ':</label><span>' + formatValue(material.mechanics?.poissonsRatio, 3) + '</span></div>';
+            html += '</div>';
+            if (material.mechanics?.stressStrain) {
+              html += '<div class="chart-container">';
+              html += '<h4>' + t('table.stressStrain') + '</h4>';
+              html += renderChart(material.mechanics.stressStrain, 'stress-' + material.id, 'Stress-Strain');
+              html += '</div>';
+            }
+            html += '</div>';
+            
+            // Defect Properties
+            html += '<div class="detail-section">';
+            html += '<h3>' + t('defectInfo') + '</h3>';
+            html += '<div class="detail-grid">';
+            html += '<div class="detail-item"><label>' + t('table.vacancyEnergy') + ':</label><span>' + formatValue(material.defects?.vacancyFormationEnergy, 3) + ' eV</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.interstitialEnergy') + ':</label><span>' + formatValue(material.defects?.interstitialFormationEnergy, 3) + ' eV</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.stackingFault') + ':</label><span>' + formatValue(material.defects?.stackingFaultEnergy, 2) + ' mJ/m²</span></div>';
+            html += '</div></div>';
+            
+            content.innerHTML = html;
+            modal.style.display = 'block';
+          };
+          
+          // Render chart (image or plot)
+          function renderChart(data, id, title) {
+            if (!data || data === '-') {
+              return '<p class="no-data">' + t('noDataAvailable') + '</p>';
+            }
+            
+            // If data is a URL (string), display as image
+            if (typeof data === 'string') {
+              return '<img src="' + data + '" alt="' + title + '" class="chart-image" />';
+            }
+            
+            // If data is an array, create a simple plot
+            if (Array.isArray(data)) {
+              return '<canvas id="' + id + '" class="chart-canvas"></canvas><script>renderPlot("' + id + '", ' + JSON.stringify(data) + ', "' + title + '");</script>';
+            }
+            
+            return '<p>' + t('noDataAvailable') + '</p>';
+          }
+          
+          // Simple plot rendering using Canvas
+          window.renderPlot = function(canvasId, data, title) {
+            setTimeout(function() {
+              const canvas = document.getElementById(canvasId);
+              if (!canvas) return;
+              
+              const ctx = canvas.getContext('2d');
+              const width = canvas.width = canvas.offsetWidth;
+              const height = canvas.height = 300;
+              
+              // Clear canvas
+              ctx.clearRect(0, 0, width, height);
+              
+              // Simple line plot
+              ctx.strokeStyle = '#667eea';
+              ctx.lineWidth = 2;
+              ctx.beginPath();
+              
+              const padding = 40;
+              const plotWidth = width - 2 * padding;
+              const plotHeight = height - 2 * padding;
+              
+              const xStep = plotWidth / (data.length - 1);
+              const yMin = Math.min(...data.map(d => d.y || d[1] || d));
+              const yMax = Math.max(...data.map(d => d.y || d[1] || d));
+              const yRange = yMax - yMin || 1;
+              
+              data.forEach((point, i) => {
+                const y = typeof point === 'object' ? (point.y || point[1]) : point;
+                const x = padding + i * xStep;
+                const plotY = height - padding - ((y - yMin) / yRange) * plotHeight;
+                
+                if (i === 0) {
+                  ctx.moveTo(x, plotY);
+                } else {
+                  ctx.lineTo(x, plotY);
+                }
+              });
+              
+              ctx.stroke();
+              
+              // Draw axes
+              ctx.strokeStyle = '#333';
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(padding, padding);
+              ctx.lineTo(padding, height - padding);
+              ctx.lineTo(width - padding, height - padding);
+              ctx.stroke();
+              
+              // Add labels
+              ctx.fillStyle = '#333';
+              ctx.font = '12px Arial';
+              ctx.textAlign = 'center';
+              ctx.fillText(title, width / 2, 20);
+            }, 100);
+          };
+          
+          // Modal close handlers
+          document.getElementById('modalClose').onclick = function() {
+            document.getElementById('detailModal').style.display = 'none';
+          };
+          
+          window.onclick = function(event) {
+            const modal = document.getElementById('detailModal');
+            if (event.target === modal) {
+              modal.style.display = 'none';
+            }
+          };
           EOF
       
       - name: Enhance index.html
@@ -597,6 +796,14 @@ jobs:
                 <p class="loading" id="loading">Loading...</p>
               </div>
             </main>
+            
+            <!-- Material Detail Modal -->
+            <div id="detailModal" class="modal">
+              <div class="modal-content">
+                <span class="modal-close" id="modalClose">&times;</span>
+                <div id="detailContent"></div>
+              </div>
+            </div>
             
             <footer>
               <p>
@@ -875,6 +1082,153 @@ jobs:
             text-decoration: underline;
           }
           
+          .btn-detail {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.3s;
+          }
+          
+          .btn-detail:hover {
+            background: #5568d3;
+            transform: scale(1.1);
+          }
+          
+          /* Modal Styles */
+          .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            overflow: auto;
+          }
+          
+          .modal-content {
+            background-color: white;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 1200px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s ease-out;
+          }
+          
+          @keyframes slideIn {
+            from {
+              transform: translateY(-50px);
+              opacity: 0;
+            }
+            to {
+              transform: translateY(0);
+              opacity: 1;
+            }
+          }
+          
+          .modal-close {
+            color: #aaa;
+            float: right;
+            font-size: 32px;
+            font-weight: bold;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+          }
+          
+          .modal-close:hover,
+          .modal-close:focus {
+            color: #667eea;
+          }
+          
+          #detailContent {
+            padding: 20px 30px 30px;
+          }
+          
+          #detailContent h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+          }
+          
+          .detail-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+          }
+          
+          .detail-section h3 {
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+          }
+          
+          .detail-section h4 {
+            color: #666;
+            margin-top: 15px;
+            margin-bottom: 10px;
+          }
+          
+          .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+          }
+          
+          .detail-item {
+            display: flex;
+            align-items: baseline;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+          }
+          
+          .detail-item label {
+            font-weight: 600;
+            color: #667eea;
+            min-width: 150px;
+            margin-right: 10px;
+          }
+          
+          .detail-item span {
+            color: #333;
+            word-break: break-word;
+          }
+          
+          .chart-container {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+          }
+          
+          .chart-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+          }
+          
+          .chart-canvas {
+            width: 100%;
+            max-width: 800px;
+            height: 300px;
+            display: block;
+            margin: 10px auto;
+          }
+          
           @media (max-width: 768px) {
             body {
               padding: 10px;
@@ -910,6 +1264,25 @@ jobs:
             .table-wrapper {
               border: 1px solid #e0e0e0;
               border-radius: 8px;
+            }
+            
+            .modal-content {
+              width: 95%;
+              margin: 5% auto;
+            }
+            
+            .detail-grid {
+              grid-template-columns: 1fr;
+            }
+            
+            .detail-item {
+              flex-direction: column;
+              align-items: flex-start;
+            }
+            
+            .detail-item label {
+              min-width: auto;
+              margin-bottom: 5px;
             }
           }
           EOF
