@@ -565,7 +565,7 @@ jobs:
           
           // Show material detail in modal
           window.showDetail = function(materialId) {
-            const material = allData.find(m => m.id === materialId);
+            const material = allData.find(m => m.id == materialId);
             if (!material) return;
             
             const modal = document.getElementById('detailModal');
