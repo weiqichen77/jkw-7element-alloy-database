@@ -353,9 +353,11 @@ jobs:
             
             // Event delegation for material detail links
             document.getElementById('table').addEventListener('click', function(e) {
-              if (e.target.classList.contains('material-link')) {
+              // Find closest material-link (handles clicks on child elements)
+              const link = e.target.closest('.material-link');
+              if (link) {
                 e.preventDefault();
-                const materialId = e.target.getAttribute('data-id');
+                const materialId = link.getAttribute('data-id');
                 showDetail(materialId);
               }
             });
