@@ -8,22 +8,7 @@
 
 ## Features / 功能特性
 
-### 1. Detail View Button / 详情查看按钮
-
-- **Location / 位置:** Added to the rightmost column of all tables
-- **Icon / 图标:** 👁️ (eye icon)
-- **Trigger / 触发:** Click to open detail modal
-
-### 2. Modal Popup / 弹窗模态框
-
-**Design / 设计:**
-- Overlay with semi-transparent background / 半透明背景遮罩
-- Centered modal with smooth slide-in animation / 居中弹窗带平滑滑入动画
-- Close button (×) in top-right corner / 右上角关闭按钮
-- Click outside to close / 点击外部关闭
-- Responsive design / 响应式设计
-
-### 3. Information Display / 信息展示
+### 1. Information Display / 信息展示
 
 The detail view is organized into sections / 详情视图按类别组织：
 
@@ -59,7 +44,7 @@ The detail view is organized into sections / 详情视图按类别组织：
 - Interstitial formation energy / 间隙形成能
 - Stacking fault energy / 层错能
 
-### 4. Chart Visualization / 图表可视化
+### 2. Chart Visualization / 图表可视化
 
 **Two types of data support / 支持两种数据类型:**
 
@@ -102,15 +87,6 @@ or simple format:
 - Axes and labels / 坐标轴和标签
 - Responsive canvas / 响应式画布
 
-### 5. Bilingual Support / 双语支持
-
-All detail view text automatically switches based on language selection:
-所有详情视图文本根据语言选择自动切换：
-
-- Section headers / 章节标题
-- Property labels / 属性标签
-- Units / 单位
-- Messages / 消息提示
 
 ## Usage / 使用方法
 
