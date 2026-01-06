@@ -1,0 +1,4 @@
+name,type,elements,density,structure.latticeConstants,structure.rdf,thermodynamics.specificHeat,thermodynamics.mixingEnthalpy,thermodynamics.diffusionCoefficient,thermodynamics.thermalExpansion,mechanics.elasticConstants,mechanics.stressStrain,mechanics.youngsModulus,mechanics.poissonsRatio,defects.vacancyFormationEnergy,defects.interstitialFormationEnergy,defects.stackingFaultEnergy
+AlNiCu-001,crystalline,"[Al,Ni,Cu]",8.5,"{""a"":3.6,""b"":3.6,""c"":3.6}",url-to-rdf-data,450,-25,1.2e-15,12.5,"{""C11"":200,""C12"":150}",url-to-stress-strain,180,0.33,1.2,2.1,120
+AlZr-Amorphous,amorphous,"[Al,Zr]",6.2,-,url-to-rdf-data,380,-18,5.6e-16,15.2,-,-,95,0.36,-,-,-
+NiCuInterface,interface,"[Ni,Cu]",8.9,-,-,420,-12,2.3e-15,13.8,-,-,160,0.31,-,-,85
