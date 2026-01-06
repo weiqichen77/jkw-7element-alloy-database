@@ -11,9 +11,11 @@
 
 ### Overview
 
-A comprehensive materials database for 7-element alloy systems, including crystalline alloys, amorphous alloys, and crystal-amorphous interfaces.
+A comprehensive materials database for alloy systems, with primary focus on 7-element combinations (Al, Ni, Cu, Zr, Nb, Ta, W), but supporting other elements as well.
 
-**Element System:** Al, Ni, Cu, Zr, Nb, Ta, W
+**Primary Element System:** Al, Ni, Cu, Zr, Nb, Ta, W
+
+**Note:** The database is designed to be extensible and can accommodate alloys containing other elements beyond the primary 7-element system.
 
 **Material Types:**
 - Crystalline
@@ -128,9 +130,11 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ### 概述
 
-七元合金体系的综合材料数据库，包含晶体合金、非晶合金和晶体-非晶界面材料。
+合金体系的综合材料数据库，主要关注七元组合（Al、Ni、Cu、Zr、Nb、Ta、W），同时支持包含其他元素的合金材料。
 
-**元素体系：** Al、Ni、Cu、Zr、Nb、Ta、W
+**主要元素体系：** Al、Ni、Cu、Zr、Nb、Ta、W
+
+**说明：** 数据库设计具有可扩展性，可以容纳包含主要7元素体系之外其他元素的合金材料。
 
 **材料类型：**
 - 晶体（Crystalline）

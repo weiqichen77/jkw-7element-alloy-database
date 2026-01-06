@@ -20,7 +20,7 @@ You can provide data in any of the following formats:
 **Required Fields:**
 - `name` - Material name (string)
 - `type` - Material type: `crystalline`, `amorphous`, or `interface`
-- `elements` - Array of element symbols from: Al, Ni, Cu, Zr, Nb, Ta, W
+- `elements` - Array of element symbols (primary system: Al, Ni, Cu, Zr, Nb, Ta, W; other elements are also supported)
 
 **Optional Fields:**
 - `density` - Material density in g/cm³
@@ -162,7 +162,7 @@ To update existing data or add new materials:
 **必填字段：**
 - `name` - 材料名称（字符串）
 - `type` - 材料类型：`crystalline`（晶体）、`amorphous`（非晶）或 `interface`（界面）
-- `elements` - 元素符号数组，可选元素：Al、Ni、Cu、Zr、Nb、Ta、W
+- `elements` - 元素符号数组（主要体系：Al、Ni、Cu、Zr、Nb、Ta、W；同时支持其他元素）
 
 **可选字段：**
 - `density` - 材料密度（g/cm³）

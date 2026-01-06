@@ -123,8 +123,9 @@ jobs:
           // Internationalization
           const translations = {
             en: {
-              title: '7-Element Alloy Materials Database',
-              subtitle: 'Al-Ni-Cu-Zr-Nb-Ta-W System Material Properties',
+              title: 'Alloy Materials Database',
+              subtitle: 'Material Properties (Primary: Al-Ni-Cu-Zr-Nb-Ta-W System)',
+              elementNote: 'Note: Database supports elements beyond the primary 7-element system',
               search: 'Search',
               searchPlaceholder: 'Search materials or elements...',
               infoText: 'Tip: Select material type and property category, or use search to find specific materials',
@@ -172,8 +173,9 @@ jobs:
               }
             },
             zh: {
-              title: '7元素合金材料数据库',
-              subtitle: 'Al-Ni-Cu-Zr-Nb-Ta-W 体系材料性能数据',
+              title: '合金材料数据库',
+              subtitle: '材料性能数据（主要关注：Al-Ni-Cu-Zr-Nb-Ta-W 体系）',
+              elementNote: '说明：数据库支持主要7元素体系之外的其他元素',
               search: '搜索',
               searchPlaceholder: '搜索材料名称或元素...',
               infoText: '提示：选择材料类型和性质分类，或使用搜索功能查找特定材料',
@@ -539,8 +541,8 @@ jobs:
           <head>
             <meta charset="utf-8" />
             <meta name="viewport" content="width=device-width,initial-scale=1" />
-            <title>7-Element Alloy Database / 7元素合金材料数据库</title>
-            <meta name="description" content="7-element alloy materials database - Al-Ni-Cu-Zr-Nb-Ta-W system" />
+            <title>Alloy Materials Database / 合金材料数据库</title>
+            <meta name="description" content="Alloy materials database - Primary focus: Al-Ni-Cu-Zr-Nb-Ta-W system" />
             <link rel="stylesheet" href="css/style.css" />
           </head>
           <body>

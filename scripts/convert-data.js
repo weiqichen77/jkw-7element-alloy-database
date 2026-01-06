@@ -14,8 +14,9 @@
 const fs = require('fs');
 const path = require('path');
 
-// Valid element symbols for the 7-element system
-const VALID_ELEMENTS = ['Al', 'Ni', 'Cu', 'Zr', 'Nb', 'Ta', 'W'];
+// Primary element symbols for the 7-element system
+// Note: Other elements are also supported, these are just the primary focus
+const PRIMARY_ELEMENTS = ['Al', 'Ni', 'Cu', 'Zr', 'Nb', 'Ta', 'W'];
 
 // Valid material types
 const VALID_TYPES = ['crystalline', 'amorphous', 'interface'];
@@ -177,13 +178,12 @@ function validateMaterial(material, index) {
     errors.push(`Material ${index + 1}: Missing required field 'elements'`);
   } else if (!Array.isArray(material.elements)) {
     errors.push(`Material ${index + 1}: Field 'elements' must be an array`);
-  } else {
-    // Validate elements
-    const invalidElements = material.elements.filter(el => !VALID_ELEMENTS.includes(el));
-    if (invalidElements.length > 0) {
-      errors.push(`Material ${index + 1}: Invalid elements: ${invalidElements.join(', ')}. Valid elements: ${VALID_ELEMENTS.join(', ')}`);
-    }
+  } else if (material.elements.length === 0) {
+    errors.push(`Material ${index + 1}: Field 'elements' must contain at least one element`);
   }
+  
+  // Note: We don't strictly validate element symbols to allow flexibility
+  // Just warn about non-primary elements
 
   return errors;
 }
@@ -267,15 +267,30 @@ function convertData(inputFile, outputFile) {
 
   // Validate all materials
   const allErrors = [];
+  const warnings = [];
   materials.forEach((material, index) => {
     const errors = validateMaterial(material, index);
     allErrors.push(...errors);
+    
+    // Check for non-primary elements (warning only)
+    if (material.elements && Array.isArray(material.elements)) {
+      const nonPrimaryElements = material.elements.filter(el => !PRIMARY_ELEMENTS.includes(el));
+      if (nonPrimaryElements.length > 0) {
+        warnings.push(`Material ${index + 1} (${material.name}): Contains non-primary elements: ${nonPrimaryElements.join(', ')}. Primary system: ${PRIMARY_ELEMENTS.join(', ')}`);
+      }
+    }
   });
 
   if (allErrors.length > 0) {
     console.error('\nValidation errors:');
     allErrors.forEach(error => console.error(`  - ${error}`));
     throw new Error('Validation failed. Please fix the errors above.');
+  }
+  
+  if (warnings.length > 0) {
+    console.warn('\nWarnings:');
+    warnings.forEach(warning => console.warn(`  ⚠ ${warning}`));
+    console.warn('Note: Non-primary elements are supported but may require additional documentation.\n');
   }
 
   // Normalize all materials
@@ -356,7 +371,8 @@ Optional Fields:
   - mechanics.*: Mechanical properties
   - defects.*: Defect properties
 
-Valid Elements: ${VALID_ELEMENTS.join(', ')}
+Primary Elements: ${PRIMARY_ELEMENTS.join(', ')}
+Note: Other elements are also supported.
 `);
     process.exit(0);
   }
