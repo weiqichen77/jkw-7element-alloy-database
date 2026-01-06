@@ -256,12 +256,7 @@ jobs:
           document.head.appendChild(script);
           
           script.onload = function() {
-            console.log('api-mock.js loaded, calling initApp');
             initApp();
-          };
-          
-          script.onerror = function() {
-            console.error('Failed to load api-mock.js');
           };
           
           // Translation function
@@ -313,11 +308,9 @@ jobs:
           }
           
           async function initApp() {
-            console.log('initApp started');
             // Load all data
             const response = await fetch('./data/materials.json');
             allData = await response.json();
-            console.log('Data loaded:', allData.length, 'materials');
             
             // Initialize UI text
             updateUIText();
@@ -359,17 +352,12 @@ jobs:
             filterAndDisplay();
             
             // Event delegation for material detail links
-            const tableElement = document.getElementById('table');
-            console.log('Table element found:', tableElement);
-            tableElement.addEventListener('click', function(e) {
-              console.log('Table clicked, target:', e.target);
+            document.getElementById('table').addEventListener('click', function(e) {
               // Find closest material-link (handles clicks on child elements)
               const link = e.target.closest('.material-link');
-              console.log('Found link:', link);
               if (link) {
                 e.preventDefault();
                 const materialId = link.getAttribute('data-id');
-                console.log('Opening detail for material ID:', materialId);
                 showDetail(materialId);
               }
             });
@@ -577,13 +565,8 @@ jobs:
           
           // Show material detail in modal
           window.showDetail = function(materialId) {
-            console.log('showDetail called with ID:', materialId, 'type:', typeof materialId);
             const material = allData.find(m => m.id == materialId);
-            console.log('Found material:', material);
-            if (!material) {
-              console.log('Material not found!');
-              return;
-            }
+            if (!material) return;
             
             const modal = document.getElementById('detailModal');
             const content = document.getElementById('detailContent');
