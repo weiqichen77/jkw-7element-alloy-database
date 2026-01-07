@@ -1,4 +1,4 @@
-# Contributing Guide / 贡献指南
+# Contributing Guide
 
 [English](#english) | [中文](#中文)
 
