@@ -28,7 +28,7 @@ A comprehensive materials database for alloy systems, with primary focus on 7-el
 
 Features:
 - Material classification and filtering
-- Property category tabs (structure, thermodynamics, mechanics, defects)
+- Property category (structure, thermodynamics, mechanics, defects)
 - Search functionality
 
 ### Material Properties
@@ -142,7 +142,7 @@ Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for data prepa
 
 功能特性：
 - 材料分类与筛选
-- 属性类别标签页（结构、热力学、力学、缺陷）
+- 属性类别（结构、热力学、力学、缺陷）
 - 搜索功能
 
 ### 材料性质
