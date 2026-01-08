@@ -531,6 +531,7 @@ jobs:
             html += '<th>' + (currentLang === 'en' ? 'Composition' : '元素组成') + '</th>';
             html += '<th>' + t('table.density') + '<br/>(g/cm³)</th>';
             html += '<th>' + (currentLang === 'en' ? 'Lattice Params' : '晶格参数') + '</th>';
+            html += '<th>' + (currentLang === 'en' ? 'Structure' : '原子结构') + '</th>';
             html += '<th>' + t('table.rdf') + '</th>';
             html += '</tr></thead><tbody>';
             
@@ -578,6 +579,15 @@ jobs:
                 if (lattice.beta) html += '<div>β = ' + formatValue(lattice.beta, 1) + '°</div>';
                 if (lattice.gamma) html += '<div>γ = ' + formatValue(lattice.gamma, 1) + '°</div>';
                 html += '</div>';
+              } else {
+                html += '-';
+              }
+              html += '</td>';
+              
+              // POSCAR structure file
+              html += '<td>';
+              if (struct.poscar) {
+                html += '<span class="poscar-icon" title="' + (currentLang === 'en' ? 'View 3D structure' : '查看3D结构') + '">🔬</span>';
               } else {
                 html += '-';
               }
@@ -1039,6 +1049,12 @@ jobs:
             
             content.innerHTML = html;
             modal.style.display = 'block';
+            
+            // Initialize 3D viewer if POSCAR exists
+            const struct = primary.properties?.structure;
+            if (struct && struct.poscar) {
+              setTimeout(() => init3DViewer(materialId, struct.poscar), 100);
+            }
           };
           
           // Generate detail view for specific data point
@@ -1062,6 +1078,20 @@ jobs:
             const struct = props.structure || {};
             html += '<div class="detail-section">';
             html += '<h3>' + t('structureInfo') + '</h3>';
+            
+            // POSCAR 3D Viewer
+            if (struct.poscar) {
+              html += '<div class="structure-viewer-container">';
+              html += '<h4>' + (currentLang === 'en' ? 'Atomic Structure' : '原子结构') + '</h4>';
+              html += '<div id="viewer-' + material.id + '" class="structure-viewer"></div>';
+              html += '<div class="viewer-controls">';
+              html += '<button onclick="resetView(\'' + material.id + '\')" class="viewer-btn">' + (currentLang === 'en' ? 'Reset View' : '重置视角') + '</button>';
+              html += '<button onclick="toggleStyle(\'' + material.id + '\')" class="viewer-btn">' + (currentLang === 'en' ? 'Toggle Style' : '切换样式') + '</button>';
+              html += '<a href="' + struct.poscar + '" download class="viewer-btn download-btn">' + (currentLang === 'en' ? 'Download POSCAR' : '下载POSCAR') + '</a>';
+              html += '</div>';
+              html += '</div>';
+            }
+            
             html += '<div class="detail-grid">';
             html += '<div class="detail-item"><label>' + t('table.density') + ':</label><span>' + formatValue(struct.density, 3) + ' g/cm³</span></div>';
             if (struct.latticeParameters) {
@@ -1156,7 +1186,88 @@ jobs:
             const viewDiv = document.getElementById('detailDataView');
             if (viewDiv) {
               viewDiv.innerHTML = generateDetailView(material, dataPoint);
+              // Re-initialize 3D viewer if POSCAR exists
+              const struct = dataPoint.properties?.structure;
+              if (struct && struct.poscar) {
+                setTimeout(() => init3DViewer(materialId, struct.poscar), 100);
+              }
             }
+          };
+          
+          // Initialize 3D molecular viewer
+          let viewerInstances = {};
+          let viewerStyles = {}; // Track current style for each viewer
+          
+          function init3DViewer(materialId, poscarUrl) {
+            const viewerId = 'viewer-' + materialId;
+            const element = document.getElementById(viewerId);
+            if (!element) return;
+            
+            // Clean up existing viewer
+            if (viewerInstances[materialId]) {
+              element.innerHTML = '';
+            }
+            
+            // Create viewer
+            const config = { backgroundColor: 'white' };
+            const viewer = $3Dmol.createViewer(element, config);
+            viewerInstances[materialId] = viewer;
+            viewerStyles[materialId] = 'sphere'; // Default style
+            
+            // Load POSCAR file
+            fetch(poscarUrl)
+              .then(response => response.text())
+              .then(poscarData => {
+                viewer.addModel(poscarData, 'vasp');
+                viewer.setStyle({}, { sphere: { radius: 0.5 }, stick: { radius: 0.15 } });
+                viewer.zoomTo();
+                viewer.render();
+              })
+              .catch(error => {
+                console.error('Error loading POSCAR:', error);
+                element.innerHTML = '<p class="error-message">' + 
+                  (currentLang === 'en' ? 'Failed to load structure file' : '无法加载结构文件') + 
+                  '</p>';
+              });
+          }
+          
+          // Reset viewer camera
+          window.resetView = function(materialId) {
+            const viewer = viewerInstances[materialId];
+            if (viewer) {
+              viewer.zoomTo();
+              viewer.render();
+            }
+          };
+          
+          // Toggle visualization style
+          window.toggleStyle = function(materialId) {
+            const viewer = viewerInstances[materialId];
+            if (!viewer) return;
+            
+            const currentStyle = viewerStyles[materialId] || 'sphere';
+            let newStyle;
+            
+            if (currentStyle === 'sphere') {
+              // Ball and stick
+              viewer.setStyle({}, { sphere: { radius: 0.5 }, stick: { radius: 0.15 } });
+              newStyle = 'ball-stick';
+            } else if (currentStyle === 'ball-stick') {
+              // Stick only
+              viewer.setStyle({}, { stick: { radius: 0.2 } });
+              newStyle = 'stick';
+            } else if (currentStyle === 'stick') {
+              // Lines
+              viewer.setStyle({}, { line: {} });
+              newStyle = 'line';
+            } else {
+              // Back to sphere
+              viewer.setStyle({}, { sphere: { radius: 0.5 }, stick: { radius: 0.15 } });
+              newStyle = 'sphere';
+            }
+            
+            viewerStyles[materialId] = newStyle;
+            viewer.render();
           };
           
           // Render chart (image or plot)
@@ -1260,6 +1371,8 @@ jobs:
             <title>Alloy Materials Database / 合金材料数据库</title>
             <meta name="description" content="Alloy materials database - Primary focus: Al-Ni-Cu-Zr-Nb-Ta-W system" />
             <link rel="stylesheet" href="css/style.css" />
+            <!-- 3Dmol.js for molecular visualization -->
+            <script src="https://cdn.jsdelivr.net/npm/3dmol@latest/build/3Dmol-min.js"></script>
           </head>
           <body>
             <header>
@@ -1634,6 +1747,17 @@ jobs:
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-weight: 500;
             color: #333;
+          }
+          
+          .poscar-icon {
+            font-size: 1.3em;
+            cursor: help;
+            transition: transform 0.2s;
+            display: inline-block;
+          }
+          
+          .poscar-icon:hover {
+            transform: scale(1.2);
           }
           
           .data-meta {
@@ -2050,6 +2174,81 @@ jobs:
           
           .data-selector select:hover {
             border-color: #667eea;
+          }
+          
+          /* 3D Structure Viewer */
+          .structure-viewer-container {
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+          }
+          
+          .structure-viewer-container h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            font-weight: 600;
+          }
+          
+          .structure-viewer {
+            width: 100%;
+            height: 500px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background: #fafafa;
+            position: relative;
+            overflow: hidden;
+          }
+          
+          .viewer-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+          }
+          
+          .viewer-btn {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.95em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+          }
+          
+          .viewer-btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+          }
+          
+          .viewer-btn:active {
+            transform: translateY(0);
+          }
+          
+          .viewer-btn.download-btn {
+            background: #4caf50;
+          }
+          
+          .viewer-btn.download-btn:hover {
+            background: #45a049;
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+          }
+          
+          .error-message {
+            padding: 20px;
+            text-align: center;
+            color: #d32f2f;
+            font-weight: 500;
           }
           
           .chart-container {
