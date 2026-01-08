@@ -682,9 +682,37 @@ jobs:
               
               // Expanded row for secondary data
               if (hasSecondary) {
+                // Collect unique temperatures and sources from ALL data
+                const allDataPoints = [primary, ...secondary];
+                const temperatures = [...new Set(allDataPoints.map(d => d.temperature))].sort((a, b) => a - b);
+                const sources = [...new Set(allDataPoints.map(d => d.source))].sort();
+                
                 html += '<tr class="expanded-row hidden" data-parent-id="' + material.id + '">';
                 html += '<td colspan="100%"><div class="expanded-content">';
-                html += '<table class="sub-table"><thead><tr>';
+                
+                // Add selectors for temperature and source
+                html += '<div class="expanded-selectors">';
+                html += '<div class="selector-group">';
+                html += '<label>' + (currentLang === 'en' ? 'Temperature:' : '温度:') + '</label>';
+                html += '<select class="expanded-temp-select" onchange="filterExpandedRows(this, \'structure\', ' + material.id + ')">';
+                html += '<option value="all">' + (currentLang === 'en' ? 'All' : '全部') + '</option>';
+                temperatures.forEach(temp => {
+                  html += '<option value="' + temp + '">' + temp + 'K</option>';
+                });
+                html += '</select>';
+                html += '</div>';
+                html += '<div class="selector-group">';
+                html += '<label>' + (currentLang === 'en' ? 'Source:' : '来源:') + '</label>';
+                html += '<select class="expanded-source-select" onchange="filterExpandedRows(this, \'structure\', ' + material.id + ')">';
+                html += '<option value="all">' + (currentLang === 'en' ? 'All' : '全部') + '</option>';
+                sources.forEach(src => {
+                  html += '<option value="' + src + '">' + src + '</option>';
+                });
+                html += '</select>';
+                html += '</div>';
+                html += '</div>';
+                
+                html += '<table class="sub-table" data-material-id="' + material.id + '"><thead><tr>';
                 html += '<th>' + (currentLang === 'en' ? 'Temperature' : '温度') + '</th>';
                 html += '<th>' + (currentLang === 'en' ? 'Source' : '数据来源') + '</th>';
                 html += '<th>' + t('table.density') + '</th>';
@@ -693,11 +721,11 @@ jobs:
                 html += '<th>' + t('table.rdf') + '</th>';
                 html += '</tr></thead><tbody>';
                 
-                for (const dataPoint of secondary) {
+                for (const dataPoint of allDataPoints) {
                   const p = dataPoint.properties || {};
                   const s = p.structure || {};
                   const lattice = s.latticeParameters;
-                  html += '<tr>';
+                  html += '<tr data-temperature="' + dataPoint.temperature + '" data-source="' + dataPoint.source + '">';
                   html += '<td>' + dataPoint.temperature + 'K</td>';
                   html += '<td>' + dataPoint.source + '</td>';
                   html += '<td>' + formatValue(s.density, 3) + '</td>';
@@ -793,9 +821,35 @@ jobs:
               html += '</tr>';
               
               if (hasSecondary) {
+                const allDataPoints = [primary, ...secondary];
+                const temperatures = [...new Set(allDataPoints.map(d => d.temperature))].sort((a, b) => a - b);
+                const sources = [...new Set(allDataPoints.map(d => d.source))].sort();
+                
                 html += '<tr class="expanded-row hidden" data-parent-id="' + material.id + '">';
                 html += '<td colspan="100%"><div class="expanded-content">';
-                html += '<table class="sub-table"><thead><tr>';
+                
+                html += '<div class="expanded-selectors">';
+                html += '<div class="selector-group">';
+                html += '<label>' + (currentLang === 'en' ? 'Temperature:' : '温度:') + '</label>';
+                html += '<select class="expanded-temp-select" onchange="filterExpandedRows(this, \'thermodynamics\', ' + material.id + ')">';
+                html += '<option value="all">' + (currentLang === 'en' ? 'All' : '全部') + '</option>';
+                temperatures.forEach(temp => {
+                  html += '<option value="' + temp + '">' + temp + 'K</option>';
+                });
+                html += '</select>';
+                html += '</div>';
+                html += '<div class="selector-group">';
+                html += '<label>' + (currentLang === 'en' ? 'Source:' : '来源:') + '</label>';
+                html += '<select class="expanded-source-select" onchange="filterExpandedRows(this, \'thermodynamics\', ' + material.id + ')">';
+                html += '<option value="all">' + (currentLang === 'en' ? 'All' : '全部') + '</option>';
+                sources.forEach(src => {
+                  html += '<option value="' + src + '">' + src + '</option>';
+                });
+                html += '</select>';
+                html += '</div>';
+                html += '</div>';
+                
+                html += '<table class="sub-table" data-material-id="' + material.id + '"><thead><tr>';
                 html += '<th>' + (currentLang === 'en' ? 'Temperature' : '温度') + '</th>';
                 html += '<th>' + (currentLang === 'en' ? 'Source' : '数据来源') + '</th>';
                 html += '<th>' + t('table.specificHeat') + '</th>';
@@ -804,10 +858,10 @@ jobs:
                 html += '<th>' + t('table.thermalExpansion') + '</th>';
                 html += '</tr></thead><tbody>';
                 
-                for (const dataPoint of secondary) {
+                for (const dataPoint of allDataPoints) {
                   const p = dataPoint.properties || {};
                   const th = p.thermodynamics || {};
-                  html += '<tr>';
+                  html += '<tr data-temperature="' + dataPoint.temperature + '" data-source="' + dataPoint.source + '">';
                   html += '<td>' + dataPoint.temperature + 'K</td>';
                   html += '<td>' + dataPoint.source + '</td>';
                   html += '<td>' + formatValue(th.specificHeat, 2) + '</td>';
@@ -898,9 +952,35 @@ jobs:
               html += '</tr>';
               
               if (hasSecondary) {
+                const allDataPoints = [primary, ...secondary];
+                const temperatures = [...new Set(allDataPoints.map(d => d.temperature))].sort((a, b) => a - b);
+                const sources = [...new Set(allDataPoints.map(d => d.source))].sort();
+                
                 html += '<tr class="expanded-row hidden" data-parent-id="' + material.id + '">';
                 html += '<td colspan="100%"><div class="expanded-content">';
-                html += '<table class="sub-table"><thead><tr>';
+                
+                html += '<div class="expanded-selectors">';
+                html += '<div class="selector-group">';
+                html += '<label>' + (currentLang === 'en' ? 'Temperature:' : '温度:') + '</label>';
+                html += '<select class="expanded-temp-select" onchange="filterExpandedRows(this, \'mechanics\', ' + material.id + ')">';
+                html += '<option value="all">' + (currentLang === 'en' ? 'All' : '全部') + '</option>';
+                temperatures.forEach(temp => {
+                  html += '<option value="' + temp + '">' + temp + 'K</option>';
+                });
+                html += '</select>';
+                html += '</div>';
+                html += '<div class="selector-group">';
+                html += '<label>' + (currentLang === 'en' ? 'Source:' : '来源:') + '</label>';
+                html += '<select class="expanded-source-select" onchange="filterExpandedRows(this, \'mechanics\', ' + material.id + ')">';
+                html += '<option value="all">' + (currentLang === 'en' ? 'All' : '全部') + '</option>';
+                sources.forEach(src => {
+                  html += '<option value="' + src + '">' + src + '</option>';
+                });
+                html += '</select>';
+                html += '</div>';
+                html += '</div>';
+                
+                html += '<table class="sub-table" data-material-id="' + material.id + '"><thead><tr>';
                 html += '<th>' + (currentLang === 'en' ? 'Temperature' : '温度') + '</th>';
                 html += '<th>' + (currentLang === 'en' ? 'Source' : '数据来源') + '</th>';
                 html += '<th>' + (currentLang === 'en' ? 'Elastic' : '弹性常数') + '</th>';
@@ -909,11 +989,11 @@ jobs:
                 html += '<th>' + t('table.stressStrain') + '</th>';
                 html += '</tr></thead><tbody>';
                 
-                for (const dataPoint of secondary) {
+                for (const dataPoint of allDataPoints) {
                   const p = dataPoint.properties || {};
                   const m = p.mechanics || {};
                   const elastic = m.elasticConstants;
-                  html += '<tr>';
+                  html += '<tr data-temperature="' + dataPoint.temperature + '" data-source="' + dataPoint.source + '">';
                   html += '<td>' + dataPoint.temperature + 'K</td>';
                   html += '<td>' + dataPoint.source + '</td>';
                   
@@ -1026,9 +1106,35 @@ jobs:
               html += '</tr>';
               
               if (hasSecondary) {
+                const allDataPoints = [primary, ...secondary];
+                const temperatures = [...new Set(allDataPoints.map(d => d.temperature))].sort((a, b) => a - b);
+                const sources = [...new Set(allDataPoints.map(d => d.source))].sort();
+                
                 html += '<tr class="expanded-row hidden" data-parent-id="' + material.id + '">';
                 html += '<td colspan="100%"><div class="expanded-content">';
-                html += '<table class="sub-table"><thead><tr>';
+                
+                html += '<div class="expanded-selectors">';
+                html += '<div class="selector-group">';
+                html += '<label>' + (currentLang === 'en' ? 'Temperature:' : '温度:') + '</label>';
+                html += '<select class="expanded-temp-select" onchange="filterExpandedRows(this, \'defects\', ' + material.id + ')">';
+                html += '<option value="all">' + (currentLang === 'en' ? 'All' : '全部') + '</option>';
+                temperatures.forEach(temp => {
+                  html += '<option value="' + temp + '">' + temp + 'K</option>';
+                });
+                html += '</select>';
+                html += '</div>';
+                html += '<div class="selector-group">';
+                html += '<label>' + (currentLang === 'en' ? 'Source:' : '来源:') + '</label>';
+                html += '<select class="expanded-source-select" onchange="filterExpandedRows(this, \'defects\', ' + material.id + ')">';
+                html += '<option value="all">' + (currentLang === 'en' ? 'All' : '全部') + '</option>';
+                sources.forEach(src => {
+                  html += '<option value="' + src + '">' + src + '</option>';
+                });
+                html += '</select>';
+                html += '</div>';
+                html += '</div>';
+                
+                html += '<table class="sub-table" data-material-id="' + material.id + '"><thead><tr>';
                 html += '<th>' + (currentLang === 'en' ? 'Temperature' : '温度') + '</th>';
                 html += '<th>' + (currentLang === 'en' ? 'Source' : '数据来源') + '</th>';
                 html += '<th>' + t('table.vacancyEnergy') + '</th>';
@@ -1036,10 +1142,10 @@ jobs:
                 html += '<th>' + t('table.stackingFault') + '</th>';
                 html += '</tr></thead><tbody>';
                 
-                for (const dataPoint of secondary) {
+                for (const dataPoint of allDataPoints) {
                   const p = dataPoint.properties || {};
                   const d = p.defects || {};
-                  html += '<tr>';
+                  html += '<tr data-temperature="' + dataPoint.temperature + '" data-source="' + dataPoint.source + '">';
                   html += '<td>' + dataPoint.temperature + 'K</td>';
                   html += '<td>' + dataPoint.source + '</td>';
                   html += '<td>' + formatValue(d.vacancyFormationEnergy, 3) + '</td>';
@@ -1147,6 +1253,35 @@ jobs:
               details.classList.toggle('hidden');
               btn.textContent = details.classList.contains('hidden') ? '▼' : '▲';
             }
+          };
+          
+          // Filter expanded rows by temperature and/or source
+          window.filterExpandedRows = function(selectElement, tableType, materialId) {
+            const expandedRow = selectElement.closest('.expanded-content');
+            const tempSelect = expandedRow.querySelector('.expanded-temp-select');
+            const sourceSelect = expandedRow.querySelector('.expanded-source-select');
+            const table = expandedRow.querySelector('.sub-table[data-material-id="' + materialId + '"]');
+            
+            if (!table || !tempSelect || !sourceSelect) return;
+            
+            const selectedTemp = tempSelect.value;
+            const selectedSource = sourceSelect.value;
+            
+            const rows = table.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+              const rowTemp = row.getAttribute('data-temperature');
+              const rowSource = row.getAttribute('data-source');
+              
+              let showRow = true;
+              if (selectedTemp !== 'all' && rowTemp !== selectedTemp) {
+                showRow = false;
+              }
+              if (selectedSource !== 'all' && rowSource !== selectedSource) {
+                showRow = false;
+              }
+              
+              row.style.display = showRow ? '' : 'none';
+            });
           };
           
           // Show material detail in modal
@@ -2485,6 +2620,49 @@ jobs:
           .expanded-content {
             padding: 16px;
             border-top: 2px solid #e0e0e0;
+          }
+          
+          .expanded-selectors {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: #f0f4ff;
+            border-radius: 6px;
+            border: 1px solid #d0d7e5;
+          }
+          
+          .expanded-selectors .selector-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+          }
+          
+          .expanded-selectors label {
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9em;
+            white-space: nowrap;
+          }
+          
+          .expanded-selectors select {
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: white;
+            font-size: 0.9em;
+            cursor: pointer;
+            min-width: 120px;
+          }
+          
+          .expanded-selectors select:hover {
+            border-color: #667eea;
+          }
+          
+          .expanded-selectors select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
           }
           
           .sub-table {
