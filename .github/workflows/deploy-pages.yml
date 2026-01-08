@@ -372,10 +372,30 @@ jobs:
           
           // V2 Data Helper Functions
           
-          // Format composition with subscript numbers (Al2Cu4 → Al₂Cu₄)
+          // Format composition with subscript numbers (Al2Cu4 → Al₂Cu₄, a-Al2Cu3 → a-Al₂Cu₃)
           function formatComposition(composition) {
             if (!composition) return '-';
             const subscripts = ['₀','₁','₂','₃','₄','₅','₆','₇','₈','₉'];
+            // Handle interface notation (A/B or A2B3/C4D5)
+            if (composition.includes('/')) {
+              return composition.split('/').map(part => {
+                // Preserve a- prefix for amorphous
+                const hasPrefix = part.startsWith('a-');
+                const comp = hasPrefix ? part.substring(2) : part;
+                const formatted = comp.replace(/(\d+)/g, (match) => {
+                  return match.split('').map(d => subscripts[parseInt(d)]).join('');
+                });
+                return hasPrefix ? 'a-' + formatted : formatted;
+              }).join('/');
+            }
+            // Handle amorphous prefix
+            if (composition.startsWith('a-')) {
+              const comp = composition.substring(2);
+              return 'a-' + comp.replace(/(\d+)/g, (match) => {
+                return match.split('').map(d => subscripts[parseInt(d)]).join('');
+              });
+            }
+            // Regular composition
             return composition.replace(/(\d+)/g, (match) => {
               return match.split('').map(d => subscripts[parseInt(d)]).join('');
             });
@@ -1096,14 +1116,34 @@ jobs:
             
             // Data Source Selector for multi-temperature/source
             if (material.data && material.data.length > 1) {
+              // Get unique temperatures and sources
+              const temperatures = [...new Set(material.data.map(d => d.temperature))].sort((a, b) => a - b);
+              const sources = [...new Set(material.data.map(d => d.source))].sort();
+              
               html += '<div class="data-selector">';
-              html += '<label>' + (currentLang === 'en' ? 'Data Source:' : '数据来源:') + '</label>';
-              html += '<select id="dataSourceSelect" onchange="updateDetailView(\'' + materialId + '\', this.value)">';
-              material.data.forEach((dp, idx) => {
-                const label = dp.temperature + 'K, ' + dp.source;
-                html += '<option value="' + idx + '"' + (idx === 0 ? ' selected' : '') + '>' + label + '</option>';
+              
+              // Temperature selector
+              html += '<div class="selector-group">';
+              html += '<label>' + (currentLang === 'en' ? 'Temperature:' : '温度:') + '</label>';
+              html += '<select id="tempSelect-' + materialId + '" onchange="filterDetailData(\'' + materialId + '\', \'temp\')">';
+              html += '<option value="all">' + (currentLang === 'en' ? 'All' : '全部') + '</option>';
+              temperatures.forEach(temp => {
+                html += '<option value="' + temp + '">' + temp + 'K</option>';
               });
               html += '</select>';
+              html += '</div>';
+              
+              // Source selector
+              html += '<div class="selector-group">';
+              html += '<label>' + (currentLang === 'en' ? 'Source:' : '来源:') + '</label>';
+              html += '<select id="sourceSelect-' + materialId + '" onchange="filterDetailData(\'' + materialId + '\', \'source\')">';
+              html += '<option value="all">' + (currentLang === 'en' ? 'All' : '全部') + '</option>';
+              sources.forEach(src => {
+                html += '<option value="' + src + '">' + src + '</option>';
+              });
+              html += '</select>';
+              html += '</div>';
+              
               html += '</div>';
             }
             
@@ -1119,6 +1159,60 @@ jobs:
             if (struct && struct.poscar) {
               setTimeout(() => init3DViewer(materialId, struct.poscar), 100);
             }
+          };
+          
+          // Filter detail data by temperature or source
+          window.filterDetailData = function(materialId, filterType) {
+            const material = allData.find(m => m.id == materialId);
+            if (!material) return;
+            
+            const tempSelect = document.getElementById('tempSelect-' + materialId);
+            const sourceSelect = document.getElementById('sourceSelect-' + materialId);
+            
+            if (!tempSelect || !sourceSelect) return;
+            
+            const selectedTemp = tempSelect.value;
+            const selectedSource = sourceSelect.value;
+            
+            // Filter data based on selections
+            let filteredData = material.data;
+            
+            if (selectedTemp !== 'all') {
+              filteredData = filteredData.filter(d => d.temperature == selectedTemp);
+            }
+            
+            if (selectedSource !== 'all') {
+              filteredData = filteredData.filter(d => d.source === selectedSource);
+            }
+            
+            // Generate combined view for filtered data
+            const container = document.getElementById('detailDataView');
+            if (!container || filteredData.length === 0) return;
+            
+            // If multiple data points match, show them in sections
+            let html = '';
+            if (filteredData.length === 1) {
+              html = generateDetailView(material, filteredData[0]);
+            } else {
+              filteredData.forEach((dataPoint, idx) => {
+                html += '<div class="data-point-section">';
+                html += '<h3 class="data-point-header">' + dataPoint.temperature + 'K, ' + dataPoint.source + '</h3>';
+                html += generateDetailView(material, dataPoint);
+                html += '</div>';
+                if (idx < filteredData.length - 1) {
+                  html += '<hr class="data-separator">';
+                }
+              });
+            }
+            
+            container.innerHTML = html;
+            
+            // Re-initialize 3D viewers if needed
+            filteredData.forEach(dp => {
+              if (dp.properties?.structure?.poscar) {
+                setTimeout(() => init3DViewer(materialId, dp.properties.structure.poscar), 100);
+              }
+            });
           };
           
           // Generate detail view for specific data point
@@ -1192,21 +1286,35 @@ jobs:
             html += '<div class="detail-section">';
             html += '<h3>' + t('mechInfo') + '</h3>';
             html += '<div class="detail-grid">';
-            if (mech.elasticConstants && mech.elasticConstants.matrix) {
-              html += '<div class="detail-item full-width"><label>' + (currentLang === 'en' ? 'Elastic Constants Matrix (GPa):' : '弹性常数矩阵 (GPa):') + '</label>';
-              html += '<table class="cij-matrix-large">';
+            html += '<div class="detail-item"><label>' + t('table.youngsModulus') + ':</label><span>' + formatValue(mech.youngsModulus, 2) + ' GPa</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.bulkModulus') + ':</label><span>' + formatValue(mech.bulkModulus, 2) + ' GPa</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.shearModulus') + ':</label><span>' + formatValue(mech.shearModulus, 2) + ' GPa</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.poissonsRatio') + ':</label><span>' + formatValue(mech.poissonsRatio, 3) + '</span></div>';
+            html += '</div>';
+            
+            // Elastic Constants Matrix - support both array and object format
+            const elasticMatrix = mech.elasticConstants?.matrix || mech.elasticConstants;
+            if (elasticMatrix && Array.isArray(elasticMatrix)) {
+              html += '<div class="elastic-constants-section">';
+              html += '<h4>' + (currentLang === 'en' ? 'Elastic Constants Matrix C' : '弹性常数矩阵 C') + '<sub>ij</sub> (GPa)</h4>';
+              html += '<table class="cij-matrix">';
+              html += '<thead><tr><th></th>';
+              for (let j = 1; j <= 6; j++) {
+                html += '<th>C<sub>' + j + '</sub></th>';
+              }
+              html += '</tr></thead><tbody>';
               for (let i = 0; i < 6; i++) {
-                html += '<tr>';
+                html += '<tr><th>C<sub>' + (i+1) + '</sub></th>';
                 for (let j = 0; j < 6; j++) {
-                  html += '<td>' + formatValue(mech.elasticConstants.matrix[i][j], 1) + '</td>';
+                  const val = elasticMatrix[i] && elasticMatrix[i][j] !== undefined ? elasticMatrix[i][j] : 0;
+                  html += '<td>' + formatValue(val, 1) + '</td>';
                 }
                 html += '</tr>';
               }
-              html += '</table></div>';
+              html += '</tbody></table>';
+              html += '</div>';
             }
-            html += '<div class="detail-item"><label>' + t('table.youngsModulus') + ':</label><span>' + formatValue(mech.youngsModulus, 2) + ' GPa</span></div>';
-            html += '<div class="detail-item"><label>' + t('table.poissonsRatio') + ':</label><span>' + formatValue(mech.poissonsRatio, 3) + '</span></div>';
-            html += '</div>';
+            
             if (mech.stressStrain) {
               html += '<div class="chart-container">';
               html += '<h4>' + t('table.stressStrain') + '</h4>';
@@ -2705,17 +2813,25 @@ jobs:
             border-radius: 8px;
             border-left: 4px solid #ffc107;
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
-            gap: 12px;
+            gap: 20px;
+          }
+          
+          .data-selector .selector-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
           }
           
           .data-selector label {
             font-weight: 600;
             color: #333;
+            white-space: nowrap;
           }
           
           .data-selector select {
-            flex: 1;
+            min-width: 120px;
             padding: 8px 12px;
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -2726,6 +2842,67 @@ jobs:
           
           .data-selector select:hover {
             border-color: #667eea;
+          }
+          
+          .data-point-section {
+            margin-bottom: 20px;
+          }
+          
+          .data-point-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+          }
+          
+          .data-separator {
+            margin: 30px 0;
+            border: none;
+            border-top: 2px dashed #ddd;
+          }
+          
+          /* Elastic Constants Matrix */
+          .elastic-constants-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+          }
+          
+          .elastic-constants-section h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+          }
+          
+          .cij-matrix {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          }
+          
+          .cij-matrix th {
+            background: #667eea;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: 600;
+          }
+          
+          .cij-matrix td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+          }
+          
+          .cij-matrix tbody tr:nth-child(even) {
+            background: #f8f9fa;
+          }
+          
+          .cij-matrix tbody tr:hover {
+            background: #e3f2fd;
           }
           
           /* 3D Structure Viewer */
