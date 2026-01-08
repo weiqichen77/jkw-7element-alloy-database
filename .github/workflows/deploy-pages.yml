@@ -689,17 +689,48 @@ jobs:
                 html += '<th>' + (currentLang === 'en' ? 'Source' : '数据来源') + '</th>';
                 html += '<th>' + t('table.density') + '</th>';
                 html += '<th>' + (currentLang === 'en' ? 'Lattice' : '晶格') + '</th>';
+                html += '<th>' + (currentLang === 'en' ? 'Structure' : '原子结构') + '</th>';
                 html += '<th>' + t('table.rdf') + '</th>';
                 html += '</tr></thead><tbody>';
                 
                 for (const dataPoint of secondary) {
                   const p = dataPoint.properties || {};
                   const s = p.structure || {};
+                  const lattice = s.latticeParameters;
                   html += '<tr>';
                   html += '<td>' + dataPoint.temperature + 'K</td>';
                   html += '<td>' + dataPoint.source + '</td>';
                   html += '<td>' + formatValue(s.density, 3) + '</td>';
-                  html += '<td>' + (s.latticeParameters?.pointGroup || '-') + '</td>';
+                  
+                  // Lattice with dropdown
+                  html += '<td class="lattice-cell">';
+                  if (lattice && lattice.pointGroup) {
+                    html += '<div class="lattice-display">';
+                    html += '<span class="point-group">' + lattice.pointGroup + '</span>';
+                    html += '<button class="lattice-expand" onclick="toggleLattice(this, event)">▼</button>';
+                    html += '</div>';
+                    html += '<div class="lattice-details hidden">';
+                    if (lattice.a) html += '<div>a = ' + formatValue(lattice.a, 3) + ' Å</div>';
+                    if (lattice.b) html += '<div>b = ' + formatValue(lattice.b, 3) + ' Å</div>';
+                    if (lattice.c) html += '<div>c = ' + formatValue(lattice.c, 3) + ' Å</div>';
+                    if (lattice.alpha) html += '<div>α = ' + formatValue(lattice.alpha, 1) + '°</div>';
+                    if (lattice.beta) html += '<div>β = ' + formatValue(lattice.beta, 1) + '°</div>';
+                    if (lattice.gamma) html += '<div>γ = ' + formatValue(lattice.gamma, 1) + '°</div>';
+                    html += '</div>';
+                  } else {
+                    html += '-';
+                  }
+                  html += '</td>';
+                  
+                  // POSCAR with 3D icon
+                  html += '<td>';
+                  if (s.poscar) {
+                    html += '<span class="poscar-icon" title="' + (currentLang === 'en' ? 'View 3D structure' : '查看3D结构') + '" onclick="view3DStructure(\'' + material.id + '\', \'' + dataPoint.temperature + '\', \'' + dataPoint.source + '\')">🔬</span>';
+                  } else {
+                    html += '-';
+                  }
+                  html += '</td>';
+                  
                   html += '<td>' + formatFile(s.rdf) + '</td>';
                   html += '</tr>';
                 }
@@ -881,10 +912,33 @@ jobs:
                 for (const dataPoint of secondary) {
                   const p = dataPoint.properties || {};
                   const m = p.mechanics || {};
+                  const elastic = m.elasticConstants;
                   html += '<tr>';
                   html += '<td>' + dataPoint.temperature + 'K</td>';
                   html += '<td>' + dataPoint.source + '</td>';
-                  html += '<td>' + (m.elasticConstants?.matrix ? 'C₁₁=' + formatValue(m.elasticConstants.matrix[0][0], 1) : '-') + '</td>';
+                  
+                  // Elastic constants with matrix view
+                  html += '<td class="elastic-cell">';
+                  if (elastic && elastic.matrix) {
+                    html += '<div class="elastic-display">';
+                    html += '<span>C₁₁=' + formatValue(elastic.matrix[0][0], 1) + '</span>';
+                    html += '<button class="matrix-expand" onclick="toggleMatrix(this, event)">📊</button>';
+                    html += '</div>';
+                    html += '<div class="matrix-details hidden"><table class="cij-matrix">';
+                    for (let i = 0; i < 6; i++) {
+                      html += '<tr>';
+                      for (let j = 0; j < 6; j++) {
+                        const val = elastic.matrix[i][j];
+                        html += '<td>' + formatValue(val, 1) + '</td>';
+                      }
+                      html += '</tr>';
+                    }
+                    html += '</table></div>';
+                  } else {
+                    html += '-';
+                  }
+                  html += '</td>';
+                  
                   html += '<td>' + formatValue(m.youngsModulus, 2) + '</td>';
                   html += '<td>' + formatValue(m.poissonsRatio, 3) + '</td>';
                   html += '<td>' + formatFile(m.stressStrain) + '</td>';
