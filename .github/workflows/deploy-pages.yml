@@ -453,6 +453,11 @@ jobs:
                 showDetail(materialId);
               }
             });
+            
+            // Export button
+            document.getElementById('exportBtn').addEventListener('click', function() {
+              openExportDialog();
+            });
           }
           
           function filterAndDisplay() {
@@ -1347,15 +1352,260 @@ jobs:
             }, 100);
           };
           
+          // Export functionality
+          let currentFilteredData = [];
+          let selectedMaterials = new Set();
+          
+          function openExportDialog() {
+            const modal = document.getElementById('exportModal');
+            currentFilteredData = getCurrentFilteredData();
+            
+            // Update filtered count
+            const filteredCountEl = document.getElementById('filteredCount');
+            if (filteredCountEl) {
+              filteredCountEl.textContent = `(${currentFilteredData.length} materials)`;
+            }
+            
+            // Show/hide material selector based on selection
+            document.querySelectorAll('input[name="exportRange"]').forEach(radio => {
+              radio.addEventListener('change', function() {
+                const selector = document.getElementById('materialSelector');
+                if (this.value === 'selected') {
+                  selector.classList.remove('hidden');
+                  populateMaterialSelector();
+                } else {
+                  selector.classList.add('hidden');
+                }
+              });
+            });
+            
+            modal.style.display = 'block';
+          }
+          
+          function getCurrentFilteredData() {
+            const searchTerm = document.getElementById('q').value.toLowerCase();
+            let filtered = allData;
+            
+            if (currentType !== 'all') {
+              filtered = filtered.filter(item => item.type === currentType);
+            }
+            
+            if (searchTerm) {
+              filtered = filtered.filter(item => {
+                const matchesName = item.name.toLowerCase().includes(searchTerm);
+                const matchesElement = matchesElementFilter(item, searchTerm);
+                return matchesName || matchesElement;
+              });
+            }
+            
+            return filtered;
+          }
+          
+          function populateMaterialSelector() {
+            const listEl = document.getElementById('selectorList');
+            listEl.innerHTML = '';
+            
+            allData.forEach(material => {
+              const item = document.createElement('label');
+              item.className = 'selector-item';
+              const checkbox = document.createElement('input');
+              checkbox.type = 'checkbox';
+              checkbox.value = material.id;
+              checkbox.onchange = function() {
+                if (this.checked) {
+                  selectedMaterials.add(material.id);
+                } else {
+                  selectedMaterials.delete(material.id);
+                }
+              };
+              
+              item.appendChild(checkbox);
+              item.appendChild(document.createTextNode(' ' + material.id + ' - ' + material.name));
+              listEl.appendChild(item);
+            });
+            
+            // Search functionality
+            document.getElementById('selectorSearch').oninput = function() {
+              const query = this.value.toLowerCase();
+              document.querySelectorAll('.selector-item').forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(query) ? 'block' : 'none';
+              });
+            };
+          }
+          
+          function exportData() {
+            const format = document.querySelector('input[name="exportFormat"]:checked').value;
+            const range = document.querySelector('input[name="exportRange"]:checked').value;
+            
+            // Get data to export
+            let dataToExport = [];
+            if (range === 'all') {
+              dataToExport = allData;
+            } else if (range === 'filtered') {
+              dataToExport = currentFilteredData;
+            } else if (range === 'selected') {
+              dataToExport = allData.filter(m => selectedMaterials.has(m.id));
+            }
+            
+            if (dataToExport.length === 0) {
+              alert(currentLang === 'en' ? 'No data to export' : '没有可导出的数据');
+              return;
+            }
+            
+            // Get selected properties
+            const includeStructure = document.getElementById('propStructure').checked;
+            const includeThermodynamics = document.getElementById('propThermodynamics').checked;
+            const includeMechanics = document.getElementById('propMechanics').checked;
+            const includeDefects = document.getElementById('propDefects').checked;
+            
+            // Filter properties in each data point
+            const filteredDataExport = dataToExport.map(material => {
+              const newMaterial = {
+                id: material.id,
+                name: material.name,
+                type: material.type,
+                composition: material.composition,
+                data: material.data.map(dp => {
+                  const newDp = {
+                    temperature: dp.temperature,
+                    source: dp.source,
+                    properties: {}
+                  };
+                  
+                  if (includeStructure && dp.properties.structure) {
+                    newDp.properties.structure = dp.properties.structure;
+                  }
+                  if (includeThermodynamics && dp.properties.thermodynamics) {
+                    newDp.properties.thermodynamics = dp.properties.thermodynamics;
+                  }
+                  if (includeMechanics && dp.properties.mechanics) {
+                    newDp.properties.mechanics = dp.properties.mechanics;
+                  }
+                  if (includeDefects && dp.properties.defects) {
+                    newDp.properties.defects = dp.properties.defects;
+                  }
+                  
+                  return newDp;
+                })
+              };
+              return newMaterial;
+            });
+            
+            // Export based on format
+            if (format === 'json') {
+              exportJSON(filteredDataExport);
+            } else if (format === 'csv') {
+              exportCSV(filteredDataExport);
+            }
+            
+            // Close modal
+            document.getElementById('exportModal').style.display = 'none';
+          }
+          
+          function exportJSON(data) {
+            const jsonStr = JSON.stringify(data, null, 2);
+            const blob = new Blob([jsonStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'alloy_materials_' + new Date().toISOString().split('T')[0] + '.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+          }
+          
+          function exportCSV(data) {
+            // Flatten V2 data to CSV format (primary data only)
+            const rows = [];
+            const headers = [
+              'ID', 'Name', 'Type', 'Composition',
+              'Temperature', 'Source',
+              'Density', 'PointGroup', 'a', 'b', 'c', 'alpha', 'beta', 'gamma',
+              'SpecificHeat', 'MixingEnthalpy', 'DiffusionCoeff', 'ThermalExpansion',
+              'YoungsModulus', 'PoissonsRatio',
+              'VacancyEnergy', 'InterstitialEnergy', 'StackingFaultEnergy'
+            ];
+            rows.push(headers.join(','));
+            
+            data.forEach(material => {
+              material.data.forEach(dp => {
+                const row = [];
+                row.push(material.id);
+                row.push('"' + material.name + '"');
+                row.push(material.type);
+                row.push('"' + material.composition + '"');
+                row.push(dp.temperature);
+                row.push(dp.source);
+                
+                const props = dp.properties || {};
+                const struct = props.structure || {};
+                const thermo = props.thermodynamics || {};
+                const mech = props.mechanics || {};
+                const defects = props.defects || {};
+                
+                row.push(struct.density || '');
+                row.push(struct.latticeParameters?.pointGroup || '');
+                row.push(struct.latticeParameters?.a || '');
+                row.push(struct.latticeParameters?.b || '');
+                row.push(struct.latticeParameters?.c || '');
+                row.push(struct.latticeParameters?.alpha || '');
+                row.push(struct.latticeParameters?.beta || '');
+                row.push(struct.latticeParameters?.gamma || '');
+                row.push(thermo.specificHeat || '');
+                row.push(thermo.mixingEnthalpy || '');
+                row.push(thermo.diffusionCoefficient || '');
+                row.push(thermo.thermalExpansion || '');
+                row.push(mech.youngsModulus || '');
+                row.push(mech.poissonsRatio || '');
+                row.push(defects.vacancyFormationEnergy || '');
+                row.push(typeof defects.interstitialFormationEnergy === 'object' ? 
+                  JSON.stringify(defects.interstitialFormationEnergy) : 
+                  (defects.interstitialFormationEnergy || ''));
+                row.push(defects.stackingFaultEnergy || '');
+                
+                rows.push(row.join(','));
+              });
+            });
+            
+            const csvStr = rows.join('\n');
+            const blob = new Blob([csvStr], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'alloy_materials_' + new Date().toISOString().split('T')[0] + '.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+          }
+          
           // Modal close handlers
           document.getElementById('modalClose').onclick = function() {
             document.getElementById('detailModal').style.display = 'none';
           };
           
+          document.getElementById('exportModalClose').onclick = function() {
+            document.getElementById('exportModal').style.display = 'none';
+          };
+          
+          document.getElementById('executeExport').onclick = function() {
+            exportData();
+          };
+          
+          document.getElementById('cancelExport').onclick = function() {
+            document.getElementById('exportModal').style.display = 'none';
+          };
+          
           window.onclick = function(event) {
-            const modal = document.getElementById('detailModal');
-            if (event.target === modal) {
-              modal.style.display = 'none';
+            const detailModal = document.getElementById('detailModal');
+            const exportModal = document.getElementById('exportModal');
+            if (event.target === detailModal) {
+              detailModal.style.display = 'none';
+            }
+            if (event.target === exportModal) {
+              exportModal.style.display = 'none';
             }
           };
           EOF
@@ -1393,6 +1643,7 @@ jobs:
                 <div class="search-group">
                   <input id="q" placeholder="Search materials or elements..." />
                   <button id="search" class="btn-primary"><span id="searchBtnText">Search</span></button>
+                  <button id="exportBtn" class="btn-export" title="Export data / 导出数据"><span id="exportBtnText">📥 Export</span></button>
                 </div>
                 <div class="info-badge">
                   <span id="infoText">Tip: Select material type and property category, or use search to find specific materials</span>
@@ -1434,6 +1685,70 @@ jobs:
               <div class="modal-content">
                 <span class="modal-close" id="modalClose">&times;</span>
                 <div id="detailContent"></div>
+              </div>
+            </div>
+            
+            <!-- Export Dialog -->
+            <div id="exportModal" class="modal">
+              <div class="modal-content export-modal">
+                <span class="modal-close" id="exportModalClose">&times;</span>
+                <h2 id="exportTitle">Export Data / 导出数据</h2>
+                
+                <div class="export-section">
+                  <h3 id="exportFormatTitle">Export Format / 导出格式</h3>
+                  <div class="format-options">
+                    <label class="format-option">
+                      <input type="radio" name="exportFormat" value="json" checked />
+                      <span>JSON</span>
+                      <small id="jsonDesc">Complete data with full structure / 完整数据结构</small>
+                    </label>
+                    <label class="format-option">
+                      <input type="radio" name="exportFormat" value="csv" />
+                      <span>CSV</span>
+                      <small id="csvDesc">Spreadsheet format (primary data only) / 表格格式（仅主数据）</small>
+                    </label>
+                  </div>
+                </div>
+                
+                <div class="export-section">
+                  <h3 id="exportRangeTitle">Export Range / 导出范围</h3>
+                  <div class="range-options">
+                    <label class="range-option">
+                      <input type="radio" name="exportRange" value="all" checked />
+                      <span id="rangeAll">All materials</span>
+                    </label>
+                    <label class="range-option">
+                      <input type="radio" name="exportRange" value="filtered" />
+                      <span id="rangeFiltered">Current filtered results</span>
+                      <small id="filteredCount">(0 materials)</small>
+                    </label>
+                    <label class="range-option">
+                      <input type="radio" name="exportRange" value="selected" />
+                      <span id="rangeSelected">Selected materials</span>
+                    </label>
+                  </div>
+                  <div id="materialSelector" class="material-selector hidden">
+                    <div class="selector-search">
+                      <input type="text" id="selectorSearch" placeholder="Search to select..." />
+                    </div>
+                    <div class="selector-list" id="selectorList"></div>
+                  </div>
+                </div>
+                
+                <div class="export-section">
+                  <h3 id="exportPropsTitle">Properties to Export / 导出属性</h3>
+                  <div class="props-options">
+                    <label><input type="checkbox" id="propStructure" checked /> <span id="propStructureLabel">Structure</span></label>
+                    <label><input type="checkbox" id="propThermodynamics" checked /> <span id="propThermodynamicsLabel">Thermodynamics</span></label>
+                    <label><input type="checkbox" id="propMechanics" checked /> <span id="propMechanicsLabel">Mechanics</span></label>
+                    <label><input type="checkbox" id="propDefects" checked /> <span id="propDefectsLabel">Defects</span></label>
+                  </div>
+                </div>
+                
+                <div class="export-actions">
+                  <button id="executeExport" class="btn-primary"><span id="exportExecuteBtn">📥 Export</span></button>
+                  <button id="cancelExport" class="btn-secondary"><span id="exportCancelBtn">Cancel</span></button>
+                </div>
               </div>
             </div>
             
@@ -1570,6 +1885,41 @@ jobs:
           
           .btn-primary:hover {
             background: #5568d3;
+          }
+          
+          .btn-secondary {
+            padding: 12px 24px;
+            background: #e0e0e0;
+            color: #333;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: 500;
+          }
+          
+          .btn-secondary:hover {
+            background: #d0d0d0;
+          }
+          
+          .btn-export {
+            padding: 12px 24px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            margin-left: 10px;
+          }
+          
+          .btn-export:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
           }
           
           .info-badge {
@@ -2040,6 +2390,149 @@ jobs:
           .modal-close:hover,
           .modal-close:focus {
             color: #667eea;
+          }
+          
+          /* Export Modal */
+          .export-modal {
+            max-width: 800px;
+            padding: 30px;
+          }
+          
+          .export-modal h2 {
+            color: #667eea;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+          }
+          
+          .export-section {
+            margin-bottom: 25px;
+          }
+          
+          .export-section h3 {
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+          }
+          
+          .format-options, .range-options, .props-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+          }
+          
+          .format-option, .range-option {
+            display: flex;
+            align-items: flex-start;
+            padding: 15px;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+          }
+          
+          .format-option:hover, .range-option:hover {
+            border-color: #667eea;
+            background: #f0f7ff;
+          }
+          
+          .format-option input, .range-option input {
+            margin-right: 12px;
+            cursor: pointer;
+          }
+          
+          .format-option span, .range-option span {
+            font-weight: 500;
+            color: #333;
+          }
+          
+          .format-option small, .range-option small {
+            display: block;
+            color: #666;
+            font-size: 0.85em;
+            margin-top: 4px;
+          }
+          
+          .props-options {
+            flex-direction: row;
+            flex-wrap: wrap;
+          }
+          
+          .props-options label {
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+          }
+          
+          .props-options label:hover {
+            border-color: #667eea;
+            background: #f0f7ff;
+          }
+          
+          .props-options input {
+            margin-right: 8px;
+            cursor: pointer;
+          }
+          
+          .material-selector {
+            margin-top: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+          }
+          
+          .material-selector.hidden {
+            display: none;
+          }
+          
+          .selector-search {
+            padding: 12px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+          }
+          
+          .selector-search input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+          }
+          
+          .selector-list {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+          }
+          
+          .selector-item {
+            display: block;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+          }
+          
+          .selector-item:hover {
+            background: #f0f7ff;
+          }
+          
+          .selector-item input {
+            margin-right: 10px;
+          }
+          
+          .export-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+          }
+          
+          .export-actions button {
+            flex: 1;
           }
           
           #detailContent {
