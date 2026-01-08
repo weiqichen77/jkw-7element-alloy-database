@@ -311,10 +311,98 @@ jobs:
             }
           }
           
+          // V2 Data Helper Functions
+          
+          // Format composition with subscript numbers (Al2Cu4 → Al₂Cu₄)
+          function formatComposition(composition) {
+            if (!composition) return '-';
+            const subscripts = ['₀','₁','₂','₃','₄','₅','₆','₇','₈','₉'];
+            return composition.replace(/(\d+)/g, (match) => {
+              return match.split('').map(d => subscripts[parseInt(d)]).join('');
+            });
+          }
+          
+          // Get primary data (0K) for display
+          function getPrimaryData(material) {
+            if (!material.data || material.data.length === 0) return null;
+            // Find 0K data, prefer DFT source
+            let primary = material.data.find(d => d.temperature === 0 && d.source === 'DFT');
+            if (!primary) {
+              primary = material.data.find(d => d.temperature === 0);
+            }
+            if (!primary) {
+              primary = material.data[0]; // Fallback to first entry
+            }
+            return primary;
+          }
+          
+          // Get all secondary data (non-primary temperatures/sources)
+          function getSecondaryData(material) {
+            if (!material.data || material.data.length <= 1) return [];
+            const primary = getPrimaryData(material);
+            return material.data.filter(d => d !== primary);
+          }
+          
+          // Check if material has data for V2 format
+          function hasV2Data(material) {
+            return material.data && Array.isArray(material.data) && material.data.length > 0;
+          }
+          
+          // Normalize material to V2 format (convert old format if needed)
+          function normalizeMaterial(material) {
+            // If already V2 format, return as is
+            if (hasV2Data(material)) {
+              return material;
+            }
+            
+            // Convert V1 format to V2 format
+            return {
+              id: material.id,
+              name: material.name,
+              type: material.type,
+              composition: material.elements ? material.elements.join('') : '',
+              elements: material.elements || [],
+              atomCount: {},
+              data: [{
+                temperature: 0,
+                source: 'DFT',
+                properties: {
+                  structure: material.structure || {},
+                  thermodynamics: material.thermodynamics || {},
+                  mechanics: material.mechanics || {},
+                  defects: material.defects || {}
+                }
+              }]
+            };
+          }
+          
+          // Filter by element composition
+          function matchesElementFilter(material, query) {
+            if (!query) return true;
+            
+            const cleanQuery = query.trim().toLowerCase();
+            if (!cleanQuery) return true;
+            
+            // Check if it's a composition query (contains digits)
+            if (/\d/.test(cleanQuery)) {
+              // Match exact composition
+              const materialComp = material.composition ? material.composition.toLowerCase() : '';
+              return materialComp.includes(cleanQuery);
+            }
+            
+            // Simple element filter - check if material contains the element
+            return material.elements && material.elements.some(el => 
+              el.toLowerCase().includes(cleanQuery)
+            );
+          }
+          
           async function initApp() {
             // Load all data
             const response = await fetch('./data/materials.json');
-            allData = await response.json();
+            const rawData = await response.json();
+            
+            // Normalize all materials to V2 format
+            allData = rawData.map(m => normalizeMaterial(m));
             
             // Initialize UI text
             updateUIText();
@@ -378,12 +466,13 @@ jobs:
               filtered = filtered.filter(item => item.type === currentType);
             }
             
-            // Filter by search term
+            // Filter by search term (name or element composition)
             if (searchTerm) {
-              filtered = filtered.filter(item => 
-                item.name.toLowerCase().includes(searchTerm) ||
-                item.elements.some(el => el.toLowerCase().includes(searchTerm))
-              );
+              filtered = filtered.filter(item => {
+                const matchesName = item.name.toLowerCase().includes(searchTerm);
+                const matchesElement = matchesElementFilter(item, searchTerm);
+                return matchesName || matchesElement;
+              });
             }
             
             displayResults(filtered);
@@ -397,7 +486,21 @@ jobs:
               return;
             }
             
-            let html = '<div class="result-count">' + t('resultsCount').replace('{count}', data.length) + '</div>';
+            // Calculate total data points (accounting for multi-temperature/source)
+            let totalDataPoints = 0;
+            data.forEach(material => {
+              if (material.data && Array.isArray(material.data)) {
+                totalDataPoints += material.data.length;
+              } else {
+                totalDataPoints += 1; // V1 format
+              }
+            });
+            
+            const countText = currentLang === 'en' 
+              ? `Found ${data.length} materials with ${totalDataPoints} data points`
+              : `找到 ${data.length} 种材料，共 ${totalDataPoints} 条数据`;
+            
+            let html = '<div class="result-count">' + countText + '</div>';
             
             // Display different tables based on selected property category
             if (currentProperty === 'structure') {
@@ -414,30 +517,101 @@ jobs:
           }
           
           function displayStructureTable(data) {
-            let html = '<div class="table-wrapper"><table><thead><tr>';
+            let html = '<div class="data-note">';
+            html += currentLang === 'en' ? 
+              'Note: Values shown are at 0K unless specified. Click row to expand other temperatures.' :
+              '注：显示数值为0K下的数据（除非另有说明）。点击行可展开其他温度数据。';
+            html += '</div>';
+            
+            html += '<div class="table-wrapper"><table><thead><tr>';
+            html += '<th style="width:30px"></th>'; // Expand toggle
             html += '<th>' + t('table.id') + '</th>';
             html += '<th>' + t('table.name') + '</th>';
             html += '<th>' + t('table.type') + '</th>';
-            html += '<th>' + t('table.elements') + '</th>';
+            html += '<th>' + (currentLang === 'en' ? 'Composition' : '元素组成') + '</th>';
             html += '<th>' + t('table.density') + '<br/>(g/cm³)</th>';
-            html += '<th>' + t('table.latticeA') + '<br/>(Å)</th>';
-            html += '<th>' + t('table.latticeB') + '<br/>(Å)</th>';
-            html += '<th>' + t('table.latticeC') + '<br/>(Å)</th>';
+            html += '<th>' + (currentLang === 'en' ? 'Lattice Params' : '晶格参数') + '</th>';
             html += '<th>' + t('table.rdf') + '</th>';
             html += '</tr></thead><tbody>';
             
-            for (const x of data) {
-              html += '<tr>';
-              html += '<td>' + x.id + '</td>';
-              html += '<td><a href="#" class="material-link" data-id="' + x.id + '">' + x.name + '</a></td>';
-              html += '<td>' + translateType(x.type) + '</td>';
-              html += '<td>' + x.elements.join(', ') + '</td>';
-              html += '<td>' + formatValue(x.density, 3) + '</td>';
-              html += '<td>' + formatValue(x.structure?.latticeConstants?.a, 3) + '</td>';
-              html += '<td>' + formatValue(x.structure?.latticeConstants?.b, 3) + '</td>';
-              html += '<td>' + formatValue(x.structure?.latticeConstants?.c, 3) + '</td>';
-              html += '<td>' + formatFile(x.structure?.rdf) + '</td>';
+            for (const material of data) {
+              const primary = getPrimaryData(material);
+              const secondary = getSecondaryData(material);
+              const hasSecondary = secondary.length > 0;
+              
+              if (!primary) continue;
+              
+              const props = primary.properties || {};
+              const struct = props.structure || {};
+              
+              // Main row
+              html += '<tr class="material-row" data-id="' + material.id + '">';
+              
+              // Expand toggle
+              html += '<td class="expand-cell">';
+              if (hasSecondary) {
+                html += '<button class="expand-btn" onclick="toggleExpand(this)">▶</button>';
+              }
+              html += '</td>';
+              
+              html += '<td>' + material.id + '</td>';
+              html += '<td><a href="#" class="material-link" data-id="' + material.id + '">' + material.name + '</a></td>';
+              html += '<td>' + translateType(material.type) + '</td>';
+              html += '<td class="composition">' + formatComposition(material.composition) + '</td>';
+              html += '<td>' + formatValue(struct.density, 3);
+              if (hasSecondary) html += ' <span class="data-meta">(0K, ' + primary.source + ')</span>';
+              html += '</td>';
+              
+              // Lattice parameters with dropdown
+              html += '<td class="lattice-cell">';
+              const lattice = struct.latticeParameters;
+              if (lattice && lattice.pointGroup) {
+                html += '<div class="lattice-display">';
+                html += '<span class="point-group">' + lattice.pointGroup + '</span>';
+                html += '<button class="lattice-expand" onclick="toggleLattice(this, event)">▼</button>';
+                html += '</div>';
+                html += '<div class="lattice-details hidden">';
+                if (lattice.a) html += '<div>a = ' + formatValue(lattice.a, 3) + ' Å</div>';
+                if (lattice.b) html += '<div>b = ' + formatValue(lattice.b, 3) + ' Å</div>';
+                if (lattice.c) html += '<div>c = ' + formatValue(lattice.c, 3) + ' Å</div>';
+                if (lattice.alpha) html += '<div>α = ' + formatValue(lattice.alpha, 1) + '°</div>';
+                if (lattice.beta) html += '<div>β = ' + formatValue(lattice.beta, 1) + '°</div>';
+                if (lattice.gamma) html += '<div>γ = ' + formatValue(lattice.gamma, 1) + '°</div>';
+                html += '</div>';
+              } else {
+                html += '-';
+              }
+              html += '</td>';
+              
+              html += '<td>' + formatFile(struct.rdf) + '</td>';
               html += '</tr>';
+              
+              // Expanded row for secondary data
+              if (hasSecondary) {
+                html += '<tr class="expanded-row hidden" data-parent-id="' + material.id + '">';
+                html += '<td colspan="100%"><div class="expanded-content">';
+                html += '<table class="sub-table"><thead><tr>';
+                html += '<th>' + (currentLang === 'en' ? 'Temperature' : '温度') + '</th>';
+                html += '<th>' + (currentLang === 'en' ? 'Source' : '数据来源') + '</th>';
+                html += '<th>' + t('table.density') + '</th>';
+                html += '<th>' + (currentLang === 'en' ? 'Lattice' : '晶格') + '</th>';
+                html += '<th>' + t('table.rdf') + '</th>';
+                html += '</tr></thead><tbody>';
+                
+                for (const dataPoint of secondary) {
+                  const p = dataPoint.properties || {};
+                  const s = p.structure || {};
+                  html += '<tr>';
+                  html += '<td>' + dataPoint.temperature + 'K</td>';
+                  html += '<td>' + dataPoint.source + '</td>';
+                  html += '<td>' + formatValue(s.density, 3) + '</td>';
+                  html += '<td>' + (s.latticeParameters?.pointGroup || '-') + '</td>';
+                  html += '<td>' + formatFile(s.rdf) + '</td>';
+                  html += '</tr>';
+                }
+                
+                html += '</tbody></table></div></td></tr>';
+              }
             }
             
             html += '</tbody></table></div>';
@@ -445,28 +619,81 @@ jobs:
           }
           
           function displayThermodynamicsTable(data) {
-            let html = '<div class="table-wrapper"><table><thead><tr>';
+            let html = '<div class="data-note">';
+            html += currentLang === 'en' ? 
+              'Note: Values shown are at 0K unless specified. Click row to expand other temperatures.' :
+              '注：显示数值为0K下的数据（除非另有说明）。点击行可展开其他温度数据。';
+            html += '</div>';
+            
+            html += '<div class="table-wrapper"><table><thead><tr>';
+            html += '<th style="width:30px"></th>';
             html += '<th>' + t('table.id') + '</th>';
             html += '<th>' + t('table.name') + '</th>';
             html += '<th>' + t('table.type') + '</th>';
-            html += '<th>' + t('table.elements') + '</th>';
+            html += '<th>' + (currentLang === 'en' ? 'Composition' : '元素组成') + '</th>';
             html += '<th>' + t('table.specificHeat') + '<br/>(J/kg·K)</th>';
             html += '<th>' + t('table.mixingEnthalpy') + '<br/>(kJ/mol)</th>';
             html += '<th>' + t('table.diffusionCoeff') + '<br/>(m²/s)</th>';
             html += '<th>' + t('table.thermalExpansion') + '<br/>(10⁻⁶/K)</th>';
             html += '</tr></thead><tbody>';
             
-            for (const x of data) {
-              html += '<tr>';
-              html += '<td>' + x.id + '</td>';
-              html += '<td><a href="#" class="material-link" data-id="' + x.id + '">' + x.name + '</a></td>';
-              html += '<td>' + translateType(x.type) + '</td>';
-              html += '<td>' + x.elements.join(', ') + '</td>';
-              html += '<td>' + formatValue(x.thermodynamics?.specificHeat, 2) + '</td>';
-              html += '<td>' + formatValue(x.thermodynamics?.mixingEnthalpy, 2) + '</td>';
-              html += '<td>' + formatScientific(x.thermodynamics?.diffusionCoefficient) + '</td>';
-              html += '<td>' + formatScientific(x.thermodynamics?.thermalExpansion) + '</td>';
+            for (const material of data) {
+              const primary = getPrimaryData(material);
+              const secondary = getSecondaryData(material);
+              const hasSecondary = secondary.length > 0;
+              
+              if (!primary) continue;
+              
+              const props = primary.properties || {};
+              const thermo = props.thermodynamics || {};
+              
+              html += '<tr class="material-row" data-id="' + material.id + '">';
+              
+              html += '<td class="expand-cell">';
+              if (hasSecondary) {
+                html += '<button class="expand-btn" onclick="toggleExpand(this)">▶</button>';
+              }
+              html += '</td>';
+              
+              html += '<td>' + material.id + '</td>';
+              html += '<td><a href="#" class="material-link" data-id="' + material.id + '">' + material.name + '</a></td>';
+              html += '<td>' + translateType(material.type) + '</td>';
+              html += '<td class="composition">' + formatComposition(material.composition) + '</td>';
+              html += '<td>' + formatValue(thermo.specificHeat, 2);
+              if (hasSecondary) html += ' <span class="data-meta">(0K, ' + primary.source + ')</span>';
+              html += '</td>';
+              html += '<td>' + formatValue(thermo.mixingEnthalpy, 2) + '</td>';
+              html += '<td>' + formatScientific(thermo.diffusionCoefficient) + '</td>';
+              html += '<td>' + formatScientific(thermo.thermalExpansion) + '</td>';
               html += '</tr>';
+              
+              if (hasSecondary) {
+                html += '<tr class="expanded-row hidden" data-parent-id="' + material.id + '">';
+                html += '<td colspan="100%"><div class="expanded-content">';
+                html += '<table class="sub-table"><thead><tr>';
+                html += '<th>' + (currentLang === 'en' ? 'Temperature' : '温度') + '</th>';
+                html += '<th>' + (currentLang === 'en' ? 'Source' : '数据来源') + '</th>';
+                html += '<th>' + t('table.specificHeat') + '</th>';
+                html += '<th>' + t('table.mixingEnthalpy') + '</th>';
+                html += '<th>' + t('table.diffusionCoeff') + '</th>';
+                html += '<th>' + t('table.thermalExpansion') + '</th>';
+                html += '</tr></thead><tbody>';
+                
+                for (const dataPoint of secondary) {
+                  const p = dataPoint.properties || {};
+                  const th = p.thermodynamics || {};
+                  html += '<tr>';
+                  html += '<td>' + dataPoint.temperature + 'K</td>';
+                  html += '<td>' + dataPoint.source + '</td>';
+                  html += '<td>' + formatValue(th.specificHeat, 2) + '</td>';
+                  html += '<td>' + formatValue(th.mixingEnthalpy, 2) + '</td>';
+                  html += '<td>' + formatScientific(th.diffusionCoefficient) + '</td>';
+                  html += '<td>' + formatScientific(th.thermalExpansion) + '</td>';
+                  html += '</tr>';
+                }
+                
+                html += '</tbody></table></div></td></tr>';
+              }
             }
             
             html += '</tbody></table></div>';
@@ -474,32 +701,104 @@ jobs:
           }
           
           function displayMechanicsTable(data) {
-            let html = '<div class="table-wrapper"><table><thead><tr>';
+            let html = '<div class="data-note">';
+            html += currentLang === 'en' ? 
+              'Note: Values shown are at 0K unless specified. Click row to expand other temperatures. Click elastic constants to view full Cij matrix.' :
+              '注：显示数值为0K下的数据（除非另有说明）。点击行可展开其他温度数据。点击弹性常数可查看完整Cij矩阵。';
+            html += '</div>';
+            
+            html += '<div class="table-wrapper"><table><thead><tr>';
+            html += '<th style="width:30px"></th>';
             html += '<th>' + t('table.id') + '</th>';
             html += '<th>' + t('table.name') + '</th>';
             html += '<th>' + t('table.type') + '</th>';
-            html += '<th>' + t('table.elements') + '</th>';
-            html += '<th>C11<br/>(GPa)</th>';
-            html += '<th>C12<br/>(GPa)</th>';
-            html += '<th>C44<br/>(GPa)</th>';
+            html += '<th>' + (currentLang === 'en' ? 'Composition' : '元素组成') + '</th>';
+            html += '<th>' + (currentLang === 'en' ? 'Elastic (GPa)' : '弹性常数') + '</th>';
             html += '<th>' + t('table.youngsModulus') + '<br/>(GPa)</th>';
             html += '<th>' + t('table.poissonsRatio') + '</th>';
             html += '<th>' + t('table.stressStrain') + '</th>';
             html += '</tr></thead><tbody>';
             
-            for (const x of data) {
-              html += '<tr>';
-              html += '<td>' + x.id + '</td>';
-              html += '<td><a href="#" class="material-link" data-id="' + x.id + '">' + x.name + '</a></td>';
-              html += '<td>' + translateType(x.type) + '</td>';
-              html += '<td>' + x.elements.join(', ') + '</td>';
-              html += '<td>' + formatValue(x.mechanics?.elasticConstants?.C11, 2) + '</td>';
-              html += '<td>' + formatValue(x.mechanics?.elasticConstants?.C12, 2) + '</td>';
-              html += '<td>' + formatValue(x.mechanics?.elasticConstants?.C44, 2) + '</td>';
-              html += '<td>' + formatValue(x.mechanics?.youngsModulus, 2) + '</td>';
-              html += '<td>' + formatValue(x.mechanics?.poissonsRatio, 3) + '</td>';
-              html += '<td>' + formatFile(x.mechanics?.stressStrain) + '</td>';
+            for (const material of data) {
+              const primary = getPrimaryData(material);
+              const secondary = getSecondaryData(material);
+              const hasSecondary = secondary.length > 0;
+              
+              if (!primary) continue;
+              
+              const props = primary.properties || {};
+              const mech = props.mechanics || {};
+              const elastic = mech.elasticConstants;
+              
+              html += '<tr class="material-row" data-id="' + material.id + '">';
+              
+              html += '<td class="expand-cell">';
+              if (hasSecondary) {
+                html += '<button class="expand-btn" onclick="toggleExpand(this)">▶</button>';
+              }
+              html += '</td>';
+              
+              html += '<td>' + material.id + '</td>';
+              html += '<td><a href="#" class="material-link" data-id="' + material.id + '">' + material.name + '</a></td>';
+              html += '<td>' + translateType(material.type) + '</td>';
+              html += '<td class="composition">' + formatComposition(material.composition) + '</td>';
+              
+              // Elastic constants with matrix view
+              html += '<td class="elastic-cell">';
+              if (elastic && elastic.matrix) {
+                html += '<div class="elastic-display">';
+                html += '<span>C₁₁=' + formatValue(elastic.matrix[0][0], 1) + '</span>';
+                html += '<button class="matrix-expand" onclick="toggleMatrix(this, event)">📊</button>';
+                html += '</div>';
+                html += '<div class="matrix-details hidden"><table class="cij-matrix">';
+                for (let i = 0; i < 6; i++) {
+                  html += '<tr>';
+                  for (let j = 0; j < 6; j++) {
+                    const val = elastic.matrix[i][j];
+                    html += '<td>' + formatValue(val, 1) + '</td>';
+                  }
+                  html += '</tr>';
+                }
+                html += '</table></div>';
+              } else {
+                html += '-';
+              }
+              html += '</td>';
+              
+              html += '<td>' + formatValue(mech.youngsModulus, 2);
+              if (hasSecondary) html += ' <span class="data-meta">(0K, ' + primary.source + ')</span>';
+              html += '</td>';
+              html += '<td>' + formatValue(mech.poissonsRatio, 3) + '</td>';
+              html += '<td>' + formatFile(mech.stressStrain) + '</td>';
               html += '</tr>';
+              
+              if (hasSecondary) {
+                html += '<tr class="expanded-row hidden" data-parent-id="' + material.id + '">';
+                html += '<td colspan="100%"><div class="expanded-content">';
+                html += '<table class="sub-table"><thead><tr>';
+                html += '<th>' + (currentLang === 'en' ? 'Temperature' : '温度') + '</th>';
+                html += '<th>' + (currentLang === 'en' ? 'Source' : '数据来源') + '</th>';
+                html += '<th>' + (currentLang === 'en' ? 'Elastic' : '弹性常数') + '</th>';
+                html += '<th>' + t('table.youngsModulus') + '</th>';
+                html += '<th>' + t('table.poissonsRatio') + '</th>';
+                html += '<th>' + t('table.stressStrain') + '</th>';
+                html += '</tr></thead><tbody>';
+                
+                for (const dataPoint of secondary) {
+                  const p = dataPoint.properties || {};
+                  const m = p.mechanics || {};
+                  html += '<tr>';
+                  html += '<td>' + dataPoint.temperature + 'K</td>';
+                  html += '<td>' + dataPoint.source + '</td>';
+                  html += '<td>' + (m.elasticConstants?.matrix ? 'C₁₁=' + formatValue(m.elasticConstants.matrix[0][0], 1) : '-') + '</td>';
+                  html += '<td>' + formatValue(m.youngsModulus, 2) + '</td>';
+                  html += '<td>' + formatValue(m.poissonsRatio, 3) + '</td>';
+                  html += '<td>' + formatFile(m.stressStrain) + '</td>';
+                  html += '</tr>';
+                }
+                
+                html += '</tbody></table></div></td></tr>';
+              }
             }
             
             html += '</tbody></table></div>';
@@ -507,26 +806,109 @@ jobs:
           }
           
           function displayDefectsTable(data) {
-            let html = '<div class="table-wrapper"><table><thead><tr>';
+            let html = '<div class="data-note">';
+            html += currentLang === 'en' ? 
+              'Note: Values shown are at 0K unless specified. Click row to expand other temperatures. Interstitial shows all sites.' :
+              '注：显示数值为0K下的数据（除非另有说明）。点击行可展开其他温度数据。间隙能显示所有位点。';
+            html += '</div>';
+            
+            html += '<div class="table-wrapper"><table><thead><tr>';
+            html += '<th style="width:30px"></th>';
             html += '<th>' + t('table.id') + '</th>';
             html += '<th>' + t('table.name') + '</th>';
             html += '<th>' + t('table.type') + '</th>';
-            html += '<th>' + t('table.elements') + '</th>';
+            html += '<th>' + (currentLang === 'en' ? 'Composition' : '元素组成') + '</th>';
             html += '<th>' + t('table.vacancyEnergy') + '<br/>(eV)</th>';
             html += '<th>' + t('table.interstitialEnergy') + '<br/>(eV)</th>';
             html += '<th>' + t('table.stackingFault') + '<br/>(mJ/m²)</th>';
             html += '</tr></thead><tbody>';
             
-            for (const x of data) {
-              html += '<tr>';
-              html += '<td>' + x.id + '</td>';
-              html += '<td><a href="#" class="material-link" data-id="' + x.id + '">' + x.name + '</a></td>';
-              html += '<td>' + translateType(x.type) + '</td>';
-              html += '<td>' + x.elements.join(', ') + '</td>';
-              html += '<td>' + formatValue(x.defects?.vacancyFormationEnergy, 3) + '</td>';
-              html += '<td>' + formatValue(x.defects?.interstitialFormationEnergy, 3) + '</td>';
-              html += '<td>' + formatValue(x.defects?.stackingFaultEnergy, 2) + '</td>';
+            for (const material of data) {
+              const primary = getPrimaryData(material);
+              const secondary = getSecondaryData(material);
+              const hasSecondary = secondary.length > 0;
+              
+              if (!primary) continue;
+              
+              const props = primary.properties || {};
+              const defects = props.defects || {};
+              
+              html += '<tr class="material-row" data-id="' + material.id + '">';
+              
+              html += '<td class="expand-cell">';
+              if (hasSecondary) {
+                html += '<button class="expand-btn" onclick="toggleExpand(this)">▶</button>';
+              }
+              html += '</td>';
+              
+              html += '<td>' + material.id + '</td>';
+              html += '<td><a href="#" class="material-link" data-id="' + material.id + '">' + material.name + '</a></td>';
+              html += '<td>' + translateType(material.type) + '</td>';
+              html += '<td class="composition">' + formatComposition(material.composition) + '</td>';
+              html += '<td>' + formatValue(defects.vacancyFormationEnergy, 3);
+              if (hasSecondary) html += ' <span class="data-meta">(0K, ' + primary.source + ')</span>';
+              html += '</td>';
+              
+              // Interstitial with multiple sites
+              html += '<td class="interstitial-cell">';
+              if (defects.interstitialFormationEnergy) {
+                if (typeof defects.interstitialFormationEnergy === 'object') {
+                  // Multiple sites
+                  const sites = Object.keys(defects.interstitialFormationEnergy);
+                  html += '<div class="interstitial-display">';
+                  html += '<span>' + sites[0] + ': ' + formatValue(defects.interstitialFormationEnergy[sites[0]], 3) + '</span>';
+                  if (sites.length > 1) {
+                    html += '<button class="sites-expand" onclick="toggleSites(this, event)">▼</button>';
+                    html += '<div class="sites-details hidden">';
+                    for (const site of sites.slice(1)) {
+                      html += '<div>' + site + ': ' + formatValue(defects.interstitialFormationEnergy[site], 3) + ' eV</div>';
+                    }
+                    html += '</div>';
+                  }
+                  html += '</div>';
+                } else {
+                  html += formatValue(defects.interstitialFormationEnergy, 3);
+                }
+              } else {
+                html += '-';
+              }
+              html += '</td>';
+              
+              html += '<td>' + formatValue(defects.stackingFaultEnergy, 2) + '</td>';
               html += '</tr>';
+              
+              if (hasSecondary) {
+                html += '<tr class="expanded-row hidden" data-parent-id="' + material.id + '">';
+                html += '<td colspan="100%"><div class="expanded-content">';
+                html += '<table class="sub-table"><thead><tr>';
+                html += '<th>' + (currentLang === 'en' ? 'Temperature' : '温度') + '</th>';
+                html += '<th>' + (currentLang === 'en' ? 'Source' : '数据来源') + '</th>';
+                html += '<th>' + t('table.vacancyEnergy') + '</th>';
+                html += '<th>' + t('table.interstitialEnergy') + '</th>';
+                html += '<th>' + t('table.stackingFault') + '</th>';
+                html += '</tr></thead><tbody>';
+                
+                for (const dataPoint of secondary) {
+                  const p = dataPoint.properties || {};
+                  const d = p.defects || {};
+                  html += '<tr>';
+                  html += '<td>' + dataPoint.temperature + 'K</td>';
+                  html += '<td>' + dataPoint.source + '</td>';
+                  html += '<td>' + formatValue(d.vacancyFormationEnergy, 3) + '</td>';
+                  html += '<td>';
+                  if (typeof d.interstitialFormationEnergy === 'object') {
+                    const sites = Object.keys(d.interstitialFormationEnergy);
+                    html += sites.map(s => s + ':' + formatValue(d.interstitialFormationEnergy[s], 3)).join(', ');
+                  } else {
+                    html += formatValue(d.interstitialFormationEnergy, 3);
+                  }
+                  html += '</td>';
+                  html += '<td>' + formatValue(d.stackingFaultEnergy, 2) + '</td>';
+                  html += '</tr>';
+                }
+                
+                html += '</tbody></table></div></td></tr>';
+              }
             }
             
             html += '</tbody></table></div>';
@@ -554,18 +936,70 @@ jobs:
           function translateType(type) {
             const typeMap = {
               en: {
+                'element': 'Element',
+                'solid-solution': 'Solid Solution',
+                'intermetallic': 'Intermetallic',
                 'amorphous': 'Amorphous',
-                'crystalline': 'Crystalline',
-                'interface': 'Interface'
+                'interface': 'Interface',
+                'crystalline': 'Crystalline'
               },
               zh: {
+                'element': '单质',
+                'solid-solution': '固溶体',
+                'intermetallic': '金属间化合物',
                 'amorphous': '非晶态',
-                'crystalline': '晶态',
-                'interface': '界面'
+                'interface': '界面',
+                'crystalline': '晶态'
               }
             };
             return typeMap[currentLang][type] || type;
           }
+          
+          // Toggle row expansion for multi-temperature data
+          window.toggleExpand = function(btn) {
+            const mainRow = btn.closest('tr');
+            const materialId = mainRow.dataset.id;
+            const expandedRow = document.querySelector('.expanded-row[data-parent-id="' + materialId + '"]');
+            
+            if (expandedRow) {
+              const isExpanded = !expandedRow.classList.contains('hidden');
+              expandedRow.classList.toggle('hidden');
+              btn.textContent = isExpanded ? '▶' : '▼';
+            }
+          };
+          
+          // Toggle lattice parameters dropdown
+          window.toggleLattice = function(btn, event) {
+            event.stopPropagation();
+            const cell = btn.closest('.lattice-cell');
+            const details = cell.querySelector('.lattice-details');
+            if (details) {
+              details.classList.toggle('hidden');
+              btn.textContent = details.classList.contains('hidden') ? '▼' : '▲';
+            }
+          };
+          
+          // Toggle Cij matrix display
+          window.toggleMatrix = function(btn, event) {
+            event.stopPropagation();
+            const cell = btn.closest('.elastic-cell');
+            const details = cell.querySelector('.matrix-details');
+            if (details) {
+              details.classList.toggle('hidden');
+              btn.textContent = details.classList.contains('hidden') ? '📊' : '✖';
+            }
+          };
+          
+          // Toggle interstitial sites display
+          window.toggleSites = function(btn, event) {
+            event.stopPropagation();
+            const display = btn.closest('.interstitial-display');
+            const details = display.querySelector('.sites-details');
+            if (details) {
+              details.classList.toggle('hidden');
+              btn.textContent = details.classList.contains('hidden') ? '▼' : '▲';
+            }
+          };
           
           // Show material detail in modal
           window.showDetail = function(materialId) {
@@ -575,7 +1009,42 @@ jobs:
             const modal = document.getElementById('detailModal');
             const content = document.getElementById('detailContent');
             
+            const primary = getPrimaryData(material);
+            if (!primary) {
+              content.innerHTML = '<p>No data available for this material.</p>';
+              modal.style.display = 'block';
+              return;
+            }
+            
+            const props = primary.properties || {};
+            
             let html = '<h2>' + material.name + '</h2>';
+            
+            // Data Source Selector for multi-temperature/source
+            if (material.data && material.data.length > 1) {
+              html += '<div class="data-selector">';
+              html += '<label>' + (currentLang === 'en' ? 'Data Source:' : '数据来源:') + '</label>';
+              html += '<select id="dataSourceSelect" onchange="updateDetailView(\'' + materialId + '\', this.value)">';
+              material.data.forEach((dp, idx) => {
+                const label = dp.temperature + 'K, ' + dp.source;
+                html += '<option value="' + idx + '"' + (idx === 0 ? ' selected' : '') + '>' + label + '</option>';
+              });
+              html += '</select>';
+              html += '</div>';
+            }
+            
+            html += '<div id="detailDataView">';
+            html += generateDetailView(material, primary);
+            html += '</div>';
+            
+            content.innerHTML = html;
+            modal.style.display = 'block';
+          };
+          
+          // Generate detail view for specific data point
+          function generateDetailView(material, dataPoint) {
+            const props = dataPoint.properties || {};
+            let html = '';
             
             // Basic Information
             html += '<div class="detail-section">';
@@ -584,69 +1053,110 @@ jobs:
             html += '<div class="detail-item"><label>ID:</label><span>' + material.id + '</span></div>';
             html += '<div class="detail-item"><label>' + t('table.name') + ':</label><span>' + material.name + '</span></div>';
             html += '<div class="detail-item"><label>' + t('table.type') + ':</label><span>' + translateType(material.type) + '</span></div>';
-            html += '<div class="detail-item"><label>' + t('table.elements') + ':</label><span>' + material.elements.join(', ') + '</span></div>';
-            html += '<div class="detail-item"><label>' + t('table.density') + ':</label><span>' + formatValue(material.density, 3) + ' g/cm³</span></div>';
+            html += '<div class="detail-item"><label>' + (currentLang === 'en' ? 'Composition:' : '元素组成:') + '</label><span>' + formatComposition(material.composition) + '</span></div>';
+            html += '<div class="detail-item"><label>' + (currentLang === 'en' ? 'Temperature:' : '温度:') + '</label><span>' + dataPoint.temperature + ' K</span></div>';
+            html += '<div class="detail-item"><label>' + (currentLang === 'en' ? 'Source:' : '数据来源:') + '</label><span>' + dataPoint.source + '</span></div>';
             html += '</div></div>';
             
             // Structure Properties
+            const struct = props.structure || {};
             html += '<div class="detail-section">';
             html += '<h3>' + t('structureInfo') + '</h3>';
             html += '<div class="detail-grid">';
-            if (material.structure?.latticeConstants) {
-              html += '<div class="detail-item"><label>' + t('table.latticeA') + ':</label><span>' + formatValue(material.structure.latticeConstants.a, 3) + ' Å</span></div>';
-              html += '<div class="detail-item"><label>' + t('table.latticeB') + ':</label><span>' + formatValue(material.structure.latticeConstants.b, 3) + ' Å</span></div>';
-              html += '<div class="detail-item"><label>' + t('table.latticeC') + ':</label><span>' + formatValue(material.structure.latticeConstants.c, 3) + ' Å</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.density') + ':</label><span>' + formatValue(struct.density, 3) + ' g/cm³</span></div>';
+            if (struct.latticeParameters) {
+              html += '<div class="detail-item"><label>' + (currentLang === 'en' ? 'Point Group:' : '点群:') + '</label><span>' + (struct.latticeParameters.pointGroup || '-') + '</span></div>';
+              if (struct.latticeParameters.a) html += '<div class="detail-item"><label>a:</label><span>' + formatValue(struct.latticeParameters.a, 3) + ' Å</span></div>';
+              if (struct.latticeParameters.b) html += '<div class="detail-item"><label>b:</label><span>' + formatValue(struct.latticeParameters.b, 3) + ' Å</span></div>';
+              if (struct.latticeParameters.c) html += '<div class="detail-item"><label>c:</label><span>' + formatValue(struct.latticeParameters.c, 3) + ' Å</span></div>';
+              if (struct.latticeParameters.alpha) html += '<div class="detail-item"><label>α:</label><span>' + formatValue(struct.latticeParameters.alpha, 1) + '°</span></div>';
+              if (struct.latticeParameters.beta) html += '<div class="detail-item"><label>β:</label><span>' + formatValue(struct.latticeParameters.beta, 1) + '°</span></div>';
+              if (struct.latticeParameters.gamma) html += '<div class="detail-item"><label>γ:</label><span>' + formatValue(struct.latticeParameters.gamma, 1) + '°</span></div>';
             }
             html += '</div>';
-            if (material.structure?.rdf) {
+            if (struct.rdf) {
               html += '<div class="chart-container">';
               html += '<h4>' + t('table.rdf') + '</h4>';
-              html += renderChart(material.structure.rdf, 'rdf-' + material.id, 'RDF');
+              html += renderChart(struct.rdf, 'rdf-' + material.id, 'RDF');
               html += '</div>';
             }
             html += '</div>';
             
             // Thermodynamics Properties
+            const thermo = props.thermodynamics || {};
             html += '<div class="detail-section">';
             html += '<h3>' + t('thermoInfo') + '</h3>';
             html += '<div class="detail-grid">';
-            html += '<div class="detail-item"><label>' + t('table.specificHeat') + ':</label><span>' + formatValue(material.thermodynamics?.specificHeat, 2) + ' J/kg·K</span></div>';
-            html += '<div class="detail-item"><label>' + t('table.mixingEnthalpy') + ':</label><span>' + formatValue(material.thermodynamics?.mixingEnthalpy, 2) + ' kJ/mol</span></div>';
-            html += '<div class="detail-item"><label>' + t('table.diffusionCoeff') + ':</label><span>' + formatScientific(material.thermodynamics?.diffusionCoefficient) + ' m²/s</span></div>';
-            html += '<div class="detail-item"><label>' + t('table.thermalExpansion') + ':</label><span>' + formatScientific(material.thermodynamics?.thermalExpansion) + ' 10⁻⁶/K</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.specificHeat') + ':</label><span>' + formatValue(thermo.specificHeat, 2) + ' J/kg·K</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.mixingEnthalpy') + ':</label><span>' + formatValue(thermo.mixingEnthalpy, 2) + ' kJ/mol</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.diffusionCoeff') + ':</label><span>' + formatScientific(thermo.diffusionCoefficient) + ' m²/s</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.thermalExpansion') + ':</label><span>' + formatScientific(thermo.thermalExpansion) + ' 10⁻⁶/K</span></div>';
             html += '</div></div>';
             
             // Mechanics Properties
+            const mech = props.mechanics || {};
             html += '<div class="detail-section">';
             html += '<h3>' + t('mechInfo') + '</h3>';
             html += '<div class="detail-grid">';
-            if (material.mechanics?.elasticConstants) {
-              html += '<div class="detail-item"><label>C11:</label><span>' + formatValue(material.mechanics.elasticConstants.C11, 2) + ' GPa</span></div>';
-              html += '<div class="detail-item"><label>C12:</label><span>' + formatValue(material.mechanics.elasticConstants.C12, 2) + ' GPa</span></div>';
-              html += '<div class="detail-item"><label>C44:</label><span>' + formatValue(material.mechanics.elasticConstants.C44, 2) + ' GPa</span></div>';
+            if (mech.elasticConstants && mech.elasticConstants.matrix) {
+              html += '<div class="detail-item full-width"><label>' + (currentLang === 'en' ? 'Elastic Constants Matrix (GPa):' : '弹性常数矩阵 (GPa):') + '</label>';
+              html += '<table class="cij-matrix-large">';
+              for (let i = 0; i < 6; i++) {
+                html += '<tr>';
+                for (let j = 0; j < 6; j++) {
+                  html += '<td>' + formatValue(mech.elasticConstants.matrix[i][j], 1) + '</td>';
+                }
+                html += '</tr>';
+              }
+              html += '</table></div>';
             }
-            html += '<div class="detail-item"><label>' + t('table.youngsModulus') + ':</label><span>' + formatValue(material.mechanics?.youngsModulus, 2) + ' GPa</span></div>';
-            html += '<div class="detail-item"><label>' + t('table.poissonsRatio') + ':</label><span>' + formatValue(material.mechanics?.poissonsRatio, 3) + '</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.youngsModulus') + ':</label><span>' + formatValue(mech.youngsModulus, 2) + ' GPa</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.poissonsRatio') + ':</label><span>' + formatValue(mech.poissonsRatio, 3) + '</span></div>';
             html += '</div>';
-            if (material.mechanics?.stressStrain) {
+            if (mech.stressStrain) {
               html += '<div class="chart-container">';
               html += '<h4>' + t('table.stressStrain') + '</h4>';
-              html += renderChart(material.mechanics.stressStrain, 'stress-' + material.id, 'Stress-Strain');
+              html += renderChart(mech.stressStrain, 'stress-' + material.id, 'Stress-Strain');
               html += '</div>';
             }
             html += '</div>';
             
             // Defect Properties
+            const defects = props.defects || {};
             html += '<div class="detail-section">';
             html += '<h3>' + t('defectInfo') + '</h3>';
             html += '<div class="detail-grid">';
-            html += '<div class="detail-item"><label>' + t('table.vacancyEnergy') + ':</label><span>' + formatValue(material.defects?.vacancyFormationEnergy, 3) + ' eV</span></div>';
-            html += '<div class="detail-item"><label>' + t('table.interstitialEnergy') + ':</label><span>' + formatValue(material.defects?.interstitialFormationEnergy, 3) + ' eV</span></div>';
-            html += '<div class="detail-item"><label>' + t('table.stackingFault') + ':</label><span>' + formatValue(material.defects?.stackingFaultEnergy, 2) + ' mJ/m²</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.vacancyEnergy') + ':</label><span>' + formatValue(defects.vacancyFormationEnergy, 3) + ' eV</span></div>';
+            
+            // Interstitial with multiple sites
+            if (defects.interstitialFormationEnergy) {
+              if (typeof defects.interstitialFormationEnergy === 'object') {
+                html += '<div class="detail-item full-width"><label>' + t('table.interstitialEnergy') + ':</label><div class="sites-list">';
+                for (const [site, energy] of Object.entries(defects.interstitialFormationEnergy)) {
+                  html += '<div><strong>' + site + ':</strong> ' + formatValue(energy, 3) + ' eV</div>';
+                }
+                html += '</div></div>';
+              } else {
+                html += '<div class="detail-item"><label>' + t('table.interstitialEnergy') + ':</label><span>' + formatValue(defects.interstitialFormationEnergy, 3) + ' eV</span></div>';
+              }
+            }
+            
+            html += '<div class="detail-item"><label>' + t('table.stackingFault') + ':</label><span>' + formatValue(defects.stackingFaultEnergy, 2) + ' mJ/m²</span></div>';
             html += '</div></div>';
             
-            content.innerHTML = html;
-            modal.style.display = 'block';
+            return html;
+          }
+          
+          // Update detail view when user changes data source
+          window.updateDetailView = function(materialId, dataIndex) {
+            const material = allData.find(m => m.id == materialId);
+            if (!material || !material.data[dataIndex]) return;
+            
+            const dataPoint = material.data[dataIndex];
+            const viewDiv = document.getElementById('detailDataView');
+            if (viewDiv) {
+              viewDiv.innerHTML = generateDetailView(material, dataPoint);
+            }
           };
           
           // Render chart (image or plot)
@@ -1109,6 +1619,253 @@ jobs:
             color: #4557c2;
           }
           
+          /* V2 Features: Expandable Rows, Composition, Data Notes */
+          .data-note {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #1565c0;
+          }
+          
+          .composition {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 500;
+            color: #333;
+          }
+          
+          .data-meta {
+            font-size: 0.85em;
+            color: #666;
+            font-weight: normal;
+          }
+          
+          /* Expandable Row System */
+          .expand-cell {
+            width: 30px;
+            text-align: center;
+            padding: 4px !important;
+          }
+          
+          .expand-btn {
+            background: transparent;
+            border: none;
+            font-size: 0.9em;
+            cursor: pointer;
+            color: #667eea;
+            padding: 2px 6px;
+            transition: transform 0.2s;
+          }
+          
+          .expand-btn:hover {
+            transform: scale(1.2);
+          }
+          
+          .expanded-row {
+            background: #f8f9fa;
+          }
+          
+          .expanded-row.hidden {
+            display: none;
+          }
+          
+          .expanded-content {
+            padding: 16px;
+            border-top: 2px solid #e0e0e0;
+          }
+          
+          .sub-table {
+            width: 100%;
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+          }
+          
+          .sub-table th {
+            background: #667eea;
+            color: white;
+            padding: 8px;
+            font-size: 0.9em;
+          }
+          
+          .sub-table td {
+            padding: 8px;
+            font-size: 0.9em;
+            border-bottom: 1px solid #eee;
+          }
+          
+          /* Lattice Parameters Dropdown */
+          .lattice-cell {
+            position: relative;
+          }
+          
+          .lattice-display {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+          }
+          
+          .point-group {
+            font-weight: 600;
+            color: #333;
+          }
+          
+          .lattice-expand {
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 2px 6px;
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: background 0.2s;
+          }
+          
+          .lattice-expand:hover {
+            background: #5568d3;
+          }
+          
+          .lattice-details {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            padding: 12px;
+            z-index: 100;
+            min-width: 150px;
+            margin-top: 4px;
+          }
+          
+          .lattice-details.hidden {
+            display: none;
+          }
+          
+          .lattice-details div {
+            padding: 4px 0;
+            font-size: 0.9em;
+            color: #333;
+          }
+          
+          /* Elastic Constants Matrix */
+          .elastic-cell {
+            position: relative;
+          }
+          
+          .elastic-display {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+          }
+          
+          .matrix-expand {
+            background: transparent;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            padding: 2px 6px;
+            transition: transform 0.2s;
+          }
+          
+          .matrix-expand:hover {
+            transform: scale(1.2);
+          }
+          
+          .matrix-details {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+            padding: 16px;
+            z-index: 200;
+            margin-top: 8px;
+          }
+          
+          .matrix-details.hidden {
+            display: none;
+          }
+          
+          .cij-matrix {
+            border-collapse: separate;
+            border-spacing: 0;
+          }
+          
+          .cij-matrix td {
+            border: 1px solid #ddd;
+            padding: 6px 10px;
+            text-align: center;
+            font-size: 0.85em;
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+          }
+          
+          .cij-matrix tr:first-child td {
+            background: #e3f2fd;
+          }
+          
+          .cij-matrix td:first-child {
+            background: #e3f2fd;
+          }
+          
+          /* Interstitial Sites */
+          .interstitial-cell {
+            position: relative;
+          }
+          
+          .interstitial-display {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+          }
+          
+          .sites-expand {
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 2px 6px;
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: background 0.2s;
+          }
+          
+          .sites-expand:hover {
+            background: #5568d3;
+          }
+          
+          .sites-details {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            padding: 12px;
+            z-index: 100;
+            min-width: 200px;
+            margin-top: 4px;
+          }
+          
+          .sites-details.hidden {
+            display: none;
+          }
+          
+          .sites-details div {
+            padding: 4px 0;
+            font-size: 0.9em;
+            color: #333;
+          }
+          
           /* Modal Styles */
           .modal {
             display: none;
@@ -1216,6 +1973,83 @@ jobs:
           .detail-item span {
             color: #333;
             word-break: break-word;
+          }
+          
+          .detail-item.full-width {
+            grid-column: 1 / -1;
+            flex-direction: column;
+          }
+          
+          .detail-item.full-width label {
+            margin-bottom: 10px;
+          }
+          
+          .sites-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+          }
+          
+          .sites-list div {
+            padding: 8px 12px;
+            background: #f0f0f0;
+            border-radius: 4px;
+          }
+          
+          .cij-matrix-large {
+            margin-top: 10px;
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+          }
+          
+          .cij-matrix-large td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            font-size: 0.95em;
+          }
+          
+          .cij-matrix-large tr:first-child td {
+            background: #e3f2fd;
+            font-weight: 600;
+          }
+          
+          .cij-matrix-large td:first-child {
+            background: #e3f2fd;
+            font-weight: 600;
+          }
+          
+          .data-selector {
+            background: #fff9e6;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+          }
+          
+          .data-selector label {
+            font-weight: 600;
+            color: #333;
+          }
+          
+          .data-selector select {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.95em;
+            background: white;
+            cursor: pointer;
+          }
+          
+          .data-selector select:hover {
+            border-color: #667eea;
           }
           
           .chart-container {
