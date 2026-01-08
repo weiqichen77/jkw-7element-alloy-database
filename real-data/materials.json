@@ -18340,5 +18340,156 @@
       "Co",
       "Nb"
     ]
+  },
+  {
+    "id": 101,
+    "name": "Al2Cu3/Nb4Ta5-interface",
+    "type": "interface",
+    "composition": "Al2Cu3/Nb4Ta5",
+    "elements": [
+      "Al",
+      "Cu",
+      "Nb",
+      "Ta"
+    ],
+    "data": [
+      {
+        "temperature": 0,
+        "source": "DFT",
+        "properties": {
+          "structure": {
+            "density": 8.5
+          },
+          "thermodynamics": {
+            "formationEnergy": -0.5,
+            "mixingEnthalpy": 0.3
+          },
+          "mechanics": {
+            "youngsModulus": 180,
+            "bulkModulus": 150,
+            "shearModulus": 80,
+            "poissonsRatio": 0.28
+          },
+          "defects": {}
+        }
+      }
+    ]
+  },
+  {
+    "id": 102,
+    "name": "a-Al2Nb3-amorphous",
+    "type": "amorphous",
+    "composition": "a-Al2Nb3",
+    "elements": [
+      "Al",
+      "Nb"
+    ],
+    "data": [
+      {
+        "temperature": 0,
+        "source": "DFT",
+        "properties": {
+          "structure": {
+            "density": 6.2,
+            "rdf": "data/rdf/a-Al2Nb3.dat"
+          },
+          "thermodynamics": {
+            "formationEnergy": -0.8,
+            "mixingEnthalpy": 0.1
+          },
+          "mechanics": {
+            "youngsModulus": 120,
+            "bulkModulus": 100,
+            "shearModulus": 50,
+            "poissonsRatio": 0.32
+          },
+          "defects": {}
+        }
+      }
+    ]
+  },
+  {
+    "id": 103,
+    "name": "Al2Cu3/a-Nb4Ta5-interface",
+    "type": "interface",
+    "composition": "Al2Cu3/a-Nb4Ta5",
+    "elements": [
+      "Al",
+      "Cu",
+      "Nb",
+      "Ta"
+    ],
+    "data": [
+      {
+        "temperature": 0,
+        "source": "DFT",
+        "properties": {
+          "structure": {
+            "density": 7.8
+          },
+          "thermodynamics": {
+            "formationEnergy": -0.4,
+            "mixingEnthalpy": 0.5
+          },
+          "mechanics": {
+            "youngsModulus": 160,
+            "bulkModulus": 140,
+            "shearModulus": 70,
+            "poissonsRatio": 0.3,
+            "elasticConstants": [
+              [
+                320,
+                140,
+                140,
+                0,
+                0,
+                0
+              ],
+              [
+                140,
+                320,
+                140,
+                0,
+                0,
+                0
+              ],
+              [
+                140,
+                140,
+                320,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                90,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                90,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                90
+              ]
+            ]
+          },
+          "defects": {}
+        }
+      }
+    ]
   }
 ]

@@ -37,6 +37,11 @@ The V2 database adds 7 major core features:
 - 支持按元素组成搜索
 - Search by composition supported
 
+**特殊标记 / Special Notations:**
+- 非晶前缀 / Amorphous prefix: `a-Al₂Nb₃`
+- 界面分隔 / Interface separator: `Al₂Cu₃/Nb₄Ta₅`
+- 组合标记 / Combined: `Al₂Cu₃/a-Nb₄Ta₅`
+
 ### 3. 多温度数据 / Multi-temperature Data
 - 支持任意温度点：0K, 300K等
 - Support for any temperature: 0K, 300K, etc.
@@ -161,31 +166,59 @@ Al2Cu4
 - 数据来源 / Source
 - 对应属性值 / Property values
 
-### 详细信息弹窗中的数据源切换 / Data Source Selector in Detail View
+### 详细信息弹窗中的数据筛选 / Data Filtering in Detail View
+
+#### 双选择器系统 / Dual Selector System
+
+详细信息页面提供两个独立的选择器：
+- **温度选择器 / Temperature Selector**: 筛选指定温度的数据
+- **来源选择器 / Source Selector**: 筛选指定来源的数据
+
+Detail view provides two independent selectors:
+- **Temperature Selector**: Filter data by temperature
+- **Source Selector**: Filter data by source
 
 #### 使用方法 / How to Use
 
 1. 点击材料名称打开详细信息
-2. 如果有多个数据源，顶部会显示下拉选择器
-3. 选择不同的温度/来源组合
-4. 页面自动更新显示对应数据
+2. 如果有多个数据点，顶部会显示双选择器
+3. 两个选择器可以独立使用：
+   - 仅选择温度：显示该温度下所有来源的数据
+   - 仅选择来源：显示该来源在所有温度下的数据
+   - 同时选择：显示特定温度+来源的数据
+4. 选择"全部"可以查看所有数据点
 
 1. Click material name to open details
-2. If multiple sources exist, a dropdown appears at top
-3. Select different temperature/source combinations
-4. Page automatically updates with corresponding data
+2. If multiple data points exist, dual selectors appear at top
+3. Two selectors work independently:
+   - Temperature only: Shows all sources at that temperature
+   - Source only: Shows all temperatures from that source
+   - Both: Shows specific temperature+source combination
+4. Select "All" to view all data points
+
+#### 多结果显示 / Multiple Results Display
+
+当筛选结果包含多个数据点时：
+- 每个数据点显示在独立的区块中
+- 区块标题显示温度和来源
+- 可以一次性对比多个数据点
+
+When filter results contain multiple data points:
+- Each data point shown in separate section
+- Section header shows temperature and source
+- Compare multiple data points at once
 
 #### 示例 / Example
 
 ```
-数据来源: [0K, DFT ▼]
-         [0K, DPA-3]
-         [300K, DFT]
+温度选择 / Temperature: [全部 ▼]     来源选择 / Source: [DFT ▼]
+                       [0K]                          [全部]
+                       [300K]                        [DPA-3]
 ```
 
-选择不同选项可查看不同条件下的所有属性。
+选择"温度=全部, 来源=DFT"会显示所有温度下DFT计算的数据。
 
-Select different options to view all properties under different conditions.
+Selecting "Temperature=All, Source=DFT" shows DFT data at all temperatures.
 
 ---
 

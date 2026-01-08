@@ -12,6 +12,31 @@ This document describes the enhanced data structure for the alloy materials data
 - `amorphous`: Amorphous material (非晶)
 - `interface`: Interface structure (界面)
 
+## Composition Notation Rules
+
+### Basic Format
+- Element symbols followed by atom counts: `Al2Cu4Ni1`
+- System automatically converts numbers to subscripts: Al₂Cu₄Ni₁
+
+### Amorphous Prefix
+- Use `a-` prefix to mark amorphous materials: `a-Al2Cu4Ni1`
+- Displays as: a-Al₂Cu₄Ni₁
+- Required for materials with type "amorphous"
+
+### Interface Notation
+- Use slash `/` to separate two sides: `Al2Cu3/Nb4Ta5`
+- Each side formatted independently: Al₂Cu₃/Nb₄Ta₅
+- Can combine with amorphous prefix on either side:
+  - `a-Al2Cu3/Nb4Ta5` → a-Al₂Cu₃/Nb₄Ta₅
+  - `Al2Cu3/a-Nb4Ta5` → Al₂Cu₃/a-Nb₄Ta₅
+  - `a-Al2Cu3/a-Nb4Ta5` → a-Al₂Cu₃/a-Nb₄Ta₅
+
+### Examples
+- Simple: `Al2Cu4` → Al₂Cu₄
+- Amorphous: `a-Al2Nb3` → a-Al₂Nb₃
+- Interface: `Al2Cu3/Nb4Ta5` → Al₂Cu₃/Nb₄Ta₅
+- Complex: `Al2Cu3/a-Nb4Ta5` → Al₂Cu₃/a-Nb₄Ta₅
+
 ## JSON Schema
 
 ```json
@@ -155,7 +180,10 @@ Each entry in the `data` array contains:
 - **bulkModulus** (number): Bulk modulus in GPa
 - **shearModulus** (number): Shear modulus in GPa
 - **poissonsRatio** (number): Poisson's ratio (dimensionless)
-- **elasticConstants** (array): 6×6 elastic constant matrix (Cij) in GPa
+- **elasticConstants** (array|object): 6×6 elastic constant matrix (Cij) in GPa
+  - Format 1: 2D array: `[[c11,c12,...], [c21,c22,...], ...]`
+  - Format 2: Object with matrix: `{matrix: [[c11,c12,...], ...]}`
+  - Displayed as symmetric 6×6 table in UI with row/column headers
 - **stressStrain** (string|array): Stress-strain curve (file path or data array)
 
 #### Defects Properties
