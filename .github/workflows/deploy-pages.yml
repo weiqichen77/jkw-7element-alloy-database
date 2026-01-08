@@ -147,6 +147,25 @@ jobs:
               defectInfo: 'Defect Properties',
               noDataAvailable: 'No data available',
               plotData: 'Plot Data',
+              export: {
+                title: 'Export Data',
+                format: 'Export Format',
+                range: 'Export Range',
+                properties: 'Properties to Export',
+                execute: '📥 Export',
+                cancel: 'Cancel',
+                allMaterials: 'All materials',
+                filteredResults: 'Current filtered results',
+                selectedMaterials: 'Selected materials',
+                searchPlaceholder: 'Search to select...',
+                jsonDesc: 'Complete data with full structure',
+                csvDesc: 'Spreadsheet format (flattened)',
+                noDataToExport: 'No data to export',
+                structure: 'Structure',
+                thermodynamics: 'Thermodynamics',
+                mechanics: 'Mechanics',
+                defects: 'Defects'
+              },
               type: {
                 all: 'All',
                 element: 'Element',
@@ -209,6 +228,25 @@ jobs:
               defectInfo: '缺陷性质',
               noDataAvailable: '无数据',
               plotData: '绘制数据',
+              export: {
+                title: '导出数据',
+                format: '导出格式',
+                range: '导出范围',
+                properties: '导出属性',
+                execute: '📥 导出',
+                cancel: '取消',
+                allMaterials: '全部材料',
+                filteredResults: '当前筛选结果',
+                selectedMaterials: '选择的材料',
+                searchPlaceholder: '搜索以选择...',
+                jsonDesc: '完整数据结构',
+                csvDesc: '表格格式（扁平化）',
+                noDataToExport: '没有可导出的数据',
+                structure: '结构',
+                thermodynamics: '热力学',
+                mechanics: '力学',
+                defects: '缺陷'
+              },
               type: {
                 all: '全部',
                 element: '单质',
@@ -279,6 +317,7 @@ jobs:
             document.getElementById('title').textContent = t('title');
             document.getElementById('subtitle').textContent = t('subtitle');
             document.getElementById('searchBtnText').textContent = t('search');
+            document.getElementById('exportBtnText').textContent = t('export.execute');
             document.getElementById('q').placeholder = t('searchPlaceholder');
             document.getElementById('infoText').textContent = t('infoText');
             document.getElementById('typeTitle').textContent = t('typeTitle');
@@ -288,6 +327,26 @@ jobs:
             document.getElementById('docsLink').textContent = t('docsLink');
             document.getElementById('updateLabel').textContent = t('updateLabel');
             document.getElementById('langText').textContent = currentLang === 'en' ? '中文' : 'English';
+            
+            // Export dialog translations
+            if (document.getElementById('exportTitle')) {
+              document.getElementById('exportTitle').textContent = t('export.title');
+              document.getElementById('exportFormatTitle').textContent = t('export.format');
+              document.getElementById('exportRangeTitle').textContent = t('export.range');
+              document.getElementById('exportPropsTitle').textContent = t('export.properties');
+              document.getElementById('jsonDesc').textContent = t('export.jsonDesc');
+              document.getElementById('csvDesc').textContent = t('export.csvDesc');
+              document.getElementById('rangeAll').textContent = t('export.allMaterials');
+              document.getElementById('rangeFiltered').textContent = t('export.filteredResults');
+              document.getElementById('rangeSelected').textContent = t('export.selectedMaterials');
+              document.getElementById('selectorSearch').placeholder = t('export.searchPlaceholder');
+              document.getElementById('propStructureLabel').textContent = t('export.structure');
+              document.getElementById('propThermodynamicsLabel').textContent = t('export.thermodynamics');
+              document.getElementById('propMechanicsLabel').textContent = t('export.mechanics');
+              document.getElementById('propDefectsLabel').textContent = t('export.defects');
+              document.getElementById('exportExecuteBtn').textContent = t('export.execute');
+              document.getElementById('exportCancelBtn').textContent = t('export.cancel');
+            }
             
             // Update data-i18n elements
             document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -1449,7 +1508,7 @@ jobs:
             }
             
             if (dataToExport.length === 0) {
-              alert(currentLang === 'en' ? 'No data to export' : '没有可导出的数据');
+              alert(t('export.noDataToExport'));
               return;
             }
             

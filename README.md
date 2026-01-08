@@ -1,12 +1,12 @@
-# 7-Element Alloy Materials Database / 七元合金材料数据库
+# 7-Element Alloy Materials Database V2 / 七元合金材料数据库 V2
 
 [![GitHub Pages](https://img.shields.io/badge/Demo-GitHub%20Pages-blue)](https://wqchen007.github.io/jkw-7element-alloy-database/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![V2 Migration](https://img.shields.io/badge/V2-In%20Progress-yellow)](docs/V2_MIGRATION_STATUS.md)
+[![V2 Status](https://img.shields.io/badge/V2-Complete-brightgreen)](docs/V2_USER_GUIDE.md)
 
 [English](#english) | [中文](#中文)
 
-> **🚀 V2 Development in Progress**: We are working on a major upgrade with multi-dimensional data support, enhanced visualization, and advanced export features. See [V2 Migration Status](docs/V2_MIGRATION_STATUS.md) for details.
+> **🎉 V2 Released!**: Major upgrade complete with 7 core features including multi-temperature/multi-source data, 3D POSCAR visualization, and advanced export system. See [V2 User Guide](docs/V2_USER_GUIDE.md) for details.
 
 ---
 
@@ -14,28 +14,31 @@
 
 ### Overview
 
-A comprehensive materials database for alloy systems, with primary focus on 7-element combinations (Al, Ni, Cu, Zr, Nb, Ta, W), but supporting other elements as well.
+A comprehensive, next-generation materials database for alloy systems with multi-dimensional data support. Primary focus on 7-element combinations (Al, Ni, Cu, Zr, Nb, Ta, W), extensible to other elements.
 
 **Primary Element System:** Al, Ni, Cu, Zr, Nb, Ta, W
 
-**Note:** The database is designed to be extensible and can accommodate alloys containing other elements beyond the primary 7-element system.
-
-**Material Types:**
-- Element (Pure element / 单质) - *V2*
-- Solid Solution (固溶体) - *V2*
-- Intermetallic (金属间化合物) - *V2*
-- Crystalline (Deprecated in V2)
-- Amorphous
-- Interface
+**V2 New Features:**
+- 🏷️ **6 Material Types**: Element, Solid Solution, Intermetallic, Amorphous, Interface
+- 🌡️ **Multi-temperature Data**: Support any temperature (0K, 300K, etc.)
+- 📊 **Multiple Data Sources**: DFT, DPA-1, DPA-3, and more
+- 🔬 **3D POSCAR Visualization**: Interactive atomic structure viewer with 3Dmol.js
+- 📥 **Advanced Export**: JSON (complete) and CSV (flattened) with selective export
+- 📈 **Enhanced Statistics**: Material count + data point count
+- 🔄 **Expandable Rows**: View all temperature/source combinations in tables
 
 ### Access
 
 **Live Website:** [https://wqchen007.github.io/jkw-7element-alloy-database/](https://wqchen007.github.io/jkw-7element-alloy-database/)
 
-Features:
-- Material classification and filtering
-- Property category (structure, thermodynamics, mechanics, defects)
-- Search functionality
+**V2 Features:**
+- Material type classification (6 types)
+- Element composition search (e.g., "Al2Cu4" shows Al₂Cu₄)
+- Expandable table rows for multi-dimensional data
+- Detail page with data source selector
+- 3D structure visualization (POSCAR/VASP format)
+- Data export (JSON/CSV) with filtering options
+- Bilingual interface (English/Chinese)
 
 ### Material Properties
 
@@ -65,22 +68,22 @@ Features:
 **View Online:**
 Visit [https://wqchen007.github.io/jkw-7element-alloy-database/](https://wqchen007.github.io/jkw-7element-alloy-database/)
 
-**Add Your Data:**
+**Add Your Data (V2 Format):**
 
-1. Prepare data in CSV, JSON, or TSV format
-2. Convert to standard format:
+1. Prepare data in CSV format (see [example-template-v2.csv](example-template-v2.csv))
+2. Convert to V2 JSON format:
    ```bash
-   node scripts/convert-data.js your-data.csv real-data/materials.json
+   node scripts/convert-data-v2.js your-data.csv backend/data/materials.json
    ```
 3. Commit and push:
    ```bash
-   git add real-data/materials.json
-   git commit -m "Add material data"
+   git add backend/data/materials.json
+   git commit -m "Add V2 material data"
    git push origin main
    ```
 4. Website updates automatically via GitHub Actions
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed instructions.
+See [V2 User Guide](docs/V2_USER_GUIDE.md) for detailed usage instructions.
 
 ### Local Development
 
@@ -89,10 +92,10 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed instructions.
 git clone https://github.com/wqchen007/jkw-7element-alloy-database.git
 cd jkw-7element-alloy-database
 
-# Generate sample data (V1 format)
+# Generate sample data (V1 format - deprecated)
 node scripts/generate-sample-data.js
 
-# OR convert V2 format data
+# Convert V2 format data (recommended)
 node scripts/convert-data-v2.js example-template-v2.csv backend/data/materials.json
 
 # Serve locally
@@ -102,12 +105,22 @@ python -m http.server 8000
 open http://localhost:8000/frontend/
 ```
 
-### V2 Development
+### V2 Documentation
 
-See comprehensive documentation:
-- [V2 Migration Status](docs/V2_MIGRATION_STATUS.md) - Current progress
-- [V2 Implementation Plan](docs/IMPLEMENTATION_PLAN_V2.md) - Detailed technical plan
-- [V2 Data Structure](docs/DATA_STRUCTURE_V2.md) - New data schema
+See comprehensive V2 documentation:
+- 📖 [V2 User Guide](docs/V2_USER_GUIDE.md) - Complete usage guide with examples
+- ✅ [Testing Checklist](docs/TESTING_CHECKLIST.md) - 150+ test items
+- 📊 [V2 Progress Summary](V2_PROGRESS_SUMMARY.md) - Implementation summary  
+- 🔧 [V2 Implementation Plan](docs/IMPLEMENTATION_PLAN_V2.md) - Technical details (COMPLETED)
+- 📐 [V2 Data Structure](docs/DATA_STRUCTURE_V2.md) - Complete data schema
+
+**V2 Key Features:**
+- 🌡️ Multi-temperature/multi-source data support
+- 🔬 Interactive 3D POSCAR visualization (3Dmol.js)
+- 📥 Advanced export system (JSON + CSV)
+- 🏷️ 6 material type categories
+- 📈 Enhanced statistics
+- 🌐 Full bilingual support
 
 ```bash
 # Convert data to V2 format
@@ -149,25 +162,31 @@ Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for data prepa
 
 ### 概述
 
-合金体系的综合材料数据库，主要关注七元组合（Al、Ni、Cu、Zr、Nb、Ta、W），同时支持包含其他元素的合金材料。
+下一代合金材料综合数据库，支持多维数据。主要关注七元组合（Al、Ni、Cu、Zr、Nb、Ta、W），可扩展至其他元素。
 
 **主要元素体系：** Al、Ni、Cu、Zr、Nb、Ta、W
 
-**说明：** 数据库设计具有可扩展性，可以容纳包含主要7元素体系之外其他元素的合金材料。
-
-**材料类型：**
-- 晶体（Crystalline）
-- 非晶（Amorphous）
-- 界面（Interface）
+**V2 新功能：**
+- 🏷️ **6种材料类型**：单质、固溶体、金属间化合物、非晶、界面
+- 🌡️ **多温度数据**：支持任意温度（0K、300K等）
+- 📊 **多数据来源**：DFT、DPA-1、DPA-3等
+- 🔬 **3D POSCAR可视化**：基于3Dmol.js的交互式原子结构查看器
+- 📥 **高级导出**：JSON（完整）和CSV（扁平化），支持选择性导出
+- 📈 **增强统计**：材料数量 + 数据点数量
+- 🔄 **可展开行**：表格中查看所有温度/来源组合
 
 ### 访问
 
 **在线网站：** [https://wqchen007.github.io/jkw-7element-alloy-database/](https://wqchen007.github.io/jkw-7element-alloy-database/)
 
-功能特性：
-- 材料分类与筛选
-- 属性类别（结构、热力学、力学、缺陷）
-- 搜索功能
+**V2 功能特性：**
+- 材料类型分类（6种类型）
+- 元素组成搜索（如"Al2Cu4"显示为Al₂Cu₄）
+- 可展开表格行显示多维数据
+- 详情页数据源选择器
+- 3D结构可视化（POSCAR/VASP格式）
+- 数据导出（JSON/CSV）与筛选选项
+- 双语界面（中文/英文）
 
 ### 材料性质
 
