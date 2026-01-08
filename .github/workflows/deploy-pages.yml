@@ -1737,6 +1737,119 @@ jobs:
             URL.revokeObjectURL(url);
           }
           
+          // Download all POSCAR files as ZIP
+          async function downloadAllPOSCAR() {
+            const range = document.querySelector('input[name="exportRange"]:checked').value;
+            
+            // Get materials to export
+            let materialsToExport = [];
+            if (range === 'all') {
+              materialsToExport = allData;
+            } else if (range === 'filtered') {
+              materialsToExport = currentFilteredData;
+            } else if (range === 'selected') {
+              materialsToExport = allData.filter(m => selectedMaterials.has(m.id));
+            }
+            
+            // Collect all POSCAR files
+            const poscarFiles = [];
+            materialsToExport.forEach(material => {
+              material.data.forEach(dataPoint => {
+                const struct = dataPoint.properties?.structure;
+                if (struct && struct.poscar) {
+                  poscarFiles.push({
+                    url: struct.poscar,
+                    filename: `${material.id}_${material.name.replace(/[^a-zA-Z0-9]/g, '_')}_${dataPoint.temperature}K_${dataPoint.source}.vasp`
+                  });
+                }
+              });
+            });
+            
+            if (poscarFiles.length === 0) {
+              alert(currentLang === 'en' ? 
+                'No POSCAR files found in selected materials' : 
+                '所选材料中未找到POSCAR文件');
+              return;
+            }
+            
+            // Check if JSZip is available
+            if (typeof JSZip === 'undefined') {
+              alert(currentLang === 'en' ? 
+                'JSZip library not loaded. Please refresh the page.' : 
+                'JSZip库未加载，请刷新页面');
+              return;
+            }
+            
+            // Create ZIP file
+            const zip = new JSZip();
+            const poscarFolder = zip.folder('poscar');
+            
+            // Show progress
+            const progressMsg = currentLang === 'en' ? 
+              `Downloading ${poscarFiles.length} POSCAR files...` : 
+              `正在下载 ${poscarFiles.length} 个POSCAR文件...`;
+            
+            const loadingEl = document.getElementById('loading');
+            if (loadingEl) {
+              loadingEl.textContent = progressMsg;
+              loadingEl.style.display = 'block';
+            }
+            
+            try {
+              // Download all files
+              const downloadPromises = poscarFiles.map(async file => {
+                try {
+                  const response = await fetch(file.url);
+                  if (!response.ok) throw new Error(`Failed to fetch ${file.url}`);
+                  const content = await response.text();
+                  poscarFolder.file(file.filename, content);
+                  return true;
+                } catch (error) {
+                  console.error(`Error downloading ${file.url}:`, error);
+                  return false;
+                }
+              });
+              
+              await Promise.all(downloadPromises);
+              
+              // Generate ZIP
+              const zipBlob = await zip.generateAsync({ type: 'blob' });
+              
+              // Download ZIP file
+              const url = URL.createObjectURL(zipBlob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = `poscar_files_${new Date().toISOString().split('T')[0]}.zip`;
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
+              
+              if (loadingEl) {
+                loadingEl.textContent = currentLang === 'en' ? 
+                  'Download complete!' : '下载完成！';
+                setTimeout(() => {
+                  loadingEl.style.display = 'none';
+                  loadingEl.textContent = 'Loading...';
+                }, 2000);
+              }
+              
+              // Close modal
+              document.getElementById('exportModal').style.display = 'none';
+              
+            } catch (error) {
+              console.error('Error creating ZIP:', error);
+              alert(currentLang === 'en' ? 
+                'Failed to create ZIP file' : 
+                '创建ZIP文件失败');
+              
+              if (loadingEl) {
+                loadingEl.style.display = 'none';
+                loadingEl.textContent = 'Loading...';
+              }
+            }
+          }
+          
           function exportCSV(data) {
             // Flatten V2 data to CSV format (primary data only)
             const rows = [];
@@ -1844,6 +1957,8 @@ jobs:
             <link rel="stylesheet" href="css/style.css" />
             <!-- 3Dmol.js for molecular visualization -->
             <script src="https://cdn.jsdelivr.net/npm/3dmol@latest/build/3Dmol-min.js"></script>
+            <!-- JSZip for batch POSCAR download -->
+            <script src="https://cdn.jsdelivr.net/npm/jszip@3/dist/jszip.min.js"></script>
           </head>
           <body>
             <header>
@@ -1968,6 +2083,7 @@ jobs:
                 
                 <div class="export-actions">
                   <button id="executeExport" class="btn-primary"><span id="exportExecuteBtn">📥 Export</span></button>
+                  <button id="downloadPOSCAR" class="btn-primary" onclick="downloadAllPOSCAR()"><span id="poscarDownloadBtn">🔬 Download POSCAR (ZIP)</span></button>
                   <button id="cancelExport" class="btn-secondary"><span id="exportCancelBtn">Cancel</span></button>
                 </div>
               </div>

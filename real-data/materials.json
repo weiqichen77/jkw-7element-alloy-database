@@ -18491,5 +18491,93 @@
         }
       }
     ]
+  },
+  {
+    "id": 104,
+    "name": "Mn-MgS",
+    "type": "amorphous",
+    "composition": "Mg90Mn232S90",
+    "data": [
+      {
+        "temperature": 300,
+        "source": "TEST",
+        "properties": {
+          "structure": {
+            "density": 4.52,
+            "latticeParameters": {
+              "a": 12.917,
+              "b": 12.917,
+              "c": 48.632,
+              "alpha": 90.0,
+              "beta": 90.0,
+              "gamma": 120.0,
+              "pointGroup": "P3"
+            },
+            "poscar": "data/poscar/Mn-MgS.vasp"
+          },
+          "thermodynamics": {
+            "formationEnergy": -1.23,
+            "mixingEnthalpy": 0.45
+          },
+          "mechanics": {
+            "youngsModulus": 85.5,
+            "bulkModulus": 95.2,
+            "shearModulus": 42.3,
+            "poissonsRatio": 0.28,
+            "elasticConstants": [
+              [
+                150.2,
+                45.8,
+                38.2,
+                0,
+                0,
+                0
+              ],
+              [
+                45.8,
+                150.2,
+                38.2,
+                0,
+                0,
+                0
+              ],
+              [
+                38.2,
+                38.2,
+                180.5,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                52.2,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                52.2,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                52.2
+              ]
+            ]
+          },
+          "defects": {}
+        }
+      }
+    ]
   }
 ]
