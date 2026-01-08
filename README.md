@@ -2,8 +2,11 @@
 
 [![GitHub Pages](https://img.shields.io/badge/Demo-GitHub%20Pages-blue)](https://wqchen007.github.io/jkw-7element-alloy-database/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![V2 Migration](https://img.shields.io/badge/V2-In%20Progress-yellow)](docs/V2_MIGRATION_STATUS.md)
 
 [English](#english) | [中文](#中文)
+
+> **🚀 V2 Development in Progress**: We are working on a major upgrade with multi-dimensional data support, enhanced visualization, and advanced export features. See [V2 Migration Status](docs/V2_MIGRATION_STATUS.md) for details.
 
 ---
 
@@ -18,7 +21,10 @@ A comprehensive materials database for alloy systems, with primary focus on 7-el
 **Note:** The database is designed to be extensible and can accommodate alloys containing other elements beyond the primary 7-element system.
 
 **Material Types:**
-- Crystalline
+- Element (Pure element / 单质) - *V2*
+- Solid Solution (固溶体) - *V2*
+- Intermetallic (金属间化合物) - *V2*
+- Crystalline (Deprecated in V2)
 - Amorphous
 - Interface
 
@@ -83,14 +89,32 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed instructions.
 git clone https://github.com/wqchen007/jkw-7element-alloy-database.git
 cd jkw-7element-alloy-database
 
-# Generate sample data
+# Generate sample data (V1 format)
 node scripts/generate-sample-data.js
+
+# OR convert V2 format data
+node scripts/convert-data-v2.js example-template-v2.csv backend/data/materials.json
 
 # Serve locally
 python -m http.server 8000
 
 # Open browser
 open http://localhost:8000/frontend/
+```
+
+### V2 Development
+
+See comprehensive documentation:
+- [V2 Migration Status](docs/V2_MIGRATION_STATUS.md) - Current progress
+- [V2 Implementation Plan](docs/IMPLEMENTATION_PLAN_V2.md) - Detailed technical plan
+- [V2 Data Structure](docs/DATA_STRUCTURE_V2.md) - New data schema
+
+```bash
+# Convert data to V2 format
+node scripts/convert-data-v2.js your-data.csv output.json
+
+# Generate V2 template
+node scripts/convert-data-v2.js --template my-template.csv
 ```
 
 ### Project Structure
