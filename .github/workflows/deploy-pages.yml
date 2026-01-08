@@ -149,7 +149,9 @@ jobs:
               plotData: 'Plot Data',
               type: {
                 all: 'All',
-                crystalline: 'Crystalline',
+                element: 'Element',
+                'solid-solution': 'Solid Solution',
+                intermetallic: 'Intermetallic',
                 amorphous: 'Amorphous',
                 interface: 'Interface'
               },
@@ -209,8 +211,10 @@ jobs:
               plotData: '绘制数据',
               type: {
                 all: '全部',
-                crystalline: '晶态',
-                amorphous: '非晶态',
+                element: '单质',
+                'solid-solution': '固溶体',
+                intermetallic: '金属间化合物',
+                amorphous: '非晶',
                 interface: '界面'
               },
               property: {
@@ -777,7 +781,9 @@ jobs:
                 <h3 id="typeTitle">Material Type</h3>
                 <div class="tabs">
                   <button class="type-tab active" data-type="all"><span data-i18n="type.all">All</span></button>
-                  <button class="type-tab" data-type="crystalline"><span data-i18n="type.crystalline">Crystalline</span></button>
+                  <button class="type-tab" data-type="element"><span data-i18n="type.element">Element</span></button>
+                  <button class="type-tab" data-type="solid-solution"><span data-i18n="type.solid-solution">Solid Solution</span></button>
+                  <button class="type-tab" data-type="intermetallic"><span data-i18n="type.intermetallic">Intermetallic</span></button>
                   <button class="type-tab" data-type="amorphous"><span data-i18n="type.amorphous">Amorphous</span></button>
                   <button class="type-tab" data-type="interface"><span data-i18n="type.interface">Interface</span></button>
                 </div>
