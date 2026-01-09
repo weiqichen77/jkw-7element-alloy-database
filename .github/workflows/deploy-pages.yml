@@ -1589,7 +1589,16 @@ jobs:
             
             // Generate view for filtered data
             const container = document.getElementById('detailDataView');
-            if (!container || filteredData.length === 0) return;
+            if (!container) return;
+            
+            // Check if no data matches the filter
+            if (filteredData.length === 0) {
+              const noDataMsg = currentLang === 'en' 
+                ? 'No data available for the selected temperature and source combination.'
+                : '所选温度和数据来源组合无可用数据。';
+              container.innerHTML = '<div class="no-data-message" style="padding: 40px; text-align: center; color: #999; font-size: 16px;">' + noDataMsg + '</div>';
+              return;
+            }
             
             // Always use the grouped view format, regardless of filter selection
             container.innerHTML = generateAllDataView(material, filteredData);
