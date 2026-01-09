@@ -496,38 +496,48 @@ jobs:
           }
           
           async function initApp() {
-            // Load all data
-            const response = await fetch('./data/materials.json');
-            const rawData = await response.json();
-            
-            // Normalize all materials to V2 format
-            allData = rawData.map(m => normalizeMaterial(m));
-            
-            // Initialize UI text
-            updateUIText();
-            
-            // Bind events
-            document.getElementById('search').onclick = () => filterAndDisplay();
-            document.getElementById('q').addEventListener('keypress', function(e) {
-              if (e.key === 'Enter') filterAndDisplay();
-            });
-            
-            // Language toggle
-            document.getElementById('langToggle').addEventListener('click', function() {
-              currentLang = currentLang === 'en' ? 'zh' : 'en';
-              localStorage.setItem('lang', currentLang);
+            try {
+              // Load all data
+              const response = await fetch('./data/materials.json');
+              if (!response.ok) {
+                throw new Error('Failed to load materials data: ' + response.status);
+              }
+              const rawData = await response.json();
+              
+              // Normalize all materials to V2 format
+              allData = rawData.map(m => normalizeMaterial(m));
+              
+              console.log('Loaded ' + allData.length + ' materials');
+              
+              // Initialize UI text
               updateUIText();
-            });
-            
-            // Material type tabs
-            document.querySelectorAll('.type-tab').forEach(tab => {
-              tab.addEventListener('click', function() {
-                document.querySelectorAll('.type-tab').forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                currentType = this.dataset.type;
-                filterAndDisplay();
+              
+              // Bind events
+              document.getElementById('search').onclick = () => filterAndDisplay();
+              document.getElementById('q').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') filterAndDisplay();
               });
-            });
+              
+              // Language toggle
+              document.getElementById('langToggle').addEventListener('click', function() {
+                currentLang = currentLang === 'en' ? 'zh' : 'en';
+                localStorage.setItem('lang', currentLang);
+                updateUIText();
+              });
+              
+              // Material type tabs
+              document.querySelectorAll('.type-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                  document.querySelectorAll('.type-tab').forEach(t => t.classList.remove('active'));
+                  this.classList.add('active');
+                  currentType = this.dataset.type;
+                  filterAndDisplay();
+                });
+              });
+            } catch (error) {
+              console.error('Error initializing app:', error);
+              document.getElementById('table').innerHTML = '<div style="padding:20px;color:red;">Error loading data: ' + error.message + '<br>Please check browser console for details.</div>';
+            }
             
             // Property category tabs
             document.querySelectorAll('.property-tab').forEach(tab => {
