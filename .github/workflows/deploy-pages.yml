@@ -479,20 +479,22 @@ jobs:
           function matchesElementFilter(material, query) {
             if (!query) return true;
             
-            const cleanQuery = query.trim().toLowerCase();
+            const cleanQuery = query.trim();
             if (!cleanQuery) return true;
             
             // Check if it's a composition query (contains digits)
             if (/\d/.test(cleanQuery)) {
-              // Match exact composition
+              // Match exact composition (case-insensitive)
               const materialComp = material.composition ? material.composition.toLowerCase() : '';
-              return materialComp.includes(cleanQuery);
+              return materialComp.includes(cleanQuery.toLowerCase());
             }
             
-            // Simple element filter - check if material contains the element
-            return material.elements && material.elements.some(el => 
-              el.toLowerCase().includes(cleanQuery)
-            );
+            // Element filter - exact match of element symbol (case-sensitive for element symbols)
+            // Al should match Al but not Ca, Ti, etc.
+            return material.elements && material.elements.some(el => {
+              // Exact match (case-insensitive to handle al, AL, Al)
+              return el.toLowerCase() === cleanQuery.toLowerCase();
+            });
           }
           
           async function initApp() {
