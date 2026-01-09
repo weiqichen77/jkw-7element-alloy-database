@@ -671,7 +671,7 @@ jobs:
               // POSCAR structure file
               html += '<td>';
               if (struct.poscar) {
-                html += '<span class="poscar-icon" title="' + (currentLang === 'en' ? 'View 3D structure' : '查看3D结构') + '">🔬</span>';
+                html += '<span class="poscar-icon" title="' + (currentLang === 'en' ? 'View 3D structure' : '查看3D结构') + '" onclick="view3DStructure(\'' + material.id + '\', \'' + primary.temperature + '\', \'' + primary.source + '\')">🔬</span>';
               } else {
                 html += '-';
               }
