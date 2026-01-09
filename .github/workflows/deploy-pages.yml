@@ -690,11 +690,22 @@ jobs:
               html += '<td>' + formatFile(struct.rdf) + '</td>';
               html += '</tr>';
               
-              // Expanded row for secondary data
+              // Expanded row for all data (sorted)
               if (hasSecondary) {
-                // Collect unique temperatures and sources from secondary data only (primary already shown in main row)
-                const temperatures = [...new Set(secondary.map(d => d.temperature))].sort((a, b) => a - b);
-                const sources = [...new Set(secondary.map(d => d.source))].sort();
+                // Get all data and sort by source then temperature
+                const allSortedData = [...material.data];
+                const sourceOrder = { 'DFT': 1, 'DPA-3': 2, 'DPA-1': 3 };
+                allSortedData.sort((a, b) => {
+                  const orderA = sourceOrder[a.source] || 99;
+                  const orderB = sourceOrder[b.source] || 99;
+                  if (orderA !== orderB) {
+                    return orderA - orderB;
+                  }
+                  return a.temperature - b.temperature;
+                });
+                
+                const temperatures = [...new Set(allSortedData.map(d => d.temperature))].sort((a, b) => a - b);
+                const sources = [...new Set(allSortedData.map(d => d.source))].sort();
                 
                 html += '<tr class="expanded-row hidden" data-parent-id="' + material.id + '">';
                 html += '<td colspan="100%"><div class="expanded-content">';
@@ -729,7 +740,7 @@ jobs:
                 html += '<th>' + t('table.rdf') + '</th>';
                 html += '</tr></thead><tbody>';
                 
-                for (const dataPoint of secondary) {
+                for (const dataPoint of allSortedData) {
                   const p = dataPoint.properties || {};
                   const s = p.structure || {};
                   const lattice = s.latticeParameters;
@@ -820,8 +831,20 @@ jobs:
               html += '</tr>';
               
               if (hasSecondary) {
-                const temperatures = [...new Set(secondary.map(d => d.temperature))].sort((a, b) => a - b);
-                const sources = [...new Set(secondary.map(d => d.source))].sort();
+                // Get all data and sort by source then temperature
+                const allSortedData = [...material.data];
+                const sourceOrder = { 'DFT': 1, 'DPA-3': 2, 'DPA-1': 3 };
+                allSortedData.sort((a, b) => {
+                  const orderA = sourceOrder[a.source] || 99;
+                  const orderB = sourceOrder[b.source] || 99;
+                  if (orderA !== orderB) {
+                    return orderA - orderB;
+                  }
+                  return a.temperature - b.temperature;
+                });
+                
+                const temperatures = [...new Set(allSortedData.map(d => d.temperature))].sort((a, b) => a - b);
+                const sources = [...new Set(allSortedData.map(d => d.source))].sort();
                 
                 html += '<tr class="expanded-row hidden" data-parent-id="' + material.id + '">';
                 html += '<td colspan="100%"><div class="expanded-content">';
@@ -856,7 +879,7 @@ jobs:
                 html += '<th>' + t('table.thermalExpansion') + '</th>';
                 html += '</tr></thead><tbody>';
                 
-                for (const dataPoint of secondary) {
+                for (const dataPoint of allSortedData) {
                   const p = dataPoint.properties || {};
                   const th = p.thermodynamics || {};
                   html += '<tr data-temperature="' + dataPoint.temperature + '" data-source="' + dataPoint.source + '">';
@@ -950,8 +973,20 @@ jobs:
               html += '</tr>';
               
               if (hasSecondary) {
-                const temperatures = [...new Set(secondary.map(d => d.temperature))].sort((a, b) => a - b);
-                const sources = [...new Set(secondary.map(d => d.source))].sort();
+                // Get all data and sort by source then temperature
+                const allSortedData = [...material.data];
+                const sourceOrder = { 'DFT': 1, 'DPA-3': 2, 'DPA-1': 3 };
+                allSortedData.sort((a, b) => {
+                  const orderA = sourceOrder[a.source] || 99;
+                  const orderB = sourceOrder[b.source] || 99;
+                  if (orderA !== orderB) {
+                    return orderA - orderB;
+                  }
+                  return a.temperature - b.temperature;
+                });
+                
+                const temperatures = [...new Set(allSortedData.map(d => d.temperature))].sort((a, b) => a - b);
+                const sources = [...new Set(allSortedData.map(d => d.source))].sort();
                 
                 html += '<tr class="expanded-row hidden" data-parent-id="' + material.id + '">';
                 html += '<td colspan="100%"><div class="expanded-content">';
@@ -986,7 +1021,7 @@ jobs:
                 html += '<th>' + t('table.stressStrain') + '</th>';
                 html += '</tr></thead><tbody>';
                 
-                for (const dataPoint of secondary) {
+                for (const dataPoint of allSortedData) {
                   const p = dataPoint.properties || {};
                   const m = p.mechanics || {};
                   const elastic = m.elasticConstants;
@@ -1103,8 +1138,20 @@ jobs:
               html += '</tr>';
               
               if (hasSecondary) {
-                const temperatures = [...new Set(secondary.map(d => d.temperature))].sort((a, b) => a - b);
-                const sources = [...new Set(secondary.map(d => d.source))].sort();
+                // Get all data and sort by source then temperature
+                const allSortedData = [...material.data];
+                const sourceOrder = { 'DFT': 1, 'DPA-3': 2, 'DPA-1': 3 };
+                allSortedData.sort((a, b) => {
+                  const orderA = sourceOrder[a.source] || 99;
+                  const orderB = sourceOrder[b.source] || 99;
+                  if (orderA !== orderB) {
+                    return orderA - orderB;
+                  }
+                  return a.temperature - b.temperature;
+                });
+                
+                const temperatures = [...new Set(allSortedData.map(d => d.temperature))].sort((a, b) => a - b);
+                const sources = [...new Set(allSortedData.map(d => d.source))].sort();
                 
                 html += '<tr class="expanded-row hidden" data-parent-id="' + material.id + '">';
                 html += '<td colspan="100%"><div class="expanded-content">';
@@ -1138,7 +1185,7 @@ jobs:
                 html += '<th>' + t('table.stackingFault') + '</th>';
                 html += '</tr></thead><tbody>';
                 
-                for (const dataPoint of secondary) {
+                for (const dataPoint of allSortedData) {
                   const p = dataPoint.properties || {};
                   const d = p.defects || {};
                   html += '<tr data-temperature="' + dataPoint.temperature + '" data-source="' + dataPoint.source + '">';
