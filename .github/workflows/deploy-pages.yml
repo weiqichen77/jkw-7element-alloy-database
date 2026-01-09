@@ -802,7 +802,7 @@ jobs:
                   }
                   html += '</td>';
                   
-                  html += '<td>' + formatFile(s.rdf, material.id, data.temperature, data.source) + '</td>';
+                  html += '<td>' + formatFile(s.rdf, material.id, dataPoint.temperature, dataPoint.source) + '</td>';
                   html += '</tr>';
                 }
                 
@@ -1090,7 +1090,7 @@ jobs:
                   
                   html += '<td>' + formatValue(m.youngsModulus, 2) + '</td>';
                   html += '<td>' + formatValue(m.poissonsRatio, 3) + '</td>';
-                  html += '<td>' + formatFile(m.stressStrain, material.id, data.temperature, data.source) + '</td>';
+                  html += '<td>' + formatFile(m.stressStrain, material.id, dataPoint.temperature, dataPoint.source) + '</td>';
                   html += '</tr>';
                 }
                 
