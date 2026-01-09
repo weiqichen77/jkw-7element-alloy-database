@@ -949,16 +949,16 @@ jobs:
               
               // Elastic constants with matrix view
               html += '<td class="elastic-cell">';
-              if (elastic && elastic.matrix) {
+              if (elastic && Array.isArray(elastic) && elastic.length === 6) {
                 html += '<div class="elastic-display">';
-                html += '<span>C₁₁=' + formatValue(elastic.matrix[0][0], 1) + '</span>';
+                html += '<span>C₁₁=' + formatValue(elastic[0][0], 1) + '</span>';
                 html += '<button class="matrix-expand" onclick="toggleMatrix(this, event)">📊</button>';
                 html += '</div>';
                 html += '<div class="matrix-details hidden"><table class="cij-matrix">';
                 for (let i = 0; i < 6; i++) {
                   html += '<tr>';
                   for (let j = 0; j < 6; j++) {
-                    const val = elastic.matrix[i][j];
+                    const val = elastic[i][j];
                     html += '<td>' + formatValue(val, 1) + '</td>';
                   }
                   html += '</tr>';
@@ -1037,16 +1037,16 @@ jobs:
                   
                   // Elastic constants with matrix view
                   html += '<td class="elastic-cell">';
-                  if (elastic && elastic.matrix) {
+                  if (elastic && Array.isArray(elastic) && elastic.length === 6) {
                     html += '<div class="elastic-display">';
-                    html += '<span>C₁₁=' + formatValue(elastic.matrix[0][0], 1) + '</span>';
+                    html += '<span>C₁₁=' + formatValue(elastic[0][0], 1) + '</span>';
                     html += '<button class="matrix-expand" onclick="toggleMatrix(this, event)">📊</button>';
                     html += '</div>';
                     html += '<div class="matrix-details hidden"><table class="cij-matrix">';
                     for (let i = 0; i < 6; i++) {
                       html += '<tr>';
                       for (let j = 0; j < 6; j++) {
-                        const val = elastic.matrix[i][j];
+                        const val = elastic[i][j];
                         html += '<td>' + formatValue(val, 1) + '</td>';
                       }
                       html += '</tr>';
