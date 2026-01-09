@@ -642,13 +642,66 @@ jobs:
               return;
             }
             
-            // Calculate total data points (accounting for multi-temperature/source)
+            // Calculate total data points (accounting for all properties in each temperature/source entry)
+            function countDataProperties(dataPoint) {
+              if (!dataPoint || !dataPoint.properties) return 0;
+              
+              let count = 0;
+              const props = dataPoint.properties;
+              
+              // Structure properties
+              if (props.structure) {
+                if (props.structure.density !== undefined && props.structure.density !== '-') count++;
+                if (props.structure.latticeParameters && props.structure.latticeParameters.a !== undefined && props.structure.latticeParameters.a !== '-') count++;
+                if (props.structure.rdf && Array.isArray(props.structure.rdf) && props.structure.rdf.length > 0) count++;
+              }
+              
+              // Thermodynamics properties
+              if (props.thermodynamics) {
+                if (props.thermodynamics.specificHeat !== undefined && props.thermodynamics.specificHeat !== '-') count++;
+                if (props.thermodynamics.mixingEnthalpy !== undefined && props.thermodynamics.mixingEnthalpy !== '-') count++;
+                if (props.thermodynamics.diffusionCoefficient !== undefined && props.thermodynamics.diffusionCoefficient !== '-') count++;
+              }
+              
+              // Mechanics properties
+              if (props.mechanics) {
+                if (props.mechanics.youngsModulus !== undefined && props.mechanics.youngsModulus !== '-') count++;
+                if (props.mechanics.bulkModulus !== undefined && props.mechanics.bulkModulus !== '-') count++;
+                if (props.mechanics.shearModulus !== undefined && props.mechanics.shearModulus !== '-') count++;
+                if (props.mechanics.stressStrain && Array.isArray(props.mechanics.stressStrain) && props.mechanics.stressStrain.length > 0) count++;
+              }
+              
+              // Defects properties
+              if (props.defects) {
+                if (props.defects.vacancyFormationEnergy !== undefined && props.defects.vacancyFormationEnergy !== '-') count++;
+                // Interstitial formation energy might have multiple structures
+                if (props.defects.interstitialFormationEnergy) {
+                  const interstitial = props.defects.interstitialFormationEnergy;
+                  if (typeof interstitial === 'object' && interstitial !== null) {
+                    // Count each interstitial structure type that has data
+                    Object.keys(interstitial).forEach(key => {
+                      if (interstitial[key] !== undefined && interstitial[key] !== '-') {
+                        count++;
+                      }
+                    });
+                  } else if (interstitial !== undefined && interstitial !== '-') {
+                    count++;
+                  }
+                }
+              }
+              
+              return count;
+            }
+            
             let totalDataPoints = 0;
             data.forEach(material => {
               if (material.data && Array.isArray(material.data)) {
-                totalDataPoints += material.data.length;
+                material.data.forEach(dataPoint => {
+                  totalDataPoints += countDataProperties(dataPoint);
+                });
               } else {
-                totalDataPoints += 1; // V1 format
+                // V1 format - count available properties
+                totalDataPoints += countDataProperties({ properties: material });
               }
             });
             
