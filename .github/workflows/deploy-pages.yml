@@ -568,7 +568,19 @@ jobs:
               if (chartLink) {
                 e.preventDefault();
                 const materialId = chartLink.getAttribute('data-material-id');
-                showDetail(materialId);
+                // Determine section based on table context
+                const row = chartLink.closest('tr');
+                const table = chartLink.closest('table');
+                const isStructureTable = table && table.innerHTML.includes('RDF');
+                const isMechanicsTable = table && table.innerHTML.includes('Stress-Strain');
+                
+                if (isStructureTable) {
+                  showDetail(materialId, 'structure');
+                } else if (isMechanicsTable) {
+                  showDetail(materialId, 'mechanics');
+                } else {
+                  showDetail(materialId);
+                }
               }
             });
             
@@ -1407,7 +1419,7 @@ jobs:
           };
           
           // Show material detail in modal
-          window.showDetail = function(materialId) {
+          window.showDetail = function(materialId, scrollToSection) {
             const material = allData.find(m => m.id == materialId);
             if (!material) return;
             
@@ -1463,11 +1475,40 @@ jobs:
             content.innerHTML = html;
             modal.style.display = 'block';
             
+            // Force render all charts after DOM is updated
+            setTimeout(() => {
+              // Re-execute all inline scripts for chart rendering
+              const scripts = content.querySelectorAll('script');
+              scripts.forEach(script => {
+                try {
+                  eval(script.textContent);
+                } catch (e) {
+                  console.error('Error executing chart script:', e);
+                }
+              });
+            }, 200);
+            
             // Initialize 3D viewer if POSCAR exists (use first data point)
             const firstData = material.data[0];
             const struct = firstData.properties?.structure;
             if (struct && struct.poscar) {
               setTimeout(() => init3DViewer(materialId, struct.poscar), 100);
+            }
+            
+            // Scroll to specified section if provided
+            if (scrollToSection) {
+              setTimeout(() => {
+                const section = document.querySelector('.subsection-header:contains("' + scrollToSection + '")');
+                if (section) {
+                  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                  // Fallback: scroll to first chart canvas
+                  const firstChart = content.querySelector('.chart-canvas');
+                  if (firstChart) {
+                    firstChart.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  }
+                }
+              }, 600);
             }
           };
           
