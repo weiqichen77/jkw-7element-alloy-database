@@ -1284,6 +1284,41 @@ jobs:
             });
           };
           
+          // View 3D structure from expandable row
+          window.view3DStructure = function(materialId, temperature, source) {
+            const material = allData.find(m => m.id == materialId);
+            if (!material) return;
+            
+            // Find the specific data point
+            let dataPoint;
+            if (temperature && source) {
+              dataPoint = material.data.find(d => 
+                d.temperature == temperature && d.source === source
+              );
+            }
+            
+            // If not found or no filters, use primary data
+            if (!dataPoint) {
+              dataPoint = getPrimaryData(material);
+            }
+            
+            if (!dataPoint) return;
+            
+            // Open detail modal
+            showDetail(materialId);
+            
+            // Wait for modal to render, then scroll to 3D viewer
+            setTimeout(() => {
+              const viewerContainer = document.querySelector('.structure-viewer-container');
+              if (viewerContainer) {
+                viewerContainer.scrollIntoView({ 
+                  behavior: 'smooth', 
+                  block: 'center' 
+                });
+              }
+            }, 300);
+          };
+          
           // Show material detail in modal
           window.showDetail = function(materialId) {
             const material = allData.find(m => m.id == materialId);
