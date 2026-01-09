@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>测试弹性常数显示</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    .test { margin: 20px 0; padding: 15px; border: 1px solid #ddd; }
+    .result { margin-top: 10px; padding: 10px; background: #f0f0f0; }
+    pre { background: #fff; padding: 10px; overflow: auto; }
+  </style>
+</head>
+<body>
+  <h1>弹性常数数据结构测试</h1>
+  
+  <div class="test">
+    <h2>测试 1: 检查数据结构</h2>
+    <button onclick="test1()">运行测试</button>
+    <div id="result1" class="result"></div>
+  </div>
+
+  <div class="test">
+    <h2>测试 2: 检查力学性能表格</h2>
+    <button onclick="test2()">运行测试</button>
+    <div id="result2" class="result"></div>
+  </div>
+
+  <script>
+    async function test1() {
+      const result = document.getElementById('result1');
+      result.innerHTML = '加载中...';
+      
+      try {
+        const response = await fetch('backend/data/materials.json');
+        const data = await response.json();
+        
+        let output = '<h3>前5个材料的弹性常数情况：</h3>';
+        
+        for (let i = 0; i < Math.min(5, data.length); i++) {
+          const material = data[i];
+          output += `<h4>${material.name} (ID: ${material.id})</h4>`;
+          
+          material.data.forEach((d, idx) => {
+            const mech = d.properties?.mechanics || {};
+            const elastic = mech.elasticConstants;
+            
+            output += `<div style="margin-left: 20px;">`;
+            output += `<strong>数据点 ${idx + 1}:</strong> ${d.temperature}K, ${d.source}<br/>`;
+            output += `有 elasticConstants: ${elastic ? 'YES' : 'NO'}<br/>`;
+            
+            if (elastic) {
+              output += `类型: ${Array.isArray(elastic) ? 'Array' : typeof elastic}<br/>`;
+              if (Array.isArray(elastic)) {
+                output += `长度: ${elastic.length}<br/>`;
+                output += `C₁₁ = ${elastic[0]?.[0]}<br/>`;
+              }
+            }
+            output += `</div><br/>`;
+          });
+        }
+        
+        result.innerHTML = output;
+      } catch (error) {
+        result.innerHTML = '<p style="color:red;">错误: ' + error.message + '</p>';
+      }
+    }
+
+    async function test2() {
+      const result = document.getElementById('result2');
+      result.innerHTML = '加载中...';
+      
+      try {
+        const response = await fetch('backend/data/materials.json');
+        const data = await response.json();
+        
+        // 模拟 getPrimaryData 函数
+        function getPrimaryData(material) {
+          if (!material.data || material.data.length === 0) return null;
+          let primary = material.data.find(d => d.temperature === 0 && d.source === 'DFT');
+          if (!primary) primary = material.data.find(d => d.temperature === 0 && d.source === 'DPA-3');
+          if (!primary) primary = material.data.find(d => d.temperature === 0 && d.source === 'DPA-1');
+          if (!primary) primary = material.data.find(d => d.temperature === 0);
+          if (!primary) primary = material.data[0];
+          return primary;
+        }
+        
+        let output = '<h3>力学性能表格中的弹性常数显示：</h3>';
+        output += '<table border="1" cellpadding="5" style="border-collapse: collapse;">';
+        output += '<tr><th>材料</th><th>Primary数据</th><th>有elasticConstants?</th><th>显示内容</th></tr>';
+        
+        for (let i = 0; i < Math.min(10, data.length); i++) {
+          const material = data[i];
+          const primary = getPrimaryData(material);
+          const props = primary?.properties || {};
+          const mech = props.mechanics || {};
+          const elastic = mech.elasticConstants;
+          
+          let display = '-';
+          if (elastic && Array.isArray(elastic) && elastic.length === 6) {
+            display = `C₁₁=${elastic[0][0]}`;
+          }
+          
+          output += '<tr>';
+          output += `<td>${material.name}</td>`;
+          output += `<td>${primary.temperature}K, ${primary.source}</td>`;
+          output += `<td>${elastic ? 'YES' : 'NO'}</td>`;
+          output += `<td>${display}</td>`;
+          output += '</tr>';
+        }
+        
+        output += '</table>';
+        result.innerHTML = output;
+      } catch (error) {
+        result.innerHTML = '<p style="color:red;">错误: ' + error.message + '</p>';
+      }
+    }
+  </script>
+</body>
+</html>
