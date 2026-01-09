@@ -1244,8 +1244,16 @@ jobs:
           
           function formatFile(file) {
             if (!file) return '-';
-            const filename = file.split('/').pop();
-            return '<a href="' + file + '" target="_blank">📄 ' + filename + '</a>';
+            // If file is an array (RDF or stress-strain data), show chart indicator
+            if (Array.isArray(file)) {
+              return '<span class="chart-indicator">📊 Chart</span>';
+            }
+            // If file is a string (URL/path)
+            if (typeof file === 'string') {
+              const filename = file.split('/').pop();
+              return '<a href="' + file + '" target="_blank">📄 ' + filename + '</a>';
+            }
+            return '-';
           }
           
           function translateType(type) {
@@ -2851,6 +2859,16 @@ jobs:
             font-size: 0.85em;
             color: #666;
             font-weight: normal;
+          }
+          
+          .chart-indicator {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #e8f4fd;
+            color: #0066cc;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-weight: 500;
           }
           
           /* Expandable Row System */
