@@ -568,6 +568,8 @@ jobs:
               if (chartLink) {
                 e.preventDefault();
                 const materialId = chartLink.getAttribute('data-material-id');
+                const temperature = chartLink.getAttribute('data-temperature');
+                const source = chartLink.getAttribute('data-source');
                 // Determine section based on table context
                 const row = chartLink.closest('tr');
                 const table = chartLink.closest('table');
@@ -575,9 +577,9 @@ jobs:
                 const isMechanicsTable = table && table.innerHTML.includes('Stress-Strain');
                 
                 if (isStructureTable) {
-                  showDetail(materialId, 'structure');
+                  showDetail(materialId, 'structure', temperature, source);
                 } else if (isMechanicsTable) {
-                  showDetail(materialId, 'mechanics');
+                  showDetail(materialId, 'mechanics', temperature, source);
                 } else {
                   showDetail(materialId);
                 }
@@ -718,7 +720,7 @@ jobs:
               }
               html += '</td>';
               
-              html += '<td>' + formatFile(struct.rdf, material.id) + '</td>';
+              html += '<td>' + formatFile(struct.rdf, material.id, primary.temperature, primary.source) + '</td>';
               html += '</tr>';
               
               // Expanded row for all data (sorted)
@@ -802,7 +804,7 @@ jobs:
                   }
                   html += '</td>';
                   
-                  html += '<td>' + formatFile(s.rdf, material.id) + '</td>';
+                  html += '<td>' + formatFile(s.rdf, material.id, data.temperature, data.source) + '</td>';
                   html += '</tr>';
                 }
                 
@@ -1004,7 +1006,7 @@ jobs:
               html += ' <span class="data-meta">(' + primary.temperature + 'K, ' + primary.source + ')</span>';
               html += '</td>';
               html += '<td>' + formatValue(mech.poissonsRatio, 3) + '</td>';
-              html += '<td>' + formatFile(mech.stressStrain, material.id) + '</td>';
+              html += '<td>' + formatFile(mech.stressStrain, material.id, primary.temperature, primary.source) + '</td>';
               html += '</tr>';
               
               if (hasSecondary) {
@@ -1090,7 +1092,7 @@ jobs:
                   
                   html += '<td>' + formatValue(m.youngsModulus, 2) + '</td>';
                   html += '<td>' + formatValue(m.poissonsRatio, 3) + '</td>';
-                  html += '<td>' + formatFile(m.stressStrain, material.id) + '</td>';
+                  html += '<td>' + formatFile(m.stressStrain, material.id, data.temperature, data.source) + '</td>';
                   html += '</tr>';
                 }
                 
@@ -1263,11 +1265,11 @@ jobs:
             return val;
           }
           
-          function formatFile(file, materialId) {
+          function formatFile(file, materialId, temperature, source) {
             if (!file) return '-';
             // If file is an array (RDF or stress-strain data), show chart indicator with click
             if (Array.isArray(file)) {
-              return '<a href="#" class="chart-indicator" data-material-id="' + materialId + '">📊 Chart</a>';
+              return '<a href="#" class="chart-indicator" data-material-id="' + materialId + '" data-temperature="' + temperature + '" data-source="' + source + '">📊 Chart</a>';
             }
             // If file is a string (URL/path)
             if (typeof file === 'string') {
@@ -1419,7 +1421,7 @@ jobs:
           };
           
           // Show material detail in modal
-          window.showDetail = function(materialId, scrollToSection) {
+          window.showDetail = function(materialId, scrollToSection, targetTemperature, targetSource) {
             const material = allData.find(m => m.id == materialId);
             if (!material) return;
             
@@ -1496,13 +1498,31 @@ jobs:
             }
             
             // Scroll to specified section if provided
-            if (scrollToSection) {
+            if (scrollToSection && targetTemperature && targetSource) {
               setTimeout(() => {
-                const section = document.querySelector('.subsection-header:contains("' + scrollToSection + '")');
-                if (section) {
-                  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Find the matching data point index
+                const sortedData = [...material.data].sort((a, b) => a.temperature - b.temperature);
+                const targetIdx = sortedData.findIndex(d => 
+                  d.temperature == targetTemperature && d.source === targetSource
+                );
+                
+                if (targetIdx !== -1) {
+                  // Find the chart with matching ID
+                  const chartPrefix = scrollToSection === 'structure' ? 'rdf' : 'stress';
+                  const targetChartId = chartPrefix + '-' + materialId + '-' + targetIdx;
+                  const targetChart = content.querySelector('#' + targetChartId);
+                  
+                  if (targetChart) {
+                    targetChart.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  } else {
+                    // Fallback to first chart
+                    const firstChart = content.querySelector('.chart-canvas');
+                    if (firstChart) {
+                      firstChart.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                  }
                 } else {
-                  // Fallback: scroll to first chart canvas
+                  // Fallback to first chart
                   const firstChart = content.querySelector('.chart-canvas');
                   if (firstChart) {
                     firstChart.scrollIntoView({ behavior: 'smooth', block: 'center' });
