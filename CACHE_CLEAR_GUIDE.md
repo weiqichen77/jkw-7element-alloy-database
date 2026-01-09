@@ -1,144 +1,108 @@
-# Browser Cache Clearing Guide
-## 浏览器缓存清除指南
+# 详情页面筛选功能验证指南
 
-**Problem / 问题**: The website shows old data (2 materials) instead of new data (100 materials)  
-**原因**: Browser is loading cached files instead of new data
+## ✅ 部署状态确认
 
----
+代码已经成功部署！您看到的旧版本是由于浏览器/CDN缓存。
 
-## ✅ Data Deployment Verified / 数据部署已确认
+**部署信息：**
+- Commit: `96dcdc5`
+- 时间: 2026-01-09 06:54 GMT
+- 状态: ✅ Success (22秒)
+- 在线验证: ✅ 代码已确认部署
 
-The new data **IS deployed** and accessible:
-- URL: https://wqchen007.github.io/jkw-7element-alloy-database/data/materials.json
-- Materials count: **100** ✅
-- Data points: **258** ✅
+## 🔧 立即测试（绕过缓存）
 
-新数据**已部署**并可访问：
-- 材料数量：**100个** ✅
-- 数据点数量：**258个** ✅
+### 最快方法：隐身模式
 
----
-
-## 🔧 Solution: Clear Browser Cache / 解决方案：清除浏览器缓存
-
-### Method 1: Hard Refresh (Recommended) / 方法1：强制刷新（推荐）
-
-**Windows/Linux:**
-- Press `Ctrl + Shift + R`
-- Or `Ctrl + F5`
-
-**Mac:**
-- Press `Cmd + Shift + R`
-
-### Method 2: Clear Specific Site Cache / 方法2：清除特定站点缓存
-
-#### Chrome / Edge
-1. Right-click on the page
-2. Select "Inspect" or press `F12`
-3. Open "Application" tab
-4. Under "Storage", click "Clear site data"
-5. Refresh the page
-
-#### Firefox
-1. Press `F12` to open Developer Tools
-2. Go to "Storage" tab
-3. Right-click on the site URL
-4. Select "Delete All"
-5. Refresh the page
-
-#### Safari
-1. Press `Cmd + Option + E` to empty caches
-2. Or go to Safari > Preferences > Advanced
-3. Enable "Show Develop menu"
-4. Develop > Empty Caches
-
-### Method 3: Incognito/Private Mode / 方法3：隐私模式
-
-Open the website in:
-- **Chrome**: `Ctrl+Shift+N` (Windows) or `Cmd+Shift+N` (Mac)
-- **Firefox**: `Ctrl+Shift+P` (Windows) or `Cmd+Shift+P` (Mac)
-- **Edge**: `Ctrl+Shift+N`
-- **Safari**: `Cmd+Shift+N`
-
-This will load the page without any cached data.
-
-### Method 4: Disable Cache in DevTools / 方法4：开发者工具禁用缓存
-
-1. Open Developer Tools (`F12`)
-2. Go to "Network" tab
-3. Check "Disable cache" checkbox
-4. Keep DevTools open
-5. Refresh the page
-
----
-
-## 🎯 What You Should See After Clearing Cache / 清除缓存后应看到的内容
-
-### Statistics Bar / 统计栏
+**Chrome/Edge:**
 ```
-找到 100 种材料，共 258 条数据
-Found 100 materials with 258 data points
+按 Ctrl + Shift + N (Mac: Cmd + Shift + N)
+访问 https://wqchen007.github.io/jkw-7element-alloy-database/
 ```
 
-### Material Examples / 材料示例
-- Al3Zr3-intermetallic
-- Fe3Co4-ss
-- Ti
-- Ni2Cu3-intermetallic
-- Al3Fe2Ta1-amorphous
-- Cu/Zr-interface
+**Firefox:**
+```
+按 Ctrl + Shift + P (Mac: Cmd + Shift + P)
+访问网站
+```
 
-### Material Type Distribution / 材料类型分布
-- Element (单质): 18 materials
-- Solid Solution (固溶体): 18 materials
-- Intermetallic (金属间化合物): 24 materials
-- Amorphous (非晶): 19 materials
-- Interface (界面): 21 materials
+### 方法2：强制刷新
 
-### Features to Test / 可测试功能
-- ✅ Click type tabs - each should show materials
-- ✅ Search "Al" - should find ~40 materials
-- ✅ Click ▶ on materials - expand multi-temperature data
-- ✅ Click material names - open detail view
-- ✅ Export button - test JSON/CSV export
-- ✅ Language toggle - EN/中
+按住 `Ctrl + Shift + R` (Mac: `Cmd + Shift + R`)
 
----
+### 方法3：禁用缓存
 
-## 🐛 Still Not Working? / 仍然不工作？
+1. 按 F12 打开开发者工具
+2. Network 标签 → 勾选 "Disable cache"
+3. 刷新页面
 
-### Check if data is loaded:
-1. Open Developer Console (`F12`)
-2. Go to "Console" tab
-3. Type: `allData.length`
-4. Should show: `100`
+## 🧪 验证代码是否加载
 
-### Check network request:
-1. Open Developer Tools (`F12`)
-2. Go to "Network" tab
-3. Refresh page
-4. Find `materials.json` request
-5. Click on it
-6. Check "Response" - should show 100 materials
+在浏览器控制台 (F12 → Console) 运行：
 
-### If still showing old data:
-The issue might be browser cache is very persistent. Try:
-1. Clear ALL browser data (History, Cookies, Cache)
-2. Restart browser
-3. Or use a different browser
+```javascript
+// 快速验证
+console.log('generateAllDataView:', typeof generateAllDataView);
+console.log('使用新逻辑:', window.filterDetailData.toString().includes('generateAllDataView'));
 
----
+// 如果两个都输出 true/function，说明代码已正确加载
+```
 
-## 📞 Support / 支持
+## 🎯 测试步骤
 
-If none of these methods work, please report:
-1. Browser name and version
-2. Operating system
-3. Screenshot of what you see
-4. Console errors (if any)
+1. **清除缓存**（使用上面任一方法）
+2. **打开材料详情**（点击任意材料名称）
+3. **测试默认显示**：温度=全部, 来源=全部
+   - 应该看到按模块分组的多个数据卡片
+4. **测试筛选**：选择 温度=0K
+   - 格式应该保持一致，显示所有0K的数据
+5. **测试筛选**：选择 来源=DFT
+   - 格式应该保持一致，显示所有DFT的数据
 
-GitHub Issues: https://github.com/wqchen007/jkw-7element-alloy-database/issues
+## ✅ 正确的显示格式
 
----
+每个属性模块（结构、热力学、力学、缺陷）内应该看到：
 
-*Last Updated: 2026-01-08*
+```
+【结构信息】
+┌─ 0K, DFT ─────────┐
+│ 密度: 6.87 g/cm³  │
+│ 点群: P6/mmm      │
+│ ...              │
+└───────────────────┘
+┌─ 0K, DPA-3 ───────┐
+│ 密度: 14.97 g/cm³ │
+│ ...              │
+└───────────────────┘
+```
+
+每个数据卡片特征：
+- 蓝色标题 "温度K, 来源"
+- 浅灰色背景
+- 左侧蓝色边框
+
+## ❌ 旧格式（说明缓存未清除）
+
+如果看到这种格式，说明需要清除缓存：
+- 基本信息包含温度和来源字段
+- 属性不分组，所有数据混在一起
+- 或者每组数据用大标题分段
+
+## 🔍 故障排查
+
+### 1. 隐身模式仍显示旧版本
+等待10分钟让CDN传播，然后重试
+
+### 2. 验证脚本返回 undefined
+硬刷新页面（Ctrl+Shift+R），重新运行验证脚本
+
+### 3. 验证通过但显示仍错误
+检查是否有JavaScript错误（F12 → Console标签）
+
+## 📞 需要帮助？
+
+如果尝试所有方法后仍有问题，请提供：
+1. 验证脚本的输出
+2. 浏览器名称和版本
+3. 详情页面截图
+4. Console中是否有错误
