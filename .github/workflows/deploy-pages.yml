@@ -663,7 +663,7 @@ jobs:
               html += '<td>' + translateType(material.type) + '</td>';
               html += '<td class="composition">' + formatComposition(material.composition) + '</td>';
               html += '<td>' + formatValue(struct.density, 3);
-              if (hasSecondary) html += ' <span class="data-meta">(0K, ' + primary.source + ')</span>';
+              html += ' <span class="data-meta">(' + primary.temperature + 'K, ' + primary.source + ')</span>';
               html += '</td>';
               
               // Lattice parameters with dropdown
@@ -813,7 +813,7 @@ jobs:
               html += '<td>' + translateType(material.type) + '</td>';
               html += '<td class="composition">' + formatComposition(material.composition) + '</td>';
               html += '<td>' + formatValue(thermo.specificHeat, 2);
-              if (hasSecondary) html += ' <span class="data-meta">(0K, ' + primary.source + ')</span>';
+              html += ' <span class="data-meta">(' + primary.temperature + 'K, ' + primary.source + ')</span>';
               html += '</td>';
               html += '<td>' + formatValue(thermo.mixingEnthalpy, 2) + '</td>';
               html += '<td>' + formatScientific(thermo.diffusionCoefficient) + '</td>';
@@ -945,7 +945,7 @@ jobs:
               html += '</td>';
               
               html += '<td>' + formatValue(mech.youngsModulus, 2);
-              if (hasSecondary) html += ' <span class="data-meta">(0K, ' + primary.source + ')</span>';
+              html += ' <span class="data-meta">(' + primary.temperature + 'K, ' + primary.source + ')</span>';
               html += '</td>';
               html += '<td>' + formatValue(mech.poissonsRatio, 3) + '</td>';
               html += '<td>' + formatFile(mech.stressStrain) + '</td>';
@@ -1074,7 +1074,7 @@ jobs:
               html += '<td>' + translateType(material.type) + '</td>';
               html += '<td class="composition">' + formatComposition(material.composition) + '</td>';
               html += '<td>' + formatValue(defects.vacancyFormationEnergy, 3);
-              if (hasSecondary) html += ' <span class="data-meta">(0K, ' + primary.source + ')</span>';
+              html += ' <span class="data-meta">(' + primary.temperature + 'K, ' + primary.source + ')</span>';
               html += '</td>';
               
               // Interstitial with multiple sites
