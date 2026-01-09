@@ -8,146 +8,104 @@
 
 ### Data Preparation and Upload
 
-This guide explains how to prepare and upload your material data to the database.
-
 #### Step 1: Prepare Your Data
 
-You can provide data in any of the following formats:
-- CSV (Comma-separated values)
-- JSON (JavaScript Object Notation)
-- TSV (Tab-separated values)
+Use CSV format with the following structure (see [example-template-v2.csv](example-template-v2.csv) for reference):
 
-**Required Fields:**
-- `name` - Material name (string)
-- `type` - Material type: `crystalline`, `amorphous`, or `interface`
-- `elements` - Array of element symbols (primary system: Al, Ni, Cu, Zr, Nb, Ta, W; other elements are also supported)
+**Required Columns:**
+- `name` - Material name
+- `type` - Material type: element, ss (solid solution), intermetallic, amorphous, interface
+- `composition` - Element composition (e.g., Al3Zr3, Fe2Ni1)
+- `temperature` - Temperature in Kelvin
+- `source` - Data source (e.g., DFT, DPA-1, DPA-3, Experiment)
 
-**Optional Fields:**
-- `density` - Material density in g/cm³
-- **Structure properties:**
-  - `structure.latticeConstants` - Lattice parameters (object with a, b, c values)
-  - `structure.rdf` - Radial distribution function data (URL or array)
-- **Thermodynamics properties:**
-  - `thermodynamics.specificHeat` - Specific heat capacity (J/kg·K)
-  - `thermodynamics.mixingEnthalpy` - Mixing enthalpy (kJ/mol)
-  - `thermodynamics.diffusionCoefficient` - Diffusion coefficient (m²/s)
-  - `thermodynamics.thermalExpansion` - Thermal expansion coefficient (10⁻⁶/K)
-- **Mechanics properties:**
-  - `mechanics.elasticConstants` - Elastic constants (object)
-  - `mechanics.stressStrain` - Stress-strain curve data (URL or array)
-  - `mechanics.youngsModulus` - Young's modulus (GPa)
-  - `mechanics.poissonsRatio` - Poisson's ratio
-- **Defects properties:**
-  - `defects.vacancyFormationEnergy` - Vacancy formation energy (eV)
-  - `defects.interstitialFormationEnergy` - Interstitial formation energy (eV)
-  - `defects.stackingFaultEnergy` - Stacking fault energy (mJ/m²)
+**Property Columns:**
+- `density` - Density (g/cm³)
+- `lattice_a`, `lattice_b`, `lattice_c` - Lattice parameters (Å)
+- `lattice_alpha`, `lattice_beta`, `lattice_gamma` - Lattice angles (degrees)
+- `point_group` - Crystallographic point group
+- `specific_heat` - Specific heat capacity (J/kg·K)
+- `mixing_enthalpy` - Mixing enthalpy (eV/atom)
+- `diffusion_coefficient` - Diffusion coefficient (m²/s)
+- `thermal_expansion` - Thermal expansion coefficient (10⁻⁶/K)
+- `youngs_modulus` - Young's modulus (GPa)
+- `bulk_modulus` - Bulk modulus (GPa)
+- `shear_modulus` - Shear modulus (GPa)
+- `poissons_ratio` - Poisson's ratio
+- `vacancy_formation_energy` - Vacancy formation energy (eV)
+- `interstitial_*` - Interstitial formation energies for different configurations
 
-#### Step 2: Generate a Template (Optional)
-
-Generate a CSV template to see the exact format:
+#### Step 2: Convert Data to JSON
 
 ```bash
-node scripts/convert-data.js --template my-template.csv
+node scripts/convert-data-v2.js your-data.csv backend/data/materials.json
 ```
 
-#### Step 3: Convert Your Data
+#### Step 3: Generate POSCAR Files (Optional)
 
-Use the conversion script to validate and convert your data:
+For 3D structure visualization:
 
 ```bash
-node scripts/convert-data.js your-data.csv real-data/materials.json
+node scripts/generate-poscar-files.js
 ```
 
-The script will:
-- Validate all required fields
-- Check for invalid element symbols
-- Normalize the data structure
-- Generate the standardized materials.json file
+This creates POSCAR files in `real-data/poscar/` based on material compositions.
 
-**Example CSV format:**
-
-```csv
-name,type,elements,density,thermodynamics.specificHeat,mechanics.youngsModulus
-AlNiCu-001,crystalline,"[Al,Ni,Cu]",8.5,450,180
-AlZr-Glass,amorphous,"[Al,Zr]",6.2,380,95
-```
-
-**Example JSON format:**
-
-```json
-[
-  {
-    "name": "AlNiCu-001",
-    "type": "crystalline",
-    "elements": ["Al", "Ni", "Cu"],
-    "density": 8.5,
-    "thermodynamics": {
-      "specificHeat": 450
-    },
-    "mechanics": {
-      "youngsModulus": 180
-    }
-  }
-]
-```
-
-#### Step 4: Review the Output
-
-Open `real-data/materials.json` and verify:
-- All materials are present
-- Data values are correct
-- No validation errors were reported
-
-#### Step 5: Upload and Deploy
-
-Commit and push your changes:
+#### Step 4: Commit and Deploy
 
 ```bash
-git add real-data/materials.json
-git commit -m "Add real material data"
+git add backend/data/materials.json real-data/poscar/
+git commit -m "Add material data"
 git push origin main
 ```
 
-The GitHub Actions workflow will:
-1. Detect the presence of real data
-2. Skip sample data generation
-3. Deploy your real data to the website
-4. Make it available at: https://wqchen007.github.io/jkw-7element-alloy-database/
+GitHub Actions will automatically deploy your data to the website.
 
-#### Step 6: Verify Deployment
+### Data Format Requirements
 
-Wait 1-2 minutes for deployment to complete, then visit the website to verify your data is displayed correctly.
+**Temperature Values:**
+- Use numeric values in Kelvin (e.g., 0, 300, 600, 900)
+
+**Data Sources:**
+- Common values: DFT, DPA-1, DPA-3, Experiment
+- Use consistent naming across your dataset
+
+**Material Types:**
+- `element` - Pure elements
+- `ss` - Solid solutions
+- `intermetallic` - Intermetallic compounds
+- `amorphous` - Amorphous alloys
+- `interface` - Interface structures
+
+**Composition Format:**
+- Use element symbols with stoichiometry (e.g., Al3Zr3, Cu2Nb1Co1)
+- No spaces or special characters
 
 ### Updating Data
 
 To update existing data or add new materials:
 
-1. Edit your source data file (CSV, JSON, etc.)
+1. Edit your CSV source file
 2. Re-run the conversion script
-3. Commit and push the updated `real-data/materials.json`
-4. Wait for automatic deployment
+3. Commit and push the updated JSON file
+4. Wait for automatic deployment (1-2 minutes)
 
 ### Troubleshooting
 
-**Validation errors:**
-- Check that all required fields are present (name, type, elements)
-- Ensure material type is one of: crystalline, amorphous, interface
-- Verify elements array is not empty
+**Validation Errors:**
+- Check that all required columns are present
+- Verify material type is one of: element, ss, intermetallic, amorphous, interface
+- Ensure temperature and source values are consistent
 
-**Warnings about elements:**
-- If using elements outside the primary system (Al, Ni, Cu, Zr, Nb, Ta, W), you will see a warning
-- This is informational only - conversion will still succeed
-- Non-primary elements are fully supported
-
-**Deployment not updating:**
+**Deployment Issues:**
 - Check the Actions tab on GitHub for workflow status
-- Verify that `real-data/materials.json` was pushed to the main branch
-- Clear browser cache and refresh the page
+- Verify files were pushed to the main branch
+- Clear browser cache (Ctrl+Shift+R) to see updates
 
-**Data not displaying correctly:**
+**Data Not Displaying:**
 - Verify JSON syntax is valid
-- Check browser console for JavaScript errors
-- Ensure data structure matches the schema
+- Check browser console for errors
+- Ensure data structure matches the schema in [docs/DATA_STRUCTURE_V2.md](docs/DATA_STRUCTURE_V2.md)
 
 ---
 
@@ -155,180 +113,101 @@ To update existing data or add new materials:
 
 ### 数据准备与上传
 
-本指南说明如何准备并上传材料数据到数据库。
-
 #### 步骤 1: 准备数据
 
-您可以使用以下任一格式提供数据：
-- CSV（逗号分隔值）
-- JSON（JavaScript对象表示法）
-- TSV（制表符分隔值）
+使用CSV格式，结构如下（参见 [example-template-v2.csv](example-template-v2.csv)）：
 
-**必填字段：**
-- `name` - 材料名称（字符串）
-- `type` - 材料类型：`crystalline`（晶体）、`amorphous`（非晶）或 `interface`（界面）
-- `elements` - 元素符号数组（主要体系：Al、Ni、Cu、Zr、Nb、Ta、W；同时支持其他元素）
+**必填列：**
+- `name` - 材料名称
+- `type` - 材料类型：element（单质）、ss（固溶体）、intermetallic（金属间化合物）、amorphous（非晶）、interface（界面）
+- `composition` - 元素组成（如 Al3Zr3、Fe2Ni1）
+- `temperature` - 温度（开尔文）
+- `source` - 数据来源（如 DFT、DPA-1、DPA-3、Experiment）
 
-**可选字段：**
-- `density` - 材料密度（g/cm³）
-- **结构性质：**
-  - `structure.latticeConstants` - 晶格常数（包含a、b、c值的对象）
-  - `structure.rdf` - 径向分布函数数据（URL或数组）
-- **热力学性质：**
-  - `thermodynamics.specificHeat` - 比热容（J/kg·K）
-  - `thermodynamics.mixingEnthalpy` - 混合焓（kJ/mol）
-  - `thermodynamics.diffusionCoefficient` - 扩散系数（m²/s）
-  - `thermodynamics.thermalExpansion` - 热膨胀系数（10⁻⁶/K）
-- **力学性能：**
-  - `mechanics.elasticConstants` - 弹性常数（对象）
-  - `mechanics.stressStrain` - 应力-应变曲线数据（URL或数组）
-  - `mechanics.youngsModulus` - 杨氏模量（GPa）
-  - `mechanics.poissonsRatio` - 泊松比
-- **缺陷性质：**
-  - `defects.vacancyFormationEnergy` - 空位形成能（eV）
-  - `defects.interstitialFormationEnergy` - 间隙形成能（eV）
-  - `defects.stackingFaultEnergy` - 层错能（mJ/m²）
+**性质列：**
+- `density` - 密度（g/cm³）
+- `lattice_a`, `lattice_b`, `lattice_c` - 晶格参数（Å）
+- `lattice_alpha`, `lattice_beta`, `lattice_gamma` - 晶格角度（度）
+- `point_group` - 晶体点群
+- `specific_heat` - 比热容（J/kg·K）
+- `mixing_enthalpy` - 混合焓（eV/atom）
+- `diffusion_coefficient` - 扩散系数（m²/s）
+- `thermal_expansion` - 热膨胀系数（10⁻⁶/K）
+- `youngs_modulus` - 杨氏模量（GPa）
+- `bulk_modulus` - 体积模量（GPa）
+- `shear_modulus` - 剪切模量（GPa）
+- `poissons_ratio` - 泊松比
+- `vacancy_formation_energy` - 空位形成能（eV）
+- `interstitial_*` - 不同构型的间隙形成能
 
-#### 步骤 2: 生成模板（可选）
-
-生成CSV模板以查看确切格式：
+#### 步骤 2: 转换数据为JSON
 
 ```bash
-node scripts/convert-data.js --template my-template.csv
+node scripts/convert-data-v2.js your-data.csv backend/data/materials.json
 ```
 
-#### 步骤 3: 转换数据
+#### 步骤 3: 生成POSCAR文件（可选）
 
-使用转换脚本验证并转换您的数据：
+用于3D结构可视化：
 
 ```bash
-node scripts/convert-data.js your-data.csv real-data/materials.json
+node scripts/generate-poscar-files.js
 ```
 
-脚本将：
-- 验证所有必填字段
-- 检查无效的元素符号
-- 标准化数据结构
-- 生成标准格式的materials.json文件
+这将在 `real-data/poscar/` 中根据材料组成创建POSCAR文件。
 
-**CSV格式示例：**
-
-```csv
-name,type,elements,density,thermodynamics.specificHeat,mechanics.youngsModulus
-AlNiCu-001,crystalline,"[Al,Ni,Cu]",8.5,450,180
-AlZr-Glass,amorphous,"[Al,Zr]",6.2,380,95
-```
-
-**JSON格式示例：**
-
-```json
-[
-  {
-    "name": "AlNiCu-001",
-    "type": "crystalline",
-    "elements": ["Al", "Ni", "Cu"],
-    "density": 8.5,
-    "thermodynamics": {
-      "specificHeat": 450
-    },
-    "mechanics": {
-      "youngsModulus": 180
-    }
-  }
-]
-```
-
-#### 步骤 4: 检查输出
-
-打开 `real-data/materials.json` 并验证：
-- 所有材料都存在
-- 数据值正确
-- 没有报告验证错误
-
-#### 步骤 5: 上传和部署
-
-提交并推送更改：
+#### 步骤 4: 提交并部署
 
 ```bash
-git add real-data/materials.json
-git commit -m "Add real material data"
+git add backend/data/materials.json real-data/poscar/
+git commit -m "Add material data"
 git push origin main
 ```
 
-GitHub Actions工作流将：
-1. 检测到真实数据的存在
-2. 跳过示例数据生成
-3. 将您的真实数据部署到网站
-4. 在此网址可访问：https://wqchen007.github.io/jkw-7element-alloy-database/
+GitHub Actions将自动部署数据到网站。
 
-#### 步骤 6: 验证部署
+### 数据格式要求
 
-等待1-2分钟完成部署，然后访问网站验证数据显示正确。
+**温度值：**
+- 使用开尔文数值（如 0、300、600、900）
+
+**数据来源：**
+- 常用值：DFT、DPA-1、DPA-3、Experiment
+- 在数据集中使用一致的命名
+
+**材料类型：**
+- `element` - 纯元素
+- `ss` - 固溶体
+- `intermetallic` - 金属间化合物
+- `amorphous` - 非晶合金
+- `interface` - 界面结构
+
+**组成格式：**
+- 使用元素符号加化学计量（如 Al3Zr3、Cu2Nb1Co1）
+- 不含空格或特殊字符
 
 ### 更新数据
 
-要更新现有数据或添加新材料：
+更新现有数据或添加新材料：
 
-1. 编辑您的源数据文件（CSV、JSON等）
+1. 编辑CSV源文件
 2. 重新运行转换脚本
-3. 提交并推送更新的 `real-data/materials.json`
-4. 等待自动部署
+3. 提交并推送更新的JSON文件
+4. 等待自动部署（1-2分钟）
 
 ### 故障排除
 
 **验证错误：**
-- 检查所有必填字段是否存在（name、type、elements）
-- 确保材料类型是以下之一：crystalline、amorphous、interface
-- 验证元素数组不为空
+- 检查所有必填列是否存在
+- 验证材料类型是否为：element、ss、intermetallic、amorphous、interface
+- 确保温度和来源值一致
 
-**元素警告：**
-- 如果使用主要体系（Al、Ni、Cu、Zr、Nb、Ta、W）之外的元素，会显示警告信息
-- 这仅是提示性质 - 转换仍会成功完成
-- 完全支持非主要元素
+**部署问题：**
+- 检查GitHub上的Actions标签查看工作流状态
+- 验证文件是否已推送到主分支
+- 清除浏览器缓存（Ctrl+Shift+R）以查看更新
 
-**部署未更新：**
-- 检查GitHub上的Actions选项卡查看工作流状态
-- 验证 `real-data/materials.json` 已推送到main分支
-- 清除浏览器缓存并刷新页面
-
-**数据显示不正确：**
-- 验证JSON语法是否有效
-- 检查浏览器控制台是否有JavaScript错误
-- 确保数据结构符合架构
-
----
-
-## Data Schema / 数据架构
-
-Complete JSON schema example / 完整JSON架构示例：
-
-```json
-{
-  "id": "material-1",
-  "name": "Material Name",
-  "type": "crystalline",
-  "elements": ["Al", "Ni", "Cu"],
-  "density": 8.5,
-  "structure": {
-    "latticeConstants": {"a": 3.6, "b": 3.6, "c": 3.6},
-    "rdf": "url-or-array"
-  },
-  "thermodynamics": {
-    "specificHeat": 450,
-    "mixingEnthalpy": -25,
-    "diffusionCoefficient": 1.2e-15,
-    "thermalExpansion": 12.5
-  },
-  "mechanics": {
-    "elasticConstants": {"C11": 200, "C12": 150},
-    "stressStrain": "url-or-array",
-    "youngsModulus": 180,
-    "poissonsRatio": 0.33
-  },
-  "defects": {
-    "vacancyFormationEnergy": 1.2,
-    "interstitialFormationEnergy": 2.1,
-    "stackingFaultEnergy": 120
-  }
-}
-```
+**数据未显示：**
+- 验证JSON语法有效
+- 检查浏览器控制台错误
+- 确保数据结构匹配 [docs/DATA_STRUCTURE_V2.md](docs/DATA_STRUCTURE_V2.md) 中的架构

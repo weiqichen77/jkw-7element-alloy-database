@@ -1,12 +1,9 @@
-# 7-Element Alloy Materials Database V2 / 七元合金材料数据库 V2
+# 7-Element Alloy Materials Database
 
 [![GitHub Pages](https://img.shields.io/badge/Demo-GitHub%20Pages-blue)](https://wqchen007.github.io/jkw-7element-alloy-database/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![V2 Status](https://img.shields.io/badge/V2-Complete-brightgreen)](docs/V2_USER_GUIDE.md)
 
 [English](#english) | [中文](#中文)
-
-> **🎉 V2 Released!**: Major upgrade complete with 7 core features including multi-temperature/multi-source data, 3D POSCAR visualization, and advanced export system. See [V2 User Guide](docs/V2_USER_GUIDE.md) for details.
 
 ---
 
@@ -14,76 +11,65 @@
 
 ### Overview
 
-A comprehensive, next-generation materials database for alloy systems with multi-dimensional data support. Primary focus on 7-element combinations (Al, Ni, Cu, Zr, Nb, Ta, W), extensible to other elements.
+A comprehensive materials database for multi-principal element alloys with multi-dimensional data support. Primary focus on 7-element combinations (Al, Ni, Cu, Zr, Nb, Ta, W), extensible to other elements.
 
-**Primary Element System:** Al, Ni, Cu, Zr, Nb, Ta, W
+**Live Demo:** [https://wqchen007.github.io/jkw-7element-alloy-database/](https://wqchen007.github.io/jkw-7element-alloy-database/)
 
-**V2 New Features:**
-- 🏷️ **6 Material Types**: Element, Solid Solution, Intermetallic, Amorphous, Interface
-- 🌡️ **Multi-temperature Data**: Support any temperature (0K, 300K, etc.)
-- 📊 **Multiple Data Sources**: DFT, DPA-1, DPA-3, and more
-- 🔬 **3D POSCAR Visualization**: Interactive atomic structure viewer with 3Dmol.js
-- 📥 **Advanced Export**: JSON (complete) and CSV (flattened) with selective export
-- 📈 **Enhanced Statistics**: Material count + data point count
-- 🔄 **Expandable Rows**: View all temperature/source combinations in tables
+### Key Features
 
-### Access
-
-**Live Website:** [https://wqchen007.github.io/jkw-7element-alloy-database/](https://wqchen007.github.io/jkw-7element-alloy-database/)
-
-**V2 Features:**
-- Material type classification (6 types)
-- Element composition search (e.g., "Al2Cu4" shows Al₂Cu₄)
-- Expandable table rows for multi-dimensional data
-- Detail page with data source selector
-- 3D structure visualization (POSCAR/VASP format)
-- Data export (JSON/CSV) with filtering options
-- Bilingual interface (English/Chinese)
+- **Material Classification**: Element, Solid Solution, Intermetallic, Amorphous, Interface
+- **Multi-dimensional Data**: Multiple temperatures and data sources per material
+- **Property Categories**: Structure, Thermodynamics, Mechanics, Defects
+- **3D Visualization**: Interactive atomic structure viewer (POSCAR/VASP format)
+- **Advanced Export**: JSON (complete) and CSV (flattened) with selective filtering
+- **Bilingual Interface**: English and Chinese support
+- **Data Statistics**: Real-time material and data point counting
 
 ### Material Properties
 
-**Structure:**
-- Lattice constants
+**Structure**
+- Density
+- Lattice parameters
 - Radial distribution function (RDF)
 
-**Thermodynamics:**
+**Thermodynamics**
 - Specific heat capacity
 - Mixing enthalpy
 - Diffusion coefficient
 - Thermal expansion coefficient
 
-**Mechanics:**
-- Elastic constants
-- Stress-strain curves
+**Mechanics**
 - Young's modulus
+- Bulk modulus
+- Shear modulus
 - Poisson's ratio
+- Elastic constants (Cij matrix)
+- Stress-strain curves
 
-**Defects:**
+**Defects**
 - Vacancy formation energy
-- Interstitial formation energy
-- Stacking fault energy
+- Interstitial formation energy (multiple configurations)
 
 ### Quick Start
 
-**View Online:**
-Visit [https://wqchen007.github.io/jkw-7element-alloy-database/](https://wqchen007.github.io/jkw-7element-alloy-database/)
+**View Online**
 
-**Add Your Data (V2 Format):**
+Visit the live website: [https://wqchen007.github.io/jkw-7element-alloy-database/](https://wqchen007.github.io/jkw-7element-alloy-database/)
+
+**Add Your Data**
 
 1. Prepare data in CSV format (see [example-template-v2.csv](example-template-v2.csv))
-2. Convert to V2 JSON format:
+2. Convert to JSON format:
    ```bash
    node scripts/convert-data-v2.js your-data.csv backend/data/materials.json
    ```
 3. Commit and push:
    ```bash
-   git add backend/data/materials.json
-   git commit -m "Add V2 material data"
+   git add backend/data/materials.json real-data/poscar/
+   git commit -m "Add material data"
    git push origin main
    ```
 4. Website updates automatically via GitHub Actions
-
-See [V2 User Guide](docs/V2_USER_GUIDE.md) for detailed usage instructions.
 
 ### Local Development
 
@@ -92,11 +78,11 @@ See [V2 User Guide](docs/V2_USER_GUIDE.md) for detailed usage instructions.
 git clone https://github.com/wqchen007/jkw-7element-alloy-database.git
 cd jkw-7element-alloy-database
 
-# Generate sample data (V1 format - deprecated)
-node scripts/generate-sample-data.js
-
-# Convert V2 format data (recommended)
+# Convert data to V2 format
 node scripts/convert-data-v2.js example-template-v2.csv backend/data/materials.json
+
+# Generate POSCAR files (optional)
+node scripts/generate-poscar-files.js
 
 # Serve locally
 python -m http.server 8000
@@ -105,56 +91,77 @@ python -m http.server 8000
 open http://localhost:8000/frontend/
 ```
 
-### V2 Documentation
-
-See comprehensive V2 documentation:
-- 📖 [V2 User Guide](docs/V2_USER_GUIDE.md) - Complete usage guide with examples
-- ✅ [Testing Checklist](docs/TESTING_CHECKLIST.md) - 150+ test items
-- 📊 [V2 Progress Summary](V2_PROGRESS_SUMMARY.md) - Implementation summary  
-- 🔧 [V2 Implementation Plan](docs/IMPLEMENTATION_PLAN_V2.md) - Technical details (COMPLETED)
-- 📐 [V2 Data Structure](docs/DATA_STRUCTURE_V2.md) - Complete data schema
-
-**V2 Key Features:**
-- 🌡️ Multi-temperature/multi-source data support
-- 🔬 Interactive 3D POSCAR visualization (3Dmol.js)
-- 📥 Advanced export system (JSON + CSV)
-- 🏷️ 6 material type categories
-- 📈 Enhanced statistics
-- 🌐 Full bilingual support
-
-```bash
-# Convert data to V2 format
-node scripts/convert-data-v2.js your-data.csv output.json
-
-# Generate V2 template
-node scripts/convert-data-v2.js --template my-template.csv
-```
-
 ### Project Structure
 
 ```
 ├── backend/
+│   ├── api/
+│   │   └── materials.js          # API endpoint
 │   └── data/
-│       └── materials.json        # Auto-generated from real or sample data
+│       ├── materials.json         # Material database
+│       ├── poscar/                # POSCAR structure files
+│       ├── rdf/                   # RDF data files
+│       └── stress-strain/         # Stress-strain curves
 ├── frontend/
-│   ├── index.html                # Main web interface
-│   ├── css/style.css             # Styling
-│   └── js/app.js                 # Application logic
+│   ├── index.html                 # Main interface
+│   ├── css/style.css              # Styling
+│   └── js/app.js                  # Application logic
 ├── scripts/
-│   ├── convert-data.js           # Data conversion tool
-│   └── generate-sample-data.js   # Sample data generator
+│   ├── convert-data-v2.js         # Data conversion tool
+│   ├── generate-poscar-files.js   # POSCAR generator
+│   └── add-chart-data.js          # Chart data helper
 ├── real-data/
-│   └── materials.json            # Place real data here (optional)
-├── docs/
-│   ├── API.md                    # API documentation
-│   └── DATA_STRUCTURE.md         # Data schema reference
-└── CONTRIBUTING.md               # Data upload guide
+│   ├── materials.json             # Production data (optional)
+│   └── poscar/                    # POSCAR files (70+ structures)
+└── docs/
+    ├── API.md                     # API documentation
+    ├── DATA_STRUCTURE_V2.md       # Data schema reference
+    ├── V2_USER_GUIDE.md           # User guide
+    └── IMPLEMENTATION_PLAN_V2.md  # Technical details
 ```
+
+### Data Format
+
+The database uses a hierarchical JSON format with multi-temperature and multi-source support:
+
+```json
+{
+  "id": 1,
+  "name": "Al3Zr3-intermetallic",
+  "type": "intermetallic",
+  "composition": "Al3Zr3",
+  "data": [
+    {
+      "temperature": 0,
+      "source": "DPA-3",
+      "properties": {
+        "structure": { "density": 6.87, "latticeParameters": {...}, "rdf": [[...]] },
+        "thermodynamics": { "mixingEnthalpy": 0.61, ... },
+        "mechanics": { "youngsModulus": 140.22, "stressStrain": [[...]], ... },
+        "defects": { "vacancyFormationEnergy": 1.33, ... }
+      }
+    }
+  ]
+}
+```
+
+See [docs/DATA_STRUCTURE_V2.md](docs/DATA_STRUCTURE_V2.md) for complete schema.
+
+### Documentation
+
+- [V2 User Guide](docs/V2_USER_GUIDE.md) - Complete usage guide
+- [Data Structure](docs/DATA_STRUCTURE_V2.md) - JSON schema reference
+- [API Documentation](docs/API.md) - API endpoints
+- [Testing Checklist](docs/TESTING_CHECKLIST.md) - Validation tests
+- [Contributing Guide](CONTRIBUTING.md) - Data contribution guidelines
 
 ### Contributing
 
-Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for data preparation and upload instructions.
+Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for data preparation and submission guidelines.
 
+### License
+
+MIT License - see [LICENSE](LICENSE) for details.
 
 ---
 
@@ -162,76 +169,65 @@ Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for data prepa
 
 ### 概述
 
-下一代合金材料综合数据库，支持多维数据。主要关注七元组合（Al、Ni、Cu、Zr、Nb、Ta、W），可扩展至其他元素。
+多主元合金材料综合数据库，支持多维数据。主要关注七元组合（Al、Ni、Cu、Zr、Nb、Ta、W），可扩展至其他元素。
 
-**主要元素体系：** Al、Ni、Cu、Zr、Nb、Ta、W
+**在线演示：** [https://wqchen007.github.io/jkw-7element-alloy-database/](https://wqchen007.github.io/jkw-7element-alloy-database/)
 
-**V2 新功能：**
-- 🏷️ **6种材料类型**：单质、固溶体、金属间化合物、非晶、界面
-- 🌡️ **多温度数据**：支持任意温度（0K、300K等）
-- 📊 **多数据来源**：DFT、DPA-1、DPA-3等
-- 🔬 **3D POSCAR可视化**：基于3Dmol.js的交互式原子结构查看器
-- 📥 **高级导出**：JSON（完整）和CSV（扁平化），支持选择性导出
-- 📈 **增强统计**：材料数量 + 数据点数量
-- 🔄 **可展开行**：表格中查看所有温度/来源组合
+### 主要功能
 
-### 访问
-
-**在线网站：** [https://wqchen007.github.io/jkw-7element-alloy-database/](https://wqchen007.github.io/jkw-7element-alloy-database/)
-
-**V2 功能特性：**
-- 材料类型分类（6种类型）
-- 元素组成搜索（如"Al2Cu4"显示为Al₂Cu₄）
-- 可展开表格行显示多维数据
-- 详情页数据源选择器
-- 3D结构可视化（POSCAR/VASP格式）
-- 数据导出（JSON/CSV）与筛选选项
-- 双语界面（中文/英文）
+- **材料分类**：单质、固溶体、金属间化合物、非晶、界面
+- **多维数据**：每种材料支持多个温度和数据来源
+- **性质分类**：结构、热力学、力学、缺陷
+- **3D可视化**：交互式原子结构查看器（POSCAR/VASP格式）
+- **高级导出**：JSON（完整）和CSV（扁平化），支持选择性筛选
+- **双语界面**：中英文支持
+- **数据统计**：实时材料和数据点计数
 
 ### 材料性质
 
-**结构性质：**
-- 晶格常数
+**结构性质**
+- 密度
+- 晶格参数
 - 径向分布函数（RDF）
 
-**热力学性质：**
+**热力学性质**
 - 比热容
 - 混合焓
 - 扩散系数
 - 热膨胀系数
 
-**力学性能：**
-- 弹性常数
-- 应力-应变曲线
+**力学性能**
 - 杨氏模量
+- 体积模量
+- 剪切模量
 - 泊松比
+- 弹性常数（Cij矩阵）
+- 应力-应变曲线
 
-**缺陷性质：**
+**缺陷性质**
 - 空位形成能
-- 间隙形成能
-- 层错能
+- 间隙形成能（多种构型）
 
 ### 快速开始
 
-**在线查看：**
-访问 [https://wqchen007.github.io/jkw-7element-alloy-database/](https://wqchen007.github.io/jkw-7element-alloy-database/)
+**在线访问**
 
-**添加数据：**
+访问在线网站：[https://wqchen007.github.io/jkw-7element-alloy-database/](https://wqchen007.github.io/jkw-7element-alloy-database/)
 
-1. 准备CSV、JSON或TSV格式的数据
-2. 转换为标准格式：
+**添加数据**
+
+1. 准备CSV格式数据（参见 [example-template-v2.csv](example-template-v2.csv)）
+2. 转换为JSON格式：
    ```bash
-   node scripts/convert-data.js your-data.csv real-data/materials.json
+   node scripts/convert-data-v2.js your-data.csv backend/data/materials.json
    ```
 3. 提交并推送：
    ```bash
-   git add real-data/materials.json
+   git add backend/data/materials.json real-data/poscar/
    git commit -m "Add material data"
    git push origin main
    ```
-4. GitHub Actions自动更新网站
-
-详细说明请参见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+4. GitHub Actions 自动更新网站
 
 ### 本地开发
 
@@ -240,8 +236,11 @@ Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for data prepa
 git clone https://github.com/wqchen007/jkw-7element-alloy-database.git
 cd jkw-7element-alloy-database
 
-# 生成示例数据
-node scripts/generate-sample-data.js
+# 转换数据为V2格式
+node scripts/convert-data-v2.js example-template-v2.csv backend/data/materials.json
+
+# 生成POSCAR文件（可选）
+node scripts/generate-poscar-files.js
 
 # 本地运行
 python -m http.server 8000
@@ -254,24 +253,71 @@ open http://localhost:8000/frontend/
 
 ```
 ├── backend/
+│   ├── api/
+│   │   └── materials.js          # API接口
 │   └── data/
-│       └── materials.json        # 从真实数据或示例数据自动生成
+│       ├── materials.json         # 材料数据库
+│       ├── poscar/                # POSCAR结构文件
+│       ├── rdf/                   # RDF数据文件
+│       └── stress-strain/         # 应力应变曲线
 ├── frontend/
-│   ├── index.html                # 主网页界面
-│   ├── css/style.css             # 样式表
-│   └── js/app.js                 # 应用逻辑
+│   ├── index.html                 # 主界面
+│   ├── css/style.css              # 样式表
+│   └── js/app.js                  # 应用逻辑
 ├── scripts/
-│   ├── convert-data.js           # 数据转换工具
-│   └── generate-sample-data.js   # 示例数据生成器
+│   ├── convert-data-v2.js         # 数据转换工具
+│   ├── generate-poscar-files.js   # POSCAR生成器
+│   └── add-chart-data.js          # 图表数据助手
 ├── real-data/
-│   └── materials.json            # 放置真实数据（可选）
-├── docs/
-│   ├── API.md                    # API文档
-│   └── DATA_STRUCTURE.md         # 数据架构参考
-└── CONTRIBUTING.md               # 数据上传指南
+│   ├── materials.json             # 生产数据（可选）
+│   └── poscar/                    # POSCAR文件（70+结构）
+└── docs/
+    ├── API.md                     # API文档
+    ├── DATA_STRUCTURE_V2.md       # 数据架构参考
+    ├── V2_USER_GUIDE.md           # 用户指南
+    └── IMPLEMENTATION_PLAN_V2.md  # 技术细节
 ```
+
+### 数据格式
+
+数据库使用层次化JSON格式，支持多温度和多数据源：
+
+```json
+{
+  "id": 1,
+  "name": "Al3Zr3-intermetallic",
+  "type": "intermetallic",
+  "composition": "Al3Zr3",
+  "data": [
+    {
+      "temperature": 0,
+      "source": "DPA-3",
+      "properties": {
+        "structure": { "density": 6.87, "latticeParameters": {...}, "rdf": [[...]] },
+        "thermodynamics": { "mixingEnthalpy": 0.61, ... },
+        "mechanics": { "youngsModulus": 140.22, "stressStrain": [[...]], ... },
+        "defects": { "vacancyFormationEnergy": 1.33, ... }
+      }
+    }
+  ]
+}
+```
+
+完整架构参见 [docs/DATA_STRUCTURE_V2.md](docs/DATA_STRUCTURE_V2.md)。
+
+### 文档
+
+- [V2用户指南](docs/V2_USER_GUIDE.md) - 完整使用指南
+- [数据结构](docs/DATA_STRUCTURE_V2.md) - JSON架构参考
+- [API文档](docs/API.md) - API接口说明
+- [测试清单](docs/TESTING_CHECKLIST.md) - 验证测试
+- [贡献指南](CONTRIBUTING.md) - 数据贡献指南
 
 ### 贡献
 
-欢迎贡献。数据准备和上传说明请参见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+欢迎贡献。数据准备和提交指南请参见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+
+### 许可证
+
+MIT许可证 - 详见 [LICENSE](LICENSE)。
 
