@@ -560,6 +560,15 @@ jobs:
                 e.preventDefault();
                 const materialId = link.getAttribute('data-id');
                 showDetail(materialId);
+                return;
+              }
+              
+              // Handle chart indicator clicks
+              const chartLink = e.target.closest('.chart-indicator');
+              if (chartLink) {
+                e.preventDefault();
+                const materialId = chartLink.getAttribute('data-material-id');
+                showDetail(materialId);
               }
             });
             
@@ -1246,7 +1255,7 @@ jobs:
             if (!file) return '-';
             // If file is an array (RDF or stress-strain data), show chart indicator with click
             if (Array.isArray(file)) {
-              return '<span class="chart-indicator" style="cursor:pointer;" onclick="showDetail(' + materialId + ')">📊 Chart</span>';
+              return '<a href="#" class="chart-indicator" data-material-id="' + materialId + '">📊 Chart</a>';
             }
             // If file is a string (URL/path)
             if (typeof file === 'string') {
