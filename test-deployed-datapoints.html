@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试数据点计数</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .info-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .step {
+            background: #e3f2fd;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #2196F3;
+            border-radius: 5px;
+        }
+        .step h3 {
+            margin-top: 0;
+            color: #1976D2;
+        }
+        .expected {
+            background: #f1f8e9;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border: 2px solid #8BC34A;
+        }
+        .expected h2 {
+            color: #558B2F;
+            margin-top: 0;
+        }
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d32f2f;
+        }
+        .highlight {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4CAF50;
+            padding: 10px;
+            background: #e8f5e9;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 5px;
+            font-weight: bold;
+        }
+        .button:hover {
+            background: #45a049;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="info-box">
+        <h1>🔍 数据点计数更新验证</h1>
+        
+        <div class="expected">
+            <h2>✅ 预期结果</h2>
+            <p>正确的数据点统计应该显示：</p>
+            <div class="highlight">100 种材料，共 2604 条数据</div>
+            <p>而不是之前的：<s>100 种材料，共 258 条数据</s></p>
+        </div>
+
+        <div class="warning">
+            <strong>⚠️ 如果您看到的还是旧数字（258），请按以下步骤清除缓存：</strong>
+        </div>
+
+        <div class="step">
+            <h3>方法 1：强制刷新（推荐）</h3>
+            <p>在网站页面按以下快捷键：</p>
+            <ul>
+                <li><strong>Windows/Linux:</strong> <code>Ctrl + Shift + R</code> 或 <code>Ctrl + F5</code></li>
+                <li><strong>Mac:</strong> <code>Cmd + Shift + R</code></li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>方法 2：清除浏览器缓存</h3>
+            <p><strong>Chrome/Edge:</strong></p>
+            <ol>
+                <li>按 <code>F12</code> 打开开发者工具</li>
+                <li>在地址栏的刷新按钮上<strong>右键点击</strong></li>
+                <li>选择"清空缓存并硬性重新加载"</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>方法 3：隐身/无痕模式</h3>
+            <p>打开浏览器的隐身/无痕窗口访问网站，可以绕过所有缓存：</p>
+            <ul>
+                <li><strong>Chrome/Edge:</strong> <code>Ctrl + Shift + N</code></li>
+                <li><strong>Firefox:</strong> <code>Ctrl + Shift + P</code></li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>方法 4：添加时间戳参数</h3>
+            <p>在网址后添加 <code>?t=随机数</code> 强制重新加载：</p>
+            <a href="https://wqchen007.github.io/jkw-7element-alloy-database/?t=20260109" class="button" target="_blank">
+                点击打开（带时间戳）
+            </a>
+        </div>
+
+        <h2>🧪 验证步骤</h2>
+        <ol>
+            <li>清除缓存后访问网站</li>
+            <li>在搜索框输入任意内容（如"Al"）触发搜索</li>
+            <li>查看结果上方的统计信息</li>
+            <li>应该显示：<span class="highlight">找到 XX 种材料，共 XXXX 条数据</span></li>
+            <li>数据点总数应该远大于之前（约10倍）</li>
+        </ol>
+
+        <h2>📊 计数逻辑说明</h2>
+        <p>新的计数方法会统计每条温度/来源数据中<strong>所有存在的属性</strong>：</p>
+        <ul>
+            <li>结构信息：密度、晶格参数、RDF（最多3个）</li>
+            <li>热力学信息：比热容、混合焓、扩散系数（最多3个）</li>
+            <li>力学性能：杨氏模量、体积模量、剪切模量、应力应变（最多4个）</li>
+            <li>缺陷性质：空位形成能、各种间隙形成能（1 + N个）</li>
+        </ul>
+        <p>示例：Al3Zr3在0K DPA-3条件下有13个属性，600K DPA-3条件下有14个属性。</p>
+
+        <div style="margin-top: 30px; text-align: center;">
+            <a href="https://wqchen007.github.io/jkw-7element-alloy-database/" class="button" target="_blank">
+                🚀 打开网站验证
+            </a>
+        </div>
+    </div>
+
+    <script>
+        console.log('=== 数据点计数测试页面 ===');
+        console.log('预期结果：100 种材料，共 2604 条数据');
+        console.log('如果看到的数字不对，请按照页面提示清除缓存');
+    </script>
+</body>
+</html>

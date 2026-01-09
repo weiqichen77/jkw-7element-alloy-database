@@ -2604,63 +2604,96 @@ jobs:
             <div id="exportModal" class="modal">
               <div class="modal-content export-modal">
                 <span class="modal-close" id="exportModalClose">&times;</span>
-                <h2 id="exportTitle">Export Data / 导出数据</h2>
+                <h2 id="exportTitle">📥 Export Data</h2>
                 
-                <div class="export-section">
-                  <h3 id="exportFormatTitle">Export Format / 导出格式</h3>
-                  <div class="format-options">
-                    <label class="format-option">
-                      <input type="radio" name="exportFormat" value="json" checked />
-                      <span>JSON</span>
-                      <small id="jsonDesc">Complete data with full structure / 完整数据结构</small>
-                    </label>
-                    <label class="format-option">
-                      <input type="radio" name="exportFormat" value="csv" />
-                      <span>CSV</span>
-                      <small id="csvDesc">Spreadsheet format (primary data only) / 表格格式（仅主数据）</small>
-                    </label>
-                  </div>
-                </div>
-                
-                <div class="export-section">
-                  <h3 id="exportRangeTitle">Export Range / 导出范围</h3>
-                  <div class="range-options">
-                    <label class="range-option">
-                      <input type="radio" name="exportRange" value="all" checked />
-                      <span id="rangeAll">All materials</span>
-                    </label>
-                    <label class="range-option">
-                      <input type="radio" name="exportRange" value="filtered" />
-                      <span id="rangeFiltered">Current filtered results</span>
-                      <small id="filteredCount">(0 materials)</small>
-                    </label>
-                    <label class="range-option">
-                      <input type="radio" name="exportRange" value="selected" />
-                      <span id="rangeSelected">Selected materials</span>
-                    </label>
-                  </div>
-                  <div id="materialSelector" class="material-selector hidden">
-                    <div class="selector-search">
-                      <input type="text" id="selectorSearch" placeholder="Search to select..." />
+                <div class="export-grid">
+                  <div class="export-section">
+                    <div class="section-header">
+                      <span class="section-icon">📋</span>
+                      <h3 id="exportFormatTitle">Format</h3>
                     </div>
-                    <div class="selector-list" id="selectorList"></div>
+                    <div class="format-options">
+                      <label class="radio-card">
+                        <input type="radio" name="exportFormat" value="json" checked />
+                        <div class="radio-content">
+                          <strong>JSON</strong>
+                          <small id="jsonDesc">Complete structure</small>
+                        </div>
+                      </label>
+                      <label class="radio-card">
+                        <input type="radio" name="exportFormat" value="csv" />
+                        <div class="radio-content">
+                          <strong>CSV</strong>
+                          <small id="csvDesc">Spreadsheet format</small>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                  
+                  <div class="export-section">
+                    <div class="section-header">
+                      <span class="section-icon">🎯</span>
+                      <h3 id="exportRangeTitle">Range</h3>
+                    </div>
+                    <div class="range-options">
+                      <label class="radio-card">
+                        <input type="radio" name="exportRange" value="all" checked />
+                        <div class="radio-content">
+                          <strong id="rangeAll">All materials</strong>
+                        </div>
+                      </label>
+                      <label class="radio-card">
+                        <input type="radio" name="exportRange" value="filtered" />
+                        <div class="radio-content">
+                          <strong id="rangeFiltered">Filtered results</strong>
+                          <small id="filteredCount">(0 materials)</small>
+                        </div>
+                      </label>
+                      <label class="radio-card">
+                        <input type="radio" name="exportRange" value="selected" />
+                        <div class="radio-content">
+                          <strong id="rangeSelected">Custom select</strong>
+                        </div>
+                      </label>
+                    </div>
+                    <div id="materialSelector" class="material-selector hidden">
+                      <div class="selector-search">
+                        <input type="text" id="selectorSearch" placeholder="🔍 Search materials..." />
+                      </div>
+                      <div class="selector-list" id="selectorList"></div>
+                    </div>
                   </div>
                 </div>
                 
                 <div class="export-section">
-                  <h3 id="exportPropsTitle">Properties to Export / 导出属性</h3>
+                  <div class="section-header">
+                    <span class="section-icon">⚙️</span>
+                    <h3 id="exportPropsTitle">Properties</h3>
+                  </div>
                   <div class="props-options">
-                    <label><input type="checkbox" id="propStructure" checked /> <span id="propStructureLabel">Structure</span></label>
-                    <label><input type="checkbox" id="propThermodynamics" checked /> <span id="propThermodynamicsLabel">Thermodynamics</span></label>
-                    <label><input type="checkbox" id="propMechanics" checked /> <span id="propMechanicsLabel">Mechanics</span></label>
-                    <label><input type="checkbox" id="propDefects" checked /> <span id="propDefectsLabel">Defects</span></label>
+                    <label class="checkbox-card">
+                      <input type="checkbox" id="propStructure" checked />
+                      <span id="propStructureLabel">Structure</span>
+                    </label>
+                    <label class="checkbox-card">
+                      <input type="checkbox" id="propThermodynamics" checked />
+                      <span id="propThermodynamicsLabel">Thermodynamics</span>
+                    </label>
+                    <label class="checkbox-card">
+                      <input type="checkbox" id="propMechanics" checked />
+                      <span id="propMechanicsLabel">Mechanics</span>
+                    </label>
+                    <label class="checkbox-card">
+                      <input type="checkbox" id="propDefects" checked />
+                      <span id="propDefectsLabel">Defects</span>
+                    </label>
                   </div>
                 </div>
                 
                 <div class="export-actions">
-                  <button id="executeExport" class="btn-primary"><span id="exportExecuteBtn">📥 Export</span></button>
-                  <button id="downloadPOSCAR" class="btn-primary" onclick="downloadAllPOSCAR()"><span id="poscarDownloadBtn">🔬 Download POSCAR (ZIP)</span></button>
-                  <button id="cancelExport" class="btn-secondary"><span id="exportCancelBtn">Cancel</span></button>
+                  <button id="executeExport" class="btn-action btn-export-primary"><span id="exportExecuteBtn">📥 Export Data</span></button>
+                  <button id="downloadPOSCAR" class="btn-action btn-poscar" onclick="downloadAllPOSCAR()"><span id="poscarDownloadBtn">🔬 POSCAR (ZIP)</span></button>
+                  <button id="cancelExport" class="btn-action btn-cancel"><span id="exportCancelBtn">Cancel</span></button>
                 </div>
               </div>
             </div>
@@ -3158,19 +3191,22 @@ jobs:
             color: #333;
           }
           
-          .lattice-expand {
+          .lattice-expand, .sites-expand {
             background: #667eea;
             color: white;
             border: none;
-            border-radius: 3px;
-            padding: 2px 6px;
-            font-size: 0.8em;
+            border-radius: 4px;
+            padding: 3px 8px;
+            font-size: 0.85em;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            min-width: 24px;
           }
           
-          .lattice-expand:hover {
+          .lattice-expand:hover, .sites-expand:hover {
             background: #5568d3;
+            transform: scale(1.05);
           }
           
           .lattice-details {
@@ -3367,95 +3403,145 @@ jobs:
           
           /* Export Modal */
           .export-modal {
-            max-width: 800px;
-            padding: 30px;
+            max-width: 650px;
+            padding: 25px;
           }
           
           .export-modal h2 {
-            color: #667eea;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #667eea;
+            color: #2c3e50;
+            margin: 0 0 25px 0;
+            padding: 0;
+            font-size: 1.5em;
+            font-weight: 600;
+          }
+          
+          .export-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
           }
           
           .export-section {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
           }
           
-          .export-section h3 {
-            color: #555;
-            margin-bottom: 15px;
-            font-size: 1.1em;
+          .section-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
           }
           
-          .format-options, .range-options, .props-options {
+          .section-icon {
+            font-size: 1.2em;
+          }
+          
+          .section-header h3 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 1em;
+            font-weight: 600;
+          }
+          
+          .format-options, .range-options {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 8px;
           }
           
-          .format-option, .range-option {
+          .radio-card {
             display: flex;
-            align-items: flex-start;
-            padding: 15px;
-            background: #f8f9fa;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            align-items: center;
+            padding: 10px 12px;
+            background: #fff;
+            border: 2px solid #e1e8ed;
+            border-radius: 6px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s ease;
           }
           
-          .format-option:hover, .range-option:hover {
+          .radio-card:hover {
             border-color: #667eea;
-            background: #f0f7ff;
+            background: #f8f9ff;
           }
           
-          .format-option input, .range-option input {
-            margin-right: 12px;
+          .radio-card input {
+            margin: 0;
+            margin-right: 10px;
             cursor: pointer;
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
           }
           
-          .format-option span, .range-option span {
-            font-weight: 500;
-            color: #333;
+          .radio-card input:checked + .radio-content strong {
+            color: #667eea;
           }
           
-          .format-option small, .range-option small {
-            display: block;
-            color: #666;
-            font-size: 0.85em;
-            margin-top: 4px;
+          .radio-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+          }
+          
+          .radio-content strong {
+            font-size: 0.95em;
+            color: #2c3e50;
+          }
+          
+          .radio-content small {
+            font-size: 0.8em;
+            color: #7f8c8d;
           }
           
           .props-options {
-            flex-direction: row;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
           }
           
-          .props-options label {
-            padding: 10px 15px;
-            background: #f8f9fa;
-            border: 2px solid #e0e0e0;
+          .checkbox-card {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            background: #fff;
+            border: 2px solid #e1e8ed;
             border-radius: 6px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s ease;
           }
           
-          .props-options label:hover {
+          .checkbox-card:hover {
             border-color: #667eea;
-            background: #f0f7ff;
+            background: #f8f9ff;
           }
           
-          .props-options input {
+          .checkbox-card input {
+            margin: 0;
             margin-right: 8px;
             cursor: pointer;
+            width: 16px;
+            height: 16px;
+          }
+          
+          .checkbox-card span {
+            font-size: 0.95em;
+            color: #2c3e50;
+            font-weight: 500;
+          }
+          
+          .checkbox-card input:checked + span {
+            color: #667eea;
+            font-weight: 600;
           }
           
           .material-selector {
-            margin-top: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            margin-top: 10px;
+            border: 2px solid #e1e8ed;
+            border-radius: 6px;
             overflow: hidden;
+            background: #fff;
           }
           
           .material-selector.hidden {
@@ -3463,9 +3549,9 @@ jobs:
           }
           
           .selector-search {
-            padding: 12px;
+            padding: 10px;
             background: #f8f9fa;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e1e8ed;
           }
           
           .selector-search input {
@@ -3473,39 +3559,82 @@ jobs:
             padding: 8px 12px;
             border: 1px solid #ddd;
             border-radius: 4px;
+            font-size: 0.9em;
           }
           
           .selector-list {
-            max-height: 300px;
+            max-height: 250px;
             overflow-y: auto;
-            padding: 10px;
+            padding: 8px;
           }
           
           .selector-item {
             display: block;
-            padding: 8px 12px;
+            padding: 8px 10px;
             cursor: pointer;
             transition: background 0.2s;
+            border-radius: 4px;
+            font-size: 0.9em;
           }
           
           .selector-item:hover {
-            background: #f0f7ff;
+            background: #f8f9ff;
           }
           
           .selector-item input {
-            margin-right: 10px;
+            margin-right: 8px;
           }
           
           .export-actions {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
             padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
+            border-top: 1px solid #e1e8ed;
           }
           
-          .export-actions button {
-            flex: 1;
+          .btn-action {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+          }
+          
+          .btn-export-primary {
+            background: #667eea;
+            color: white;
+          }
+          
+          .btn-export-primary:hover {
+            background: #5568d3;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+          }
+          
+          .btn-poscar {
+            background: #4caf50;
+            color: white;
+          }
+          
+          .btn-poscar:hover {
+            background: #45a049;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+          }
+          
+          .btn-cancel {
+            background: #f5f5f5;
+            color: #666;
+          }
+          
+          .btn-cancel:hover {
+            background: #e0e0e0;
+            color: #333;
           }
           
           #detailContent {
