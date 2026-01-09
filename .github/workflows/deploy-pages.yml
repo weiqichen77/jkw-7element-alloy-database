@@ -697,7 +697,7 @@ jobs:
               }
               html += '</td>';
               
-              html += '<td>' + formatFile(struct.rdf) + '</td>';
+              html += '<td>' + formatFile(struct.rdf, material.id) + '</td>';
               html += '</tr>';
               
               // Expanded row for all data (sorted)
@@ -781,7 +781,7 @@ jobs:
                   }
                   html += '</td>';
                   
-                  html += '<td>' + formatFile(s.rdf) + '</td>';
+                  html += '<td>' + formatFile(s.rdf, material.id) + '</td>';
                   html += '</tr>';
                 }
                 
@@ -983,7 +983,7 @@ jobs:
               html += ' <span class="data-meta">(' + primary.temperature + 'K, ' + primary.source + ')</span>';
               html += '</td>';
               html += '<td>' + formatValue(mech.poissonsRatio, 3) + '</td>';
-              html += '<td>' + formatFile(mech.stressStrain) + '</td>';
+              html += '<td>' + formatFile(mech.stressStrain, material.id) + '</td>';
               html += '</tr>';
               
               if (hasSecondary) {
@@ -1069,7 +1069,7 @@ jobs:
                   
                   html += '<td>' + formatValue(m.youngsModulus, 2) + '</td>';
                   html += '<td>' + formatValue(m.poissonsRatio, 3) + '</td>';
-                  html += '<td>' + formatFile(m.stressStrain) + '</td>';
+                  html += '<td>' + formatFile(m.stressStrain, material.id) + '</td>';
                   html += '</tr>';
                 }
                 
@@ -1242,11 +1242,11 @@ jobs:
             return val;
           }
           
-          function formatFile(file) {
+          function formatFile(file, materialId) {
             if (!file) return '-';
-            // If file is an array (RDF or stress-strain data), show chart indicator
+            // If file is an array (RDF or stress-strain data), show chart indicator with click
             if (Array.isArray(file)) {
-              return '<span class="chart-indicator">📊 Chart</span>';
+              return '<span class="chart-indicator" style="cursor:pointer;" onclick="showDetail(' + materialId + ')">📊 Chart</span>';
             }
             // If file is a string (URL/path)
             if (typeof file === 'string') {
@@ -1917,6 +1917,7 @@ jobs:
             
             // If data is an array, create a simple plot
             if (Array.isArray(data)) {
+              console.log('Creating chart for:', id, 'with', data.length, 'points');
               return '<canvas id="' + id + '" class="chart-canvas"></canvas><script>renderPlot("' + id + '", ' + JSON.stringify(data) + ', "' + title + '");</script>';
             }
             
@@ -1927,7 +1928,11 @@ jobs:
           window.renderPlot = function(canvasId, data, title) {
             setTimeout(function() {
               const canvas = document.getElementById(canvasId);
-              if (!canvas) return;
+              if (!canvas) {
+                console.error('Canvas not found:', canvasId);
+                return;
+              }
+              console.log('Rendering chart:', canvasId, 'data points:', data.length);
               
               const ctx = canvas.getContext('2d');
               const width = canvas.width = canvas.offsetWidth;
