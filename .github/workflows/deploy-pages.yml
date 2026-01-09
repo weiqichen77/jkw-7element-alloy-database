@@ -1503,11 +1503,13 @@ jobs:
                 const sortedData = [...material.data].sort((a, b) => a.temperature - b.temperature);
                 console.log('Sorted data:', sortedData.map(d => ({ temp: d.temperature, source: d.source })));
                 
+                // Convert targetTemperature to number for comparison
+                const targetTempNum = parseFloat(targetTemperature);
                 const targetIdx = sortedData.findIndex(d => 
-                  d.temperature == targetTemperature && d.source === targetSource
+                  d.temperature === targetTempNum && d.source === targetSource
                 );
                 
-                console.log('Target index:', targetIdx);
+                console.log('Target index:', targetIdx, 'Looking for:', { temp: targetTempNum, source: targetSource });
                 
                 if (targetIdx !== -1) {
                   // Find the chart with matching ID
