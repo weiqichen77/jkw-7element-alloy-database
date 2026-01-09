@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试数据优先级逻辑</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .test-case {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+        .test-case h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .data-item {
+            padding: 8px;
+            margin: 5px 0;
+            background: white;
+            border-left: 4px solid #888;
+        }
+        .data-item.primary {
+            border-left-color: #4CAF50;
+            background: #e8f5e9;
+            font-weight: bold;
+        }
+        .data-item.secondary {
+            border-left-color: #2196F3;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>数据优先级和排序逻辑测试</h1>
+    <p>测试从 <strong>https://wqchen007.github.io/jkw-7element-alloy-database/</strong> 获取的实际数据</p>
+    
+    <div id="test-results"></div>
+    
+    <script>
+        // 复制部署版本的函数
+        function getPrimaryData(material) {
+            if (!material.data || material.data.length === 0) return null;
+            // Priority: 0K DFT > 0K DPA-3 > 0K DPA-1 > other 0K > first entry
+            let primary = material.data.find(d => d.temperature === 0 && d.source === 'DFT');
+            if (!primary) {
+                primary = material.data.find(d => d.temperature === 0 && d.source === 'DPA-3');
+            }
+            if (!primary) {
+                primary = material.data.find(d => d.temperature === 0 && d.source === 'DPA-1');
+            }
+            if (!primary) {
+                primary = material.data.find(d => d.temperature === 0);
+            }
+            if (!primary) {
+                primary = material.data[0];
+            }
+            return primary;
+        }
+        
+        function getSecondaryData(material) {
+            if (!material.data || material.data.length <= 1) return [];
+            const primary = getPrimaryData(material);
+            const secondary = material.data.filter(d => d !== primary);
+            
+            // Sort by source (DFT > DPA-3 > DPA-1 > others) then by temperature (ascending)
+            const sourceOrder = { 'DFT': 1, 'DPA-3': 2, 'DPA-1': 3 };
+            secondary.sort((a, b) => {
+                const orderA = sourceOrder[a.source] || 99;
+                const orderB = sourceOrder[b.source] || 99;
+                if (orderA !== orderB) {
+                    return orderA - orderB;
+                }
+                return a.temperature - b.temperature;
+            });
+            
+            return secondary;
+        }
+        
+        async function runTests() {
+            const resultsDiv = document.getElementById('test-results');
+            
+            try {
+                // 从部署网站获取实际数据
+                const response = await fetch('https://wqchen007.github.io/jkw-7element-alloy-database/data/materials.json');
+                const materials = await response.json();
+                
+                resultsDiv.innerHTML = '<h2>✅ 成功加载 ' + materials.length + ' 个材料</h2>';
+                
+                // 测试前5个材料
+                materials.slice(0, 5).forEach((material, index) => {
+                    const primary = getPrimaryData(material);
+                    const secondary = getSecondaryData(material);
+                    
+                    let html = '<div class="test-case">';
+                    html += '<h3>测试 ' + (index + 1) + ': ' + material.name + ' (ID: ' + material.id + ')</h3>';
+                    html += '<p><strong>组成:</strong> ' + material.composition + '</p>';
+                    html += '<p><strong>数据条目数:</strong> ' + material.data.length + '</p>';
+                    
+                    // 显示原始数据顺序
+                    html += '<h4>📄 原始数据顺序:</h4>';
+                    material.data.forEach((d, i) => {
+                        html += '<div class="data-item">';
+                        html += '第' + (i+1) + '条: ' + d.temperature + 'K, ' + d.source;
+                        html += '</div>';
+                    });
+                    
+                    // 显示选中的主数据
+                    html += '<h4>⭐ 选中的主数据 (Primary):</h4>';
+                    html += '<div class="data-item primary">';
+                    html += primary.temperature + 'K, ' + primary.source;
+                    html += '</div>';
+                    
+                    // 显示排序后的次要数据
+                    if (secondary.length > 0) {
+                        html += '<h4>📊 排序后的次要数据 (Secondary):</h4>';
+                        secondary.forEach((d, i) => {
+                            html += '<div class="data-item secondary">';
+                            html += '第' + (i+1) + '条: ' + d.temperature + 'K, ' + d.source;
+                            html += '</div>';
+                        });
+                    }
+                    
+                    // 验证排序是否正确
+                    let sortingCorrect = true;
+                    const sourceOrder = { 'DFT': 1, 'DPA-3': 2, 'DPA-1': 3 };
+                    for (let i = 0; i < secondary.length - 1; i++) {
+                        const curr = secondary[i];
+                        const next = secondary[i + 1];
+                        const currOrder = sourceOrder[curr.source] || 99;
+                        const nextOrder = sourceOrder[next.source] || 99;
+                        
+                        if (currOrder > nextOrder) {
+                            sortingCorrect = false;
+                            break;
+                        }
+                        if (currOrder === nextOrder && curr.temperature > next.temperature) {
+                            sortingCorrect = false;
+                            break;
+                        }
+                    }
+                    
+                    html += '<h4>✓ 验证结果:</h4>';
+                    html += '<p style="color: ' + (sortingCorrect ? 'green' : 'red') + '">';
+                    html += sortingCorrect ? '✅ 排序正确' : '❌ 排序错误';
+                    html += '</p>';
+                    
+                    html += '</div>';
+                    resultsDiv.innerHTML += html;
+                });
+                
+            } catch (error) {
+                resultsDiv.innerHTML = '<h2 style="color: red;">❌ 加载失败</h2>';
+                resultsDiv.innerHTML += '<pre>' + error.message + '</pre>';
+            }
+        }
+        
+        // 页面加载时运行测试
+        runTests();
+    </script>
+</body>
+</html>
