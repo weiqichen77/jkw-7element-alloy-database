@@ -570,21 +570,15 @@ jobs:
                 const materialId = chartLink.getAttribute('data-material-id');
                 const temperature = chartLink.getAttribute('data-temperature');
                 const source = chartLink.getAttribute('data-source');
-                console.log('Chart clicked:', { materialId, temperature, source });
+                console.log('Chart clicked:', { materialId, temperature, source, currentProperty });
                 
-                // Determine section based on table context
-                const row = chartLink.closest('tr');
-                const table = chartLink.closest('table');
-                const isStructureTable = table && table.innerHTML.includes('RDF');
-                const isMechanicsTable = table && table.innerHTML.includes('Stress-Strain');
-                
-                console.log('Table type:', { isStructureTable, isMechanicsTable });
-                
-                if (isStructureTable) {
+                // Use currentProperty to determine which section to scroll to
+                if (currentProperty === 'structure') {
                   showDetail(materialId, 'structure', temperature, source);
-                } else if (isMechanicsTable) {
+                } else if (currentProperty === 'mechanics') {
                   showDetail(materialId, 'mechanics', temperature, source);
                 } else {
+                  // For other properties, just open detail without scrolling to chart
                   showDetail(materialId);
                 }
               }
