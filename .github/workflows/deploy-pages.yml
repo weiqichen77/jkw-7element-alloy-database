@@ -489,12 +489,22 @@ jobs:
               return materialComp.includes(cleanQuery.toLowerCase());
             }
             
-            // Element filter - exact match of element symbol (case-sensitive for element symbols)
-            // Al should match Al but not Ca, Ti, etc.
-            return material.elements && material.elements.some(el => {
-              // Exact match (case-insensitive to handle al, AL, Al)
-              return el.toLowerCase() === cleanQuery.toLowerCase();
-            });
+            // Element filter - extract elements from composition and match
+            // Extract element symbols from composition string (e.g., "Al3Zr3" -> ["Al", "Zr"])
+            if (material.elements && Array.isArray(material.elements)) {
+              // If elements array exists, use it
+              return material.elements.some(el => el.toLowerCase() === cleanQuery.toLowerCase());
+            } else if (material.composition) {
+              // Extract elements from composition string
+              // Match element symbols: uppercase letter followed by optional lowercase letter
+              const elementPattern = /[A-Z][a-z]?/g;
+              const extractedElements = material.composition.match(elementPattern) || [];
+              // Remove duplicates and check for match
+              const uniqueElements = [...new Set(extractedElements)];
+              return uniqueElements.some(el => el.toLowerCase() === cleanQuery.toLowerCase());
+            }
+            
+            return false;
           }
           
           async function initApp() {
