@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>测试 Z-Index 修复</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 { color: #333; }
+    
+    .test-section {
+      margin: 30px 0;
+      padding: 20px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      background: #f9f9f9;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+    
+    th {
+      background: #667eea;
+      color: white;
+    }
+    
+    .lattice-cell {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .lattice-display {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .lattice-expand {
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      padding: 4px 8px;
+      cursor: pointer;
+      font-size: 0.9em;
+    }
+    
+    .lattice-expand:hover {
+      background: #5568d3;
+    }
+    
+    .lattice-details {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      border: 2px solid #667eea;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      padding: 12px;
+      z-index: 1000;
+      min-width: 200px;
+      margin-top: 4px;
+    }
+    
+    .lattice-details.hidden {
+      display: none;
+    }
+    
+    .lattice-details div {
+      padding: 4px 0;
+      font-size: 0.9em;
+    }
+    
+    .status {
+      margin: 15px 0;
+      padding: 10px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    
+    .status.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .status.pending {
+      background: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffeaa7;
+    }
+    
+    .code-block {
+      background: #f4f4f4;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 12px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+      margin: 10px 0;
+      overflow-x: auto;
+    }
+    
+    .note {
+      background: #e3f2fd;
+      border-left: 4px solid #2196f3;
+      padding: 12px;
+      margin: 15px 0;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔧 Z-Index 修复测试页面</h1>
+  
+  <div class="note">
+    <strong>测试目的：</strong>验证子表格展开项（如晶格参数）不会被同行其他单元格内容遮挡
+  </div>
+  
+  <div class="test-section">
+    <h2>测试 1: 模拟子表格展开项</h2>
+    <p>点击"▼"按钮展开晶格参数详情，观察是否被右侧单元格遮挡</p>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>温度</th>
+          <th>数据来源</th>
+          <th>晶格参数</th>
+          <th>杨氏模量 (GPa)</th>
+          <th>泊松比</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>0K</td>
+          <td>DFT</td>
+          <td class="lattice-cell">
+            <div class="lattice-display">
+              <span class="point-group">Fm-3m</span>
+              <button class="lattice-expand" onclick="toggleTest(this)">▼</button>
+            </div>
+            <div class="lattice-details hidden">
+              <div><strong>a:</strong> 4.08 Å</div>
+              <div><strong>b:</strong> 3.72 Å</div>
+              <div><strong>c:</strong> 3.21 Å</div>
+              <div><strong>α:</strong> 94.28°</div>
+              <div><strong>β:</strong> 91.85°</div>
+              <div><strong>γ:</strong> 93.46°</div>
+            </div>
+          </td>
+          <td>260.31</td>
+          <td>0.34</td>
+        </tr>
+        <tr>
+          <td>300K</td>
+          <td>DPA-3</td>
+          <td class="lattice-cell">
+            <div class="lattice-display">
+              <span class="point-group">P6/mmm</span>
+              <button class="lattice-expand" onclick="toggleTest(this)">▼</button>
+            </div>
+            <div class="lattice-details hidden">
+              <div><strong>a:</strong> 4.83 Å</div>
+              <div><strong>b:</strong> 4.77 Å</div>
+              <div><strong>c:</strong> 4.04 Å</div>
+              <div><strong>α:</strong> 92.05°</div>
+              <div><strong>β:</strong> 85.71°</div>
+              <div><strong>γ:</strong> 92.33°</div>
+            </div>
+          </td>
+          <td>213.56</td>
+          <td>0.26</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div id="testStatus" class="status pending">
+      状态: 等待测试... 点击上方的 ▼ 按钮
+    </div>
+  </div>
+  
+  <div class="test-section">
+    <h2>修复说明</h2>
+    
+    <h3>问题描述</h3>
+    <p>子表格中的展开项（晶格参数、弹性常数矩阵等）会被同行其他单元格内容遮挡</p>
+    
+    <h3>修复方案</h3>
+    <p>在 JavaScript 中动态调整 z-index：</p>
+    
+    <div class="code-block">
+window.toggleLattice = function(btn, event) {
+  event.stopPropagation();
+  const cell = btn.closest('.lattice-cell');
+  const details = cell.querySelector('.lattice-details');
+  if (details) {
+    const isHidden = details.classList.contains('hidden');
+    details.classList.toggle('hidden');
+    btn.textContent = isHidden ? '▲' : '▼';
+    // 🔑 关键修复：动态调整 z-index
+    cell.style.zIndex = isHidden ? '100' : '1';
+  }
+};
+    </div>
+    
+    <h3>工作原理</h3>
+    <ul>
+      <li><strong>关闭状态:</strong> cell 的 z-index = 1 (默认)</li>
+      <li><strong>打开状态:</strong> cell 的 z-index = 100 (高于其他单元格)</li>
+      <li><strong>展开详情:</strong> z-index = 1000 (始终在最上层)</li>
+    </ul>
+    
+    <h3>部署信息</h3>
+    <div class="code-block">
+提交: 95d7984
+标题: Fix dropdown overlap within same row: dynamically adjust z-index on toggle
+状态: ✅ 部署成功 (2026-01-09 05:16:04 GMT)
+文件: .github/workflows/deploy-pages.yml
+    </div>
+    
+    <div class="note">
+      <strong>⏰ CDN 缓存更新时间：</strong>GitHub Pages 通常需要 5-10 分钟完全传播更新。<br/>
+      如果主站点还未更新，请：
+      <ol style="margin: 10px 0 0 20px;">
+        <li>等待 5-10 分钟</li>
+        <li>使用 Ctrl+Shift+R 强制刷新</li>
+        <li>或使用隐身模式 (Ctrl+Shift+N) 测试</li>
+      </ol>
+    </div>
+  </div>
+  
+  <script>
+    let testCount = 0;
+    
+    function toggleTest(btn) {
+      const cell = btn.closest('.lattice-cell');
+      const details = cell.querySelector('.lattice-details');
+      const status = document.getElementById('testStatus');
+      
+      if (details) {
+        const isHidden = details.classList.contains('hidden');
+        details.classList.toggle('hidden');
+        btn.textContent = isHidden ? '▲' : '▼';
+        
+        // 应用修复
+        cell.style.zIndex = isHidden ? '100' : '1';
+        
+        // 更新状态
+        testCount++;
+        if (isHidden) {
+          status.className = 'status success';
+          status.innerHTML = `
+            ✅ 测试 ${testCount}: 展开成功！<br/>
+            <small>当前 z-index: 100 (已提升)</small><br/>
+            <small>如果展开项完整显示未被遮挡，说明修复生效</small>
+          `;
+        } else {
+          status.className = 'status pending';
+          status.innerHTML = `
+            ℹ️ 测试 ${testCount}: 已关闭<br/>
+            <small>当前 z-index: 1 (已恢复)</small>
+          `;
+        }
+      }
+    }
+    
+    // 页面加载时显示提示
+    window.addEventListener('load', function() {
+      console.log('✅ Z-Index 修复测试页面已加载');
+      console.log('修复代码已应用，请测试展开功能');
+    });
+  </script>
+</body>
+</html>
