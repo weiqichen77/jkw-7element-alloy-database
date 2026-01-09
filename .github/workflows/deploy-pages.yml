@@ -1472,26 +1472,8 @@ jobs:
             const container = document.getElementById('detailDataView');
             if (!container || filteredData.length === 0) return;
             
-            // Show all data if both filters are 'all'
-            if (selectedTemp === 'all' && selectedSource === 'all') {
-              container.innerHTML = generateAllDataView(material, filteredData);
-            } else if (filteredData.length === 1) {
-              // Single data point
-              container.innerHTML = generateDetailView(material, filteredData[0]);
-            } else {
-              // Multiple filtered data points
-              let html = '';
-              filteredData.forEach((dataPoint, idx) => {
-                html += '<div class="data-point-section">';
-                html += '<h3 class="data-point-header">' + dataPoint.temperature + 'K, ' + dataPoint.source + '</h3>';
-                html += generateDetailView(material, dataPoint);
-                html += '</div>';
-                if (idx < filteredData.length - 1) {
-                  html += '<hr class="data-separator">';
-                }
-              });
-              container.innerHTML = html;
-            }
+            // Always use the grouped view format, regardless of filter selection
+            container.innerHTML = generateAllDataView(material, filteredData);
             
             // Re-initialize 3D viewers if needed
             const firstData = filteredData[0];
