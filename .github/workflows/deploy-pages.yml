@@ -1387,14 +1387,11 @@ jobs:
             const modal = document.getElementById('detailModal');
             const content = document.getElementById('detailContent');
             
-            const primary = getPrimaryData(material);
-            if (!primary) {
+            if (!material.data || material.data.length === 0) {
               content.innerHTML = '<p>No data available for this material.</p>';
               modal.style.display = 'block';
               return;
             }
-            
-            const props = primary.properties || {};
             
             let html = '<h2>' + material.name + '</h2>';
             
@@ -1409,7 +1406,7 @@ jobs:
               // Temperature selector
               html += '<div class="selector-group">';
               html += '<label>' + (currentLang === 'en' ? 'Temperature:' : '温度:') + '</label>';
-              html += '<select id="tempSelect-' + materialId + '" onchange="filterDetailData(\'' + materialId + '\', \'temp\')">';
+              html += '<select id="tempSelect-' + materialId + '" onchange="filterDetailData(\'' + materialId + '\')">';
               html += '<option value="all">' + (currentLang === 'en' ? 'All' : '全部') + '</option>';
               temperatures.forEach(temp => {
                 html += '<option value="' + temp + '">' + temp + 'K</option>';
@@ -1420,7 +1417,7 @@ jobs:
               // Source selector
               html += '<div class="selector-group">';
               html += '<label>' + (currentLang === 'en' ? 'Source:' : '来源:') + '</label>';
-              html += '<select id="sourceSelect-' + materialId + '" onchange="filterDetailData(\'' + materialId + '\', \'source\')">';
+              html += '<select id="sourceSelect-' + materialId + '" onchange="filterDetailData(\'' + materialId + '\')">';
               html += '<option value="all">' + (currentLang === 'en' ? 'All' : '全部') + '</option>';
               sources.forEach(src => {
                 html += '<option value="' + src + '">' + src + '</option>';
@@ -1432,21 +1429,23 @@ jobs:
             }
             
             html += '<div id="detailDataView">';
-            html += generateDetailView(material, primary);
+            // Default: show all data (temperature: all, source: all)
+            html += generateAllDataView(material, material.data);
             html += '</div>';
             
             content.innerHTML = html;
             modal.style.display = 'block';
             
-            // Initialize 3D viewer if POSCAR exists
-            const struct = primary.properties?.structure;
+            // Initialize 3D viewer if POSCAR exists (use first data point)
+            const firstData = material.data[0];
+            const struct = firstData.properties?.structure;
             if (struct && struct.poscar) {
               setTimeout(() => init3DViewer(materialId, struct.poscar), 100);
             }
           };
           
           // Filter detail data by temperature or source
-          window.filterDetailData = function(materialId, filterType) {
+          window.filterDetailData = function(materialId) {
             const material = allData.find(m => m.id == materialId);
             if (!material) return;
             
@@ -1469,15 +1468,19 @@ jobs:
               filteredData = filteredData.filter(d => d.source === selectedSource);
             }
             
-            // Generate combined view for filtered data
+            // Generate view for filtered data
             const container = document.getElementById('detailDataView');
             if (!container || filteredData.length === 0) return;
             
-            // If multiple data points match, show them in sections
-            let html = '';
-            if (filteredData.length === 1) {
-              html = generateDetailView(material, filteredData[0]);
+            // Show all data if both filters are 'all'
+            if (selectedTemp === 'all' && selectedSource === 'all') {
+              container.innerHTML = generateAllDataView(material, filteredData);
+            } else if (filteredData.length === 1) {
+              // Single data point
+              container.innerHTML = generateDetailView(material, filteredData[0]);
             } else {
+              // Multiple filtered data points
+              let html = '';
               filteredData.forEach((dataPoint, idx) => {
                 html += '<div class="data-point-section">';
                 html += '<h3 class="data-point-header">' + dataPoint.temperature + 'K, ' + dataPoint.source + '</h3>';
@@ -1487,17 +1490,192 @@ jobs:
                   html += '<hr class="data-separator">';
                 }
               });
+              container.innerHTML = html;
             }
             
-            container.innerHTML = html;
-            
             // Re-initialize 3D viewers if needed
-            filteredData.forEach(dp => {
-              if (dp.properties?.structure?.poscar) {
-                setTimeout(() => init3DViewer(materialId, dp.properties.structure.poscar), 100);
-              }
-            });
+            const firstData = filteredData[0];
+            if (firstData && firstData.properties?.structure?.poscar) {
+              setTimeout(() => init3DViewer(materialId, firstData.properties.structure.poscar), 100);
+            }
           };
+          
+          // Generate view for all data (when temperature: all, source: all)
+          function generateAllDataView(material, allDataPoints) {
+            // Sort data: temperature ascending, then by source priority
+            const sortedData = [...allDataPoints];
+            const sourceOrder = { 'DFT': 1, 'DPA-3': 2, 'DPA-1': 3 };
+            sortedData.sort((a, b) => {
+              if (a.temperature !== b.temperature) {
+                return a.temperature - b.temperature;
+              }
+              const orderA = sourceOrder[a.source] || 99;
+              const orderB = sourceOrder[b.source] || 99;
+              return orderA - orderB;
+            });
+            
+            let html = '';
+            
+            // Use first data point for basic info and atomic structure (common across all)
+            const firstData = sortedData[0];
+            const firstProps = firstData.properties || {};
+            const firstStruct = firstProps.structure || {};
+            
+            // Basic Information (置顶，所有数据点共同)
+            html += '<div class="detail-section">';
+            html += '<h3>' + t('basicInfo') + '</h3>';
+            html += '<div class="detail-grid">';
+            html += '<div class="detail-item"><label>ID:</label><span>' + material.id + '</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.name') + ':</label><span>' + material.name + '</span></div>';
+            html += '<div class="detail-item"><label>' + t('table.type') + ':</label><span>' + translateType(material.type) + '</span></div>';
+            html += '<div class="detail-item"><label>' + (currentLang === 'en' ? 'Composition:' : '元素组成:') + '</label><span>' + formatComposition(material.composition) + '</span></div>';
+            html += '</div></div>';
+            
+            // Atomic Structure (置顶，所有数据点共同)
+            if (firstStruct.poscar) {
+              html += '<div class="detail-section">';
+              html += '<h3>' + (currentLang === 'en' ? 'Atomic Structure' : '原子结构') + '</h3>';
+              html += '<div class="structure-viewer-container">';
+              html += '<div id="viewer-' + material.id + '" class="structure-viewer"></div>';
+              html += '<div class="viewer-controls">';
+              html += '<button onclick="resetView(\'' + material.id + '\')" class="viewer-btn">' + (currentLang === 'en' ? 'Reset View' : '重置视角') + '</button>';
+              html += '<button onclick="toggleStyle(\'' + material.id + '\')" class="viewer-btn">' + (currentLang === 'en' ? 'Toggle Style' : '切换样式') + '</button>';
+              html += '<a href="' + firstStruct.poscar + '" download class="viewer-btn download-btn">' + (currentLang === 'en' ? 'Download POSCAR' : '下载POSCAR') + '</a>';
+              html += '</div>';
+              html += '</div>';
+              html += '</div>';
+            }
+            
+            // Group data by property sections
+            // Structure Properties (excluding atomic structure)
+            html += '<div class="detail-section">';
+            html += '<h3>' + t('structureInfo') + '</h3>';
+            sortedData.forEach((dataPoint, idx) => {
+              const props = dataPoint.properties || {};
+              const struct = props.structure || {};
+              html += '<div class="data-subsection">';
+              html += '<h4 class="subsection-header">' + dataPoint.temperature + 'K, ' + dataPoint.source + '</h4>';
+              html += '<div class="detail-grid">';
+              html += '<div class="detail-item"><label>' + t('table.density') + ':</label><span>' + formatValue(struct.density, 3) + ' g/cm³</span></div>';
+              if (struct.latticeParameters) {
+                html += '<div class="detail-item"><label>' + (currentLang === 'en' ? 'Point Group:' : '点群:') + '</label><span>' + (struct.latticeParameters.pointGroup || '-') + '</span></div>';
+                if (struct.latticeParameters.a) html += '<div class="detail-item"><label>a:</label><span>' + formatValue(struct.latticeParameters.a, 3) + ' Å</span></div>';
+                if (struct.latticeParameters.b) html += '<div class="detail-item"><label>b:</label><span>' + formatValue(struct.latticeParameters.b, 3) + ' Å</span></div>';
+                if (struct.latticeParameters.c) html += '<div class="detail-item"><label>c:</label><span>' + formatValue(struct.latticeParameters.c, 3) + ' Å</span></div>';
+                if (struct.latticeParameters.alpha) html += '<div class="detail-item"><label>α:</label><span>' + formatValue(struct.latticeParameters.alpha, 1) + '°</span></div>';
+                if (struct.latticeParameters.beta) html += '<div class="detail-item"><label>β:</label><span>' + formatValue(struct.latticeParameters.beta, 1) + '°</span></div>';
+                if (struct.latticeParameters.gamma) html += '<div class="detail-item"><label>γ:</label><span>' + formatValue(struct.latticeParameters.gamma, 1) + '°</span></div>';
+              }
+              html += '</div>';
+              if (struct.rdf) {
+                html += '<div class="chart-container">';
+                html += '<h5>' + t('table.rdf') + '</h5>';
+                html += renderChart(struct.rdf, 'rdf-' + material.id + '-' + idx, 'RDF');
+                html += '</div>';
+              }
+              html += '</div>';
+            });
+            html += '</div>';
+            
+            // Thermodynamics Properties
+            html += '<div class="detail-section">';
+            html += '<h3>' + t('thermoInfo') + '</h3>';
+            sortedData.forEach((dataPoint, idx) => {
+              const props = dataPoint.properties || {};
+              const thermo = props.thermodynamics || {};
+              html += '<div class="data-subsection">';
+              html += '<h4 class="subsection-header">' + dataPoint.temperature + 'K, ' + dataPoint.source + '</h4>';
+              html += '<div class="detail-grid">';
+              html += '<div class="detail-item"><label>' + t('table.formationEnergy') + ':</label><span>' + formatValue(thermo.formationEnergy, 2) + ' eV</span></div>';
+              html += '<div class="detail-item"><label>' + t('table.specificHeat') + ':</label><span>' + formatValue(thermo.specificHeat, 2) + ' J/kg·K</span></div>';
+              html += '<div class="detail-item"><label>' + t('table.mixingEnthalpy') + ':</label><span>' + formatValue(thermo.mixingEnthalpy, 2) + ' kJ/mol</span></div>';
+              html += '<div class="detail-item"><label>' + t('table.diffusionCoeff') + ':</label><span>' + formatScientific(thermo.diffusionCoefficient) + ' m²/s</span></div>';
+              html += '<div class="detail-item"><label>' + t('table.thermalExpansion') + ':</label><span>' + formatScientific(thermo.thermalExpansion) + ' 10⁻⁶/K</span></div>';
+              html += '</div>';
+              html += '</div>';
+            });
+            html += '</div>';
+            
+            // Mechanics Properties
+            html += '<div class="detail-section">';
+            html += '<h3>' + t('mechInfo') + '</h3>';
+            sortedData.forEach((dataPoint, idx) => {
+              const props = dataPoint.properties || {};
+              const mech = props.mechanics || {};
+              html += '<div class="data-subsection">';
+              html += '<h4 class="subsection-header">' + dataPoint.temperature + 'K, ' + dataPoint.source + '</h4>';
+              html += '<div class="detail-grid">';
+              html += '<div class="detail-item"><label>' + t('table.youngsModulus') + ':</label><span>' + formatValue(mech.youngsModulus, 2) + ' GPa</span></div>';
+              html += '<div class="detail-item"><label>' + t('table.bulkModulus') + ':</label><span>' + formatValue(mech.bulkModulus, 2) + ' GPa</span></div>';
+              html += '<div class="detail-item"><label>' + t('table.shearModulus') + ':</label><span>' + formatValue(mech.shearModulus, 2) + ' GPa</span></div>';
+              html += '<div class="detail-item"><label>' + t('table.poissonsRatio') + ':</label><span>' + formatValue(mech.poissonsRatio, 3) + '</span></div>';
+              html += '</div>';
+              
+              // Elastic Constants Matrix
+              const elasticMatrix = mech.elasticConstants?.matrix || mech.elasticConstants;
+              if (elasticMatrix && Array.isArray(elasticMatrix)) {
+                html += '<div class="elastic-constants-section">';
+                html += '<h5>' + (currentLang === 'en' ? 'Elastic Constants Matrix C' : '弹性常数矩阵 C') + '<sub>ij</sub> (GPa)</h5>';
+                html += '<table class="cij-matrix">';
+                html += '<thead><tr><th></th>';
+                for (let j = 1; j <= 6; j++) {
+                  html += '<th>C<sub>' + j + '</sub></th>';
+                }
+                html += '</tr></thead><tbody>';
+                for (let i = 0; i < 6; i++) {
+                  html += '<tr><th>C<sub>' + (i+1) + '</sub></th>';
+                  for (let j = 0; j < 6; j++) {
+                    const val = elasticMatrix[i] && elasticMatrix[i][j] !== undefined ? elasticMatrix[i][j] : 0;
+                    html += '<td>' + formatValue(val, 1) + '</td>';
+                  }
+                  html += '</tr>';
+                }
+                html += '</tbody></table>';
+                html += '</div>';
+              }
+              
+              if (mech.stressStrain) {
+                html += '<div class="chart-container">';
+                html += '<h5>' + t('table.stressStrain') + '</h5>';
+                html += renderChart(mech.stressStrain, 'stress-' + material.id + '-' + idx, 'Stress-Strain');
+                html += '</div>';
+              }
+              html += '</div>';
+            });
+            html += '</div>';
+            
+            // Defect Properties
+            html += '<div class="detail-section">';
+            html += '<h3>' + t('defectInfo') + '</h3>';
+            sortedData.forEach((dataPoint, idx) => {
+              const props = dataPoint.properties || {};
+              const defects = props.defects || {};
+              html += '<div class="data-subsection">';
+              html += '<h4 class="subsection-header">' + dataPoint.temperature + 'K, ' + dataPoint.source + '</h4>';
+              html += '<div class="detail-grid">';
+              html += '<div class="detail-item"><label>' + t('table.vacancyEnergy') + ':</label><span>' + formatValue(defects.vacancyFormationEnergy, 3) + ' eV</span></div>';
+              
+              // Interstitial with multiple sites
+              if (defects.interstitialFormationEnergy) {
+                if (typeof defects.interstitialFormationEnergy === 'object') {
+                  html += '<div class="detail-item full-width"><label>' + t('table.interstitialEnergy') + ':</label><div class="sites-list">';
+                  for (const [site, energy] of Object.entries(defects.interstitialFormationEnergy)) {
+                    html += '<div><strong>' + site + ':</strong> ' + formatValue(energy, 3) + ' eV</div>';
+                  }
+                  html += '</div></div>';
+                } else {
+                  html += '<div class="detail-item"><label>' + t('table.interstitialEnergy') + ':</label><span>' + formatValue(defects.interstitialFormationEnergy, 3) + ' eV</span></div>';
+                }
+              }
+              
+              html += '<div class="detail-item"><label>' + t('table.stackingFault') + ':</label><span>' + formatValue(defects.stackingFaultEnergy, 2) + ' mJ/m²</span></div>';
+              html += '</div>';
+              html += '</div>';
+            });
+            html += '</div>';
+            
+            return html;
+          }
           
           // Generate detail view for specific data point
           function generateDetailView(material, dataPoint) {
@@ -3311,6 +3489,24 @@ jobs:
             margin: 30px 0;
             border: none;
             border-top: 2px dashed #ddd;
+          }
+          
+          /* Data subsections for all-data view */
+          .data-subsection {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+          }
+          
+          .subsection-header {
+            color: #667eea;
+            font-size: 1em;
+            font-weight: 600;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e0e0e0;
           }
           
           /* Elastic Constants Matrix */
