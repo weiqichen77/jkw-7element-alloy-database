@@ -402,6 +402,7 @@ jobs:
           }
           
           // Get primary data (0K) for display
+          // Priority: 0K DFT > 0K DPA-3 > 0K DPA-1 > other 0K > first entry
           function getPrimaryData(material) {
             if (!material.data || material.data.length === 0) return null;
             // Priority: 0K DFT > 0K DPA-3 > 0K DPA-1 > other 0K > first entry
