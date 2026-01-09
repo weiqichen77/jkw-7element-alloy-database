@@ -593,7 +593,7 @@ jobs:
           }
           
           function filterAndDisplay() {
-            const searchTerm = document.getElementById('q').value.toLowerCase();
+            const searchTerm = document.getElementById('q').value.trim();
             
             // Filter data
             let filtered = allData;
@@ -605,10 +605,19 @@ jobs:
             
             // Filter by search term (name or element composition)
             if (searchTerm) {
+              // Detect if search term is likely an element symbol (1-2 uppercase letters)
+              const isElementSearch = /^[A-Z][a-z]?$/i.test(searchTerm);
+              
               filtered = filtered.filter(item => {
-                const matchesName = item.name.toLowerCase().includes(searchTerm);
-                const matchesElement = matchesElementFilter(item, searchTerm);
-                return matchesName || matchesElement;
+                if (isElementSearch) {
+                  // For element search, only match in elements array
+                  return matchesElementFilter(item, searchTerm);
+                } else {
+                  // For other searches, match in name or composition
+                  const matchesName = item.name.toLowerCase().includes(searchTerm.toLowerCase());
+                  const matchesElement = matchesElementFilter(item, searchTerm);
+                  return matchesName || matchesElement;
+                }
               });
             }
             
