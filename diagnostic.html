@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RDF和应力应变曲线诊断工具</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 { color: #667eea; }
+        .section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .status { 
+            padding: 15px; 
+            margin: 10px 0; 
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        .success { background: #d4edda; color: #155724; border-left: 4px solid #28a745; }
+        .error { background: #f8d7da; color: #721c24; border-left: 4px solid #dc3545; }
+        .warning { background: #fff3cd; color: #856404; border-left: 4px solid #ffc107; }
+        .info { background: #d1ecf1; color: #0c5460; border-left: 4px solid #17a2b8; }
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            border: 1px solid #dee2e6;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+        }
+        button:hover { background: #5568d3; }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .test-item {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            background: #fafafa;
+        }
+        .test-item.pass { border-color: #28a745; background: #f1f9f3; }
+        .test-item.fail { border-color: #dc3545; background: #fef5f5; }
+        .chart-preview {
+            width: 100%;
+            height: 200px;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            background: white;
+        }
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 RDF和应力应变曲线诊断工具</h1>
+    
+    <div class="section">
+        <h2>📋 诊断步骤</h2>
+        <div style="margin: 20px 0;">
+            <div style="margin: 15px 0;">
+                <span class="step-number">1</span>
+                <strong>清除浏览器缓存</strong>
+                <button onclick="hardRefresh()">执行强制刷新</button>
+            </div>
+            <div style="margin: 15px 0;">
+                <span class="step-number">2</span>
+                <strong>检查数据格式</strong>
+                <button onclick="checkData()">开始检查</button>
+            </div>
+            <div style="margin: 15px 0;">
+                <span class="step-number">3</span>
+                <strong>测试图表渲染</strong>
+                <button onclick="testCharts()">测试渲染</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🔎 数据格式检查</h2>
+        <div id="format-check" class="info status">
+            点击上方"开始检查"按钮进行数据格式验证
+        </div>
+        <div class="test-grid" id="test-results"></div>
+    </div>
+
+    <div class="section">
+        <h2>📊 图表渲染测试</h2>
+        <div id="chart-status" class="info status">
+            点击上方"测试渲染"按钮查看图表
+        </div>
+        <div id="chart-container"></div>
+    </div>
+
+    <div class="section">
+        <h2>🌐 在线数据验证</h2>
+        <button onclick="verifyOnline()">验证线上数据</button>
+        <div id="online-check" class="info status">
+            点击按钮验证GitHub Pages上的数据
+        </div>
+        <pre id="online-data"></pre>
+    </div>
+
+    <div class="section">
+        <h2>💡 故障排除建议</h2>
+        <div id="troubleshooting"></div>
+    </div>
+
+    <script>
+        let materialsData = null;
+
+        function hardRefresh() {
+            const status = document.getElementById('format-check');
+            status.className = 'info status';
+            status.innerHTML = '正在强制刷新页面...';
+            setTimeout(() => {
+                location.reload(true);
+            }, 500);
+        }
+
+        async function checkData() {
+            const statusDiv = document.getElementById('format-check');
+            const resultsDiv = document.getElementById('test-results');
+            
+            statusDiv.className = 'info status';
+            statusDiv.textContent = '⏳ 正在加载数据...';
+            resultsDiv.innerHTML = '';
+
+            try {
+                // 添加时间戳避免缓存
+                const response = await fetch('./data/materials.json?t=' + Date.now());
+                materialsData = await response.json();
+                
+                statusDiv.className = 'success status';
+                statusDiv.innerHTML = `✅ 数据加载成功！共 ${materialsData.length} 个材料`;
+
+                // 测试项目
+                const tests = [
+                    {
+                        name: 'RDF数据格式',
+                        test: () => {
+                            const amorphous = materialsData.find(m => m.type === 'amorphous');
+                            const rdf = amorphous?.data[0]?.properties?.structure?.rdf;
+                            return Array.isArray(rdf);
+                        },
+                        expected: '应为数组'
+                    },
+                    {
+                        name: 'RDF数据内容',
+                        test: () => {
+                            const amorphous = materialsData.find(m => m.type === 'amorphous');
+                            const rdf = amorphous?.data[0]?.properties?.structure?.rdf;
+                            return Array.isArray(rdf) && rdf.length > 0 && Array.isArray(rdf[0]);
+                        },
+                        expected: '应为二维数组'
+                    },
+                    {
+                        name: '应力应变格式',
+                        test: () => {
+                            const material = materialsData[0];
+                            const stress = material?.data[0]?.properties?.mechanics?.stressStrain;
+                            return Array.isArray(stress);
+                        },
+                        expected: '应为数组'
+                    },
+                    {
+                        name: '应力应变内容',
+                        test: () => {
+                            const material = materialsData[0];
+                            const stress = material?.data[0]?.properties?.mechanics?.stressStrain;
+                            return Array.isArray(stress) && stress.length > 0 && Array.isArray(stress[0]);
+                        },
+                        expected: '应为二维数组'
+                    },
+                    {
+                        name: 'RDF材料数量',
+                        test: () => {
+                            let count = 0;
+                            materialsData.forEach(m => {
+                                m.data.forEach(d => {
+                                    if (d.properties?.structure?.rdf && Array.isArray(d.properties.structure.rdf)) {
+                                        count++;
+                                    }
+                                });
+                            });
+                            return count > 40; // 应该有50+个RDF数据点
+                        },
+                        expected: '应>40个数据点'
+                    },
+                    {
+                        name: '应力应变数量',
+                        test: () => {
+                            let count = 0;
+                            materialsData.forEach(m => {
+                                m.data.forEach(d => {
+                                    if (d.properties?.mechanics?.stressStrain && Array.isArray(d.properties.mechanics.stressStrain)) {
+                                        count++;
+                                    }
+                                });
+                            });
+                            return count > 200; // 应该有250+个
+                        },
+                        expected: '应>200个数据点'
+                    }
+                ];
+
+                let passCount = 0;
+                tests.forEach(test => {
+                    const result = test.test();
+                    const div = document.createElement('div');
+                    div.className = 'test-item ' + (result ? 'pass' : 'fail');
+                    div.innerHTML = `
+                        <strong>${result ? '✅' : '❌'} ${test.name}</strong>
+                        <div style="margin-top: 5px; font-size: 12px; color: #666;">
+                            ${test.expected}
+                        </div>
+                    `;
+                    resultsDiv.appendChild(div);
+                    if (result) passCount++;
+                });
+
+                // 添加总结
+                const summary = document.createElement('div');
+                summary.className = 'test-item ' + (passCount === tests.length ? 'pass' : 'fail');
+                summary.innerHTML = `
+                    <strong>${passCount === tests.length ? '🎉' : '⚠️'} 测试结果</strong>
+                    <div style="margin-top: 5px;">
+                        ${passCount}/${tests.length} 项测试通过
+                    </div>
+                `;
+                resultsDiv.appendChild(summary);
+
+                // 显示故障排除建议
+                if (passCount < tests.length) {
+                    showTroubleshooting('fail');
+                } else {
+                    showTroubleshooting('success');
+                }
+
+            } catch (error) {
+                statusDiv.className = 'error status';
+                statusDiv.innerHTML = `❌ 错误: ${error.message}<br>
+                    <small>可能原因：数据文件未加载或格式错误</small>`;
+                showTroubleshooting('error');
+            }
+        }
+
+        async function testCharts() {
+            const statusDiv = document.getElementById('chart-status');
+            const container = document.getElementById('chart-container');
+
+            if (!materialsData) {
+                statusDiv.className = 'warning status';
+                statusDiv.textContent = '⚠️ 请先执行"检查数据格式"';
+                return;
+            }
+
+            statusDiv.className = 'info status';
+            statusDiv.textContent = '⏳ 正在渲染图表...';
+            container.innerHTML = '';
+
+            try {
+                // 找一个有RDF数据的材料
+                const amorphous = materialsData.find(m => m.type === 'amorphous' && 
+                    m.data[0]?.properties?.structure?.rdf);
+                
+                if (!amorphous) {
+                    throw new Error('未找到RDF数据');
+                }
+
+                const rdfData = amorphous.data[0].properties.structure.rdf;
+                const stressData = amorphous.data[0].properties.mechanics.stressStrain;
+
+                // 创建RDF图表
+                const rdfDiv = document.createElement('div');
+                rdfDiv.innerHTML = `<h3>RDF图表 - ${amorphous.name}</h3>`;
+                const rdfCanvas = document.createElement('canvas');
+                rdfCanvas.className = 'chart-preview';
+                rdfDiv.appendChild(rdfCanvas);
+                container.appendChild(rdfDiv);
+
+                drawChart(rdfCanvas, rdfData, 'Distance (Å)', 'g(r)');
+
+                // 创建应力应变图表
+                const stressDiv = document.createElement('div');
+                stressDiv.innerHTML = `<h3>应力应变曲线 - ${amorphous.name}</h3>`;
+                const stressCanvas = document.createElement('canvas');
+                stressCanvas.className = 'chart-preview';
+                stressDiv.appendChild(stressCanvas);
+                container.appendChild(stressDiv);
+
+                drawChart(stressCanvas, stressData, 'Strain (%)', 'Stress (GPa)');
+
+                statusDiv.className = 'success status';
+                statusDiv.innerHTML = '✅ 图表渲染成功！<br><small>如果您在主页面看不到图表，可能是浏览器缓存问题</small>';
+
+            } catch (error) {
+                statusDiv.className = 'error status';
+                statusDiv.innerHTML = `❌ 渲染失败: ${error.message}`;
+            }
+        }
+
+        function drawChart(canvas, data, xLabel, yLabel) {
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width = canvas.offsetWidth;
+            const height = canvas.height = 200;
+            
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = '#fff';
+            ctx.fillRect(0, 0, width, height);
+            
+            const padding = 50;
+            const plotWidth = width - 2 * padding;
+            const plotHeight = height - 2 * padding;
+            
+            const xData = data.map(d => d[0]);
+            const yData = data.map(d => d[1]);
+            const xMin = Math.min(...xData);
+            const xMax = Math.max(...xData);
+            const yMin = Math.min(...yData);
+            const yMax = Math.max(...yData);
+            
+            // 坐标轴
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, height - padding);
+            ctx.lineTo(width - padding, height - padding);
+            ctx.stroke();
+            
+            // 曲线
+            ctx.strokeStyle = '#667eea';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            
+            data.forEach((point, i) => {
+                const x = padding + ((point[0] - xMin) / (xMax - xMin || 1)) * plotWidth;
+                const y = height - padding - ((point[1] - yMin) / (yMax - yMin || 1)) * plotHeight;
+                
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            
+            ctx.stroke();
+            
+            // 标签
+            ctx.fillStyle = '#333';
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(xLabel, width / 2, height - 10);
+            
+            ctx.save();
+            ctx.translate(15, height / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillText(yLabel, 0, 0);
+            ctx.restore();
+        }
+
+        async function verifyOnline() {
+            const statusDiv = document.getElementById('online-check');
+            const dataDiv = document.getElementById('online-data');
+            
+            statusDiv.className = 'info status';
+            statusDiv.textContent = '⏳ 正在验证线上数据...';
+            dataDiv.textContent = '';
+
+            try {
+                const url = 'https://wqchen007.github.io/jkw-7element-alloy-database/data/materials.json?t=' + Date.now();
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                const amorphous = data.find(m => m.name === 'W2Zr2Fe1-amorphous');
+                const rdf = amorphous.data[0].properties.structure.rdf;
+                const stress = amorphous.data[0].properties.mechanics.stressStrain;
+                
+                const rdfType = typeof rdf;
+                const stressType = typeof stress;
+                const rdfIsArray = Array.isArray(rdf);
+                const stressIsArray = Array.isArray(stress);
+                
+                if (rdfIsArray && stressIsArray) {
+                    statusDiv.className = 'success status';
+                    statusDiv.innerHTML = '✅ 线上数据格式正确！<br><small>如果浏览器中仍显示错误，请清除缓存</small>';
+                } else {
+                    statusDiv.className = 'error status';
+                    statusDiv.innerHTML = '❌ 线上数据格式错误！<br><small>RDF: ' + rdfType + ', 应力应变: ' + stressType + '</small>';
+                }
+                
+                dataDiv.textContent = JSON.stringify({
+                    material: 'W2Zr2Fe1-amorphous',
+                    rdf: {
+                        type: rdfIsArray ? 'array' : rdfType,
+                        length: rdfIsArray ? rdf.length : 'N/A',
+                        sample: rdfIsArray ? rdf.slice(0, 3) : rdf
+                    },
+                    stressStrain: {
+                        type: stressIsArray ? 'array' : stressType,
+                        length: stressIsArray ? stress.length : 'N/A',
+                        sample: stressIsArray ? stress.slice(0, 3) : stress
+                    }
+                }, null, 2);
+
+            } catch (error) {
+                statusDiv.className = 'error status';
+                statusDiv.innerHTML = `❌ 验证失败: ${error.message}`;
+            }
+        }
+
+        function showTroubleshooting(status) {
+            const div = document.getElementById('troubleshooting');
+            
+            if (status === 'success') {
+                div.innerHTML = `
+                    <div class="success status">
+                        <strong>✅ 所有测试通过！</strong>
+                        <p>如果您在主页面中看不到图表，请尝试：</p>
+                        <ol>
+                            <li><strong>清除浏览器缓存</strong>：按 <code>Ctrl+Shift+Delete</code>（Windows）或 <code>Cmd+Shift+Delete</code>（Mac）</li>
+                            <li><strong>硬刷新</strong>：按 <code>Ctrl+F5</code>（Windows）或 <code>Cmd+Shift+R</code>（Mac）</li>
+                            <li><strong>使用无痕模式</strong>：按 <code>Ctrl+Shift+N</code>（Chrome）或 <code>Ctrl+Shift+P</code>（Firefox）</li>
+                            <li><strong>禁用缓存</strong>：打开开发者工具（F12） → Network标签 → 勾选"Disable cache"</li>
+                        </ol>
+                    </div>
+                `;
+            } else if (status === 'fail') {
+                div.innerHTML = `
+                    <div class="error status">
+                        <strong>❌ 部分测试失败</strong>
+                        <p>可能的原因：</p>
+                        <ol>
+                            <li><strong>浏览器缓存</strong>：尝试清除缓存或使用无痕模式</li>
+                            <li><strong>本地文件</strong>：确保您访问的是线上版本，而不是本地文件</li>
+                            <li><strong>CDN延迟</strong>：GitHub Pages的CDN可能需要5-10分钟更新</li>
+                        </ol>
+                        <button onclick="verifyOnline()">验证线上数据</button>
+                    </div>
+                `;
+            } else {
+                div.innerHTML = `
+                    <div class="error status">
+                        <strong>❌ 数据加载失败</strong>
+                        <p>请检查：</p>
+                        <ol>
+                            <li>您是否访问正确的网址</li>
+                            <li><code>data/materials.json</code> 文件是否存在</li>
+                            <li>浏览器控制台是否有错误信息（按F12查看）</li>
+                        </ol>
+                    </div>
+                `;
+            }
+        }
+
+        // 页面加载时自动检查
+        window.addEventListener('load', () => {
+            document.getElementById('format-check').innerHTML = `
+                <strong>👋 欢迎使用诊断工具</strong><br>
+                <small>此工具将帮助您验证RDF和应力应变曲线数据是否正确加载</small><br>
+                <button onclick="checkData()" style="margin-top:10px;">开始自动检查</button>
+            `;
+        });
+    </script>
+</body>
+</html>
