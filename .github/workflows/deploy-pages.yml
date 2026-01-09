@@ -615,7 +615,6 @@ jobs:
             html += '<th>' + (currentLang === 'en' ? 'Composition' : '元素组成') + '</th>';
             html += '<th>' + t('table.density') + '<br/>(g/cm³)</th>';
             html += '<th>' + (currentLang === 'en' ? 'Lattice Params' : '晶格参数') + '</th>';
-            html += '<th>' + (currentLang === 'en' ? 'Structure' : '原子结构') + '</th>';
             html += '<th>' + t('table.rdf') + '</th>';
             html += '</tr></thead><tbody>';
             
@@ -663,15 +662,6 @@ jobs:
                 if (lattice.beta) html += '<div>β = ' + formatValue(lattice.beta, 1) + '°</div>';
                 if (lattice.gamma) html += '<div>γ = ' + formatValue(lattice.gamma, 1) + '°</div>';
                 html += '</div>';
-              } else {
-                html += '-';
-              }
-              html += '</td>';
-              
-              // POSCAR structure file
-              html += '<td>';
-              if (struct.poscar) {
-                html += '<span class="poscar-icon" title="' + (currentLang === 'en' ? 'View 3D structure' : '查看3D结构') + '" onclick="view3DStructure(\'' + material.id + '\', \'' + primary.temperature + '\', \'' + primary.source + '\')">🔬</span>';
               } else {
                 html += '-';
               }
