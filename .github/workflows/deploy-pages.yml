@@ -570,11 +570,15 @@ jobs:
                 const materialId = chartLink.getAttribute('data-material-id');
                 const temperature = chartLink.getAttribute('data-temperature');
                 const source = chartLink.getAttribute('data-source');
+                console.log('Chart clicked:', { materialId, temperature, source });
+                
                 // Determine section based on table context
                 const row = chartLink.closest('tr');
                 const table = chartLink.closest('table');
                 const isStructureTable = table && table.innerHTML.includes('RDF');
                 const isMechanicsTable = table && table.innerHTML.includes('Stress-Strain');
+                
+                console.log('Table type:', { isStructureTable, isMechanicsTable });
                 
                 if (isStructureTable) {
                   showDetail(materialId, 'structure', temperature, source);
@@ -1499,12 +1503,17 @@ jobs:
             
             // Scroll to specified section if provided
             if (scrollToSection && targetTemperature && targetSource) {
+              console.log('Scroll params:', { scrollToSection, targetTemperature, targetSource, materialId });
               setTimeout(() => {
                 // Find the matching data point index
                 const sortedData = [...material.data].sort((a, b) => a.temperature - b.temperature);
+                console.log('Sorted data:', sortedData.map(d => ({ temp: d.temperature, source: d.source })));
+                
                 const targetIdx = sortedData.findIndex(d => 
                   d.temperature == targetTemperature && d.source === targetSource
                 );
+                
+                console.log('Target index:', targetIdx);
                 
                 if (targetIdx !== -1) {
                   // Find the chart with matching ID
@@ -1512,9 +1521,13 @@ jobs:
                   const targetChartId = chartPrefix + '-' + materialId + '-' + targetIdx;
                   const targetChart = content.querySelector('#' + targetChartId);
                   
+                  console.log('Looking for chart:', targetChartId, 'Found:', !!targetChart);
+                  
                   if (targetChart) {
+                    console.log('Scrolling to chart:', targetChartId);
                     targetChart.scrollIntoView({ behavior: 'smooth', block: 'center' });
                   } else {
+                    console.log('Chart not found, using fallback');
                     // Fallback to first chart
                     const firstChart = content.querySelector('.chart-canvas');
                     if (firstChart) {
@@ -1522,6 +1535,7 @@ jobs:
                     }
                   }
                 } else {
+                  console.log('Target data point not found, using fallback');
                   // Fallback to first chart
                   const firstChart = content.querySelector('.chart-canvas');
                   if (firstChart) {
