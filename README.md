@@ -128,6 +128,7 @@ The database uses a hierarchical JSON format with multi-temperature and multi-so
 {
   "id": 1,
   "name": "Al3Zr3-intermetallic",
+  "source": "Research Database",
   "type": "intermetallic",
   "composition": "Al3Zr3",
   "data": [
@@ -286,6 +287,7 @@ open http://localhost:8000/frontend/
 {
   "id": 1,
   "name": "Al3Zr3-intermetallic",
+  "source": "Research Database",
   "type": "intermetallic",
   "composition": "Al3Zr3",
   "data": [
