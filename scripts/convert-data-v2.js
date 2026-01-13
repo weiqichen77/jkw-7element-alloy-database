@@ -118,17 +118,18 @@ function parseCSV(content) {
 }
 
 /**
- * Group rows by material (same id)
+ * Group rows by material (name + source combination)
  */
 function groupByMaterial(rows) {
   const materials = {};
   
   rows.forEach(row => {
-    const id = row.id;
-    if (!materials[id]) {
-      materials[id] = [];
+    // Use name + source as unique identifier
+    const key = `${row.name}|||${row.source || 'Unknown'}`;
+    if (!materials[key]) {
+      materials[key] = [];
     }
-    materials[id].push(row);
+    materials[key].push(row);
   });
   
   return Object.values(materials);
@@ -151,8 +152,9 @@ function convertToMaterial(rows) {
   });
   
   const material = {
-    id: parseInt(firstRow.id),
+    // id will be assigned later
     name: firstRow.name,
+    source: firstRow.source || 'Unknown',  // Material-level source
     type: firstRow.type,
     composition: firstRow.composition,
     elements: elements,
@@ -165,11 +167,11 @@ function convertToMaterial(rows) {
     material.poscar = firstRow.poscar;
   }
   
-  // Process each row as a temperature/source data point
+  // Process each row as a temperature/data_source data point
   rows.forEach(row => {
     const dataPoint = {
       temperature: parseFloat(row.temperature) || 0,
-      source: row.source || 'DFT',
+      source: row.data_source || row.source || 'DFT',  // Use data_source column, fallback to source
       properties: {}
     };
     
@@ -259,11 +261,11 @@ function convertToMaterial(rows) {
 function validateMaterial(material) {
   const errors = [];
   
-  // Check required fields
-  if (!material.id) errors.push('Missing required field: id');
+  // Check required fields (id is now optional, will be auto-assigned)
   if (!material.name) errors.push('Missing required field: name');
   if (!material.type) errors.push('Missing required field: type');
   if (!material.composition) errors.push('Missing required field: composition');
+  if (!material.source) errors.push('Missing required field: source');
   
   // Validate type
   if (material.type && !VALID_TYPES.includes(material.type)) {
@@ -330,12 +332,18 @@ async function convertData(inputFile, outputFile) {
   
   console.log(`Parsed ${rows.length} data rows`);
   
-  // Group rows by material ID
+  // Group rows by material (name + source)
   const groupedMaterials = groupByMaterial(rows);
   console.log(`Grouped into ${groupedMaterials.length} materials`);
   
   // Convert to material objects
   const materials = groupedMaterials.map(rows => convertToMaterial(rows));
+  
+  // Auto-assign IDs sequentially
+  materials.forEach((material, index) => {
+    material.id = index + 1;
+  });
+  console.log(`Assigned IDs from 1 to ${materials.length}`);
   
   // Validate materials
   let hasErrors = false;
