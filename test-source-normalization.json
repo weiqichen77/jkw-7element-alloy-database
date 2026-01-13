@@ -1,0 +1,67 @@
+[
+  {
+    "id": 999,
+    "name": "Test-Material",
+    "source": "Test Lab",
+    "type": "solid-solution",
+    "composition": "Al2Cu4",
+    "elements": ["Al", "Cu"],
+    "atomCount": {"Al": 2, "Cu": 4},
+    "data": [
+      {
+        "temperature": 0,
+        "source": "DFT",
+        "properties": {
+          "structure": {
+            "density": 7.85,
+            "latticeParameters": {
+              "a": 3.52,
+              "b": 3.52,
+              "c": 3.52,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            }
+          },
+          "thermodynamics": {
+            "specificHeat": 0.45
+          }
+        }
+      },
+      {
+        "temperature": 0,
+        "source": "DPA3_final",
+        "properties": {
+          "structure": {
+            "density": 7.83
+          },
+          "thermodynamics": {
+            "specificHeat": ""
+          }
+        }
+      },
+      {
+        "temperature": 300,
+        "source": "DPA1_251208",
+        "properties": {
+          "structure": {
+            "density": null
+          },
+          "thermodynamics": {
+            "specificHeat": 0.48
+          }
+        }
+      },
+      {
+        "temperature": 300,
+        "source": "DPA-3",
+        "properties": {
+          "structure": {
+            "density": 7.80
+          }
+        }
+      }
+    ]
+  }
+]
