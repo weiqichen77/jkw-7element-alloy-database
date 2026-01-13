@@ -405,13 +405,13 @@ jobs:
           // Priority: 0K DFT > 0K DPA-3 > 0K DPA-1 > other 0K > first entry
           function getPrimaryData(material) {
             if (!material.data || material.data.length === 0) return null;
-            // Priority: 0K DFT > 0K DPA-3 > 0K DPA-1 > other 0K > first entry
-            let primary = material.data.find(d => d.temperature === 0 && d.source === 'DFT');
+            // Priority: 0K DFT > 0K DPA-3_* > 0K DPA-1_* > other 0K > first entry
+            let primary = material.data.find(d => d.temperature === 0 && getSourceBase(d.source) === 'DFT');
             if (!primary) {
-              primary = material.data.find(d => d.temperature === 0 && d.source === 'DPA-3');
+              primary = material.data.find(d => d.temperature === 0 && getSourceBase(d.source) === 'DPA-3');
             }
             if (!primary) {
-              primary = material.data.find(d => d.temperature === 0 && d.source === 'DPA-1');
+              primary = material.data.find(d => d.temperature === 0 && getSourceBase(d.source) === 'DPA-1');
             }
             if (!primary) {
               primary = material.data.find(d => d.temperature === 0);
@@ -428,11 +428,11 @@ jobs:
             const primary = getPrimaryData(material);
             const secondary = material.data.filter(d => d !== primary);
             
-            // Sort by source (DFT > DPA-3 > DPA-1 > others) then by temperature (ascending)
-            const sourceOrder = { 'DFT': 1, 'DPA-3': 2, 'DPA-1': 3 };
+            // Sort by source base type (DFT > DPA-3_* > DPA-1_* > others) then by temperature (ascending)
+            const sourceOrder = { 'DFT': 1, 'DPA-3': 2, 'DPA-1': 3, 'Experiment': 4, 'MD': 5 };
             secondary.sort((a, b) => {
-              const orderA = sourceOrder[a.source] || 99;
-              const orderB = sourceOrder[b.source] || 99;
+              const orderA = sourceOrder[getSourceBase(a.source)] || 99;
+              const orderB = sourceOrder[getSourceBase(b.source)] || 99;
               if (orderA !== orderB) {
                 return orderA - orderB;
               }
@@ -770,7 +770,7 @@ jobs:
               html += '<td>' + translateType(material.type) + '</td>';
               html += '<td class="composition">' + formatComposition(material.composition) + '</td>';
               html += '<td>' + formatValue(struct.density, 3);
-              html += ' <span class="data-meta">(' + primary.temperature + 'K, ' + primary.source + ')</span>';
+              html += ' <span class="data-meta">(' + primary.temperature + 'K, ' + normalizeSource(primary.source) + ')</span>';
               html += '</td>';
               
               // Lattice parameters with dropdown
@@ -801,20 +801,23 @@ jobs:
               if (hasSecondary) {
                 // Get all data and sort by temperature first, then by source
                 const allSortedData = [...material.data];
-                const sourceOrder = { 'DFT': 1, 'DPA-3': 2, 'DPA-1': 3 };
+                const sourceOrder = { 'DFT': 1, 'DPA-3': 2, 'DPA-1': 3, 'Experiment': 4, 'MD': 5, 'Other': 99 };
                 allSortedData.sort((a, b) => {
                   // First: sort by temperature (ascending)
                   if (a.temperature !== b.temperature) {
                     return a.temperature - b.temperature;
                   }
-                  // Second: sort by source (DFT > DPA-3 > DPA-1)
-                  const orderA = sourceOrder[a.source] || 99;
-                  const orderB = sourceOrder[b.source] || 99;
+                  // Second: sort by source base type (DFT > DPA-3_* > DPA-1_* > others)
+                  const orderA = sourceOrder[getSourceBase(a.source)] || 99;
+                  const orderB = sourceOrder[getSourceBase(b.source)] || 99;
                   return orderA - orderB;
                 });
                 
                 const temperatures = [...new Set(allSortedData.map(d => d.temperature))].sort((a, b) => a - b);
-                const sources = [...new Set(allSortedData.map(d => d.source))].sort();
+                // Get unique base source types for filtering (DPA-3_xxx all map to DPA-3)
+                const sourceBases = [...new Set(allSortedData.map(d => getSourceBase(d.source)))];
+                // Sort sources: DFT, DPA-3, DPA-1, Experiment, MD, Other
+                const sources = sourceBases.sort((a, b) => (sourceOrder[a] || 99) - (sourceOrder[b] || 99));
                 
                 html += '<tr class="expanded-row hidden" data-parent-id="' + material.id + '">';
                 html += '<td colspan="100%"><div class="expanded-content">';
@@ -853,9 +856,9 @@ jobs:
                   const p = dataPoint.properties || {};
                   const s = p.structure || {};
                   const lattice = s.latticeParameters;
-                  html += '<tr data-temperature="' + dataPoint.temperature + '" data-source="' + dataPoint.source + '">';
+                  html += '<tr data-temperature="' + dataPoint.temperature + '" data-source="' + normalizeSource(dataPoint.source) + '">';
                   html += '<td>' + dataPoint.temperature + 'K</td>';
-                  html += '<td>' + dataPoint.source + '</td>';
+                  html += '<td>' + normalizeSource(dataPoint.source) + '</td>';
                   html += '<td>' + formatValue(s.density, 3) + '</td>';
                   
                   // Lattice with dropdown
@@ -934,7 +937,7 @@ jobs:
               html += '<td>' + translateType(material.type) + '</td>';
               html += '<td class="composition">' + formatComposition(material.composition) + '</td>';
               html += '<td>' + formatValue(thermo.specificHeat, 2);
-              html += ' <span class="data-meta">(' + primary.temperature + 'K, ' + primary.source + ')</span>';
+              html += ' <span class="data-meta">(' + primary.temperature + 'K, ' + normalizeSource(primary.source) + ')</span>';
               html += '</td>';
               html += '<td>' + formatValue(thermo.mixingEnthalpy, 2) + '</td>';
               html += '<td>' + formatScientific(thermo.diffusionCoefficient) + '</td>';
@@ -944,15 +947,15 @@ jobs:
               if (hasSecondary) {
                 // Get all data and sort by temperature first, then by source
                 const allSortedData = [...material.data];
-                const sourceOrder = { 'DFT': 1, 'DPA-3': 2, 'DPA-1': 3 };
+                const sourceOrder = { 'DFT': 1, 'DPA-3': 2, 'DPA-1': 3, 'Experiment': 4, 'MD': 5 };
                 allSortedData.sort((a, b) => {
                   // First: sort by temperature (ascending)
                   if (a.temperature !== b.temperature) {
                     return a.temperature - b.temperature;
                   }
                   // Second: sort by source (DFT > DPA-3 > DPA-1)
-                  const orderA = sourceOrder[a.source] || 99;
-                  const orderB = sourceOrder[b.source] || 99;
+                  const orderA = sourceOrder[getSourceBase(a.source)] || 99;
+                  const orderB = sourceOrder[getSourceBase(b.source)] || 99;
                   return orderA - orderB;
                 });
                 
@@ -995,9 +998,9 @@ jobs:
                 for (const dataPoint of allSortedData) {
                   const p = dataPoint.properties || {};
                   const th = p.thermodynamics || {};
-                  html += '<tr data-temperature="' + dataPoint.temperature + '" data-source="' + dataPoint.source + '">';
+                  html += '<tr data-temperature="' + dataPoint.temperature + '" data-source="' + normalizeSource(dataPoint.source) + '">';
                   html += '<td>' + dataPoint.temperature + 'K</td>';
-                  html += '<td>' + dataPoint.source + '</td>';
+                  html += '<td>' + normalizeSource(dataPoint.source) + '</td>';
                   html += '<td>' + formatValue(th.specificHeat, 2) + '</td>';
                   html += '<td>' + formatValue(th.mixingEnthalpy, 2) + '</td>';
                   html += '<td>' + formatScientific(th.diffusionCoefficient) + '</td>';
@@ -1081,7 +1084,7 @@ jobs:
               html += '</td>';
               
               html += '<td>' + formatValue(mech.youngsModulus, 2);
-              html += ' <span class="data-meta">(' + primary.temperature + 'K, ' + primary.source + ')</span>';
+              html += ' <span class="data-meta">(' + primary.temperature + 'K, ' + normalizeSource(primary.source) + ')</span>';
               html += '</td>';
               html += '<td>' + formatValue(mech.poissonsRatio, 3) + '</td>';
               html += '<td>' + formatFile(mech.stressStrain, material.id, primary.temperature, primary.source) + '</td>';
@@ -1090,15 +1093,15 @@ jobs:
               if (hasSecondary) {
                 // Get all data and sort by temperature first, then by source
                 const allSortedData = [...material.data];
-                const sourceOrder = { 'DFT': 1, 'DPA-3': 2, 'DPA-1': 3 };
+                const sourceOrder = { 'DFT': 1, 'DPA-3': 2, 'DPA-1': 3, 'Experiment': 4, 'MD': 5 };
                 allSortedData.sort((a, b) => {
                   // First: sort by temperature (ascending)
                   if (a.temperature !== b.temperature) {
                     return a.temperature - b.temperature;
                   }
                   // Second: sort by source (DFT > DPA-3 > DPA-1)
-                  const orderA = sourceOrder[a.source] || 99;
-                  const orderB = sourceOrder[b.source] || 99;
+                  const orderA = sourceOrder[getSourceBase(a.source)] || 99;
+                  const orderB = sourceOrder[getSourceBase(b.source)] || 99;
                   return orderA - orderB;
                 });
                 
@@ -1142,9 +1145,9 @@ jobs:
                   const p = dataPoint.properties || {};
                   const m = p.mechanics || {};
                   const elastic = m.elasticConstants;
-                  html += '<tr data-temperature="' + dataPoint.temperature + '" data-source="' + dataPoint.source + '">';
+                  html += '<tr data-temperature="' + dataPoint.temperature + '" data-source="' + normalizeSource(dataPoint.source) + '">';
                   html += '<td>' + dataPoint.temperature + 'K</td>';
-                  html += '<td>' + dataPoint.source + '</td>';
+                  html += '<td>' + normalizeSource(dataPoint.source) + '</td>';
                   
                   // Elastic constants with matrix view
                   html += '<td class="elastic-cell">';
@@ -1225,7 +1228,7 @@ jobs:
               html += '<td>' + translateType(material.type) + '</td>';
               html += '<td class="composition">' + formatComposition(material.composition) + '</td>';
               html += '<td>' + formatValue(defects.vacancyFormationEnergy, 3);
-              html += ' <span class="data-meta">(' + primary.temperature + 'K, ' + primary.source + ')</span>';
+              html += ' <span class="data-meta">(' + primary.temperature + 'K, ' + normalizeSource(primary.source) + ')</span>';
               html += '</td>';
               
               // Interstitial with multiple sites
@@ -1259,15 +1262,15 @@ jobs:
               if (hasSecondary) {
                 // Get all data and sort by temperature first, then by source
                 const allSortedData = [...material.data];
-                const sourceOrder = { 'DFT': 1, 'DPA-3': 2, 'DPA-1': 3 };
+                const sourceOrder = { 'DFT': 1, 'DPA-3': 2, 'DPA-1': 3, 'Experiment': 4, 'MD': 5 };
                 allSortedData.sort((a, b) => {
                   // First: sort by temperature (ascending)
                   if (a.temperature !== b.temperature) {
                     return a.temperature - b.temperature;
                   }
                   // Second: sort by source (DFT > DPA-3 > DPA-1)
-                  const orderA = sourceOrder[a.source] || 99;
-                  const orderB = sourceOrder[b.source] || 99;
+                  const orderA = sourceOrder[getSourceBase(a.source)] || 99;
+                  const orderB = sourceOrder[getSourceBase(b.source)] || 99;
                   return orderA - orderB;
                 });
                 
@@ -1309,9 +1312,9 @@ jobs:
                 for (const dataPoint of allSortedData) {
                   const p = dataPoint.properties || {};
                   const d = p.defects || {};
-                  html += '<tr data-temperature="' + dataPoint.temperature + '" data-source="' + dataPoint.source + '">';
+                  html += '<tr data-temperature="' + dataPoint.temperature + '" data-source="' + normalizeSource(dataPoint.source) + '">';
                   html += '<td>' + dataPoint.temperature + 'K</td>';
-                  html += '<td>' + dataPoint.source + '</td>';
+                  html += '<td>' + normalizeSource(dataPoint.source) + '</td>';
                   html += '<td>' + formatValue(d.vacancyFormationEnergy, 3) + '</td>';
                   html += '<td>';
                   if (typeof d.interstitialFormationEnergy === 'object') {
@@ -1334,15 +1337,35 @@ jobs:
           }
           
           function formatValue(val, decimals = 2) {
-            if (val === null || val === undefined) return '-';
+            if (val === null || val === undefined || val === '') return '-';
             if (typeof val === 'number') return val.toFixed(decimals);
             return val;
           }
           
           function formatScientific(val) {
-            if (val === null || val === undefined) return '-';
+            if (val === null || val === undefined || val === '') return '-';
             if (typeof val === 'number') return val.toExponential(2);
             return val;
+          }
+          
+          // Normalize source format: DPA3_xxx -> DPA-3_xxx, DPA1_xxx -> DPA-1_xxx
+          function normalizeSource(source) {
+            if (!source) return source;
+            // Replace DPA3 with DPA-3, DPA1 with DPA-1
+            return source.replace(/DPA(\d)/g, 'DPA-$1');
+          }
+          
+          // Get base source type for sorting/filtering: DPA-3_final -> DPA-3, DPA-1_251208 -> DPA-1
+          function getSourceBase(source) {
+            if (!source) return 'Other';
+            const normalized = normalizeSource(source);
+            // Extract base type (DFT, DPA-3, DPA-1, etc.)
+            if (normalized === 'DFT') return 'DFT';
+            if (normalized.startsWith('DPA-3')) return 'DPA-3';
+            if (normalized.startsWith('DPA-1')) return 'DPA-1';
+            if (normalized.startsWith('Experiment')) return 'Experiment';
+            if (normalized.startsWith('MD')) return 'MD';
+            return 'Other';
           }
           
           function formatFile(file, materialId, temperature, source) {
@@ -1457,8 +1480,12 @@ jobs:
               if (selectedTemp !== 'all' && rowTemp !== selectedTemp) {
                 showRow = false;
               }
-              if (selectedSource !== 'all' && rowSource !== selectedSource) {
-                showRow = false;
+              // Match by base source type: DPA-3 matches DPA-3, DPA-3_final, DPA-3_xxx
+              if (selectedSource !== 'all') {
+                const rowSourceBase = getSourceBase(rowSource);
+                if (rowSourceBase !== selectedSource) {
+                  showRow = false;
+                }
               }
               
               row.style.display = showRow ? '' : 'none';
@@ -1518,9 +1545,11 @@ jobs:
             
             // Data Source Selector for multi-temperature/source
             if (material.data && material.data.length > 1) {
-              // Get unique temperatures and sources
+              // Get unique temperatures and base source types
               const temperatures = [...new Set(material.data.map(d => d.temperature))].sort((a, b) => a - b);
-              const sources = [...new Set(material.data.map(d => d.source))].sort();
+              const sourceBases = [...new Set(material.data.map(d => getSourceBase(d.source)))];
+              const sourceOrder = { 'DFT': 1, 'DPA-3': 2, 'DPA-1': 3, 'Experiment': 4, 'MD': 5, 'Other': 99 };
+              const sources = sourceBases.sort((a, b) => (sourceOrder[a] || 99) - (sourceOrder[b] || 99));
               
               html += '<div class="data-selector">';
               
@@ -1644,8 +1673,9 @@ jobs:
               filteredData = filteredData.filter(d => d.temperature == selectedTemp);
             }
             
+            // Match by base source type: DPA-3 matches DPA-3, DPA-3_final, DPA-3_xxx
             if (selectedSource !== 'all') {
-              filteredData = filteredData.filter(d => d.source === selectedSource);
+              filteredData = filteredData.filter(d => getSourceBase(d.source) === selectedSource);
             }
             
             // Generate view for filtered data
@@ -1675,13 +1705,13 @@ jobs:
           function generateAllDataView(material, allDataPoints) {
             // Sort data: temperature ascending, then by source priority
             const sortedData = [...allDataPoints];
-            const sourceOrder = { 'DFT': 1, 'DPA-3': 2, 'DPA-1': 3 };
+            const sourceOrder = { 'DFT': 1, 'DPA-3': 2, 'DPA-1': 3, 'Experiment': 4, 'MD': 5 };
             sortedData.sort((a, b) => {
               if (a.temperature !== b.temperature) {
                 return a.temperature - b.temperature;
               }
-              const orderA = sourceOrder[a.source] || 99;
-              const orderB = sourceOrder[b.source] || 99;
+              const orderA = sourceOrder[getSourceBase(a.source)] || 99;
+              const orderB = sourceOrder[getSourceBase(b.source)] || 99;
               return orderA - orderB;
             });
             
@@ -1725,7 +1755,7 @@ jobs:
               const props = dataPoint.properties || {};
               const struct = props.structure || {};
               html += '<div class="data-subsection">';
-              html += '<h4 class="subsection-header">' + dataPoint.temperature + 'K, ' + dataPoint.source + '</h4>';
+              html += '<h4 class="subsection-header">' + dataPoint.temperature + 'K, ' + normalizeSource(dataPoint.source) + '</h4>';
               html += '<div class="detail-grid">';
               html += '<div class="detail-item"><label>' + t('table.density') + ':</label><span>' + formatValue(struct.density, 3) + ' g/cm³</span></div>';
               if (struct.latticeParameters) {
@@ -1755,7 +1785,7 @@ jobs:
               const props = dataPoint.properties || {};
               const thermo = props.thermodynamics || {};
               html += '<div class="data-subsection">';
-              html += '<h4 class="subsection-header">' + dataPoint.temperature + 'K, ' + dataPoint.source + '</h4>';
+              html += '<h4 class="subsection-header">' + dataPoint.temperature + 'K, ' + normalizeSource(dataPoint.source) + '</h4>';
               html += '<div class="detail-grid">';
               html += '<div class="detail-item"><label>' + t('table.formationEnergy') + ':</label><span>' + formatValue(thermo.formationEnergy, 2) + ' eV</span></div>';
               html += '<div class="detail-item"><label>' + t('table.specificHeat') + ':</label><span>' + formatValue(thermo.specificHeat, 2) + ' J/kg·K</span></div>';
@@ -1774,7 +1804,7 @@ jobs:
               const props = dataPoint.properties || {};
               const mech = props.mechanics || {};
               html += '<div class="data-subsection">';
-              html += '<h4 class="subsection-header">' + dataPoint.temperature + 'K, ' + dataPoint.source + '</h4>';
+              html += '<h4 class="subsection-header">' + dataPoint.temperature + 'K, ' + normalizeSource(dataPoint.source) + '</h4>';
               html += '<div class="detail-grid">';
               html += '<div class="detail-item"><label>' + t('table.youngsModulus') + ':</label><span>' + formatValue(mech.youngsModulus, 2) + ' GPa</span></div>';
               html += '<div class="detail-item"><label>' + t('table.bulkModulus') + ':</label><span>' + formatValue(mech.bulkModulus, 2) + ' GPa</span></div>';
@@ -1822,7 +1852,7 @@ jobs:
               const props = dataPoint.properties || {};
               const defects = props.defects || {};
               html += '<div class="data-subsection">';
-              html += '<h4 class="subsection-header">' + dataPoint.temperature + 'K, ' + dataPoint.source + '</h4>';
+              html += '<h4 class="subsection-header">' + dataPoint.temperature + 'K, ' + normalizeSource(dataPoint.source) + '</h4>';
               html += '<div class="detail-grid">';
               html += '<div class="detail-item"><label>' + t('table.vacancyEnergy') + ':</label><span>' + formatValue(defects.vacancyFormationEnergy, 3) + ' eV</span></div>';
               
@@ -1862,7 +1892,7 @@ jobs:
             html += '<div class="detail-item"><label>' + t('table.type') + ':</label><span>' + translateType(material.type) + '</span></div>';
             html += '<div class="detail-item"><label>' + (currentLang === 'en' ? 'Composition:' : '元素组成:') + '</label><span>' + formatComposition(material.composition) + '</span></div>';
             html += '<div class="detail-item"><label>' + (currentLang === 'en' ? 'Temperature:' : '温度:') + '</label><span>' + dataPoint.temperature + ' K</span></div>';
-            html += '<div class="detail-item"><label>' + (currentLang === 'en' ? 'Source:' : '数据来源:') + '</label><span>' + dataPoint.source + '</span></div>';
+            html += '<div class="detail-item"><label>' + (currentLang === 'en' ? 'Source:' : '数据来源:') + '</label><span>' + normalizeSource(dataPoint.source) + '</span></div>';
             html += '</div></div>';
             
             // Structure Properties
