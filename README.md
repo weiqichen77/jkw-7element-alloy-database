@@ -65,7 +65,7 @@ Visit the live website: [https://wqchen007.github.io/jkw-7element-alloy-database
    ```
 3. Commit and push:
    ```bash
-   git add backend/data/materials.json real-data/poscar/
+   git add backend/data/materials.json data/poscar/
    git commit -m "Add material data"
    git push origin main
    ```
@@ -110,7 +110,7 @@ open http://localhost:8000/frontend/
 │   ├── convert-data-v2.js         # Data conversion tool
 │   ├── generate-poscar-files.js   # POSCAR generator
 │   └── add-chart-data.js          # Chart data helper
-├── real-data/
+├── data/
 │   ├── materials.json             # Production data (optional)
 │   └── poscar/                    # POSCAR files (70+ structures)
 └── docs/
@@ -223,7 +223,7 @@ MIT License - see [LICENSE](LICENSE) for details.
    ```
 3. 提交并推送：
    ```bash
-   git add backend/data/materials.json real-data/poscar/
+   git add backend/data/materials.json data/poscar/
    git commit -m "Add material data"
    git push origin main
    ```
@@ -268,7 +268,7 @@ open http://localhost:8000/frontend/
 │   ├── convert-data-v2.js         # 数据转换工具
 │   ├── generate-poscar-files.js   # POSCAR生成器
 │   └── add-chart-data.js          # 图表数据助手
-├── real-data/
+├── data/
 │   ├── materials.json             # 生产数据（可选）
 │   └── poscar/                    # POSCAR文件（70+结构）
 └── docs/

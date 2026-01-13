@@ -49,12 +49,12 @@ For 3D structure visualization:
 node scripts/generate-poscar-files.js
 ```
 
-This creates POSCAR files in `real-data/poscar/` based on material compositions.
+This creates POSCAR files in `data/poscar/` based on material compositions.
 
 #### Step 4: Commit and Deploy
 
 ```bash
-git add backend/data/materials.json real-data/poscar/
+git add backend/data/materials.json data/poscar/
 git commit -m "Add material data"
 git push origin main
 ```
@@ -154,12 +154,12 @@ node scripts/convert-data-v2.js your-data.csv backend/data/materials.json
 node scripts/generate-poscar-files.js
 ```
 
-这将在 `real-data/poscar/` 中根据材料组成创建POSCAR文件。
+这将在 `data/poscar/` 中根据材料组成创建POSCAR文件。
 
 #### 步骤 4: 提交并部署
 
 ```bash
-git add backend/data/materials.json real-data/poscar/
+git add backend/data/materials.json data/poscar/
 git commit -m "Add material data"
 git push origin main
 ```

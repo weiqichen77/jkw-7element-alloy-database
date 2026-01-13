@@ -65,7 +65,7 @@ A comprehensive web-based materials database for multi-principal element alloys 
 │   ├── API.md
 │   ├── TESTING_CHECKLIST.md
 │   └── IMPLEMENTATION_PLAN_V2.md
-└── real-data/         # Production data location
+└── data/         # Production data location
 ```
 
 ### Key Achievements
@@ -90,7 +90,7 @@ open http://localhost:8000/frontend/
 **Data Updates**:
 ```bash
 node scripts/convert-data-v2.js data.csv backend/data/materials.json
-git add backend/data/materials.json real-data/poscar/
+git add backend/data/materials.json data/poscar/
 git commit -m "Update data"
 git push origin main
 ```

@@ -8,7 +8,7 @@
  * 
  * Usage:
  *   node convert-data.js <input-file> [output-file]
- *   node convert-data.js data.csv real-data/materials.json
+ *   node convert-data.js data.csv data/materials.json
  */
 
 const fs = require('fs');
@@ -349,7 +349,7 @@ Options:
   --help, -h    Show this help message
 
 Examples:
-  node convert-data.js my-data.csv real-data/materials.json
+  node convert-data.js my-data.csv data/materials.json
   node convert-data.js my-data.json backend/data/materials.json
   node convert-data.js --template template.csv
 

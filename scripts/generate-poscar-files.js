@@ -63,7 +63,7 @@ function generatePOSCAR(filename) {
 function main() {
   const materialsFile = path.join(__dirname, '../backend/data/materials.json');
   const poscarDir = path.join(__dirname, '../backend/data/poscar');
-  const realPoscarDir = path.join(__dirname, '../real-data/poscar');
+  const dataPoscarDir = path.join(__dirname, '../data/poscar');
   
   // 读取materials.json
   const materials = JSON.parse(fs.readFileSync(materialsFile, 'utf8'));
@@ -116,13 +116,13 @@ function main() {
     // 写入文件
     fs.writeFileSync(fullPath, poscar);
     
-    // 同步到real-data
-    const realPath = path.join(realPoscarDir, filename);
-    const realDir = path.dirname(realPath);
-    if (!fs.existsSync(realDir)) {
-      fs.mkdirSync(realDir, { recursive: true });
+    // 同步到data目录
+    const dataPath = path.join(dataPoscarDir, filename);
+    const dataDir = path.dirname(dataPath);
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
     }
-    fs.writeFileSync(realPath, poscar);
+    fs.writeFileSync(dataPath, poscar);
     
     generated++;
     console.log(`Generated: ${filename}`);
