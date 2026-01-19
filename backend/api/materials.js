@@ -1,6 +1,54 @@
 const fs=require('fs'),path=require('path');
-const DATA_DIR=path.join(__dirname,'..','data'),DATA_PATH=path.join(DATA_DIR,'materials.json');
-function load(){if(!fs.existsSync(DATA_PATH))return[];try{return JSON.parse(fs.readFileSync(DATA_PATH))}catch(e){return[]}}
+const DATA_DIR=path.join(__dirname,'..','data'),DATA_PATH=path.join(DATA_DIR,'materials.json'),INTERMETALLIC_PATH=path.join(DATA_DIR,'materials_intermetallic.json');
+
+function normalizeIntermetallic(material) {
+  // Convert intermetallic format to compatible format
+  if (!material.data) {
+    material.data = [];
+  }
+  
+  // Extract density from first data point if available
+  if (!material.density && material.data.length > 0) {
+    const firstData = material.data[0];
+    if (firstData.properties && firstData.properties.structure && firstData.properties.structure.density) {
+      material.density = firstData.properties.structure.density;
+    }
+  }
+  
+  // Add empty properties object if missing (for search compatibility)
+  if (!material.properties) {
+    material.properties = {};
+  }
+  
+  return material;
+}
+
+function load(){
+  let data=[];
+  // Load materials.json
+  if(fs.existsSync(DATA_PATH)){
+    try{
+      data=JSON.parse(fs.readFileSync(DATA_PATH));
+    }catch(e){
+      console.error('Error loading materials.json:',e);
+      data=[];
+    }
+  }
+  // Load and merge materials_intermetallic.json
+  if(fs.existsSync(INTERMETALLIC_PATH)){
+    try{
+      const intermetallic=JSON.parse(fs.readFileSync(INTERMETALLIC_PATH));
+      if(Array.isArray(intermetallic)){
+        // Normalize and add intermetallic materials
+        const normalized = intermetallic.map(normalizeIntermetallic);
+        data=data.concat(normalized);
+      }
+    }catch(e){
+      console.error('Error loading materials_intermetallic.json:',e);
+    }
+  }
+  return data;
+}
 function save(data){fs.mkdirSync(DATA_DIR,{recursive:true});fs.writeFileSync(DATA_PATH,JSON.stringify(data,null,2));}
 function token(req){return req.headers['x-api-token']||req.query.token||process.env.ADMIN_TOKEN||'';}
 function checkAuth(req){const t=process.env.ADMIN_TOKEN;if(!t)return false;return token(req)===t;}
@@ -10,7 +58,12 @@ module.exports=(req,res)=>{
   let data=load();
   if(m==='GET'&&!id){
     const {q='',page=1,per_page=25,type,element} = req.query;
-    let r=data.filter(x=>(!type||x.type===type)&&(!element||x.elements.includes(element))&&((x.name+x.elements.join()+' '+JSON.stringify(x.properties)).toLowerCase().includes((q||'').toLowerCase())));
+    let r=data.filter(x=>{
+      const name = x.name || '';
+      const elements = x.elements || [];
+      const props = x.properties ? JSON.stringify(x.properties) : '';
+      return (!type||x.type===type)&&(!element||elements.includes(element))&&((name+elements.join()+' '+props).toLowerCase().includes((q||'').toLowerCase()));
+    });
     const total=r.length, p=+page,pp=+per_page; r=r.slice((p-1)*pp,p*pp);
     return res.json({total,page:p,per_page:pp,results:r});
   }
