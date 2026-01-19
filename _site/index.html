@@ -7,65 +7,95 @@
   <link rel="stylesheet" href="css/style.css">
   <style>
     * { box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
-    header { background: #333; color: white; padding: 20px; margin: -20px -20px 20px -20px; }
-    h1 { margin: 0; }
-    .search-box { margin: 20px 0; }
-    input { padding: 8px; width: 300px; }
-    button { padding: 8px 16px; cursor: pointer; }
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-    th { background: #f5f5f5; }
-    .info { color: #666; font-size: 14px; margin: 10px 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+    header { background: #2c3e50; color: white; padding: 25px; margin: -20px -20px 20px -20px; }
+    h1 { margin: 0; font-size: 28px; }
+    .header-subtitle { font-size: 14px; opacity: 0.9; margin-top: 5px; }
+    .search-box { margin: 20px 0; display: flex; gap: 10px; }
+    input { padding: 10px 12px; border: 1px solid #ddd; border-radius: 4px; width: 300px; font-size: 14px; }
+    button { padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: 500; }
+    button:hover { background: #2980b9; }
+    .info { color: #555; font-size: 14px; margin: 15px 0; padding: 10px; background: #fff; border-left: 4px solid #3498db; }
+    .info.success { border-left-color: #27ae60; color: #27ae60; }
+    .info.error { border-left-color: #e74c3c; color: #e74c3c; }
+    
+    .table-container { background: white; border-radius: 4px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #34495e; color: white; padding: 12px; text-align: left; font-weight: 600; font-size: 13px; }
+    td { border-bottom: 1px solid #ecf0f1; padding: 12px; font-size: 13px; }
+    tr:hover { background: #f9f9f9; }
+    
+    .expandable-row { cursor: pointer; }
+    .expandable-row td:first-child { color: #3498db; font-weight: 500; }
+    .detail-row { display: none; background: #f8f9fa; }
+    .detail-row.show { display: table-row; }
+    .detail-content { padding: 20px; }
+    .detail-section { margin-bottom: 20px; }
+    .detail-section-title { font-weight: 600; color: #2c3e50; margin-bottom: 10px; font-size: 14px; }
+    .detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+    .detail-item { font-size: 12px; }
+    .detail-item-label { color: #7f8c8d; font-weight: 500; margin-bottom: 2px; }
+    .detail-item-value { color: #2c3e50; }
+    
+    #noResults { display: none; }
+    .expand-icon { display: inline-block; transition: transform 0.3s; margin-right: 8px; }
+    .expandable-row.expanded .expand-icon { transform: rotate(90deg); }
   </style>
 </head>
 <body>
   <header>
     <h1>Alloy Materials Database</h1>
-    <p>Comprehensive materials property database</p>
+    <div class="header-subtitle">Material Properties Database - Al-Ni-Cu-Zr-Nb-Ta-W System</div>
   </header>
 
   <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Search materials (e.g., Al, Zr, Cu)...">
+    <input type="text" id="searchInput" placeholder="Search: Al, Zr, Nb20Al10, mp-bbgt...">
     <button onclick="performSearch()">Search</button>
   </div>
 
   <div class="info" id="info"></div>
   
-  <table id="resultsTable" style="display: none;">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Elements</th>
-        <th>Density</th>
-      </tr>
-    </thead>
-    <tbody id="resultsBody">
-    </tbody>
-  </table>
-
-  <div id="noResults" class="info" style="display: none; color: red;">No results found</div>
+  <div class="table-container">
+    <table id="resultsTable" style="display: none;">
+      <thead>
+        <tr>
+          <th style="width: 50px;">No.</th>
+          <th style="width: 120px;">ID</th>
+          <th style="width: 150px;">Name</th>
+          <th style="width: 80px;">Type</th>
+          <th style="width: 150px;">Elements</th>
+          <th>Density (g/cm³)</th>
+          <th style="width: 80px;">Details</th>
+        </tr>
+      </thead>
+      <tbody id="resultsBody">
+      </tbody>
+    </table>
+    <div id="noResults" class="info error" style="display: none; margin: 20px;">No results found</div>
+  </div>
 
   <script>
     let allMaterials = [];
+    let displayedMaterials = [];
+    let expandedRows = new Set();
     
-    // Load materials data on page load
     async function loadData() {
       try {
         const response = await fetch('./data/materials.json');
         if (!response.ok) throw new Error('Failed to load data');
         allMaterials = await response.json();
+        
         document.getElementById('info').innerHTML = `
           <strong>✓ Database loaded successfully!</strong><br>
           Total materials: ${allMaterials.length}
         `;
+        document.getElementById('info').className = 'info success';
         console.log('Loaded', allMaterials.length, 'materials');
       } catch (error) {
         document.getElementById('info').innerHTML = `
-          <strong style="color: red;">✗ Error loading database:</strong> ${error.message}
+          <strong>✗ Error loading database:</strong> ${error.message}
         `;
+        document.getElementById('info').className = 'info error';
         console.error('Error loading data:', error);
       }
     }
@@ -74,18 +104,21 @@
       const searchTerm = document.getElementById('searchInput').value.toLowerCase();
       
       if (!allMaterials.length) {
-        document.getElementById('info').innerHTML = '<strong style="color: red;">Data not loaded yet</strong>';
+        document.getElementById('info').innerHTML = '<strong style="color: #e74c3c;">Data not loaded yet</strong>';
         return;
       }
       
-      const results = allMaterials.filter(material => {
+      displayedMaterials = allMaterials.filter(material => {
         const name = (material.name || '').toLowerCase();
+        const id = String(material.id || '').toLowerCase();
+        const source = String(material.source || '').toLowerCase();
         const elements = material.elements ? material.elements.join(' ').toLowerCase() : '';
         const composition = (material.composition || '').toLowerCase();
-        return name.includes(searchTerm) || elements.includes(searchTerm) || composition.includes(searchTerm);
+        return name.includes(searchTerm) || id.includes(searchTerm) || source.includes(searchTerm) || 
+               elements.includes(searchTerm) || composition.includes(searchTerm);
       });
       
-      displayResults(results, searchTerm);
+      displayResults(displayedMaterials, searchTerm);
     }
     
     function displayResults(results, searchTerm) {
@@ -94,6 +127,7 @@
       const noResults = document.getElementById('noResults');
       const info = document.getElementById('info');
       
+      expandedRows.clear();
       tbody.innerHTML = '';
       
       if (results.length === 0) {
@@ -105,23 +139,134 @@
         table.style.display = 'table';
         noResults.style.display = 'none';
         info.innerHTML = `<strong>✓ Search results: ${results.length} materials found</strong>`;
+        info.className = 'info success';
         
-        results.forEach(material => {
-          const row = tbody.insertRow();
-          row.insertCell(0).textContent = material.id;
-          row.insertCell(1).textContent = material.name || 'N/A';
-          row.insertCell(2).textContent = material.type || 'N/A';
-          const elements = material.elements ? material.elements.join(', ') : 'N/A';
-          row.insertCell(3).textContent = elements;
-          row.insertCell(4).textContent = material.density ? material.density.toFixed(2) : 'N/A';
+        results.forEach((material, idx) => {
+          const displayNumber = idx + 1;
+          const dataId = material.id || material.source || displayNumber;
+          
+          // Extract density from nested structure
+          let density = material.density;
+          if (!density && material.data && material.data.length > 0) {
+            const props = material.data[0].properties;
+            if (props && props.structure && props.structure.density) {
+              density = props.structure.density;
+            }
+          }
+          
+          // Get elements
+          const elements = material.elements ? material.elements.join(', ') : (material.composition || 'N/A');
+          
+          const mainRow = tbody.insertRow();
+          mainRow.className = 'expandable-row';
+          mainRow.dataset.id = dataId;
+          
+          mainRow.insertCell(0).textContent = displayNumber;
+          mainRow.insertCell(1).textContent = dataId;
+          mainRow.insertCell(2).textContent = material.name || 'N/A';
+          mainRow.insertCell(3).textContent = material.type || 'N/A';
+          mainRow.insertCell(4).textContent = elements;
+          mainRow.insertCell(5).textContent = density ? density.toFixed(2) : 'N/A';
+          mainRow.insertCell(6).innerHTML = '<span class="expand-icon">▶</span>View';
+          
+          mainRow.onclick = () => toggleDetail(mainRow, material);
+          
+          const detailRow = tbody.insertRow();
+          detailRow.className = 'detail-row';
+          const detailCell = detailRow.insertCell(0);
+          detailCell.colSpan = 7;
+          detailCell.innerHTML = formatDetailContent(material);
         });
       }
     }
     
-    // Load data when page loads
+    function toggleDetail(row, material) {
+      const detailRow = row.nextElementSibling;
+      const isExpanded = detailRow.classList.contains('show');
+      
+      document.querySelectorAll('.detail-row.show').forEach(r => r.classList.remove('show'));
+      document.querySelectorAll('.expandable-row.expanded').forEach(r => r.classList.remove('expanded'));
+      
+      if (!isExpanded) {
+        detailRow.classList.add('show');
+        row.classList.add('expanded');
+      }
+    }
+    
+    function formatDetailContent(material) {
+      let html = '<div class="detail-content">';
+      
+      if (material.data && material.data.length > 0) {
+        const firstData = material.data[0];
+        
+        if (firstData.properties) {
+          const props = firstData.properties;
+          
+          if (props.structure) {
+            html += '<div class="detail-section">';
+            html += '<div class="detail-section-title">Structure Properties</div>';
+            html += '<div class="detail-grid">';
+            
+            const struct = props.structure;
+            if (struct.latticeParameters) {
+              const lp = struct.latticeParameters;
+              html += `<div class="detail-item"><div class="detail-item-label">Lattice a (Å)</div><div class="detail-item-value">${lp.a ? lp.a.toFixed(4) : 'N/A'}</div></div>`;
+              html += `<div class="detail-item"><div class="detail-item-label">Lattice b (Å)</div><div class="detail-item-value">${lp.b ? lp.b.toFixed(4) : 'N/A'}</div></div>`;
+              html += `<div class="detail-item"><div class="detail-item-label">Lattice c (Å)</div><div class="detail-item-value">${lp.c ? lp.c.toFixed(4) : 'N/A'}</div></div>`;
+              html += `<div class="detail-item"><div class="detail-item-label">Alpha (°)</div><div class="detail-item-value">${lp.alpha ? lp.alpha.toFixed(2) : 'N/A'}</div></div>`;
+              html += `<div class="detail-item"><div class="detail-item-label">Beta (°)</div><div class="detail-item-value">${lp.beta ? lp.beta.toFixed(2) : 'N/A'}</div></div>`;
+              html += `<div class="detail-item"><div class="detail-item-label">Gamma (°)</div><div class="detail-item-value">${lp.gamma ? lp.gamma.toFixed(2) : 'N/A'}</div></div>`;
+              
+              // Check for pointGroup in latticeParameters
+              if (lp.pointGroup) {
+                html += `<div class="detail-item"><div class="detail-item-label">Point Group</div><div class="detail-item-value">${lp.pointGroup}</div></div>`;
+              }
+            }
+            
+            // Also check for pointGroup at structure level
+            if (struct.pointGroup) {
+              html += `<div class="detail-item"><div class="detail-item-label">Point Group</div><div class="detail-item-value">${struct.pointGroup}</div></div>`;
+            }
+            
+            html += `<div class="detail-item"><div class="detail-item-label">Density (g/cm³)</div><div class="detail-item-value">${struct.density ? struct.density.toFixed(3) : 'N/A'}</div></div>`;
+            
+            html += '</div></div>';
+          }
+          
+          if (props.thermodynamics) {
+            html += '<div class="detail-section">';
+            html += '<div class="detail-section-title">Thermodynamic Properties</div>';
+            html += '<div class="detail-grid">';
+            
+            const thermo = props.thermodynamics;
+            html += `<div class="detail-item"><div class="detail-item-label">Formation Energy (eV)</div><div class="detail-item-value">${thermo.formationEnergy ? thermo.formationEnergy.toFixed(3) : 'N/A'}</div></div>`;
+            html += `<div class="detail-item"><div class="detail-item-label">Mixing Enthalpy (eV)</div><div class="detail-item-value">${thermo.mixingEnthalpy ? thermo.mixingEnthalpy.toFixed(3) : 'N/A'}</div></div>`;
+            
+            html += '</div></div>';
+          }
+          
+          if (props.mechanics) {
+            html += '<div class="detail-section">';
+            html += '<div class="detail-section-title">Mechanical Properties</div>';
+            html += '<div class="detail-grid">';
+            
+            const mech = props.mechanics;
+            html += `<div class="detail-item"><div class="detail-item-label">Young's Modulus (GPa)</div><div class="detail-item-value">${mech.youngsModulus ? mech.youngsModulus.toFixed(2) : 'N/A'}</div></div>`;
+            html += `<div class="detail-item"><div class="detail-item-label">Bulk Modulus (GPa)</div><div class="detail-item-value">${mech.bulkModulus ? mech.bulkModulus.toFixed(2) : 'N/A'}</div></div>`;
+            html += `<div class="detail-item"><div class="detail-item-label">Shear Modulus (GPa)</div><div class="detail-item-value">${mech.shearModulus ? mech.shearModulus.toFixed(2) : 'N/A'}</div></div>`;
+            html += `<div class="detail-item"><div class="detail-item-label">Poisson's Ratio</div><div class="detail-item-value">${mech.poissonsRatio ? mech.poissonsRatio.toFixed(3) : 'N/A'}</div></div>`;
+            
+            html += '</div></div>';
+          }
+        }
+      }
+      
+      html += '</div>';
+      return html;
+    }
+    
     window.addEventListener('load', loadData);
     
-    // Allow search by pressing Enter
     document.getElementById('searchInput').addEventListener('keypress', function(e) {
       if (e.key === 'Enter') {
         performSearch();

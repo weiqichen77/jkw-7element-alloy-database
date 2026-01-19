@@ -15,6 +15,12 @@ A comprehensive materials database for multi-principal element alloys with multi
 
 **Live Demo:** [https://weiqichen77.github.io/jkw-7element-alloy-database/](https://weiqichen77.github.io/jkw-7element-alloy-database/)
 
+### Quick Start
+
+- **New users?** Start with [QUICK_START.md](QUICK_START.md)
+- **Want to upload data?** See [DATA_UPLOAD_GUIDE.md](DATA_UPLOAD_GUIDE.md) 
+- **Need technical details?** Check [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)
+
 ### Key Features
 
 - **Material Classification**: Element, Solid Solution, Intermetallic, Amorphous, Interface
