@@ -79,7 +79,7 @@ A comprehensive web-based materials database for multi-principal element alloys 
 
 ### Usage
 
-**Live Site**: https://wqchen007.github.io/jkw-7element-alloy-database/
+**Live Site**: https://weiqichen77.github.io/jkw-7element-alloy-database/
 
 **Local Development**:
 ```bash

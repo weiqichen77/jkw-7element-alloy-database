@@ -500,8 +500,8 @@ Result: Mechanical properties of Al-containing intermetallics
 
 ## 技术支持 / Technical Support
 
-- **GitHub Issues**: [提交问题 / Submit Issue](https://github.com/wqchen007/jkw-7element-alloy-database/issues)
-- **文档 / Documentation**: [README.md](https://github.com/wqchen007/jkw-7element-alloy-database/blob/main/README.md)
+- **GitHub Issues**: [提交问题 / Submit Issue](https://github.com/weiqichen77/jkw-7element-alloy-database/issues)
+- **文档 / Documentation**: [README.md](https://github.com/weiqichen77/jkw-7element-alloy-database/blob/main/README.md)
 - **数据格式 / Data Format**: [DATA_STRUCTURE_V2.md](../docs/DATA_STRUCTURE_V2.md)
 
 ---

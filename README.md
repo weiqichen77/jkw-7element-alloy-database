@@ -1,6 +1,6 @@
 # 7-Element Alloy Materials Database
 
-[![GitHub Pages](https://img.shields.io/badge/Demo-GitHub%20Pages-blue)](https://wqchen007.github.io/jkw-7element-alloy-database/)
+[![GitHub Pages](https://img.shields.io/badge/Demo-GitHub%20Pages-blue)](https://weiqichen77.github.io/jkw-7element-alloy-database/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 [English](#english) | [中文](#中文)
@@ -13,7 +13,7 @@
 
 A comprehensive materials database for multi-principal element alloys with multi-dimensional data support. Primary focus on 7-element combinations (Al, Ni, Cu, Zr, Nb, Ta, W), extensible to other elements.
 
-**Live Demo:** [https://wqchen007.github.io/jkw-7element-alloy-database/](https://wqchen007.github.io/jkw-7element-alloy-database/)
+**Live Demo:** [https://weiqichen77.github.io/jkw-7element-alloy-database/](https://weiqichen77.github.io/jkw-7element-alloy-database/)
 
 ### Key Features
 
@@ -75,7 +75,7 @@ Visit the live website: [https://wqchen007.github.io/jkw-7element-alloy-database
 
 ```bash
 # Clone repository
-git clone https://github.com/wqchen007/jkw-7element-alloy-database.git
+git clone https://github.com/weiqichen77/jkw-7element-alloy-database.git
 cd jkw-7element-alloy-database
 
 # Convert data to V2 format
@@ -172,7 +172,7 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 多主元合金材料综合数据库，支持多维数据。主要关注七元组合（Al、Ni、Cu、Zr、Nb、Ta、W），可扩展至其他元素。
 
-**在线演示：** [https://wqchen007.github.io/jkw-7element-alloy-database/](https://wqchen007.github.io/jkw-7element-alloy-database/)
+**在线演示：** [https://weiqichen77.github.io/jkw-7element-alloy-database/](https://weiqichen77.github.io/jkw-7element-alloy-database/)
 
 ### 主要功能
 
@@ -234,7 +234,7 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ```bash
 # 克隆仓库
-git clone https://github.com/wqchen007/jkw-7element-alloy-database.git
+git clone https://github.com/weiqichen77/jkw-7element-alloy-database.git
 cd jkw-7element-alloy-database
 
 # 转换数据为V2格式
