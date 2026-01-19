@@ -41335,7 +41335,7 @@
     ]
   },
   {
-    "id": "mp-bbgt",
+    "source": "mp-bbgt",
     "name": "Nb20Al10",
     "type": "intermetallic",
     "composition": "Nb20Al10",
@@ -41347,6 +41347,7 @@
       "Nb": 20,
       "Al": 10
     },
+    "poscar": "/data/intermetallic/mp-bbgt/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -41713,10 +41714,11 @@
         }
       }
     ],
+    "id": "mp-bbgt",
     "density": null
   },
   {
-    "id": "mp-be",
+    "source": "mp-be",
     "name": "Cu1",
     "type": "intermetallic",
     "composition": "Cu1",
@@ -41726,6 +41728,7 @@
     "atomCount": {
       "Cu": 1
     },
+    "poscar": "/data/intermetallic/mp-be/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -42092,10 +42095,11 @@
         }
       }
     ],
+    "id": "mp-be",
     "density": null
   },
   {
-    "id": "mp-beq",
+    "source": "mp-beq",
     "name": "Nb6Al2",
     "type": "intermetallic",
     "composition": "Nb6Al2",
@@ -42107,6 +42111,7 @@
       "Nb": 6,
       "Al": 2
     },
+    "poscar": "/data/intermetallic/mp-beq/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -42473,10 +42478,11 @@
         }
       }
     ],
+    "id": "mp-beq",
     "density": null
   },
   {
-    "id": "mp-bgkwl",
+    "source": "mp-bgkwl",
     "name": "Zr1Al3",
     "type": "intermetallic",
     "composition": "Zr1Al3",
@@ -42488,6 +42494,7 @@
       "Zr": 1,
       "Al": 3
     },
+    "poscar": "/data/intermetallic/mp-bgkwl/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -42854,10 +42861,11 @@
         }
       }
     ],
+    "id": "mp-bgkwl",
     "density": null
   },
   {
-    "id": "mp-bgkwm",
+    "source": "mp-bgkwm",
     "name": "Ta4Ni12",
     "type": "intermetallic",
     "composition": "Ta4Ni12",
@@ -42869,6 +42877,7 @@
       "Ta": 4,
       "Ni": 12
     },
+    "poscar": "/data/intermetallic/mp-bgkwm/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -43235,10 +43244,11 @@
         }
       }
     ],
+    "id": "mp-bgkwm",
     "density": null
   },
   {
-    "id": "mp-bgkxe",
+    "source": "mp-bgkxe",
     "name": "Ta30",
     "type": "intermetallic",
     "composition": "Ta30",
@@ -43248,6 +43258,7 @@
     "atomCount": {
       "Ta": 30
     },
+    "poscar": "/data/intermetallic/mp-bgkxe/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -43614,10 +43625,11 @@
         }
       }
     ],
+    "id": "mp-bgkxe",
     "density": null
   },
   {
-    "id": "mp-bglxz",
+    "source": "mp-bglxz",
     "name": "Ta1Ni3",
     "type": "intermetallic",
     "composition": "Ta1Ni3",
@@ -43629,6 +43641,7 @@
       "Ta": 1,
       "Ni": 3
     },
+    "poscar": "/data/intermetallic/mp-bglxz/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -43995,10 +44008,11 @@
         }
       }
     ],
+    "id": "mp-bglxz",
     "density": null
   },
   {
-    "id": "mp-bgmiw",
+    "source": "mp-bgmiw",
     "name": "Zr10Al8",
     "type": "intermetallic",
     "composition": "Zr10Al8",
@@ -44010,6 +44024,7 @@
       "Zr": 10,
       "Al": 8
     },
+    "poscar": "/data/intermetallic/mp-bgmiw/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -44376,10 +44391,11 @@
         }
       }
     ],
+    "id": "mp-bgmiw",
     "density": null
   },
   {
-    "id": "mp-bhakt",
+    "source": "mp-bhakt",
     "name": "Zr3Cu1",
     "type": "intermetallic",
     "composition": "Zr3Cu1",
@@ -44391,6 +44407,7 @@
       "Zr": 3,
       "Cu": 1
     },
+    "poscar": "/data/intermetallic/mp-bhakt/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -44757,10 +44774,11 @@
         }
       }
     ],
+    "id": "mp-bhakt",
     "density": null
   },
   {
-    "id": "mp-bih",
+    "source": "mp-bih",
     "name": "Ta2Ni6",
     "type": "intermetallic",
     "composition": "Ta2Ni6",
@@ -44772,6 +44790,7 @@
       "Ta": 2,
       "Ni": 6
     },
+    "poscar": "/data/intermetallic/mp-bih/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -45138,10 +45157,11 @@
         }
       }
     ],
+    "id": "mp-bih",
     "density": null
   },
   {
-    "id": "mp-bjkld",
+    "source": "mp-bjkld",
     "name": "Al12Ni4",
     "type": "intermetallic",
     "composition": "Al12Ni4",
@@ -45153,6 +45173,7 @@
       "Al": 12,
       "Ni": 4
     },
+    "poscar": "/data/intermetallic/mp-bjkld/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -45519,10 +45540,11 @@
         }
       }
     ],
+    "id": "mp-bjkld",
     "density": null
   },
   {
-    "id": "mp-bkfpt",
+    "source": "mp-bkfpt",
     "name": "Zr14Ni20",
     "type": "intermetallic",
     "composition": "Zr14Ni20",
@@ -45534,6 +45556,7 @@
       "Zr": 14,
       "Ni": 20
     },
+    "poscar": "/data/intermetallic/mp-bkfpt/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -45900,10 +45923,11 @@
         }
       }
     ],
+    "id": "mp-bkfpt",
     "density": null
   },
   {
-    "id": "mp-bkgsd",
+    "source": "mp-bkgsd",
     "name": "Zr10Al2Ni8",
     "type": "intermetallic",
     "composition": "Zr10Al2Ni8",
@@ -45917,6 +45941,7 @@
       "Al": 2,
       "Ni": 8
     },
+    "poscar": "/data/intermetallic/mp-bkgsd/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -46283,10 +46308,11 @@
         }
       }
     ],
+    "id": "mp-bkgsd",
     "density": null
   },
   {
-    "id": "mp-bkkoo",
+    "source": "mp-bkkoo",
     "name": "Ta20Al10",
     "type": "intermetallic",
     "composition": "Ta20Al10",
@@ -46298,6 +46324,7 @@
       "Ta": 20,
       "Al": 10
     },
+    "poscar": "/data/intermetallic/mp-bkkoo/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -46664,10 +46691,11 @@
         }
       }
     ],
+    "id": "mp-bkkoo",
     "density": null
   },
   {
-    "id": "mp-bmglc",
+    "source": "mp-bmglc",
     "name": "Al1Ni3",
     "type": "intermetallic",
     "composition": "Al1Ni3",
@@ -46679,6 +46707,7 @@
       "Al": 1,
       "Ni": 3
     },
+    "poscar": "/data/intermetallic/mp-bmglc/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -47045,10 +47074,11 @@
         }
       }
     ],
+    "id": "mp-bmglc",
     "density": null
   },
   {
-    "id": "mp-bor",
+    "source": "mp-bor",
     "name": "Al3Ni2",
     "type": "intermetallic",
     "composition": "Al3Ni2",
@@ -47060,6 +47090,7 @@
       "Al": 3,
       "Ni": 2
     },
+    "poscar": "/data/intermetallic/mp-bor/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -47426,10 +47457,11 @@
         }
       }
     ],
+    "id": "mp-bor",
     "density": null
   },
   {
-    "id": "mp-bp",
+    "source": "mp-bp",
     "name": "Zr1",
     "type": "intermetallic",
     "composition": "Zr1",
@@ -47439,6 +47471,7 @@
     "atomCount": {
       "Zr": 1
     },
+    "poscar": "/data/intermetallic/mp-bp/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -47805,10 +47838,11 @@
         }
       }
     ],
+    "id": "mp-bp",
     "density": null
   },
   {
-    "id": "mp-bq",
+    "source": "mp-bq",
     "name": "Ta30",
     "type": "intermetallic",
     "composition": "Ta30",
@@ -47818,6 +47852,7 @@
     "atomCount": {
       "Ta": 30
     },
+    "poscar": "/data/intermetallic/mp-bq/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -48184,10 +48219,11 @@
         }
       }
     ],
+    "id": "mp-bq",
     "density": null
   },
   {
-    "id": "mp-bsqx",
+    "source": "mp-bsqx",
     "name": "Zr1Al5Ni2",
     "type": "intermetallic",
     "composition": "Zr1Al5Ni2",
@@ -48201,6 +48237,7 @@
       "Al": 5,
       "Ni": 2
     },
+    "poscar": "/data/intermetallic/mp-bsqx/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -48567,10 +48604,11 @@
         }
       }
     ],
+    "id": "mp-bsqx",
     "density": null
   },
   {
-    "id": "mp-bswu",
+    "source": "mp-bswu",
     "name": "Al12W3",
     "type": "intermetallic",
     "composition": "Al12W3",
@@ -48582,6 +48620,7 @@
       "Al": 12,
       "W": 3
     },
+    "poscar": "/data/intermetallic/mp-bswu/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -48948,10 +48987,11 @@
         }
       }
     ],
+    "id": "mp-bswu",
     "density": null
   },
   {
-    "id": "mp-bswv",
+    "source": "mp-bswv",
     "name": "Al10W2",
     "type": "intermetallic",
     "composition": "Al10W2",
@@ -48963,6 +49003,7 @@
       "Al": 10,
       "W": 2
     },
+    "poscar": "/data/intermetallic/mp-bswv/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -49329,10 +49370,11 @@
         }
       }
     ],
+    "id": "mp-bswv",
     "density": null
   },
   {
-    "id": "mp-bthb",
+    "source": "mp-bthb",
     "name": "Zr1Cu5",
     "type": "intermetallic",
     "composition": "Zr1Cu5",
@@ -49344,6 +49386,7 @@
       "Zr": 1,
       "Cu": 5
     },
+    "poscar": "/data/intermetallic/mp-bthb/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -49710,10 +49753,11 @@
         }
       }
     ],
+    "id": "mp-bthb",
     "density": null
   },
   {
-    "id": "mp-by",
+    "source": "mp-by",
     "name": "Ta1",
     "type": "intermetallic",
     "composition": "Ta1",
@@ -49723,6 +49767,7 @@
     "atomCount": {
       "Ta": 1
     },
+    "poscar": "/data/intermetallic/mp-by/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -50089,10 +50134,11 @@
         }
       }
     ],
+    "id": "mp-by",
     "density": null
   },
   {
-    "id": "mp-cdsqz",
+    "source": "mp-cdsqz",
     "name": "Ta1W3",
     "type": "intermetallic",
     "composition": "Ta1W3",
@@ -50104,6 +50150,7 @@
       "Ta": 1,
       "W": 3
     },
+    "poscar": "/data/intermetallic/mp-cdsqz/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -50470,10 +50517,11 @@
         }
       }
     ],
+    "id": "mp-cdsqz",
     "density": null
   },
   {
-    "id": "mp-cdv",
+    "source": "mp-cdv",
     "name": "Nb2Ni6",
     "type": "intermetallic",
     "composition": "Nb2Ni6",
@@ -50485,6 +50533,7 @@
       "Nb": 2,
       "Ni": 6
     },
+    "poscar": "/data/intermetallic/mp-cdv/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -50851,10 +50900,11 @@
         }
       }
     ],
+    "id": "mp-cdv",
     "density": null
   },
   {
-    "id": "mp-cechq",
+    "source": "mp-cechq",
     "name": "Al2Cu1",
     "type": "intermetallic",
     "composition": "Al2Cu1",
@@ -50866,6 +50916,7 @@
       "Al": 2,
       "Cu": 1
     },
+    "poscar": "/data/intermetallic/mp-cechq/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -51232,10 +51283,11 @@
         }
       }
     ],
+    "id": "mp-cechq",
     "density": null
   },
   {
-    "id": "mp-cecij",
+    "source": "mp-cecij",
     "name": "Al3Cu1",
     "type": "intermetallic",
     "composition": "Al3Cu1",
@@ -51247,6 +51299,7 @@
       "Al": 3,
       "Cu": 1
     },
+    "poscar": "/data/intermetallic/mp-cecij/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -51613,10 +51666,11 @@
         }
       }
     ],
+    "id": "mp-cecij",
     "density": null
   },
   {
-    "id": "mp-ceieo",
+    "source": "mp-ceieo",
     "name": "Cu2",
     "type": "intermetallic",
     "composition": "Cu2",
@@ -51626,6 +51680,7 @@
     "atomCount": {
       "Cu": 2
     },
+    "poscar": "/data/intermetallic/mp-ceieo/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -51992,10 +52047,11 @@
         }
       }
     ],
+    "id": "mp-ceieo",
     "density": null
   },
   {
-    "id": "mp-cep",
+    "source": "mp-cep",
     "name": "Zr3Al1",
     "type": "intermetallic",
     "composition": "Zr3Al1",
@@ -52007,6 +52063,7 @@
       "Zr": 3,
       "Al": 1
     },
+    "poscar": "/data/intermetallic/mp-cep/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -52373,10 +52430,11 @@
         }
       }
     ],
+    "id": "mp-cep",
     "density": null
   },
   {
-    "id": "mp-cevps",
+    "source": "mp-cevps",
     "name": "Al1",
     "type": "intermetallic",
     "composition": "Al1",
@@ -52386,6 +52444,7 @@
     "atomCount": {
       "Al": 1
     },
+    "poscar": "/data/intermetallic/mp-cevps/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -52752,10 +52811,11 @@
         }
       }
     ],
+    "id": "mp-cevps",
     "density": null
   },
   {
-    "id": "mp-cewci",
+    "source": "mp-cewci",
     "name": "Nb1Ni3",
     "type": "intermetallic",
     "composition": "Nb1Ni3",
@@ -52767,6 +52827,7 @@
       "Nb": 1,
       "Ni": 3
     },
+    "poscar": "/data/intermetallic/mp-cewci/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -53133,10 +53194,11 @@
         }
       }
     ],
+    "id": "mp-cewci",
     "density": null
   },
   {
-    "id": "mp-cewjq",
+    "source": "mp-cewjq",
     "name": "Nb1Ni3",
     "type": "intermetallic",
     "composition": "Nb1Ni3",
@@ -53148,6 +53210,7 @@
       "Nb": 1,
       "Ni": 3
     },
+    "poscar": "/data/intermetallic/mp-cewjq/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -53514,10 +53577,11 @@
         }
       }
     ],
+    "id": "mp-cewjq",
     "density": null
   },
   {
-    "id": "mp-cewki",
+    "source": "mp-cewki",
     "name": "Nb3Ni1",
     "type": "intermetallic",
     "composition": "Nb3Ni1",
@@ -53529,6 +53593,7 @@
       "Nb": 3,
       "Ni": 1
     },
+    "poscar": "/data/intermetallic/mp-cewki/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -53895,10 +53960,11 @@
         }
       }
     ],
+    "id": "mp-cewki",
     "density": null
   },
   {
-    "id": "mp-cff",
+    "source": "mp-cff",
     "name": "Al1Ni1",
     "type": "intermetallic",
     "composition": "Al1Ni1",
@@ -53910,6 +53976,7 @@
       "Al": 1,
       "Ni": 1
     },
+    "poscar": "/data/intermetallic/mp-cff/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -54276,10 +54343,11 @@
         }
       }
     ],
+    "id": "mp-cff",
     "density": null
   },
   {
-    "id": "mp-cfjyp",
+    "source": "mp-cfjyp",
     "name": "Al1Cu3",
     "type": "intermetallic",
     "composition": "Al1Cu3",
@@ -54291,6 +54359,7 @@
       "Al": 1,
       "Cu": 3
     },
+    "poscar": "/data/intermetallic/mp-cfjyp/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -54657,10 +54726,11 @@
         }
       }
     ],
+    "id": "mp-cfjyp",
     "density": null
   },
   {
-    "id": "mp-cfkfg",
+    "source": "mp-cfkfg",
     "name": "Ni1",
     "type": "intermetallic",
     "composition": "Ni1",
@@ -54670,6 +54740,7 @@
     "atomCount": {
       "Ni": 1
     },
+    "poscar": "/data/intermetallic/mp-cfkfg/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -55036,10 +55107,11 @@
         }
       }
     ],
+    "id": "mp-cfkfg",
     "density": null
   },
   {
-    "id": "mp-cgexl",
+    "source": "mp-cgexl",
     "name": "Al1Cu1",
     "type": "intermetallic",
     "composition": "Al1Cu1",
@@ -55051,6 +55123,7 @@
       "Al": 1,
       "Cu": 1
     },
+    "poscar": "/data/intermetallic/mp-cgexl/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -55417,10 +55490,11 @@
         }
       }
     ],
+    "id": "mp-cgexl",
     "density": null
   },
   {
-    "id": "mp-cgiiu",
+    "source": "mp-cgiiu",
     "name": "Al2Ni4",
     "type": "intermetallic",
     "composition": "Al2Ni4",
@@ -55432,6 +55506,7 @@
       "Al": 2,
       "Ni": 4
     },
+    "poscar": "/data/intermetallic/mp-cgiiu/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -55798,10 +55873,11 @@
         }
       }
     ],
+    "id": "mp-cgiiu",
     "density": null
   },
   {
-    "id": "mp-cisso",
+    "source": "mp-cisso",
     "name": "Zr2Cu2",
     "type": "intermetallic",
     "composition": "Zr2Cu2",
@@ -55813,6 +55889,7 @@
       "Zr": 2,
       "Cu": 2
     },
+    "poscar": "/data/intermetallic/mp-cisso/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -56179,10 +56256,11 @@
         }
       }
     ],
+    "id": "mp-cisso",
     "density": null
   },
   {
-    "id": "mp-cjatz",
+    "source": "mp-cjatz",
     "name": "Zr2Cu4",
     "type": "intermetallic",
     "composition": "Zr2Cu4",
@@ -56194,6 +56272,7 @@
       "Zr": 2,
       "Cu": 4
     },
+    "poscar": "/data/intermetallic/mp-cjatz/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -56560,10 +56639,11 @@
         }
       }
     ],
+    "id": "mp-cjatz",
     "density": null
   },
   {
-    "id": "mp-cjhtk",
+    "source": "mp-cjhtk",
     "name": "Zr4Cu2",
     "type": "intermetallic",
     "composition": "Zr4Cu2",
@@ -56575,6 +56655,7 @@
       "Zr": 4,
       "Cu": 2
     },
+    "poscar": "/data/intermetallic/mp-cjhtk/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -56941,10 +57022,11 @@
         }
       }
     ],
+    "id": "mp-cjhtk",
     "density": null
   },
   {
-    "id": "mp-cjhvp",
+    "source": "mp-cjhvp",
     "name": "Nb2Ni4",
     "type": "intermetallic",
     "composition": "Nb2Ni4",
@@ -56956,6 +57038,7 @@
       "Nb": 2,
       "Ni": 4
     },
+    "poscar": "/data/intermetallic/mp-cjhvp/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -57322,10 +57405,11 @@
         }
       }
     ],
+    "id": "mp-cjhvp",
     "density": null
   },
   {
-    "id": "mp-ckvmr",
+    "source": "mp-ckvmr",
     "name": "Nb7Ni6",
     "type": "intermetallic",
     "composition": "Nb7Ni6",
@@ -57337,6 +57421,7 @@
       "Nb": 7,
       "Ni": 6
     },
+    "poscar": "/data/intermetallic/mp-ckvmr/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -57703,10 +57788,11 @@
         }
       }
     ],
+    "id": "mp-ckvmr",
     "density": null
   },
   {
-    "id": "mp-ckvqr",
+    "source": "mp-ckvqr",
     "name": "Nb7",
     "type": "intermetallic",
     "composition": "Nb7",
@@ -57716,6 +57802,7 @@
     "atomCount": {
       "Nb": 7
     },
+    "poscar": "/data/intermetallic/mp-ckvqr/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -58082,10 +58169,11 @@
         }
       }
     ],
+    "id": "mp-ckvqr",
     "density": null
   },
   {
-    "id": "mp-cltys",
+    "source": "mp-cltys",
     "name": "Cu6",
     "type": "intermetallic",
     "composition": "Cu6",
@@ -58095,6 +58183,7 @@
     "atomCount": {
       "Cu": 6
     },
+    "poscar": "/data/intermetallic/mp-cltys/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -58461,10 +58550,11 @@
         }
       }
     ],
+    "id": "mp-cltys",
     "density": null
   },
   {
-    "id": "mp-cpcbn",
+    "source": "mp-cpcbn",
     "name": "Ta10Al6",
     "type": "intermetallic",
     "composition": "Ta10Al6",
@@ -58476,6 +58566,7 @@
       "Ta": 10,
       "Al": 6
     },
+    "poscar": "/data/intermetallic/mp-cpcbn/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -58842,10 +58933,11 @@
         }
       }
     ],
+    "id": "mp-cpcbn",
     "density": null
   },
   {
-    "id": "mp-cphvp",
+    "source": "mp-cphvp",
     "name": "Al4Cu16",
     "type": "intermetallic",
     "composition": "Al4Cu16",
@@ -58857,6 +58949,7 @@
       "Al": 4,
       "Cu": 16
     },
+    "poscar": "/data/intermetallic/mp-cphvp/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -59223,10 +59316,11 @@
         }
       }
     ],
+    "id": "mp-cphvp",
     "density": null
   },
   {
-    "id": "mp-cpifo",
+    "source": "mp-cpifo",
     "name": "Al4",
     "type": "intermetallic",
     "composition": "Al4",
@@ -59236,6 +59330,7 @@
     "atomCount": {
       "Al": 4
     },
+    "poscar": "/data/intermetallic/mp-cpifo/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -59602,10 +59697,11 @@
         }
       }
     ],
+    "id": "mp-cpifo",
     "density": null
   },
   {
-    "id": "mp-cpigf",
+    "source": "mp-cpigf",
     "name": "Al3Cu1",
     "type": "intermetallic",
     "composition": "Al3Cu1",
@@ -59617,6 +59713,7 @@
       "Al": 3,
       "Cu": 1
     },
+    "poscar": "/data/intermetallic/mp-cpigf/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -59983,10 +60080,11 @@
         }
       }
     ],
+    "id": "mp-cpigf",
     "density": null
   },
   {
-    "id": "mp-cpiii",
+    "source": "mp-cpiii",
     "name": "Al2Cu6",
     "type": "intermetallic",
     "composition": "Al2Cu6",
@@ -59998,6 +60096,7 @@
       "Al": 2,
       "Cu": 6
     },
+    "poscar": "/data/intermetallic/mp-cpiii/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -60364,10 +60463,11 @@
         }
       }
     ],
+    "id": "mp-cpiii",
     "density": null
   },
   {
-    "id": "mp-cpiiy",
+    "source": "mp-cpiiy",
     "name": "Al2Ni6",
     "type": "intermetallic",
     "composition": "Al2Ni6",
@@ -60379,6 +60479,7 @@
       "Al": 2,
       "Ni": 6
     },
+    "poscar": "/data/intermetallic/mp-cpiiy/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -60745,10 +60846,11 @@
         }
       }
     ],
+    "id": "mp-cpiiy",
     "density": null
   },
   {
-    "id": "mp-cpmtq",
+    "source": "mp-cpmtq",
     "name": "Nb3Cu1",
     "type": "intermetallic",
     "composition": "Nb3Cu1",
@@ -60760,6 +60862,7 @@
       "Nb": 3,
       "Cu": 1
     },
+    "poscar": "/data/intermetallic/mp-cpmtq/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -61126,10 +61229,11 @@
         }
       }
     ],
+    "id": "mp-cpmtq",
     "density": null
   },
   {
-    "id": "mp-cppla",
+    "source": "mp-cppla",
     "name": "Zr6Al2",
     "type": "intermetallic",
     "composition": "Zr6Al2",
@@ -61141,6 +61245,7 @@
       "Zr": 6,
       "Al": 2
     },
+    "poscar": "/data/intermetallic/mp-cppla/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -61507,10 +61612,11 @@
         }
       }
     ],
+    "id": "mp-cppla",
     "density": null
   },
   {
-    "id": "mp-cpplg",
+    "source": "mp-cpplg",
     "name": "Zr3Ta1",
     "type": "intermetallic",
     "composition": "Zr3Ta1",
@@ -61522,6 +61628,7 @@
       "Zr": 3,
       "Ta": 1
     },
+    "poscar": "/data/intermetallic/mp-cpplg/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -61888,10 +61995,11 @@
         }
       }
     ],
+    "id": "mp-cpplg",
     "density": null
   },
   {
-    "id": "mp-cpplw",
+    "source": "mp-cpplw",
     "name": "Zr2Cu6",
     "type": "intermetallic",
     "composition": "Zr2Cu6",
@@ -61903,6 +62011,7 @@
       "Zr": 2,
       "Cu": 6
     },
+    "poscar": "/data/intermetallic/mp-cpplw/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -62269,10 +62378,11 @@
         }
       }
     ],
+    "id": "mp-cpplw",
     "density": null
   },
   {
-    "id": "mp-cppmj",
+    "source": "mp-cppmj",
     "name": "Zr6Ta2",
     "type": "intermetallic",
     "composition": "Zr6Ta2",
@@ -62284,6 +62394,7 @@
       "Zr": 6,
       "Ta": 2
     },
+    "poscar": "/data/intermetallic/mp-cppmj/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -62650,10 +62761,11 @@
         }
       }
     ],
+    "id": "mp-cppmj",
     "density": null
   },
   {
-    "id": "mp-cppnh",
+    "source": "mp-cppnh",
     "name": "Zr14Cu20",
     "type": "intermetallic",
     "composition": "Zr14Cu20",
@@ -62665,6 +62777,7 @@
       "Zr": 14,
       "Cu": 20
     },
+    "poscar": "/data/intermetallic/mp-cppnh/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -63031,10 +63144,11 @@
         }
       }
     ],
+    "id": "mp-cppnh",
     "density": null
   },
   {
-    "id": "mp-cpugr",
+    "source": "mp-cpugr",
     "name": "Nb8Ni16",
     "type": "intermetallic",
     "composition": "Nb8Ni16",
@@ -63046,6 +63160,7 @@
       "Nb": 8,
       "Ni": 16
     },
+    "poscar": "/data/intermetallic/mp-cpugr/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -63412,10 +63527,11 @@
         }
       }
     ],
+    "id": "mp-cpugr",
     "density": null
   },
   {
-    "id": "mp-cpxpb",
+    "source": "mp-cpxpb",
     "name": "Ta20Al10",
     "type": "intermetallic",
     "composition": "Ta20Al10",
@@ -63427,6 +63543,7 @@
       "Ta": 20,
       "Al": 10
     },
+    "poscar": "/data/intermetallic/mp-cpxpb/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -63793,10 +63910,11 @@
         }
       }
     ],
+    "id": "mp-cpxpb",
     "density": null
   },
   {
-    "id": "mp-cpxut",
+    "source": "mp-cpxut",
     "name": "Zr6Al16Ni7",
     "type": "intermetallic",
     "composition": "Zr6Al16Ni7",
@@ -63810,6 +63928,7 @@
       "Al": 16,
       "Ni": 7
     },
+    "poscar": "/data/intermetallic/mp-cpxut/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -64176,10 +64295,11 @@
         }
       }
     ],
+    "id": "mp-cpxut",
     "density": null
   },
   {
-    "id": "mp-cpyjx",
+    "source": "mp-cpyjx",
     "name": "Ta17Al12",
     "type": "intermetallic",
     "composition": "Ta17Al12",
@@ -64191,6 +64311,7 @@
       "Ta": 17,
       "Al": 12
     },
+    "poscar": "/data/intermetallic/mp-cpyjx/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -64557,10 +64678,11 @@
         }
       }
     ],
+    "id": "mp-cpyjx",
     "density": null
   },
   {
-    "id": "mp-cpyrn",
+    "source": "mp-cpyrn",
     "name": "Zr6Ni23",
     "type": "intermetallic",
     "composition": "Zr6Ni23",
@@ -64572,6 +64694,7 @@
       "Zr": 6,
       "Ni": 23
     },
+    "poscar": "/data/intermetallic/mp-cpyrn/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -64938,10 +65061,11 @@
         }
       }
     ],
+    "id": "mp-cpyrn",
     "density": null
   },
   {
-    "id": "mp-cqazd",
+    "source": "mp-cqazd",
     "name": "Zr12Cu32",
     "type": "intermetallic",
     "composition": "Zr12Cu32",
@@ -64953,6 +65077,7 @@
       "Zr": 12,
       "Cu": 32
     },
+    "poscar": "/data/intermetallic/mp-cqazd/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -65319,10 +65444,11 @@
         }
       }
     ],
+    "id": "mp-cqazd",
     "density": null
   },
   {
-    "id": "mp-crdqo",
+    "source": "mp-crdqo",
     "name": "Zr1Nb1",
     "type": "intermetallic",
     "composition": "Zr1Nb1",
@@ -65334,6 +65460,7 @@
       "Zr": 1,
       "Nb": 1
     },
+    "poscar": "/data/intermetallic/mp-crdqo/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -65700,10 +65827,11 @@
         }
       }
     ],
+    "id": "mp-crdqo",
     "density": null
   },
   {
-    "id": "mp-crdrc",
+    "source": "mp-crdrc",
     "name": "Zr1Nb1Al6",
     "type": "intermetallic",
     "composition": "Zr1Nb1Al6",
@@ -65717,6 +65845,7 @@
       "Nb": 1,
       "Al": 6
     },
+    "poscar": "/data/intermetallic/mp-crdrc/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -66083,10 +66212,11 @@
         }
       }
     ],
+    "id": "mp-crdrc",
     "density": null
   },
   {
-    "id": "mp-crduq",
+    "source": "mp-crduq",
     "name": "Zr1Al1Ni2",
     "type": "intermetallic",
     "composition": "Zr1Al1Ni2",
@@ -66100,6 +66230,7 @@
       "Al": 1,
       "Ni": 2
     },
+    "poscar": "/data/intermetallic/mp-crduq/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -66466,10 +66597,11 @@
         }
       }
     ],
+    "id": "mp-crduq",
     "density": null
   },
   {
-    "id": "mp-crduw",
+    "source": "mp-crduw",
     "name": "Zr1Al1Cu2",
     "type": "intermetallic",
     "composition": "Zr1Al1Cu2",
@@ -66483,6 +66615,7 @@
       "Al": 1,
       "Cu": 2
     },
+    "poscar": "/data/intermetallic/mp-crduw/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -66849,10 +66982,11 @@
         }
       }
     ],
+    "id": "mp-crduw",
     "density": null
   },
   {
-    "id": "mp-crdwv",
+    "source": "mp-crdwv",
     "name": "Zr10Al2Ni8",
     "type": "intermetallic",
     "composition": "Zr10Al2Ni8",
@@ -66866,6 +67000,7 @@
       "Al": 2,
       "Ni": 8
     },
+    "poscar": "/data/intermetallic/mp-crdwv/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -67232,10 +67367,11 @@
         }
       }
     ],
+    "id": "mp-crdwv",
     "density": null
   },
   {
-    "id": "mp-crebd",
+    "source": "mp-crebd",
     "name": "Zr2Al3Ni1",
     "type": "intermetallic",
     "composition": "Zr2Al3Ni1",
@@ -67249,6 +67385,7 @@
       "Al": 3,
       "Ni": 1
     },
+    "poscar": "/data/intermetallic/mp-crebd/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -67615,10 +67752,11 @@
         }
       }
     ],
+    "id": "mp-crebd",
     "density": null
   },
   {
-    "id": "mp-crebn",
+    "source": "mp-crebn",
     "name": "Zr3Nb1Al12",
     "type": "intermetallic",
     "composition": "Zr3Nb1Al12",
@@ -67632,6 +67770,7 @@
       "Nb": 1,
       "Al": 12
     },
+    "poscar": "/data/intermetallic/mp-crebn/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -67998,10 +68137,11 @@
         }
       }
     ],
+    "id": "mp-crebn",
     "density": null
   },
   {
-    "id": "mp-crhmq",
+    "source": "mp-crhmq",
     "name": "Ta22Al8",
     "type": "intermetallic",
     "composition": "Ta22Al8",
@@ -68013,6 +68153,7 @@
       "Ta": 22,
       "Al": 8
     },
+    "poscar": "/data/intermetallic/mp-crhmq/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -68379,10 +68520,11 @@
         }
       }
     ],
+    "id": "mp-crhmq",
     "density": null
   },
   {
-    "id": "mp-crhmx",
+    "source": "mp-crhmx",
     "name": "Ta1W1",
     "type": "intermetallic",
     "composition": "Ta1W1",
@@ -68394,6 +68536,7 @@
       "Ta": 1,
       "W": 1
     },
+    "poscar": "/data/intermetallic/mp-crhmx/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -68760,10 +68903,11 @@
         }
       }
     ],
+    "id": "mp-crhmx",
     "density": null
   },
   {
-    "id": "mp-crhqa",
+    "source": "mp-crhqa",
     "name": "Ta1Nb1",
     "type": "intermetallic",
     "composition": "Ta1Nb1",
@@ -68775,6 +68919,7 @@
       "Ta": 1,
       "Nb": 1
     },
+    "poscar": "/data/intermetallic/mp-crhqa/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -69141,10 +69286,11 @@
         }
       }
     ],
+    "id": "mp-crhqa",
     "density": null
   },
   {
-    "id": "mp-crhqb",
+    "source": "mp-crhqb",
     "name": "Ta1Nb1Al6",
     "type": "intermetallic",
     "composition": "Ta1Nb1Al6",
@@ -69158,6 +69304,7 @@
       "Nb": 1,
       "Al": 6
     },
+    "poscar": "/data/intermetallic/mp-crhqb/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -69524,10 +69671,11 @@
         }
       }
     ],
+    "id": "mp-crhqb",
     "density": null
   },
   {
-    "id": "mp-crhqj",
+    "source": "mp-crhqj",
     "name": "Ta1Nb1W1",
     "type": "intermetallic",
     "composition": "Ta1Nb1W1",
@@ -69541,6 +69689,7 @@
       "Nb": 1,
       "W": 1
     },
+    "poscar": "/data/intermetallic/mp-crhqj/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -69907,10 +70056,11 @@
         }
       }
     ],
+    "id": "mp-crhqj",
     "density": null
   },
   {
-    "id": "mp-crhuh",
+    "source": "mp-crhuh",
     "name": "Ta1Al2Ni9",
     "type": "intermetallic",
     "composition": "Ta1Al2Ni9",
@@ -69924,6 +70074,7 @@
       "Al": 2,
       "Ni": 9
     },
+    "poscar": "/data/intermetallic/mp-crhuh/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -70290,10 +70441,11 @@
         }
       }
     ],
+    "id": "mp-crhuh",
     "density": null
   },
   {
-    "id": "mp-crhvt",
+    "source": "mp-crhvt",
     "name": "Ta2Al2Ni12",
     "type": "intermetallic",
     "composition": "Ta2Al2Ni12",
@@ -70307,6 +70459,7 @@
       "Al": 2,
       "Ni": 12
     },
+    "poscar": "/data/intermetallic/mp-crhvt/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -70673,10 +70826,11 @@
         }
       }
     ],
+    "id": "mp-crhvt",
     "density": null
   },
   {
-    "id": "mp-crhxa",
+    "source": "mp-crhxa",
     "name": "Ta4Al4Cu4",
     "type": "intermetallic",
     "composition": "Ta4Al4Cu4",
@@ -70690,6 +70844,7 @@
       "Al": 4,
       "Cu": 4
     },
+    "poscar": "/data/intermetallic/mp-crhxa/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -71056,10 +71211,11 @@
         }
       }
     ],
+    "id": "mp-crhxa",
     "density": null
   },
   {
-    "id": "mp-crhyd",
+    "source": "mp-crhyd",
     "name": "Ta4Cu3Ni9",
     "type": "intermetallic",
     "composition": "Ta4Cu3Ni9",
@@ -71073,6 +71229,7 @@
       "Cu": 3,
       "Ni": 9
     },
+    "poscar": "/data/intermetallic/mp-crhyd/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -71439,10 +71596,11 @@
         }
       }
     ],
+    "id": "mp-crhyd",
     "density": null
   },
   {
-    "id": "mp-crhyq",
+    "source": "mp-crhyq",
     "name": "Ta4Al4Ni4",
     "type": "intermetallic",
     "composition": "Ta4Al4Ni4",
@@ -71456,6 +71614,7 @@
       "Al": 4,
       "Ni": 4
     },
+    "poscar": "/data/intermetallic/mp-crhyq/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -71822,10 +71981,11 @@
         }
       }
     ],
+    "id": "mp-crhyq",
     "density": null
   },
   {
-    "id": "mp-crlfg",
+    "source": "mp-crlfg",
     "name": "Nb1W1",
     "type": "intermetallic",
     "composition": "Nb1W1",
@@ -71837,6 +71997,7 @@
       "Nb": 1,
       "W": 1
     },
+    "poscar": "/data/intermetallic/mp-crlfg/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -72203,10 +72364,11 @@
         }
       }
     ],
+    "id": "mp-crlfg",
     "density": null
   },
   {
-    "id": "mp-crllk",
+    "source": "mp-crllk",
     "name": "Nb1Al2Ni9",
     "type": "intermetallic",
     "composition": "Nb1Al2Ni9",
@@ -72220,6 +72382,7 @@
       "Al": 2,
       "Ni": 9
     },
+    "poscar": "/data/intermetallic/mp-crllk/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -72586,10 +72749,11 @@
         }
       }
     ],
+    "id": "mp-crllk",
     "density": null
   },
   {
-    "id": "mp-crllp",
+    "source": "mp-crllp",
     "name": "Nb4Al1",
     "type": "intermetallic",
     "composition": "Nb4Al1",
@@ -72601,6 +72765,7 @@
       "Nb": 4,
       "Al": 1
     },
+    "poscar": "/data/intermetallic/mp-crllp/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -72967,10 +73132,11 @@
         }
       }
     ],
+    "id": "mp-crllp",
     "density": null
   },
   {
-    "id": "mp-crlls",
+    "source": "mp-crlls",
     "name": "Nb4Al4Cu4",
     "type": "intermetallic",
     "composition": "Nb4Al4Cu4",
@@ -72984,6 +73150,7 @@
       "Al": 4,
       "Cu": 4
     },
+    "poscar": "/data/intermetallic/mp-crlls/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -73350,10 +73517,11 @@
         }
       }
     ],
+    "id": "mp-crlls",
     "density": null
   },
   {
-    "id": "mp-crlmi",
+    "source": "mp-crlmi",
     "name": "Nb4Al4Ni4",
     "type": "intermetallic",
     "composition": "Nb4Al4Ni4",
@@ -73367,6 +73535,7 @@
       "Al": 4,
       "Ni": 4
     },
+    "poscar": "/data/intermetallic/mp-crlmi/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -73733,10 +73902,11 @@
         }
       }
     ],
+    "id": "mp-crlmi",
     "density": null
   },
   {
-    "id": "mp-crtdv",
+    "source": "mp-crtdv",
     "name": "Cu1Ni1",
     "type": "intermetallic",
     "composition": "Cu1Ni1",
@@ -73748,6 +73918,7 @@
       "Cu": 1,
       "Ni": 1
     },
+    "poscar": "/data/intermetallic/mp-crtdv/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -74114,10 +74285,11 @@
         }
       }
     ],
+    "id": "mp-crtdv",
     "density": null
   },
   {
-    "id": "mp-crtec",
+    "source": "mp-crtec",
     "name": "Cu1Ni3",
     "type": "intermetallic",
     "composition": "Cu1Ni3",
@@ -74129,6 +74301,7 @@
       "Cu": 1,
       "Ni": 3
     },
+    "poscar": "/data/intermetallic/mp-crtec/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -74495,10 +74668,11 @@
         }
       }
     ],
+    "id": "mp-crtec",
     "density": null
   },
   {
-    "id": "mp-crwtq",
+    "source": "mp-crwtq",
     "name": "Al5Cu1W2",
     "type": "intermetallic",
     "composition": "Al5Cu1W2",
@@ -74512,6 +74686,7 @@
       "Cu": 1,
       "W": 2
     },
+    "poscar": "/data/intermetallic/mp-crwtq/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -74878,10 +75053,11 @@
         }
       }
     ],
+    "id": "mp-crwtq",
     "density": null
   },
   {
-    "id": "mp-crxqf",
+    "source": "mp-crxqf",
     "name": "Al4Ni15",
     "type": "intermetallic",
     "composition": "Al4Ni15",
@@ -74893,6 +75069,7 @@
       "Al": 4,
       "Ni": 15
     },
+    "poscar": "/data/intermetallic/mp-crxqf/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -75259,10 +75436,11 @@
         }
       }
     ],
+    "id": "mp-crxqf",
     "density": null
   },
   {
-    "id": "mp-crxrs",
+    "source": "mp-crxrs",
     "name": "Al4Cu15",
     "type": "intermetallic",
     "composition": "Al4Cu15",
@@ -75274,6 +75452,7 @@
       "Al": 4,
       "Cu": 15
     },
+    "poscar": "/data/intermetallic/mp-crxrs/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -75640,10 +75819,11 @@
         }
       }
     ],
+    "id": "mp-crxrs",
     "density": null
   },
   {
-    "id": "mp-crxwe",
+    "source": "mp-crxwe",
     "name": "Al1Ni1",
     "type": "intermetallic",
     "composition": "Al1Ni1",
@@ -75655,6 +75835,7 @@
       "Al": 1,
       "Ni": 1
     },
+    "poscar": "/data/intermetallic/mp-crxwe/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -76021,10 +76202,11 @@
         }
       }
     ],
+    "id": "mp-crxwe",
     "density": null
   },
   {
-    "id": "mp-crxzu",
+    "source": "mp-crxzu",
     "name": "Al4Cu4Ni2",
     "type": "intermetallic",
     "composition": "Al4Cu4Ni2",
@@ -76038,6 +76220,7 @@
       "Cu": 4,
       "Ni": 2
     },
+    "poscar": "/data/intermetallic/mp-crxzu/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -76404,10 +76587,11 @@
         }
       }
     ],
+    "id": "mp-crxzu",
     "density": null
   },
   {
-    "id": "mp-cx",
+    "source": "mp-cx",
     "name": "Nb1",
     "type": "intermetallic",
     "composition": "Nb1",
@@ -76417,6 +76601,7 @@
     "atomCount": {
       "Nb": 1
     },
+    "poscar": "/data/intermetallic/mp-cx/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -76783,10 +76968,11 @@
         }
       }
     ],
+    "id": "mp-cx",
     "density": null
   },
   {
-    "id": "mp-daq",
+    "source": "mp-daq",
     "name": "Zr10Al6",
     "type": "intermetallic",
     "composition": "Zr10Al6",
@@ -76798,6 +76984,7 @@
       "Zr": 10,
       "Al": 6
     },
+    "poscar": "/data/intermetallic/mp-daq/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -77164,10 +77351,11 @@
         }
       }
     ],
+    "id": "mp-daq",
     "density": null
   },
   {
-    "id": "mp-dha",
+    "source": "mp-dha",
     "name": "Zr1Cu1",
     "type": "intermetallic",
     "composition": "Zr1Cu1",
@@ -77179,6 +77367,7 @@
       "Zr": 1,
       "Cu": 1
     },
+    "poscar": "/data/intermetallic/mp-dha/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -77545,10 +77734,11 @@
         }
       }
     ],
+    "id": "mp-dha",
     "density": null
   },
   {
-    "id": "mp-dio",
+    "source": "mp-dio",
     "name": "Zr2Ni4",
     "type": "intermetallic",
     "composition": "Zr2Ni4",
@@ -77560,6 +77750,7 @@
       "Zr": 2,
       "Ni": 4
     },
+    "poscar": "/data/intermetallic/mp-dio/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -77926,10 +78117,11 @@
         }
       }
     ],
+    "id": "mp-dio",
     "density": null
   },
   {
-    "id": "mp-dn",
+    "source": "mp-dn",
     "name": "W1",
     "type": "intermetallic",
     "composition": "W1",
@@ -77939,6 +78131,7 @@
     "atomCount": {
       "W": 1
     },
+    "poscar": "/data/intermetallic/mp-dn/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -78305,10 +78498,11 @@
         }
       }
     ],
+    "id": "mp-dn",
     "density": null
   },
   {
-    "id": "mp-dse",
+    "source": "mp-dse",
     "name": "Al5Cu5",
     "type": "intermetallic",
     "composition": "Al5Cu5",
@@ -78320,6 +78514,7 @@
       "Al": 5,
       "Cu": 5
     },
+    "poscar": "/data/intermetallic/mp-dse/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -78686,10 +78881,11 @@
         }
       }
     ],
+    "id": "mp-dse",
     "density": null
   },
   {
-    "id": "mp-duj",
+    "source": "mp-duj",
     "name": "Zr4Al2",
     "type": "intermetallic",
     "composition": "Zr4Al2",
@@ -78701,6 +78897,7 @@
       "Zr": 4,
       "Al": 2
     },
+    "poscar": "/data/intermetallic/mp-duj/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -79067,10 +79264,11 @@
         }
       }
     ],
+    "id": "mp-duj",
     "density": null
   },
   {
-    "id": "mp-dvt",
+    "source": "mp-dvt",
     "name": "Al1Ni3",
     "type": "intermetallic",
     "composition": "Al1Ni3",
@@ -79082,6 +79280,7 @@
       "Al": 1,
       "Ni": 3
     },
+    "poscar": "/data/intermetallic/mp-dvt/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -79448,10 +79647,11 @@
         }
       }
     ],
+    "id": "mp-dvt",
     "density": null
   },
   {
-    "id": "mp-ecq",
+    "source": "mp-ecq",
     "name": "Zr4Al8",
     "type": "intermetallic",
     "composition": "Zr4Al8",
@@ -79463,6 +79663,7 @@
       "Zr": 4,
       "Al": 8
     },
+    "poscar": "/data/intermetallic/mp-ecq/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -79829,10 +80030,11 @@
         }
       }
     ],
+    "id": "mp-ecq",
     "density": null
   },
   {
-    "id": "mp-ekwqy",
+    "source": "mp-ekwqy",
     "name": "Zr2Cu2",
     "type": "intermetallic",
     "composition": "Zr2Cu2",
@@ -79844,6 +80046,7 @@
       "Zr": 2,
       "Cu": 2
     },
+    "poscar": "/data/intermetallic/mp-ekwqy/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -80210,10 +80413,11 @@
         }
       }
     ],
+    "id": "mp-ekwqy",
     "density": null
   },
   {
-    "id": "mp-fb",
+    "source": "mp-fb",
     "name": "Zr2",
     "type": "intermetallic",
     "composition": "Zr2",
@@ -80223,6 +80427,7 @@
     "atomCount": {
       "Zr": 2
     },
+    "poscar": "/data/intermetallic/mp-fb/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -80589,10 +80794,11 @@
         }
       }
     ],
+    "id": "mp-fb",
     "density": null
   },
   {
-    "id": "mp-fe",
+    "source": "mp-fe",
     "name": "Al1",
     "type": "intermetallic",
     "composition": "Al1",
@@ -80602,6 +80808,7 @@
     "atomCount": {
       "Al": 1
     },
+    "poscar": "/data/intermetallic/mp-fe/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -80968,10 +81175,11 @@
         }
       }
     ],
+    "id": "mp-fe",
     "density": null
   },
   {
-    "id": "mp-fns",
+    "source": "mp-fns",
     "name": "Zr1Al1Cu2",
     "type": "intermetallic",
     "composition": "Zr1Al1Cu2",
@@ -80985,6 +81193,7 @@
       "Al": 1,
       "Cu": 2
     },
+    "poscar": "/data/intermetallic/mp-fns/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -81351,10 +81560,11 @@
         }
       }
     ],
+    "id": "mp-fns",
     "density": null
   },
   {
-    "id": "mp-fupsa",
+    "source": "mp-fupsa",
     "name": "Al2",
     "type": "intermetallic",
     "composition": "Al2",
@@ -81364,6 +81574,7 @@
     "atomCount": {
       "Al": 2
     },
+    "poscar": "/data/intermetallic/mp-fupsa/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -81730,10 +81941,11 @@
         }
       }
     ],
+    "id": "mp-fupsa",
     "density": null
   },
   {
-    "id": "mp-fupug",
+    "source": "mp-fupug",
     "name": "Zr2Al1Cu2",
     "type": "intermetallic",
     "composition": "Zr2Al1Cu2",
@@ -81747,6 +81959,7 @@
       "Al": 1,
       "Cu": 2
     },
+    "poscar": "/data/intermetallic/mp-fupug/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -82113,10 +82326,11 @@
         }
       }
     ],
+    "id": "mp-fupug",
     "density": null
   },
   {
-    "id": "mp-fvs",
+    "source": "mp-fvs",
     "name": "Zr1Al1Ni2",
     "type": "intermetallic",
     "composition": "Zr1Al1Ni2",
@@ -82130,6 +82344,7 @@
       "Al": 1,
       "Ni": 2
     },
+    "poscar": "/data/intermetallic/mp-fvs/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -82496,10 +82711,11 @@
         }
       }
     ],
+    "id": "mp-fvs",
     "density": null
   },
   {
-    "id": "mp-fzwer",
+    "source": "mp-fzwer",
     "name": "Nb7",
     "type": "intermetallic",
     "composition": "Nb7",
@@ -82509,6 +82725,7 @@
     "atomCount": {
       "Nb": 7
     },
+    "poscar": "/data/intermetallic/mp-fzwer/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -82875,10 +83092,11 @@
         }
       }
     ],
+    "id": "mp-fzwer",
     "density": null
   },
   {
-    "id": "mp-hdd",
+    "source": "mp-hdd",
     "name": "Nb1Al1Ni2",
     "type": "intermetallic",
     "composition": "Nb1Al1Ni2",
@@ -82892,6 +83110,7 @@
       "Al": 1,
       "Ni": 2
     },
+    "poscar": "/data/intermetallic/mp-hdd/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -83258,10 +83477,11 @@
         }
       }
     ],
+    "id": "mp-hdd",
     "density": null
   },
   {
-    "id": "mp-imd",
+    "source": "mp-imd",
     "name": "Zr3Al3Ni3",
     "type": "intermetallic",
     "composition": "Zr3Al3Ni3",
@@ -83275,6 +83495,7 @@
       "Al": 3,
       "Ni": 3
     },
+    "poscar": "/data/intermetallic/mp-imd/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -83641,10 +83862,11 @@
         }
       }
     ],
+    "id": "mp-imd",
     "density": null
   },
   {
-    "id": "mp-itt",
+    "source": "mp-itt",
     "name": "Ta1Al1Ni2",
     "type": "intermetallic",
     "composition": "Ta1Al1Ni2",
@@ -83658,6 +83880,7 @@
       "Al": 1,
       "Ni": 2
     },
+    "poscar": "/data/intermetallic/mp-itt/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -84024,10 +84247,11 @@
         }
       }
     ],
+    "id": "mp-itt",
     "density": null
   },
   {
-    "id": "mp-mud",
+    "source": "mp-mud",
     "name": "Zr1",
     "type": "intermetallic",
     "composition": "Zr1",
@@ -84037,6 +84261,7 @@
     "atomCount": {
       "Zr": 1
     },
+    "poscar": "/data/intermetallic/mp-mud/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -84403,10 +84628,11 @@
         }
       }
     ],
+    "id": "mp-mud",
     "density": null
   },
   {
-    "id": "mp-pen",
+    "source": "mp-pen",
     "name": "Ni2",
     "type": "intermetallic",
     "composition": "Ni2",
@@ -84416,6 +84642,7 @@
     "atomCount": {
       "Ni": 2
     },
+    "poscar": "/data/intermetallic/mp-pen/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -84782,10 +85009,11 @@
         }
       }
     ],
+    "id": "mp-pen",
     "density": null
   },
   {
-    "id": "mp-qty",
+    "source": "mp-qty",
     "name": "W8",
     "type": "intermetallic",
     "composition": "W8",
@@ -84795,6 +85023,7 @@
     "atomCount": {
       "W": 8
     },
+    "poscar": "/data/intermetallic/mp-qty/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -85161,10 +85390,11 @@
         }
       }
     ],
+    "id": "mp-qty",
     "density": null
   },
   {
-    "id": "mp-sns",
+    "source": "mp-sns",
     "name": "Al6W3",
     "type": "intermetallic",
     "composition": "Al6W3",
@@ -85176,6 +85406,7 @@
       "Al": 6,
       "W": 3
     },
+    "poscar": "/data/intermetallic/mp-sns/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -85542,10 +85773,11 @@
         }
       }
     ],
+    "id": "mp-sns",
     "density": null
   },
   {
-    "id": "mp-sr",
+    "source": "mp-sr",
     "name": "Zr2Ni6",
     "type": "intermetallic",
     "composition": "Zr2Ni6",
@@ -85557,6 +85789,7 @@
       "Zr": 2,
       "Ni": 6
     },
+    "poscar": "/data/intermetallic/mp-sr/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -85923,10 +86156,11 @@
         }
       }
     ],
+    "id": "mp-sr",
     "density": null
   },
   {
-    "id": "mp-sxh",
+    "source": "mp-sxh",
     "name": "Zr4Al2",
     "type": "intermetallic",
     "composition": "Zr4Al2",
@@ -85938,6 +86172,7 @@
       "Zr": 4,
       "Al": 2
     },
+    "poscar": "/data/intermetallic/mp-sxh/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -86304,10 +86539,11 @@
         }
       }
     ],
+    "id": "mp-sxh",
     "density": null
   },
   {
-    "id": "mp-sxl",
+    "source": "mp-sxl",
     "name": "Al1Cu3",
     "type": "intermetallic",
     "composition": "Al1Cu3",
@@ -86319,6 +86555,7 @@
       "Al": 1,
       "Cu": 3
     },
+    "poscar": "/data/intermetallic/mp-sxl/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -86685,10 +86922,11 @@
         }
       }
     ],
+    "id": "mp-sxl",
     "density": null
   },
   {
-    "id": "mp-syc",
+    "source": "mp-syc",
     "name": "Al2Cu1",
     "type": "intermetallic",
     "composition": "Al2Cu1",
@@ -86700,6 +86938,7 @@
       "Al": 2,
       "Cu": 1
     },
+    "poscar": "/data/intermetallic/mp-syc/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -87066,10 +87305,11 @@
         }
       }
     ],
+    "id": "mp-syc",
     "density": null
   },
   {
-    "id": "mp-syk",
+    "source": "mp-syk",
     "name": "Al2Cu6",
     "type": "intermetallic",
     "composition": "Al2Cu6",
@@ -87081,6 +87321,7 @@
       "Al": 2,
       "Cu": 6
     },
+    "poscar": "/data/intermetallic/mp-syk/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -87447,10 +87688,11 @@
         }
       }
     ],
+    "id": "mp-syk",
     "density": null
   },
   {
-    "id": "mp-x",
+    "source": "mp-x",
     "name": "Ni1",
     "type": "intermetallic",
     "composition": "Ni1",
@@ -87460,6 +87702,7 @@
     "atomCount": {
       "Ni": 1
     },
+    "poscar": "/data/intermetallic/mp-x/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -87826,10 +88069,11 @@
         }
       }
     ],
+    "id": "mp-x",
     "density": null
   },
   {
-    "id": "mp-zz",
+    "source": "mp-zz",
     "name": "Zr2W4",
     "type": "intermetallic",
     "composition": "Zr2W4",
@@ -87841,6 +88085,7 @@
       "Zr": 2,
       "W": 4
     },
+    "poscar": "/data/intermetallic/mp-zz/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -88207,6 +88452,7 @@
         }
       }
     ],
+    "id": "mp-zz",
     "density": null
   }
 ]

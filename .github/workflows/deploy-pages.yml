@@ -58,14 +58,71 @@ jobs:
       
       - name: Prepare deployment
         run: |
-          mkdir -p _site
+          mkdir -p _site/data
           cp -r frontend/* _site/
-          cp -r backend/data _site/data
           
-          # Merge both data files
-          cd scripts
-          node prepare-github-pages.js
-          cd ..
+          # Copy JSON data files (not directories)
+          cp backend/data/materials.json _site/data/
+          cp backend/data/materials_intermetallic.json _site/data/ 2>/dev/null || true
+          
+          # Merge both data files directly in workflow
+          node << 'NODEJS'
+          const fs = require('fs');
+          const path = require('path');
+          
+          const dataDir = '_site/data';
+          const materialsPath = path.join(dataDir, 'materials.json');
+          const intermetallicPath = path.join(dataDir, 'materials_intermetallic.json');
+          
+          let allMaterials = [];
+          
+          // Load materials.json
+          if (fs.existsSync(materialsPath)) {
+            try {
+              const data = JSON.parse(fs.readFileSync(materialsPath, 'utf8'));
+              allMaterials = allMaterials.concat(data);
+              console.log('✓ Loaded', data.length, 'materials from materials.json');
+            } catch (e) {
+              console.error('✗ Error loading materials.json:', e.message);
+            }
+          }
+          
+          // Load and merge materials_intermetallic.json
+          if (fs.existsSync(intermetallicPath)) {
+            try {
+              const data = JSON.parse(fs.readFileSync(intermetallicPath, 'utf8'));
+              const normalized = data.map(material => {
+                // Convert "source" field to "id" field
+                if (material.source && !material.id) {
+                  material.id = material.source;
+                }
+                
+                // Extract density from first data point if available
+                if (!material.density && material.data && material.data.length > 0) {
+                  const firstData = material.data[0];
+                  if (firstData.properties && firstData.properties.structure) {
+                    material.density = firstData.properties.structure.density;
+                  }
+                }
+                return material;
+              });
+              allMaterials = allMaterials.concat(normalized);
+              console.log('✓ Loaded', normalized.length, 'materials from materials_intermetallic.json');
+            } catch (e) {
+              console.error('✗ Error loading materials_intermetallic.json:', e.message);
+            }
+          }
+          
+          // Write merged data back to materials.json
+          fs.writeFileSync(materialsPath, JSON.stringify(allMaterials, null, 2));
+          console.log('✓ Successfully merged', allMaterials.length, 'total materials');
+          
+          // Remove the separate file after merging
+          if (fs.existsSync(intermetallicPath)) {
+            fs.unlinkSync(intermetallicPath);
+            console.log('✓ Cleaned up intermetallic file after merge');
+          }
+          NODEJS
           
           # Create a simple API mock for GitHub Pages
           cat > _site/api-mock.js << 'EOF'
