@@ -77,6 +77,26 @@ Visit the live website: [https://wqchen007.github.io/jkw-7element-alloy-database
    ```
 4. Website updates automatically via GitHub Actions
 
+### Documentation
+
+Comprehensive guides for all aspects of the database:
+
+**User Guides** (Start here!)
+- [FRONTEND_USER_GUIDE.md](FRONTEND_USER_GUIDE.md) - How to use the web interface
+- [DATA_UPLOAD_GUIDE.md](DATA_UPLOAD_GUIDE.md) - How to upload new material data ⭐
+- [QUICK_START.md](QUICK_START.md) - Quick setup guide
+
+**Technical Documentation**
+- [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) - GitHub Pages deployment
+- [GITHUB_PAGES_SETUP.md](GITHUB_PAGES_SETUP.md) - CI/CD automation
+- [SCRIPTS_REFERENCE.md](SCRIPTS_REFERENCE.md) - Utility scripts reference
+- [DOCUMENTATION_INDEX.md](DOCUMENTATION_INDEX.md) - Complete documentation index
+
+**Advanced Guides** (in `docs/` folder)
+- [docs/DATA_INTEGRATION_GUIDE.md](docs/DATA_INTEGRATION_GUIDE.md)
+- [docs/DATA_STRUCTURE_V2.md](docs/DATA_STRUCTURE_V2.md)
+- [docs/SOURCE_FORMAT_GUIDE.md](docs/SOURCE_FORMAT_GUIDE.md)
+
 ### Local Development
 
 ```bash
