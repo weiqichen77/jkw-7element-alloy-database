@@ -62,12 +62,21 @@ jobs:
           cp -r frontend/* _site/
           cp -r backend/data _site/data
           
+          # Merge both data files
+          cd scripts
+          node prepare-github-pages.js
+          cd ..
+          
           # Create a simple API mock for GitHub Pages
           cat > _site/api-mock.js << 'EOF'
           // Simple client-side API mock for GitHub Pages
+          let cachedMaterials = null;
+          
           async function loadMaterials() {
+            if (cachedMaterials) return cachedMaterials;
             const response = await fetch('./data/materials.json');
-            return await response.json();
+            cachedMaterials = await response.json();
+            return cachedMaterials;
           }
           
           window.MaterialsAPI = {
@@ -78,10 +87,11 @@ jobs:
               // Filter by query string
               if (query.q) {
                 const searchTerm = query.q.toLowerCase();
-                results = results.filter(item => 
-                  item.name.toLowerCase().includes(searchTerm) ||
-                  item.elements.some(el => el.toLowerCase().includes(searchTerm))
-                );
+                results = results.filter(item => {
+                  const name = (item.name || '').toLowerCase();
+                  const elements = item.elements ? item.elements.join(' ').toLowerCase() : '';
+                  return name.includes(searchTerm) || elements.includes(searchTerm);
+                });
               }
               
               // Filter by type
@@ -91,7 +101,7 @@ jobs:
               
               // Filter by element
               if (query.element) {
-                results = results.filter(item => item.elements.includes(query.element));
+                results = results.filter(item => item.elements && item.elements.includes(query.element));
               }
               
               // Pagination
