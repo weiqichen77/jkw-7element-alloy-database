@@ -230,18 +230,24 @@
               html += `<div class="detail-item"><div class="detail-item-label">Beta (°)</div><div class="detail-item-value">${lp.beta ? lp.beta.toFixed(2) : 'N/A'}</div></div>`;
               html += `<div class="detail-item"><div class="detail-item-label">Gamma (°)</div><div class="detail-item-value">${lp.gamma ? lp.gamma.toFixed(2) : 'N/A'}</div></div>`;
               
-              // Check for pointGroup in latticeParameters
-              if (lp.pointGroup) {
+              // Check for pointGroup in latticeParameters (only if not empty string)
+              if (lp.pointGroup && lp.pointGroup.trim() !== '') {
                 html += `<div class="detail-item"><div class="detail-item-label">Point Group</div><div class="detail-item-value">${lp.pointGroup}</div></div>`;
               }
             }
             
-            // Also check for pointGroup at structure level
-            if (struct.pointGroup) {
+            // Also check for pointGroup at structure level (only if not empty string)
+            if (struct.pointGroup && struct.pointGroup.trim() !== '') {
               html += `<div class="detail-item"><div class="detail-item-label">Point Group</div><div class="detail-item-value">${struct.pointGroup}</div></div>`;
             }
             
             html += `<div class="detail-item"><div class="detail-item-label">Density (g/cm³)</div><div class="detail-item-value">${struct.density ? struct.density.toFixed(3) : 'N/A'}</div></div>`;
+            
+            // Display POSCAR link if available
+            if (struct.poscar || (struct.latticeParameters && struct.latticeParameters.poscar)) {
+              const poscarPath = struct.poscar || struct.latticeParameters.poscar;
+              html += `<div class="detail-item"><div class="detail-item-label">Structure File</div><div class="detail-item-value"><a href="${poscarPath}" target="_blank" style="color: #3498db; text-decoration: underline;">View POSCAR</a></div></div>`;
+            }
             
             html += '</div></div>';
           }
