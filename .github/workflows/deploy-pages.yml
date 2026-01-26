@@ -183,9 +183,7 @@ jobs:
           };
           EOF
       
-      # DISABLED: Use original frontend/js/app.js instead of generating new one
-      - name: Update frontend to use mock API (DISABLED)
-        if: false
+      - name: Update frontend to use mock API
         run: |
           # Update app.js to use the mock API for GitHub Pages with i18n support
           cat > _site/js/app.js << 'EOF'
@@ -1668,11 +1666,13 @@ jobs:
               });
             }, 200);
             
-            // Initialize 3D viewer if POSCAR exists (use first data point)
+            // Initialize 3D viewer if POSCAR exists (check material.poscar at top level)
             const firstData = material.data[0];
             const struct = firstData.properties?.structure;
-            if (struct && struct.poscar) {
-              setTimeout(() => init3DViewer(materialId, struct.poscar), 100);
+            // Check poscar at material top level (for intermetallic data)
+            const poscarPath = material.poscar || struct?.poscar;
+            if (poscarPath) {
+              setTimeout(() => init3DViewer(materialId, poscarPath), 100);
             }
             
             // Scroll to specified section if provided
@@ -1763,10 +1763,11 @@ jobs:
             // Always use the grouped view format, regardless of filter selection
             container.innerHTML = generateAllDataView(material, filteredData);
             
-            // Re-initialize 3D viewers if needed
+            // Re-initialize 3D viewers if needed - check material.poscar or struct.poscar
             const firstData = filteredData[0];
-            if (firstData && firstData.properties?.structure?.poscar) {
-              setTimeout(() => init3DViewer(materialId, firstData.properties.structure.poscar), 100);
+            const poscarPath = material.poscar || firstData?.properties?.structure?.poscar;
+            if (poscarPath) {
+              setTimeout(() => init3DViewer(materialId, poscarPath), 100);
             }
           };
           
@@ -1802,7 +1803,9 @@ jobs:
             html += '</div></div>';
             
             // Atomic Structure (置顶，所有数据点共同)
-            if (firstStruct.poscar) {
+            // Check poscar at material top level (for intermetallic data) or in structure
+            const poscarPath = material.poscar || firstStruct.poscar;
+            if (poscarPath) {
               html += '<div class="detail-section">';
               html += '<h3>' + (currentLang === 'en' ? 'Atomic Structure' : '原子结构') + '</h3>';
               html += '<div class="structure-viewer-container">';
@@ -1810,7 +1813,7 @@ jobs:
               html += '<div class="viewer-controls">';
               html += '<button onclick="resetView(\'' + material.id + '\')" class="viewer-btn">' + (currentLang === 'en' ? 'Reset View' : '重置视角') + '</button>';
               html += '<button onclick="toggleStyle(\'' + material.id + '\')" class="viewer-btn">' + (currentLang === 'en' ? 'Toggle Style' : '切换样式') + '</button>';
-              html += '<a href="' + firstStruct.poscar + '" download class="viewer-btn download-btn">' + (currentLang === 'en' ? 'Download POSCAR' : '下载POSCAR') + '</a>';
+              html += '<a href="' + poscarPath + '" download class="viewer-btn download-btn">' + (currentLang === 'en' ? 'Download POSCAR' : '下载POSCAR') + '</a>';
               html += '</div>';
               html += '</div>';
               html += '</div>';
@@ -1969,15 +1972,16 @@ jobs:
             html += '<div class="detail-section">';
             html += '<h3>' + t('structureInfo') + '</h3>';
             
-            // POSCAR 3D Viewer
-            if (struct.poscar) {
+            // POSCAR 3D Viewer - check material.poscar at top level or struct.poscar
+            const poscarPath = material.poscar || struct.poscar;
+            if (poscarPath) {
               html += '<div class="structure-viewer-container">';
               html += '<h4>' + (currentLang === 'en' ? 'Atomic Structure' : '原子结构') + '</h4>';
               html += '<div id="viewer-' + material.id + '" class="structure-viewer"></div>';
               html += '<div class="viewer-controls">';
               html += '<button onclick="resetView(\'' + material.id + '\')" class="viewer-btn">' + (currentLang === 'en' ? 'Reset View' : '重置视角') + '</button>';
               html += '<button onclick="toggleStyle(\'' + material.id + '\')" class="viewer-btn">' + (currentLang === 'en' ? 'Toggle Style' : '切换样式') + '</button>';
-              html += '<a href="' + struct.poscar + '" download class="viewer-btn download-btn">' + (currentLang === 'en' ? 'Download POSCAR' : '下载POSCAR') + '</a>';
+              html += '<a href="' + poscarPath + '" download class="viewer-btn download-btn">' + (currentLang === 'en' ? 'Download POSCAR' : '下载POSCAR') + '</a>';
               html += '</div>';
               html += '</div>';
             }
@@ -2090,10 +2094,11 @@ jobs:
             const viewDiv = document.getElementById('detailDataView');
             if (viewDiv) {
               viewDiv.innerHTML = generateDetailView(material, dataPoint);
-              // Re-initialize 3D viewer if POSCAR exists
+              // Re-initialize 3D viewer if POSCAR exists - check material.poscar or struct.poscar
               const struct = dataPoint.properties?.structure;
-              if (struct && struct.poscar) {
-                setTimeout(() => init3DViewer(materialId, struct.poscar), 100);
+              const poscarPath = material.poscar || struct?.poscar;
+              if (poscarPath) {
+                setTimeout(() => init3DViewer(materialId, poscarPath), 100);
               }
             }
           };
@@ -2627,9 +2632,7 @@ jobs:
           };
           EOF
       
-      # DISABLED: Use original frontend/index.html instead of generating new one
-      - name: Enhance index.html (DISABLED)
-        if: false
+      - name: Enhance index.html
         run: |
           cat > _site/index.html << 'EOF'
           <!doctype html>
@@ -2822,9 +2825,7 @@ jobs:
           </html>
           EOF
       
-      # DISABLED: Use original frontend/css/style.css instead of generating new one
-      - name: Enhance CSS (DISABLED)
-        if: false
+      - name: Enhance CSS
         run: |
           cat > _site/css/style.css << 'EOF'
           * {
