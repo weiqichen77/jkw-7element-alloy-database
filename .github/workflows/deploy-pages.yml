@@ -65,6 +65,13 @@ jobs:
           cp backend/data/materials.json _site/data/
           cp backend/data/materials_intermetallic.json _site/data/ 2>/dev/null || true
           
+          # Copy intermetallic POSCAR files
+          if [ -d "data/intermetallic" ]; then
+            echo "Copying intermetallic POSCAR files..."
+            cp -r data/intermetallic _site/data/
+            echo "✓ Copied intermetallic directory"
+          fi
+          
           # Merge both data files directly in workflow
           node << 'NODEJS'
           const fs = require('fs');
