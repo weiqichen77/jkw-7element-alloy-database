@@ -811,7 +811,10 @@ jobs:
             html += '<th>' + t('table.rdf') + '</th>';
             html += '</tr></thead><tbody>';
             
-            for (const material of data) {
+            // Use index for ID column (auto-numbering)
+            for (let idx = 0; idx < data.length; idx++) {
+              const material = data[idx];
+              const displayNumber = idx + 1; // 1-based numbering
               const primary = getPrimaryData(material);
               const secondary = getSecondaryData(material);
               const hasSecondary = secondary.length > 0;
@@ -831,7 +834,7 @@ jobs:
               }
               html += '</td>';
               
-              html += '<td>' + material.id + '</td>';
+              html += '<td>' + displayNumber + '</td>';
               html += '<td><a href="#" class="material-link" data-id="' + material.id + '">' + material.name + '</a></td>';
               html += '<td>' + (material.source || '-') + '</td>';
               html += '<td>' + translateType(material.type) + '</td>';
@@ -840,12 +843,16 @@ jobs:
               html += ' <span class="data-meta">(' + primary.temperature + 'K, ' + normalizeSource(primary.source) + ')</span>';
               html += '</td>';
               
-              // Lattice parameters with dropdown
+              // Lattice parameters with dropdown (show even without pointGroup)
               html += '<td class="lattice-cell">';
               const lattice = struct.latticeParameters;
-              if (lattice && lattice.pointGroup) {
+              if (lattice && (lattice.a || lattice.b || lattice.c)) {
                 html += '<div class="lattice-display">';
-                html += '<span class="point-group">' + lattice.pointGroup + '</span>';
+                if (lattice.pointGroup && lattice.pointGroup.trim() !== '') {
+                  html += '<span class="point-group">' + lattice.pointGroup + '</span>';
+                } else {
+                  html += '<span class="point-group">-</span>';
+                }
                 html += '<button class="lattice-expand" onclick="toggleLattice(this, event)">▼</button>';
                 html += '</div>';
                 html += '<div class="lattice-details hidden">';
@@ -980,7 +987,10 @@ jobs:
             html += '<th>' + t('table.thermalExpansion') + '<br/>(10⁻⁶/K)</th>';
             html += '</tr></thead><tbody>';
             
-            for (const material of data) {
+            // Use index for ID column (auto-numbering)
+            for (let idx = 0; idx < data.length; idx++) {
+              const material = data[idx];
+              const displayNumber = idx + 1; // 1-based numbering
               const primary = getPrimaryData(material);
               const secondary = getSecondaryData(material);
               const hasSecondary = secondary.length > 0;
@@ -998,7 +1008,7 @@ jobs:
               }
               html += '</td>';
               
-              html += '<td>' + material.id + '</td>';
+              html += '<td>' + displayNumber + '</td>';
               html += '<td><a href="#" class="material-link" data-id="' + material.id + '">' + material.name + '</a></td>';
               html += '<td>' + (material.source || '-') + '</td>';
               html += '<td>' + translateType(material.type) + '</td>';
@@ -1103,7 +1113,10 @@ jobs:
             html += '<th>' + t('table.stressStrain') + '</th>';
             html += '</tr></thead><tbody>';
             
-            for (const material of data) {
+            // Use index for ID column (auto-numbering)
+            for (let idx = 0; idx < data.length; idx++) {
+              const material = data[idx];
+              const displayNumber = idx + 1; // 1-based numbering
               const primary = getPrimaryData(material);
               const secondary = getSecondaryData(material);
               const hasSecondary = secondary.length > 0;
@@ -1122,7 +1135,7 @@ jobs:
               }
               html += '</td>';
               
-              html += '<td>' + material.id + '</td>';
+              html += '<td>' + displayNumber + '</td>';
               html += '<td><a href="#" class="material-link" data-id="' + material.id + '">' + material.name + '</a></td>';
               html += '<td>' + (material.source || '-') + '</td>';
               html += '<td>' + translateType(material.type) + '</td>';
@@ -1271,7 +1284,10 @@ jobs:
             html += '<th>' + t('table.stackingFault') + '<br/>(mJ/m²)</th>';
             html += '</tr></thead><tbody>';
             
-            for (const material of data) {
+            // Use index for ID column (auto-numbering)
+            for (let idx = 0; idx < data.length; idx++) {
+              const material = data[idx];
+              const displayNumber = idx + 1; // 1-based numbering
               const primary = getPrimaryData(material);
               const secondary = getSecondaryData(material);
               const hasSecondary = secondary.length > 0;
@@ -1289,7 +1305,7 @@ jobs:
               }
               html += '</td>';
               
-              html += '<td>' + material.id + '</td>';
+              html += '<td>' + displayNumber + '</td>';
               html += '<td><a href="#" class="material-link" data-id="' + material.id + '">' + material.name + '</a></td>';
               html += '<td>' + (material.source || '-') + '</td>';
               html += '<td>' + translateType(material.type) + '</td>';
