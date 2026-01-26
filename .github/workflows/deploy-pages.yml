@@ -450,40 +450,50 @@ jobs:
             return value;
           }
           
-          // Update UI text
+          // Update UI text with null checks
           function updateUIText() {
-            document.getElementById('title').textContent = t('title');
-            document.getElementById('subtitle').textContent = t('subtitle');
-            document.getElementById('searchBtnText').textContent = t('search');
-            document.getElementById('exportBtnText').textContent = t('export.execute');
-            document.getElementById('q').placeholder = t('searchPlaceholder');
-            document.getElementById('infoText').textContent = t('infoText');
-            document.getElementById('typeTitle').textContent = t('typeTitle');
-            document.getElementById('propertyTitle').textContent = t('propertyTitle');
-            document.getElementById('loading').textContent = t('loading');
-            document.getElementById('githubLink').textContent = t('githubLink');
-            document.getElementById('docsLink').textContent = t('docsLink');
-            document.getElementById('updateLabel').textContent = t('updateLabel');
-            document.getElementById('langText').textContent = currentLang === 'en' ? '中文' : 'English';
+            const setTextIfExists = (id, text) => {
+              const el = document.getElementById(id);
+              if (el) el.textContent = text;
+            };
             
-            // Export dialog translations
+            const setPlaceholderIfExists = (id, text) => {
+              const el = document.getElementById(id);
+              if (el) el.placeholder = text;
+            };
+            
+            setTextIfExists('title', t('title'));
+            setTextIfExists('subtitle', t('subtitle'));
+            setTextIfExists('searchBtnText', t('search'));
+            setTextIfExists('exportBtnText', t('export.execute'));
+            setPlaceholderIfExists('q', t('searchPlaceholder'));
+            setTextIfExists('infoText', t('infoText'));
+            setTextIfExists('typeTitle', t('typeTitle'));
+            setTextIfExists('propertyTitle', t('propertyTitle'));
+            setTextIfExists('loading', t('loading'));
+            setTextIfExists('githubLink', t('githubLink'));
+            setTextIfExists('docsLink', t('docsLink'));
+            setTextIfExists('updateLabel', t('updateLabel'));
+            setTextIfExists('langText', currentLang === 'en' ? '中文' : 'English');
+            
+            // Export dialog translations - only if modal exists
             if (document.getElementById('exportTitle')) {
-              document.getElementById('exportTitle').textContent = t('export.title');
-              document.getElementById('exportFormatTitle').textContent = t('export.format');
-              document.getElementById('exportRangeTitle').textContent = t('export.range');
-              document.getElementById('exportPropsTitle').textContent = t('export.properties');
-              document.getElementById('jsonDesc').textContent = t('export.jsonDesc');
-              document.getElementById('csvDesc').textContent = t('export.csvDesc');
-              document.getElementById('rangeAll').textContent = t('export.allMaterials');
-              document.getElementById('rangeFiltered').textContent = t('export.filteredResults');
-              document.getElementById('rangeSelected').textContent = t('export.selectedMaterials');
-              document.getElementById('selectorSearch').placeholder = t('export.searchPlaceholder');
-              document.getElementById('propStructureLabel').textContent = t('export.structure');
-              document.getElementById('propThermodynamicsLabel').textContent = t('export.thermodynamics');
-              document.getElementById('propMechanicsLabel').textContent = t('export.mechanics');
-              document.getElementById('propDefectsLabel').textContent = t('export.defects');
-              document.getElementById('exportExecuteBtn').textContent = t('export.execute');
-              document.getElementById('exportCancelBtn').textContent = t('export.cancel');
+              setTextIfExists('exportTitle', t('export.title'));
+              setTextIfExists('exportFormatTitle', t('export.format'));
+              setTextIfExists('exportRangeTitle', t('export.range'));
+              setTextIfExists('exportPropsTitle', t('export.properties'));
+              setTextIfExists('jsonDesc', t('export.jsonDesc'));
+              setTextIfExists('csvDesc', t('export.csvDesc'));
+              setTextIfExists('rangeAll', t('export.allMaterials'));
+              setTextIfExists('rangeFiltered', t('export.filteredResults'));
+              setTextIfExists('rangeSelected', t('export.selectedMaterials'));
+              setPlaceholderIfExists('selectorSearch', t('export.searchPlaceholder'));
+              setTextIfExists('propStructureLabel', t('export.structure'));
+              setTextIfExists('propThermodynamicsLabel', t('export.thermodynamics'));
+              setTextIfExists('propMechanicsLabel', t('export.mechanics'));
+              setTextIfExists('propDefectsLabel', t('export.defects'));
+              setTextIfExists('exportExecuteBtn', t('export.execute'));
+              setTextIfExists('exportCancelBtn', t('export.cancel'));
             }
             
             // Update data-i18n elements
