@@ -183,7 +183,9 @@ jobs:
           };
           EOF
       
-      - name: Update frontend to use mock API
+      # DISABLED: Use original frontend/js/app.js instead of generating new one
+      - name: Update frontend to use mock API (DISABLED)
+        if: false
         run: |
           # Update app.js to use the mock API for GitHub Pages with i18n support
           cat > _site/js/app.js << 'EOF'
@@ -2625,7 +2627,9 @@ jobs:
           };
           EOF
       
-      - name: Enhance index.html
+      # DISABLED: Use original frontend/index.html instead of generating new one
+      - name: Enhance index.html (DISABLED)
+        if: false
         run: |
           cat > _site/index.html << 'EOF'
           <!doctype html>
@@ -2818,7 +2822,9 @@ jobs:
           </html>
           EOF
       
-      - name: Enhance CSS
+      # DISABLED: Use original frontend/css/style.css instead of generating new one
+      - name: Enhance CSS (DISABLED)
+        if: false
         run: |
           cat > _site/css/style.css << 'EOF'
           * {
