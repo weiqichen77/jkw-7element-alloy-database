@@ -1829,6 +1829,7 @@ jobs:
             html += '<div class="detail-grid">';
             html += '<div class="detail-item"><label>ID:</label><span>' + material.id + '</span></div>';
             html += '<div class="detail-item"><label>' + t('table.name') + ':</label><span>' + material.name + '</span></div>';
+            html += '<div class="detail-item"><label>' + (currentLang === 'en' ? 'Source:' : '数据来源:') + '</label><span>' + (material.source || material.id) + '</span></div>';
             html += '<div class="detail-item"><label>' + t('table.type') + ':</label><span>' + translateType(material.type) + '</span></div>';
             html += '<div class="detail-item"><label>' + (currentLang === 'en' ? 'Composition:' : '元素组成:') + '</label><span>' + formatComposition(material.composition) + '</span></div>';
             html += '</div></div>';
@@ -1994,10 +1995,11 @@ jobs:
             html += '<div class="detail-grid">';
             html += '<div class="detail-item"><label>ID:</label><span>' + material.id + '</span></div>';
             html += '<div class="detail-item"><label>' + t('table.name') + ':</label><span>' + material.name + '</span></div>';
+            html += '<div class="detail-item"><label>' + (currentLang === 'en' ? 'Material Source:' : '材料来源:') + '</label><span>' + (material.source || material.id) + '</span></div>';
             html += '<div class="detail-item"><label>' + t('table.type') + ':</label><span>' + translateType(material.type) + '</span></div>';
             html += '<div class="detail-item"><label>' + (currentLang === 'en' ? 'Composition:' : '元素组成:') + '</label><span>' + formatComposition(material.composition) + '</span></div>';
             html += '<div class="detail-item"><label>' + (currentLang === 'en' ? 'Temperature:' : '温度:') + '</label><span>' + dataPoint.temperature + ' K</span></div>';
-            html += '<div class="detail-item"><label>' + (currentLang === 'en' ? 'Source:' : '数据来源:') + '</label><span>' + normalizeSource(dataPoint.source) + '</span></div>';
+            html += '<div class="detail-item"><label>' + (currentLang === 'en' ? 'Data Source:' : '数据来源:') + '</label><span>' + normalizeSource(dataPoint.source) + '</span></div>';
             html += '</div></div>';
             
             // Structure Properties
