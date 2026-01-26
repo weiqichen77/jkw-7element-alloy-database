@@ -81,13 +81,62 @@ jobs:
           const materialsPath = path.join(dataDir, 'materials.json');
           const intermetallicPath = path.join(dataDir, 'materials_intermetallic.json');
           
+          // Type code mapping for Alloy ID generation
+          const typeCodeMap = {
+            'element': 'E',
+            'solid_solution': 'SS',
+            'intermetallic': 'IM',
+            'amorphous': 'AM',
+            'interface': 'IF'
+          };
+          
+          // Counter for each type
+          const typeCounters = {
+            'E': 0,
+            'SS': 0,
+            'IM': 0,
+            'AM': 0,
+            'IF': 0
+          };
+          
+          // Function to generate Alloy ID
+          function generateAlloyID(material, existingIDs) {
+            // If material already has an Alloy ID, keep it
+            if (material.id && material.id.startsWith('Alloy-')) {
+              return material.id;
+            }
+            
+            // Determine type code
+            const typeCode = typeCodeMap[material.type] || 'IM'; // Default to IM if type unknown
+            
+            // Increment counter for this type
+            typeCounters[typeCode]++;
+            
+            // Generate ID with 5-digit sequence number
+            let newID = `Alloy-${typeCode}-${String(typeCounters[typeCode]).padStart(5, '0')}`;
+            
+            // Ensure uniqueness (check if ID already exists)
+            while (existingIDs.has(newID)) {
+              typeCounters[typeCode]++;
+              newID = `Alloy-${typeCode}-${String(typeCounters[typeCode]).padStart(5, '0')}`;
+            }
+            
+            existingIDs.add(newID);
+            return newID;
+          }
+          
           let allMaterials = [];
+          const existingIDs = new Set();
           
           // Load materials.json
           if (fs.existsSync(materialsPath)) {
             try {
               const data = JSON.parse(fs.readFileSync(materialsPath, 'utf8'));
               allMaterials = allMaterials.concat(data);
+              // Collect existing IDs
+              data.forEach(m => {
+                if (m.id) existingIDs.add(m.id);
+              });
               console.log('✓ Loaded', data.length, 'materials from materials.json');
             } catch (e) {
               console.error('✗ Error loading materials.json:', e.message);
@@ -99,9 +148,17 @@ jobs:
             try {
               const data = JSON.parse(fs.readFileSync(intermetallicPath, 'utf8'));
               const normalized = data.map(material => {
-                // Convert "source" field to "id" field
-                if (material.source && !material.id) {
-                  material.id = material.source;
+                // Keep original source field for reference
+                if (material.source && !material.original_source) {
+                  material.original_source = material.source;
+                }
+                
+                // Generate Alloy ID
+                material.id = generateAlloyID(material, existingIDs);
+                
+                // Keep source field for display (use original_source or id)
+                if (!material.source) {
+                  material.source = material.original_source || material.id;
                 }
                 
                 // Extract density from first data point if available
@@ -115,6 +172,13 @@ jobs:
               });
               allMaterials = allMaterials.concat(normalized);
               console.log('✓ Loaded', normalized.length, 'materials from materials_intermetallic.json');
+              console.log('✓ Generated Alloy IDs:', {
+                Element: typeCounters.E,
+                SolidSolution: typeCounters.SS,
+                Intermetallic: typeCounters.IM,
+                Amorphous: typeCounters.AM,
+                Interface: typeCounters.IF
+              });
             } catch (e) {
               console.error('✗ Error loading materials_intermetallic.json:', e.message);
             }
