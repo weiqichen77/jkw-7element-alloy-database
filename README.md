@@ -239,15 +239,105 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 **在线访问**
 
-访问在线网站：[https://wqchen007.github.io/jkw-7element-alloy-database/](https://wqchen007.github.io/jkw-7element-alloy-database/)
+访问在线网站：[https://weiqichen77.github.io/jkw-7element-alloy-database/](https://weiqichen77.github.io/jkw-7element-alloy-database/)
 
-**添加数据**
+**新用户？** 从 [快速开始指南](QUICK_START.md) 开始
+**要上传数据？** 查看 [数据上传指南](DATA_UPLOAD_GUIDE.md)
+**需要技术细节？** 查看 [部署指南](DEPLOYMENT_GUIDE.md)
 
-1. 准备CSV格式数据（参见 [example-template-v2.csv](example-template-v2.csv)）
-2. 转换为JSON格式：
-   ```bash
-   node scripts/convert-data-v2.js your-data.csv backend/data/materials.json
-   ```
+### 文档
+
+- [前端使用指南](FRONTEND_USER_GUIDE.md) - 网页使用说明
+- [数据上传指南](DATA_UPLOAD_GUIDE.md) - 数据准备和上传步骤
+- [脚本参考](SCRIPTS_REFERENCE.md) - 数据处理脚本文档
+- [文档索引](DOCUMENTATION_INDEX.md) - 完整文档导航
+- [快速开始](QUICK_START.md) - 快速入门指南
+- [部署指南](DEPLOYMENT_GUIDE.md) - GitHub Pages 部署说明
+
+### 本地开发
+
+```bash
+# 克隆仓库
+git clone https://github.com/weiqichen77/jkw-7element-alloy-database.git
+cd jkw-7element-alloy-database
+
+# 转换数据为 V2 格式
+node scripts/convert-data-v2.js example-template-v2.csv backend/data/materials.json
+
+# 生成 POSCAR 文件（可选）
+node scripts/generate-poscar-files.js
+
+# 本地服务器
+python -m http.server 8000
+
+# 打开浏览器
+open http://localhost:8000/frontend/
+```
+
+### 项目结构
+
+```
+├── backend/
+│   ├── api/
+│   │   └── materials.js          # API 端点
+│   └── data/
+│       ├── materials.json         # 材料数据库
+│       ├── poscar/                # POSCAR 结构文件
+│       ├── rdf/                   # RDF 数据文件
+│       └── stress-strain/         # 应力-应变曲线
+├── frontend/
+│   ├── index.html                 # 主界面
+│   ├── css/style.css              # 样式表
+│   └── js/app.js                  # 应用逻辑
+├── scripts/
+│   ├── convert-data-v2.js         # 数据转换工具
+│   ├── generate-poscar-files.js   # POSCAR 生成器
+│   └── add-chart-data.js          # 图表数据助手
+├── data/
+│   ├── materials.json             # 生产数据（可选）
+│   └── poscar/                    # POSCAR 文件（70+个结构）
+└── docs/
+    ├── API.md                     # API 文档
+    ├── DATA_STRUCTURE_V2.md       # 数据结构参考
+    ├── V2_USER_GUIDE.md           # 用户指南
+    └── IMPLEMENTATION_PLAN_V2.md  # 技术细节
+```
+
+### 数据格式
+
+数据库采用分层 JSON 格式，支持多温度和多数据源：
+
+```json
+{
+  "id": 1,
+  "name": "Al3Zr3-intermetallic",
+  "source": "Research Database",
+  "type": "intermetallic",
+  "composition": "Al3Zr3",
+  "data": [
+    {
+      "temperature": 0,
+      "source": "DPA-3",
+      "properties": {
+        "structure": { "density": 6.87, "latticeParameters": {...}, "rdf": [[...]] },
+        "thermodynamics": { "mixingEnthalpy": 0.61, ... },
+        "mechanics": { "youngsModulus": 140.22, "stressStrain": [[...]], ... },
+        "defects": { "vacancyFormationEnergy": 1.33, ... }
+      }
+    }
+  ]
+}
+```
+
+更多信息参见 [数据上传指南](DATA_UPLOAD_GUIDE.md)。
+
+### 贡献
+
+欢迎贡献。具体数据准备和提交指南，请参见 [贡献指南](CONTRIBUTING.md)。
+
+### 许可证
+
+MIT License - 详见 [LICENSE](LICENSE)
 3. 提交并推送：
    ```bash
    git add backend/data/materials.json data/poscar/

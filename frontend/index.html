@@ -143,7 +143,7 @@
         
         results.forEach((material, idx) => {
           const displayNumber = idx + 1;
-          const dataId = material.id || material.source || displayNumber;
+          const sourceId = material.id || material.source || 'N/A';
           
           // Extract density from nested structure
           let density = material.density;
@@ -159,10 +159,10 @@
           
           const mainRow = tbody.insertRow();
           mainRow.className = 'expandable-row';
-          mainRow.dataset.id = dataId;
+          mainRow.dataset.id = sourceId;
           
           mainRow.insertCell(0).textContent = displayNumber;
-          mainRow.insertCell(1).textContent = dataId;
+          mainRow.insertCell(1).textContent = displayNumber;
           mainRow.insertCell(2).textContent = material.name || 'N/A';
           mainRow.insertCell(3).textContent = material.type || 'N/A';
           mainRow.insertCell(4).textContent = elements;
@@ -195,6 +195,19 @@
     
     function formatDetailContent(material) {
       let html = '<div class="detail-content">';
+      
+      // Show source/original ID if available
+      if (material.source || material.id) {
+        html += '<div class="detail-section">';
+        html += '<div class="detail-section-title">Material Information</div>';
+        html += '<div class="detail-grid">';
+        if (material.source) {
+          html += `<div class="detail-item"><div class="detail-item-label">Source ID</div><div class="detail-item-value">${material.source}</div></div>`;
+        } else if (material.id) {
+          html += `<div class="detail-item"><div class="detail-item-label">ID</div><div class="detail-item-value">${material.id}</div></div>`;
+        }
+        html += '</div></div>';
+      }
       
       if (material.data && material.data.length > 0) {
         const firstData = material.data[0];
