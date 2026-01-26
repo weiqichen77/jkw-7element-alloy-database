@@ -892,10 +892,9 @@ jobs:
             html += '<th>' + t('table.rdf') + '</th>';
             html += '</tr></thead><tbody>';
             
-            // Use index for ID column (auto-numbering)
+            // Display materials with their Alloy IDs
             for (let idx = 0; idx < data.length; idx++) {
               const material = data[idx];
-              const displayNumber = idx + 1; // 1-based numbering
               const primary = getPrimaryData(material);
               const secondary = getSecondaryData(material);
               const hasSecondary = secondary.length > 0;
@@ -915,7 +914,7 @@ jobs:
               }
               html += '</td>';
               
-              html += '<td>' + displayNumber + '</td>';
+              html += '<td>' + material.id + '</td>';
               html += '<td><a href="#" class="material-link" data-id="' + material.id + '">' + material.name + '</a></td>';
               html += '<td>' + (material.source || '-') + '</td>';
               html += '<td>' + translateType(material.type) + '</td>';
@@ -1068,10 +1067,9 @@ jobs:
             html += '<th>' + t('table.thermalExpansion') + '<br/>(10⁻⁶/K)</th>';
             html += '</tr></thead><tbody>';
             
-            // Use index for ID column (auto-numbering)
+            // Display materials with their Alloy IDs
             for (let idx = 0; idx < data.length; idx++) {
               const material = data[idx];
-              const displayNumber = idx + 1; // 1-based numbering
               const primary = getPrimaryData(material);
               const secondary = getSecondaryData(material);
               const hasSecondary = secondary.length > 0;
@@ -1089,7 +1087,7 @@ jobs:
               }
               html += '</td>';
               
-              html += '<td>' + displayNumber + '</td>';
+              html += '<td>' + material.id + '</td>';
               html += '<td><a href="#" class="material-link" data-id="' + material.id + '">' + material.name + '</a></td>';
               html += '<td>' + (material.source || '-') + '</td>';
               html += '<td>' + translateType(material.type) + '</td>';
@@ -1194,10 +1192,9 @@ jobs:
             html += '<th>' + t('table.stressStrain') + '</th>';
             html += '</tr></thead><tbody>';
             
-            // Use index for ID column (auto-numbering)
+            // Display materials with their Alloy IDs
             for (let idx = 0; idx < data.length; idx++) {
               const material = data[idx];
-              const displayNumber = idx + 1; // 1-based numbering
               const primary = getPrimaryData(material);
               const secondary = getSecondaryData(material);
               const hasSecondary = secondary.length > 0;
@@ -1216,7 +1213,7 @@ jobs:
               }
               html += '</td>';
               
-              html += '<td>' + displayNumber + '</td>';
+              html += '<td>' + material.id + '</td>';
               html += '<td><a href="#" class="material-link" data-id="' + material.id + '">' + material.name + '</a></td>';
               html += '<td>' + (material.source || '-') + '</td>';
               html += '<td>' + translateType(material.type) + '</td>';
@@ -1365,10 +1362,9 @@ jobs:
             html += '<th>' + t('table.stackingFault') + '<br/>(mJ/m²)</th>';
             html += '</tr></thead><tbody>';
             
-            // Use index for ID column (auto-numbering)
+            // Display materials with their Alloy IDs
             for (let idx = 0; idx < data.length; idx++) {
               const material = data[idx];
-              const displayNumber = idx + 1; // 1-based numbering
               const primary = getPrimaryData(material);
               const secondary = getSecondaryData(material);
               const hasSecondary = secondary.length > 0;
@@ -1386,7 +1382,7 @@ jobs:
               }
               html += '</td>';
               
-              html += '<td>' + displayNumber + '</td>';
+              html += '<td>' + material.id + '</td>';
               html += '<td><a href="#" class="material-link" data-id="' + material.id + '">' + material.name + '</a></td>';
               html += '<td>' + (material.source || '-') + '</td>';
               html += '<td>' + translateType(material.type) + '</td>';
