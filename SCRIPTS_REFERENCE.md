@@ -187,6 +187,172 @@ node scripts/fix-data-paths.js \
 
 ---
 
+## Data Update Scripts
+
+### check-duplicates.js ⭐ NEW
+**Purpose**: Pre-check for duplicate materials before uploading
+
+**Usage**:
+```bash
+node scripts/check-duplicates.js <new_data.json>
+```
+
+**Example**:
+```bash
+node scripts/check-duplicates.js data/new-materials.json
+```
+
+**Identification Criteria**:
+Materials are considered duplicates if ALL four fields match:
+- `name` - Material name
+- `source` - Data source (e.g., mp-bbgt)
+- `type` - Material type (intermetallic, solid-solution, etc.)
+- `composition` - Element composition (e.g., Nb20Al10)
+
+**Output**:
+```
+================================================================================
+🔍 数据重复检查报告
+================================================================================
+
+📊 待检查材料数量: 10
+📚 现有数据库材料数量: 123
+
+⚠️  发现重复条目:
+────────────────────────────────────────────────────────────────────────────
+
+1. 重复材料 #1:
+   现有ID: Alloy-IM-00001
+   名称: Nb20Al10
+   来源: mp-bbgt
+   类型: intermetallic
+   组成: Nb20Al10
+   状态: 数据将被更新
+   现有数据点: 1
+   新数据点: 2
+
+────────────────────────────────────────────────────────────────────────────
+
+总计: 3 个重复条目
+
+✨ 新材料条目: 7
+
+================================================================================
+📋 检查摘要:
+   • 待上传材料: 10
+   • 重复条目: 3
+   • 新条目: 7
+================================================================================
+```
+
+**Features**:
+- Identifies duplicate materials by key fields
+- Shows which data will be updated
+- Compares data point counts
+- Provides actionable recommendations
+- Non-destructive (read-only)
+
+**Exit Codes**:
+- `0` - No duplicates found, safe to upload
+- `1` - Duplicates found, requires decision
+
+---
+
+### update-materials.js ⭐ NEW
+**Purpose**: Update/replace existing materials in the database
+
+**Usage**:
+```bash
+node scripts/update-materials.js <new_data.json> [--force]
+```
+
+**Parameters**:
+- `<new_data.json>` - File containing updated material data
+- `--force` - Skip confirmation prompt (use with caution)
+
+**Example**:
+```bash
+# Interactive update (recommended)
+node scripts/update-materials.js data/updates.json
+
+# Force update (skip confirmation)
+node scripts/update-materials.js data/updates.json --force
+```
+
+**Workflow**:
+1. Reads new data file
+2. Identifies matching materials
+3. Shows what will be updated/added
+4. **Requests confirmation** (unless --force)
+5. Creates automatic backup
+6. Performs updates
+7. Saves updated database
+
+**Output**:
+```
+================================================================================
+🔄 材料数据更新工具
+================================================================================
+
+📊 分析结果:
+   • 待更新条目: 3
+   • 待添加条目: 7
+   • 现有数据库条目: 123
+
+⚠️  以下条目将被更新:
+────────────────────────────────────────────────────────────────────────────
+
+1. Nb20Al10
+   ID: Alloy-IM-00001
+   来源: mp-bbgt
+   类型: intermetallic
+   数据点: 1 → 2
+
+⚠️  警告: 此操作将修改数据库文件！
+建议先备份 backend/data/materials_intermetallic.json
+
+确认执行更新吗？(yes/no): yes
+
+✅ 已创建备份: materials_intermetallic.json.backup.1737878400000
+
+================================================================================
+✅ 更新完成！
+================================================================================
+   • 已更新: 3 条
+   • 已添加: 7 条
+   • 总计: 130 条
+   • 备份文件: materials_intermetallic.json.backup.1737878400000
+================================================================================
+```
+
+**Features**:
+- Interactive confirmation (can be bypassed with --force)
+- Automatic backup creation with timestamp
+- Preserves existing Alloy IDs
+- Shows detailed comparison before update
+- Colored output for better readability
+- Supports both updates and additions in one operation
+
+**Safety**:
+- Always creates backup before modifying data
+- Requires explicit confirmation
+- Validates data structure
+- Preserves material IDs
+
+**Backup Recovery**:
+```bash
+# List backups
+ls -lh backend/data/materials_intermetallic.json.backup.*
+
+# Restore from backup
+cp backend/data/materials_intermetallic.json.backup.1737878400000 \
+   backend/data/materials_intermetallic.json
+```
+
+**See Also**: [DATA_UPDATE_GUIDE.md](DATA_UPDATE_GUIDE.md) for detailed usage guide
+
+---
+
 ## Testing & Analysis Scripts
 
 ### test-data-loading.js
