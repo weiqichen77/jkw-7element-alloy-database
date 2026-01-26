@@ -1694,8 +1694,16 @@ jobs:
             const struct = firstData.properties?.structure;
             // Check poscar at material top level (for intermetallic data)
             const poscarPath = material.poscar || struct?.poscar;
+            console.log('POSCAR Debug:', {
+              materialId: material.id,
+              materialPoscar: material.poscar,
+              structPoscar: struct?.poscar,
+              finalPath: poscarPath
+            });
             if (poscarPath) {
               setTimeout(() => init3DViewer(materialId, poscarPath), 100);
+            } else {
+              console.log('No POSCAR path found for material:', material.id);
             }
             
             // Scroll to specified section if provided
@@ -2131,9 +2139,13 @@ jobs:
           let viewerStyles = {}; // Track current style for each viewer
           
           function init3DViewer(materialId, poscarUrl) {
+            console.log('Initializing 3D viewer:', { materialId, poscarUrl });
             const viewerId = 'viewer-' + materialId;
             const element = document.getElementById(viewerId);
-            if (!element) return;
+            if (!element) {
+              console.error('Viewer element not found:', viewerId);
+              return;
+            }
             
             // Clean up existing viewer
             if (viewerInstances[materialId]) {
@@ -2146,20 +2158,29 @@ jobs:
             viewerInstances[materialId] = viewer;
             viewerStyles[materialId] = 'sphere'; // Default style
             
+            console.log('Fetching POSCAR from:', poscarUrl);
             // Load POSCAR file
             fetch(poscarUrl)
-              .then(response => response.text())
+              .then(response => {
+                console.log('POSCAR fetch response:', response.status, response.statusText);
+                if (!response.ok) {
+                  throw new Error('HTTP ' + response.status + ': ' + response.statusText);
+                }
+                return response.text();
+              })
               .then(poscarData => {
+                console.log('POSCAR data loaded, length:', poscarData.length);
                 viewer.addModel(poscarData, 'vasp');
                 viewer.setStyle({}, { sphere: { radius: 0.5 }, stick: { radius: 0.15 } });
                 viewer.zoomTo();
                 viewer.render();
+                console.log('3D viewer rendered successfully');
               })
               .catch(error => {
                 console.error('Error loading POSCAR:', error);
                 element.innerHTML = '<p class="error-message">' + 
-                  (currentLang === 'en' ? 'Failed to load structure file' : '无法加载结构文件') + 
-                  '</p>';
+                  (currentLang === 'en' ? 'Failed to load structure file: ' : '无法加载结构文件：') + 
+                  error.message + '</p>';
               });
           }
           
