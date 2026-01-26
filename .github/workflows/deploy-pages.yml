@@ -2642,7 +2642,7 @@ jobs:
             <meta name="viewport" content="width=device-width,initial-scale=1" />
             <title>Alloy Materials Database / 合金材料数据库</title>
             <meta name="description" content="Alloy materials database - Primary focus: Al-Ni-Cu-Zr-Nb-Ta-W system" />
-            <link rel="stylesheet" href="css/style.css" />
+            <link rel="stylesheet" href="css/style.css?v=20260126-02" />
             <!-- 3Dmol.js for molecular visualization -->
             <script src="https://cdn.jsdelivr.net/npm/3dmol@latest/build/3Dmol-min.js"></script>
             <!-- JSZip for batch POSCAR download -->
@@ -2820,7 +2820,7 @@ jobs:
               </p>
             </footer>
             
-            <script src="js/app.js"></script>
+            <script src="js/app.js?v=20260126-02"></script>
           </body>
           </html>
           EOF
