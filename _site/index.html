@@ -59,8 +59,7 @@
     <table id="resultsTable" style="display: none;">
       <thead>
         <tr>
-          <th style="width: 50px;">No.</th>
-          <th style="width: 120px;">ID</th>
+          <th style="width: 60px;">ID</th>
           <th style="width: 150px;">Name</th>
           <th style="width: 80px;">Type</th>
           <th style="width: 150px;">Elements</th>
@@ -162,12 +161,11 @@
           mainRow.dataset.id = sourceId;
           
           mainRow.insertCell(0).textContent = displayNumber;
-          mainRow.insertCell(1).textContent = displayNumber;
-          mainRow.insertCell(2).textContent = material.name || 'N/A';
-          mainRow.insertCell(3).textContent = material.type || 'N/A';
-          mainRow.insertCell(4).textContent = elements;
-          mainRow.insertCell(5).textContent = density ? density.toFixed(2) : 'N/A';
-          mainRow.insertCell(6).innerHTML = '<span class="expand-icon">▶</span>View';
+          mainRow.insertCell(1).textContent = material.name || 'N/A';
+          mainRow.insertCell(2).textContent = material.type || 'N/A';
+          mainRow.insertCell(3).textContent = elements;
+          mainRow.insertCell(4).textContent = density ? density.toFixed(2) : 'N/A';
+          mainRow.insertCell(5).innerHTML = '<span class="expand-icon">▶</span>View';
           
           mainRow.onclick = () => toggleDetail(mainRow, material);
           
@@ -206,6 +204,12 @@
         } else if (material.id) {
           html += `<div class="detail-item"><div class="detail-item-label">ID</div><div class="detail-item-value">${material.id}</div></div>`;
         }
+        
+        // Display POSCAR link if available at top level
+        if (material.poscar) {
+          html += `<div class="detail-item"><div class="detail-item-label">Structure File</div><div class="detail-item-value"><a href="${material.poscar}" target="_blank" style="color: #3498db; text-decoration: underline;">View POSCAR</a></div></div>`;
+        }
+        
         html += '</div></div>';
       }
       
@@ -242,13 +246,6 @@
             }
             
             html += `<div class="detail-item"><div class="detail-item-label">Density (g/cm³)</div><div class="detail-item-value">${struct.density ? struct.density.toFixed(3) : 'N/A'}</div></div>`;
-            
-            // Display POSCAR link if available
-            if (struct.poscar || (struct.latticeParameters && struct.latticeParameters.poscar)) {
-              const poscarPath = struct.poscar || struct.latticeParameters.poscar;
-              html += `<div class="detail-item"><div class="detail-item-label">Structure File</div><div class="detail-item-value"><a href="${poscarPath}" target="_blank" style="color: #3498db; text-decoration: underline;">View POSCAR</a></div></div>`;
-            }
-            
             html += '</div></div>';
           }
           
