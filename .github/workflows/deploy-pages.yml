@@ -1835,8 +1835,10 @@ jobs:
             
             // Atomic Structure (置顶，所有数据点共同)
             // Check poscar at material top level (for intermetallic data) or in structure
-            const poscarPath = material.poscar || firstStruct.poscar;
+            let poscarPath = material.poscar || firstStruct.poscar;
             if (poscarPath) {
+              // Convert absolute path to relative for GitHub Pages
+              const relativePath = poscarPath.startsWith('/') ? poscarPath.substring(1) : poscarPath;
               html += '<div class="detail-section">';
               html += '<h3>' + (currentLang === 'en' ? 'Atomic Structure' : '原子结构') + '</h3>';
               html += '<div class="structure-viewer-container">';
@@ -1844,7 +1846,7 @@ jobs:
               html += '<div class="viewer-controls">';
               html += '<button onclick="resetView(\'' + material.id + '\')" class="viewer-btn">' + (currentLang === 'en' ? 'Reset View' : '重置视角') + '</button>';
               html += '<button onclick="toggleStyle(\'' + material.id + '\')" class="viewer-btn">' + (currentLang === 'en' ? 'Toggle Style' : '切换样式') + '</button>';
-              html += '<a href="' + poscarPath + '" download class="viewer-btn download-btn">' + (currentLang === 'en' ? 'Download POSCAR' : '下载POSCAR') + '</a>';
+              html += '<a href="' + relativePath + '" download class="viewer-btn download-btn">' + (currentLang === 'en' ? 'Download POSCAR' : '下载POSCAR') + '</a>';
               html += '</div>';
               html += '</div>';
               html += '</div>';
@@ -2004,15 +2006,17 @@ jobs:
             html += '<h3>' + t('structureInfo') + '</h3>';
             
             // POSCAR 3D Viewer - check material.poscar at top level or struct.poscar
-            const poscarPath = material.poscar || struct.poscar;
+            let poscarPath = material.poscar || struct.poscar;
             if (poscarPath) {
+              // Convert absolute path to relative for GitHub Pages
+              const relativePath = poscarPath.startsWith('/') ? poscarPath.substring(1) : poscarPath;
               html += '<div class="structure-viewer-container">';
               html += '<h4>' + (currentLang === 'en' ? 'Atomic Structure' : '原子结构') + '</h4>';
               html += '<div id="viewer-' + material.id + '" class="structure-viewer"></div>';
               html += '<div class="viewer-controls">';
               html += '<button onclick="resetView(\'' + material.id + '\')" class="viewer-btn">' + (currentLang === 'en' ? 'Reset View' : '重置视角') + '</button>';
               html += '<button onclick="toggleStyle(\'' + material.id + '\')" class="viewer-btn">' + (currentLang === 'en' ? 'Toggle Style' : '切换样式') + '</button>';
-              html += '<a href="' + poscarPath + '" download class="viewer-btn download-btn">' + (currentLang === 'en' ? 'Download POSCAR' : '下载POSCAR') + '</a>';
+              html += '<a href="' + relativePath + '" download class="viewer-btn download-btn">' + (currentLang === 'en' ? 'Download POSCAR' : '下载POSCAR') + '</a>';
               html += '</div>';
               html += '</div>';
             }
@@ -2140,6 +2144,14 @@ jobs:
           
           function init3DViewer(materialId, poscarUrl) {
             console.log('Initializing 3D viewer:', { materialId, poscarUrl });
+            
+            // Convert absolute path to relative path for GitHub Pages
+            // Remove leading slash to make it relative to current page
+            if (poscarUrl.startsWith('/')) {
+              poscarUrl = poscarUrl.substring(1);
+              console.log('Converted to relative path:', poscarUrl);
+            }
+            
             const viewerId = 'viewer-' + materialId;
             const element = document.getElementById(viewerId);
             if (!element) {
