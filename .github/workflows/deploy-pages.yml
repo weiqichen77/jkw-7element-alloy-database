@@ -1924,7 +1924,7 @@ jobs:
               html += '<button onclick="resetView(\'' + material.id + '\')" class="viewer-btn">' + (currentLang === 'en' ? 'Reset View' : '重置视角') + '</button>';
               html += '<button onclick="toggleStyle(\'' + material.id + '\')" class="viewer-btn">' + (currentLang === 'en' ? 'Toggle Style' : '切换样式') + '</button>';
               html += '<a href="' + relativePath + '" download class="viewer-btn download-btn">' + (currentLang === 'en' ? 'Download POSCAR' : '下载POSCAR') + '</a>';
-              html += '<span style="color: #888; font-size: 11px; margin-left: 10px;">' + (currentLang === 'en' ? '(atomic structure file)' : '(原子结构文件)') + '</span>';
+              html += '<span style="color: #888; font-size: 11px; margin-left: 10px;">' + (currentLang === 'en' ? '(structure from DFT relaxation)' : '(结构来自DFT弛豫)') + '</span>';
               html += '</div>';
               html += '</div>';
               html += '</div>';
