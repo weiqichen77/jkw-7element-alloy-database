@@ -9,6 +9,7 @@
 | 了解数据库包含什么 | [数据库内容](#数据库内容) |
 | 查询和使用数据 | [数据查询](#数据查询) |
 | 上传新数据 | [数据上传](#数据上传) |
+| 更新已有数据 | [更新已存在的数据](#更新已存在的数据) |
 | 查看数据格式 | [数据结构](#数据结构) |
 
 ---
@@ -269,8 +270,53 @@ data/intermetallic/mp-xxxxx/
 # 验证 JSON 格式
 node scripts/validate-data.js your-data.json
 
-# 检查重复
-node scripts/check-duplicates.js
+# 检查重复和已存在的数据
+node scripts/check-duplicates.js your-data.json
+```
+
+**输出示例**:
+```
+✅ 没有发现重复数据
+新材料数量: 5
+
+或者：
+
+⚠️  发现 2 个重复材料：
+1. Nb20Al10 (ID: Alloy-IM-00001)
+   - 来源: mp-bbgt
+   - 已有数据点: 3 (温度: 0K, 300K, 600K)
+```
+
+### 更新已存在的数据
+
+如果检测到重复数据，可以选择更新：
+
+```bash
+# 更新已存在的材料数据（会提示确认）
+node scripts/update-materials.js your-data.json
+
+# 强制更新（跳过确认）
+node scripts/update-materials.js your-data.json --force
+```
+
+**更新规则**:
+- 匹配条件：`name` + `source` + `type` + `composition`
+- 新数据：直接添加到数据库
+- 已存在的数据：替换对应 ID 的完整条目
+- 保留原有的自动生成 ID
+- 更新后需手动 commit 和 push
+
+**示例输出**:
+```
+🔄 将更新以下材料：
+
+1. Nb20Al10
+   ID: Alloy-IM-00001
+   变更: 数据点 3 → 5 (新增 2 个温度点)
+
+是否继续？[y/N]: y
+✅ 成功更新 1 个材料
+💾 已保存到: backend/data/materials_intermetallic.json
 ```
 
 ### 提交数据
@@ -366,6 +412,16 @@ https://weiqichen77.github.io/jkw-7element-alloy-database/
 
 ### Q: 发现数据错误怎么办？
 **A**: 在 GitHub 仓库提交 Issue，或联系管理员。
+
+### Q: 如何更新已有材料的数据？
+**A**: 
+1. 准备包含更新数据的 JSON 文件
+2. 运行 `node scripts/check-duplicates.js your-data.json` 检查哪些材料已存在
+3. 运行 `node scripts/update-materials.js your-data.json` 更新数据
+4. 新材料会添加，已存在的材料会替换（保留原 ID）
+
+### Q: 如何为已有材料添加新的温度点数据？
+**A**: 在 JSON 文件中包含该材料的完整信息，并在 `data` 数组中添加新温度点。使用 `update-materials.js` 脚本会自动合并所有数据点。
 
 ---
 
