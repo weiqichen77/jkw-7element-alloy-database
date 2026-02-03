@@ -255,6 +255,7 @@ jobs:
           EOF
       
       - name: Update frontend to use mock API
+        if: false  # Disabled - use frontend files directly
         run: |
           # Update app.js to use the mock API for GitHub Pages with i18n support
           cat > _site/js/app.js << 'EOF'
@@ -2767,6 +2768,7 @@ jobs:
           EOF
       
       - name: Enhance index.html
+        if: false  # Disabled - use frontend files directly
         run: |
           cat > _site/index.html << 'EOF'
           <!doctype html>
@@ -2960,6 +2962,7 @@ jobs:
           EOF
       
       - name: Enhance CSS
+        if: false  # Disabled - use frontend files directly
         run: |
           cat > _site/css/style.css << 'EOF'
           * {
