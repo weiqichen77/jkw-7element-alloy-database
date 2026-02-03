@@ -1,0 +1,703 @@
+# 7-Element Alloy Materials Database - User Guide
+
+> **Core System**: Al-Ni-Cu-Zr-Nb-Ta-W alloy materials property database
+
+[English](#english) | [中文](#中文)
+
+---
+
+## English
+
+### 📚 Quick Navigation
+
+| I want to... | Go to |
+|--------------|-------|
+| Know what's in the database | [Database Contents](#database-contents) |
+| Query and use data | [Data Query](#data-query) |
+| Upload new data | [Data Upload](#data-upload) |
+| Update existing data | [Update Existing Data](#update-existing-data) |
+| View data format | [Data Structure](#data-structure) |
+
+---
+
+### Database Contents
+
+#### Material Types
+
+The database contains the following types of alloy materials:
+
+| Type | Description | ID Prefix | Examples |
+|------|-------------|-----------|----------|
+| Element | Pure elements | Alloy-E- | Al, Cu, Ni |
+| Solid Solution | Solid solution alloys | Alloy-SS- | Al-Ni, Al-Cu |
+| Intermetallic | Intermetallic compounds | Alloy-IM- | Al₃Ni₂, NbAl₃ |
+| Amorphous | Amorphous materials | Alloy-AM- | a-Al₂Cu₃ |
+| Interface | Interface structures | Alloy-IF- | Al₂Cu₃/Nb₄Ta₅ |
+
+### 性质数据
+
+每种材料可包含多个温度和数据源的性质：
+
+#### 结构性质
+- 密度 (g/cm³)
+- 晶格参数 (a, b, c, α, β, γ)
+- 点群、空间群
+- 径向分布函数 (RDF)
+- POSCAR 晶体结构文件（DFT弛豫优化）
+
+#### 热力学性质
+- 比热容 (J/(g·K))
+- 混合焓 (eV/atom)
+- 扩散系数 (m²/s)
+- 热膨胀系数 (K⁻¹)
+
+#### 力学性质
+- 杨氏模量 (GPa)
+- 体模量 (GPa)
+- 剪切模量 (GPa)
+- 泊松比
+- 弹性常数矩阵 (Cij)
+- 应力-应变曲线
+
+#### 缺陷性质
+- 空位形成能 (eV)
+- 间隙原子形成能 (eV)
+- 层错能 (mJ/m²)
+
+### 数据来源
+
+- **DFT**: 密度泛函理论计算
+- **DPA-1**: 深度势能模型 1 代
+- **DPA-3**: 深度势能模型 3 代
+- **MD**: 分子动力学模拟
+- **Experiment**: 实验数据
+
+### 当前数据规模
+
+```bash
+# 查看统计信息
+总材料数: 123 个
+总数据点: 5904 个
+涵盖温度: 0K - 1000K
+数据源类型: 5 种
+```
+
+---
+
+## 数据查询
+
+### 网页界面查询
+
+访问: **https://weiqichen77.github.io/jkw-7element-alloy-database/**
+
+#### 1. 基础搜索
+- **关键词搜索**: 输入材料名称、元素符号、ID
+- **示例**: 搜索 "Al-Ni", "mp-bbgt", "Alloy-IM-00001"
+
+#### 2. 筛选功能
+
+**按材料类型筛选**:
+- ☐ 全部 (All)
+- ☐ 单质 (Element)
+- ☐ 固溶体 (Solid Solution)
+- ☐ 金属间化合物 (Intermetallic)
+- ☐ 非晶 (Amorphous)
+- ☐ 界面 (Interface)
+
+**按性质分类筛选**:
+- ☐ 结构 (Structure)
+- ☐ 热力学 (Thermodynamics)
+- ☐ 力学 (Mechanics)
+- ☐ 缺陷 (Defects)
+
+#### 3. 查看详细信息
+
+点击材料行展开详细信息，包括：
+- 材料基本信息（组成、类型、来源）
+- 原子结构 3D 可视化
+- 各温度点的性质数据
+- POSCAR 文件下载
+- RDF、应力-应变曲线数据
+
+#### 4. 数据导出
+
+**支持格式**:
+- **JSON**: 完整数据结构
+- **CSV**: 表格格式（适合 Excel）
+- **POSCAR ZIP**: 批量下载晶体结构文件
+
+**导出选项**:
+- 导出全部数据
+- 导出筛选后的数据
+- 导出选中的材料
+
+### API 接口（开发中）
+
+```javascript
+// 获取所有材料
+fetch('https://weiqichen77.github.io/jkw-7element-alloy-database/data/materials.json')
+  .then(response => response.json())
+  .then(data => console.log(data));
+
+// 材料数据结构
+{
+  "id": "Alloy-IM-00001",
+  "name": "Nb20Al10",
+  "source": "mp-bbgt",
+  "type": "intermetallic",
+  "composition": "Nb20Al10",
+  "elements": ["Nb", "Al"],
+  "atomCount": {"Nb": 20, "Al": 10},
+  "poscar": "data/intermetallic/mp-bbgt/POSCAR",
+  "data": [
+    {
+      "temperature": 0,
+      "source": "DFT",
+      "properties": { ... }
+    }
+  ]
+}
+```
+
+---
+
+## 数据上传
+
+### 准备数据
+
+#### 方式 1: 使用 CSV 模板（推荐）
+
+1. **下载模板**: `example-template-v2.csv`
+
+2. **填写数据**:
+```csv
+name,source,type,composition,poscar,poscar_source,temperature,data_source,density,...
+Nb20Al10,mp-xxxxx,intermetallic,Nb20Al10,data/intermetallic/mp-xxxxx/POSCAR,DFT relaxation,0,DFT,8.57,...
+Nb20Al10,mp-xxxxx,intermetallic,Nb20Al10,data/intermetallic/mp-xxxxx/POSCAR,DFT relaxation,300,DPA-3,8.55,...
+```
+
+**必填字段**:
+- `name`: 材料名称
+- `source`: 数据来源标识（如 mp-xxxxx, custom-001）
+- `type`: 材料类型（element, solid-solution, intermetallic, amorphous, interface）
+- `composition`: 化学式（如 Al2Cu4Ni1）
+- `temperature`: 温度 (K)
+- `data_source`: 数据计算方法（DFT, DPA-1, DPA-3, MD, Experiment）
+
+**可选字段**:
+- `poscar_source`: POSCAR 结构来源（如 "DFT relaxation", "DPA-1 model", "DPA-3 model", "Experiment"）
+  - 若不填写，网页显示时默认为 "DFT relaxation"
+
+> **注意**: CSV 使用下划线命名（如 `point_group`），转换后 JSON 使用驼峰命名（如 `pointGroup`）
+
+3. **转换为 JSON**:
+```bash
+node scripts/convert-data-v2.js your-data.csv output.json
+```
+
+#### 方式 2: 直接编写 JSON
+
+```json
+{
+  "name": "Nb20Al10",
+  "source": "mp-xxxxx",
+  "type": "intermetallic",
+  "composition": "Nb20Al10",
+  "elements": ["Nb", "Al"],
+  "atomCount": {"Nb": 20, "Al": 10},
+  "poscar": "data/intermetallic/mp-xxxxx/POSCAR",
+  "poscar_source": "DFT relaxation",
+  "data": [
+    {
+      "temperature": 0,
+      "source": "DFT",
+      "properties": {
+        "structure": {
+          "density": 8.57,
+          "latticeParameters": {
+            "a": 3.52,
+            "b": 3.52,
+            "c": 3.52,
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90,
+            "pointGroup": "Fm-3m"
+          }
+        },
+        "thermodynamics": {
+          "mixingEnthalpy": -0.25
+        },
+        "mechanics": {
+          "youngsModulus": 200,
+          "bulkModulus": 160
+        },
+        "defects": {
+          "vacancyFormationEnergy": 1.35
+        }
+      }
+    }
+  ]
+}
+```
+
+**注意**:
+- ✅ **不要**包含 `id` 字段（系统自动生成）
+- ✅ **可选**：添加 `poscar_source` 字段指定结构来源（如 "DFT relaxation", "DPA-1 model", "DPA-3 model", "Experiment"）
+- ✅ 若不指定 `poscar_source`，网页将默认显示 "DFT relaxation"
+- ✅ 使用相对路径（从仓库根目录）
+
+### 组织文件
+
+创建材料目录并放置文件：
+
+```bash
+# 创建材料目录（目录名 = source 字段值）
+mkdir -p data/intermetallic/mp-xxxxx
+
+# 添加结构文件（必需）
+cp your_structure.vasp data/intermetallic/mp-xxxxx/POSCAR
+
+# 添加可选数据文件
+cp rdf_data.txt data/intermetallic/mp-xxxxx/rdf.dat
+cp stress_strain.txt data/intermetallic/mp-xxxxx/stress_strain.dat
+```
+
+**目录结构**:
+```
+data/intermetallic/mp-xxxxx/
+├── POSCAR              # 晶体结构（DFT弛豫）
+├── rdf.dat             # 径向分布函数（可选）
+└── stress_strain.dat   # 应力-应变数据（可选）
+```
+
+### 验证数据
+
+```bash
+# 验证 JSON 格式
+node scripts/validate-data.js your-data.json
+
+# 检查重复和已存在的数据
+node scripts/check-duplicates.js your-data.json
+```
+
+**输出示例**:
+```
+✅ 没有发现重复数据
+新材料数量: 5
+
+或者：
+
+⚠️  Found 2 duplicate materials:
+1. Nb20Al10 (ID: Alloy-IM-00001)
+   - Source: mp-bbgt
+   - Existing data points: 3 (temperatures: 0K, 300K, 600K)
+```
+
+### Update Existing Data
+
+If duplicate data is detected, you can choose different update modes:
+
+#### Update Modes
+
+```bash
+# 1. Add new temperature points
+node scripts/update-materials.js your-data.json --mode=add-temp
+```
+- Only add data for new temperature points
+- Existing temperature data remains unchanged
+- **Use case**: Supplement properties at different temperatures
+
+```bash
+# 2. Add new data sources
+node scripts/update-materials.js your-data.json --mode=add-source
+```
+- Only add data from new sources (DFT/DPA-1/DPA-3, etc.)
+- Existing data sources remain unchanged
+- **Use case**: Calculate the same material with different methods
+
+```bash
+# 3. Partial update (non-empty fields only)
+node scripts/update-materials.js your-data.json --mode=partial
+```
+- Only update provided non-empty fields
+- Empty or omitted fields retain original values
+- **Use case**: Correct or supplement partial property data
+
+```bash
+# 4. Full replacement (default mode)
+node scripts/update-materials.js your-data.json --mode=full
+# Or shorthand
+node scripts/update-materials.js your-data.json
+```
+- Completely replace the entire material entry
+- Preserve auto-generated ID
+- **Use case**: Re-provide complete material data
+
+#### Usage Examples
+
+**Scenario 1: Add new temperature points**
+```json
+// Only provide data for new temperature points
+{
+  "name": "Nb20Al10",
+  "source": "mp-bbgt",
+  "type": "intermetallic",
+  "composition": "Nb20Al10",
+  "data": [
+    {
+      "temperature": 900,  // New temperature point
+      "source": "DFT",
+      "properties": { ... }
+    }
+  ]
+}
+```
+```bash
+node scripts/update-materials.js new-temps.json --mode=add-temp
+```
+
+**Scenario 2: Add new calculation method data**
+```json
+// Same temperature, different data source
+{
+  "name": "Nb20Al10",
+  "source": "mp-bbgt",
+  "data": [
+    {
+      "temperature": 0,
+      "source": "DPA-3",  // New data source
+      "properties": { ... }
+    }
+  ]
+}
+```
+```bash
+node scripts/update-materials.js dpa3-data.json --mode=add-source
+```
+
+**Scenario 3: Correct partial properties**
+```json
+// Only provide fields to be updated
+{
+  "name": "Nb20Al10",
+  "source": "mp-bbgt",
+  "data": [
+    {
+      "temperature": 0,
+      "source": "DFT",
+      "properties": {
+        "mechanics": {
+          "youngsModulus": 205  // Corrected value
+          // Other fields remain unchanged
+        }
+      }
+    }
+  ]
+}
+```
+```bash
+node scripts/update-materials.js corrections.json --mode=partial
+```
+
+#### General Options
+
+```bash
+# Skip confirmation prompt
+node scripts/update-materials.js your-data.json --mode=add-temp --force
+```
+
+**Matching Rules**:
+- Material matching: `name` + `source` + `type` + `composition`
+- Data point matching: `temperature` + `source` (data origin)
+
+**Notes**:
+- ✅ Auto-generated IDs always remain unchanged
+- ✅ New materials are directly added to the database
+- ✅ Manual commit and push required after updates
+- ⚠️  Recommended to check data with `check-duplicates.js` first
+
+---
+
+### 验证数据（中文版）
+
+```bash
+# 验证 JSON 格式
+node scripts/validate-data.js your-data.json
+
+# 检查重复和已存在的数据
+node scripts/check-duplicates.js your-data.json
+```
+
+**输出示例**:
+```
+✅ 没有发现重复数据
+新材料数量: 5
+
+或者：
+
+⚠️  发现 2 个重复材料：
+1. Nb20Al10 (ID: Alloy-IM-00001)
+   - 来源: mp-bbgt
+   - 已有数据点: 3 (温度: 0K, 300K, 600K)
+```
+
+### 更新已存在的数据
+
+如果检测到重复数据，可以选择不同的更新模式：
+
+#### 更新模式
+
+```bash
+# 1. 增添新的温度点（默认：完整替换）
+node scripts/update-materials.js your-data.json --mode=add-temp
+```
+- 只添加新温度点的数据
+- 已有温度点的数据保持不变
+- **适用场景**：为材料补充不同温度下的性质
+
+```bash
+# 2. 增添新的数据来源
+node scripts/update-materials.js your-data.json --mode=add-source
+```
+- 只添加新数据源（DFT/DPA-1/DPA-3等）的数据
+- 已有数据源的数据保持不变
+- **适用场景**：用不同方法计算同一材料
+
+```bash
+# 3. 部分更新（只替换非空字段）
+node scripts/update-materials.js your-data.json --mode=partial
+```
+- 只更新提供的非空字段
+- 空字段或未提供的字段保留原值
+- **适用场景**：修正或补充部分性质数据
+
+```bash
+# 4. 完整替换（默认模式）
+node scripts/update-materials.js your-data.json --mode=full
+# 或简写
+node scripts/update-materials.js your-data.json
+```
+- 完全替换整个材料条目
+- 保留自动生成的 ID
+- **适用场景**：重新提供材料的完整数据
+
+#### 使用示例
+
+**场景 1：添加新温度点**
+```json
+// 只需提供新温度点的数据
+{
+  "name": "Nb20Al10",
+  "source": "mp-bbgt",
+  "type": "intermetallic",
+  "composition": "Nb20Al10",
+  "data": [
+    {
+      "temperature": 900,  // 新温度点
+      "source": "DFT",
+      "properties": { ... }
+    }
+  ]
+}
+```
+```bash
+node scripts/update-materials.js new-temps.json --mode=add-temp
+```
+
+**场景 2：添加新计算方法的数据**
+```json
+// 同一温度，不同数据源
+{
+  "name": "Nb20Al10",
+  "source": "mp-bbgt",
+  "data": [
+    {
+      "temperature": 0,
+      "source": "DPA-3",  // 新数据源
+      "properties": { ... }
+    }
+  ]
+}
+```
+```bash
+node scripts/update-materials.js dpa3-data.json --mode=add-source
+```
+
+**场景 3：修正部分属性**
+```json
+// 只提供需要更新的字段
+{
+  "name": "Nb20Al10",
+  "source": "mp-bbgt",
+  "data": [
+    {
+      "temperature": 0,
+      "source": "DFT",
+      "properties": {
+        "mechanics": {
+          "youngsModulus": 205  // 修正值
+          // 其他字段保持不变
+        }
+      }
+    }
+  ]
+}
+```
+```bash
+node scripts/update-materials.js corrections.json --mode=partial
+```
+
+#### 通用选项
+
+```bash
+# 跳过确认提示
+node scripts/update-materials.js your-data.json --mode=add-temp --force
+```
+
+**匹配规则**:
+- 材料匹配：`name` + `source` + `type` + `composition`
+- 数据点匹配：`temperature` + `source` (数据来源)
+
+**注意事项**:
+- ✅ 自动生成的 ID 始终保持不变
+- ✅ 新材料会直接添加到数据库
+- ✅ 更新后需手动 commit 和 push
+- ⚠️  建议先用 `check-duplicates.js` 检查数据
+
+### 提交数据
+
+#### 方式 1: GitHub Pull Request（推荐）
+
+1. Fork 仓库
+2. 添加数据文件和 POSCAR
+3. 提交 Pull Request
+4. 等待审核和合并
+
+#### 方式 2: 联系管理员
+
+发送数据到: [管理员邮箱]
+
+包含：
+- JSON 数据文件
+- POSCAR 及其他数据文件
+- 数据来源说明
+
+---
+
+## 数据结构
+
+### JSON 格式说明
+
+#### 材料顶层字段
+
+| 字段 | 类型 | 必需 | 说明 |
+|------|------|------|------|
+| name | String | ✓ | 材料名称 |
+| source | String | ✓ | 数据来源 ID（如 mp-xxxxx） |
+| type | String | ✓ | 材料类型 |
+| composition | String | ✓ | 化学式（如 Al2Cu4） |
+| elements | Array | ✓ | 元素列表 ["Al", "Cu"] |
+| atomCount | Object | ✓ | 原子数 {"Al": 2, "Cu": 4} |
+| poscar | String | ✗ | POSCAR 文件路径 |
+| poscar_source | String | ✗ | POSCAR 来源说明（如 "DFT relaxation", "DPA-1 model", "DPA-3 model", "Experiment"） |
+| data | Array | ✓ | 性质数据数组 |
+
+**自动生成字段**（不要在输入中包含）:
+- `id`: 系统自动分配（格式：Alloy-XX-#####）
+
+#### 数据点结构
+
+```json
+{
+  "temperature": 300,      // 温度 (K)
+  "source": "DFT",         // 数据来源
+  "properties": {
+    "structure": { ... },
+    "thermodynamics": { ... },
+    "mechanics": { ... },
+    "defects": { ... }
+  }
+}
+```
+
+### 组成符号规则
+
+#### 基础格式
+- 元素符号 + 原子数: `Al2Cu4Ni1` → Al₂Cu₄Ni₁
+
+#### 非晶前缀
+- 使用 `a-` 前缀: `a-Al2Cu4` → a-Al₂Cu₄
+
+#### 界面符号
+- 使用 `/` 分隔两侧: `Al2Cu3/Nb4Ta5` → Al₂Cu₃/Nb₄Ta₅
+- 可组合非晶: `a-Al2Cu3/Nb4Ta5` → a-Al₂Cu₃/Nb₄Ta₅
+
+---
+
+## 常见问题
+
+### Q: 如何搜索特定元素的合金？
+**A**: 在搜索框输入元素符号（如 "Al"），系统会显示所有包含该元素的材料。
+
+### Q: 数据有版权限制吗？
+**A**: 数据主要来自 Materials Project 和研究文献，使用时请注明来源。
+
+### Q: 可以下载整个数据库吗？
+**A**: 可以，点击"Export Data"选择"All Data"，导出完整 JSON 或 CSV 文件。
+
+### Q: POSCAR 文件是什么格式？
+**A**: VASP POSCAR 格式，包含晶体结构信息。默认为 DFT 弛豫优化后的结构。
+
+### Q: 如何引用此数据库？
+**A**: 
+```
+7-Element Alloy Materials Database (Al-Ni-Cu-Zr-Nb-Ta-W System)
+https://weiqichen77.github.io/jkw-7element-alloy-database/
+```
+
+### Q: 发现数据错误怎么办？
+**A**: 在 GitHub 仓库提交 Issue，或联系管理员。
+
+### Q: 如何更新已有材料的数据？
+**A**: 
+1. 准备包含更新数据的 JSON 文件
+2. 运行 `node scripts/check-duplicates.js your-data.json` 检查哪些材料已存在
+3. 根据需求选择更新模式：
+   - `--mode=add-temp` - 只添加新温度点
+   - `--mode=add-source` - 只添加新数据源
+   - `--mode=partial` - 部分更新（非空字段）
+   - `--mode=full` - 完整替换（默认）
+4. 运行 `node scripts/update-materials.js your-data.json --mode=<模式>`
+
+### Q: 如何为已有材料添加新的温度点数据？
+**A**: 使用 `--mode=add-temp` 模式。只需在 JSON 中提供新温度点的数据，已有温度点不受影响。例如：
+```bash
+node scripts/update-materials.js new-temps.json --mode=add-temp
+```
+
+### Q: 如何修正某个属性的错误值？
+**A**: 使用 `--mode=partial` 模式。只提供需要修正的字段，其他字段保持原值不变。
+
+---
+
+## 技术支持
+
+- **GitHub 仓库**: https://github.com/weiqichen77/jkw-7element-alloy-database
+- **网页界面**: https://weiqichen77.github.io/jkw-7element-alloy-database/
+- **问题报告**: GitHub Issues
+
+---
+
+## 版本信息
+
+- **当前版本**: V2.1
+- **最后更新**: 2026-02-03
+- **材料数量**: 123
+- **数据点数**: 5904
+
+---
+
+**快速链接**:
+- 📖 [完整 API 文档](docs/API.md)
+- 🏗️ [数据结构详细说明](docs/DATA_STRUCTURE_V2.md)
+- 📁 [目录结构指南](docs/DIRECTORY_STRUCTURE.md)
