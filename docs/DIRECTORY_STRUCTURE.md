@@ -19,12 +19,11 @@ data/
 │   ├── mp-beq/
 │   │   └── POSCAR
 │   └── ...                           # More Materials Project entries
-├── solid-solution/                   # Solid solution alloys (future expansion)
-│   ├── custom-001/
-│   │   ├── POSCAR
-│   │   └── ...
-│   └── ...
-└── poscar/                           # Legacy structure (being phased out)
+└── solid-solution/                   # Solid solution alloys (future expansion)
+    ├── custom-001/
+    │   ├── POSCAR
+    │   └── ...
+    └── ...
 
 backend/data/
 ├── materials.json                    # Copy for backend API serving

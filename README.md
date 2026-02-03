@@ -85,7 +85,7 @@ Visit the live website: [https://wqchen007.github.io/jkw-7element-alloy-database
    ```
 3. Commit and push:
    ```bash
-   git add backend/data/materials.json data/poscar/
+   git add backend/data/materials.json data/intermetallic/ data/solid-solution/
    git commit -m "Add material data"
    git push origin main
    ```
@@ -349,7 +349,7 @@ open http://localhost:8000/frontend/
 MIT License - 详见 [LICENSE](LICENSE)
 3. 提交并推送：
    ```bash
-   git add backend/data/materials.json data/poscar/
+   git add backend/data/materials.json data/intermetallic/ data/solid-solution/
    git commit -m "Add material data"
    git push origin main
    ```
