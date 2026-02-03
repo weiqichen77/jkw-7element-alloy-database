@@ -2,7 +2,7 @@
 
 > **Core System**: Al-Ni-Cu-Zr-Nb-Ta-W alloy materials property database
 
-**[🏠 Back to Main](USER_GUIDE.md)** | [中文版](USER_GUIDE_CN.md)
+**[🏠 Back to Main](README.md)** | [中文版](USER_GUIDE_CN.md)
 
 ---
 

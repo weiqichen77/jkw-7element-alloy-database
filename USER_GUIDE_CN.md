@@ -2,7 +2,7 @@
 
 > **核心体系**：Al-Ni-Cu-Zr-Nb-Ta-W 合金材料性能数据库
 
-**[🏠 返回主页](USER_GUIDE.md)** | [English Version](USER_GUIDE_EN.md)
+**[🏠 返回主页](README.md)** | [English Version](USER_GUIDE_EN.md)
 
 ---
 

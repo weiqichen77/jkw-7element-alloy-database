@@ -17,7 +17,7 @@ A comprehensive materials database for multi-principal element alloys with multi
 
 ### 📚 Documentation
 
-**📖 [User Guide](USER_GUIDE.md)** - Complete guide for database users
+**📖 [User Guide](USER_GUIDE_EN.md)** - Complete guide for database users
 
 Quick navigation to what you need:
 - 💾 **Database Contents** - What materials and properties are included
@@ -243,9 +243,9 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ### 📚 文档
 
-**📖 [用户指南](USER_GUIDE.md)** - 完整的数据库使用指南
+**📖 [用户指南](USER_GUIDE_CN.md)** - 完整的数据库使用指南
 
-快速导航到您需要的内容：
+Quick navigation to what you need:
 - 💾 **数据库内容** - 包含哪些材料和性质
 - 🔍 **数据查询** - 如何通过网页界面搜索和导出数据
 - 📤 **数据上传** - 如何贡献新的材料数据
