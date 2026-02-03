@@ -289,35 +289,126 @@ node scripts/check-duplicates.js your-data.json
 
 ### 更新已存在的数据
 
-如果检测到重复数据，可以选择更新：
+如果检测到重复数据，可以选择不同的更新模式：
+
+#### 更新模式
 
 ```bash
-# 更新已存在的材料数据（会提示确认）
+# 1. 增添新的温度点（默认：完整替换）
+node scripts/update-materials.js your-data.json --mode=add-temp
+```
+- 只添加新温度点的数据
+- 已有温度点的数据保持不变
+- **适用场景**：为材料补充不同温度下的性质
+
+```bash
+# 2. 增添新的数据来源
+node scripts/update-materials.js your-data.json --mode=add-source
+```
+- 只添加新数据源（DFT/DPA-1/DPA-3等）的数据
+- 已有数据源的数据保持不变
+- **适用场景**：用不同方法计算同一材料
+
+```bash
+# 3. 部分更新（只替换非空字段）
+node scripts/update-materials.js your-data.json --mode=partial
+```
+- 只更新提供的非空字段
+- 空字段或未提供的字段保留原值
+- **适用场景**：修正或补充部分性质数据
+
+```bash
+# 4. 完整替换（默认模式）
+node scripts/update-materials.js your-data.json --mode=full
+# 或简写
 node scripts/update-materials.js your-data.json
+```
+- 完全替换整个材料条目
+- 保留自动生成的 ID
+- **适用场景**：重新提供材料的完整数据
 
-# 强制更新（跳过确认）
-node scripts/update-materials.js your-data.json --force
+#### 使用示例
+
+**场景 1：添加新温度点**
+```json
+// 只需提供新温度点的数据
+{
+  "name": "Nb20Al10",
+  "source": "mp-bbgt",
+  "type": "intermetallic",
+  "composition": "Nb20Al10",
+  "data": [
+    {
+      "temperature": 900,  // 新温度点
+      "source": "DFT",
+      "properties": { ... }
+    }
+  ]
+}
+```
+```bash
+node scripts/update-materials.js new-temps.json --mode=add-temp
 ```
 
-**更新规则**:
-- 匹配条件：`name` + `source` + `type` + `composition`
-- 新数据：直接添加到数据库
-- 已存在的数据：替换对应 ID 的完整条目
-- 保留原有的自动生成 ID
-- 更新后需手动 commit 和 push
-
-**示例输出**:
+**场景 2：添加新计算方法的数据**
+```json
+// 同一温度，不同数据源
+{
+  "name": "Nb20Al10",
+  "source": "mp-bbgt",
+  "data": [
+    {
+      "temperature": 0,
+      "source": "DPA-3",  // 新数据源
+      "properties": { ... }
+    }
+  ]
+}
 ```
-🔄 将更新以下材料：
-
-1. Nb20Al10
-   ID: Alloy-IM-00001
-   变更: 数据点 3 → 5 (新增 2 个温度点)
-
-是否继续？[y/N]: y
-✅ 成功更新 1 个材料
-💾 已保存到: backend/data/materials_intermetallic.json
+```bash
+node scripts/update-materials.js dpa3-data.json --mode=add-source
 ```
+
+**场景 3：修正部分属性**
+```json
+// 只提供需要更新的字段
+{
+  "name": "Nb20Al10",
+  "source": "mp-bbgt",
+  "data": [
+    {
+      "temperature": 0,
+      "source": "DFT",
+      "properties": {
+        "mechanics": {
+          "youngsModulus": 205  // 修正值
+          // 其他字段保持不变
+        }
+      }
+    }
+  ]
+}
+```
+```bash
+node scripts/update-materials.js corrections.json --mode=partial
+```
+
+#### 通用选项
+
+```bash
+# 跳过确认提示
+node scripts/update-materials.js your-data.json --mode=add-temp --force
+```
+
+**匹配规则**:
+- 材料匹配：`name` + `source` + `type` + `composition`
+- 数据点匹配：`temperature` + `source` (数据来源)
+
+**注意事项**:
+- ✅ 自动生成的 ID 始终保持不变
+- ✅ 新材料会直接添加到数据库
+- ✅ 更新后需手动 commit 和 push
+- ⚠️  建议先用 `check-duplicates.js` 检查数据
 
 ### 提交数据
 
@@ -417,11 +508,21 @@ https://weiqichen77.github.io/jkw-7element-alloy-database/
 **A**: 
 1. 准备包含更新数据的 JSON 文件
 2. 运行 `node scripts/check-duplicates.js your-data.json` 检查哪些材料已存在
-3. 运行 `node scripts/update-materials.js your-data.json` 更新数据
-4. 新材料会添加，已存在的材料会替换（保留原 ID）
+3. 根据需求选择更新模式：
+   - `--mode=add-temp` - 只添加新温度点
+   - `--mode=add-source` - 只添加新数据源
+   - `--mode=partial` - 部分更新（非空字段）
+   - `--mode=full` - 完整替换（默认）
+4. 运行 `node scripts/update-materials.js your-data.json --mode=<模式>`
 
 ### Q: 如何为已有材料添加新的温度点数据？
-**A**: 在 JSON 文件中包含该材料的完整信息，并在 `data` 数组中添加新温度点。使用 `update-materials.js` 脚本会自动合并所有数据点。
+**A**: 使用 `--mode=add-temp` 模式。只需在 JSON 中提供新温度点的数据，已有温度点不受影响。例如：
+```bash
+node scripts/update-materials.js new-temps.json --mode=add-temp
+```
+
+### Q: 如何修正某个属性的错误值？
+**A**: 使用 `--mode=partial` 模式。只提供需要修正的字段，其他字段保持原值不变。
 
 ---
 
