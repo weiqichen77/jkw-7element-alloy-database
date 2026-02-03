@@ -1,0 +1,379 @@
+# 7元合金材料数据库 - 用户指南
+
+> **核心系统**: Al-Ni-Cu-Zr-Nb-Ta-W 体系合金材料性质数据库
+
+## 📚 快速导航
+
+| 我想... | 查看章节 |
+|---------|----------|
+| 了解数据库包含什么 | [数据库内容](#数据库内容) |
+| 查询和使用数据 | [数据查询](#数据查询) |
+| 上传新数据 | [数据上传](#数据上传) |
+| 查看数据格式 | [数据结构](#数据结构) |
+
+---
+
+## 数据库内容
+
+### 材料类型
+
+数据库包含以下类型的合金材料：
+
+| 类型 | 说明 | ID前缀 | 示例 |
+|------|------|--------|------|
+| 单质 (Element) | 纯元素 | Alloy-E- | Al, Cu, Ni |
+| 固溶体 (Solid Solution) | 固溶体合金 | Alloy-SS- | Al-Ni, Al-Cu |
+| 金属间化合物 (Intermetallic) | 金属间化合物 | Alloy-IM- | Al₃Ni₂, NbAl₃ |
+| 非晶 (Amorphous) | 非晶材料 | Alloy-AM- | a-Al₂Cu₃ |
+| 界面 (Interface) | 界面结构 | Alloy-IF- | Al₂Cu₃/Nb₄Ta₅ |
+
+### 性质数据
+
+每种材料可包含多个温度和数据源的性质：
+
+#### 结构性质
+- 密度 (g/cm³)
+- 晶格参数 (a, b, c, α, β, γ)
+- 点群、空间群
+- 径向分布函数 (RDF)
+- POSCAR 晶体结构文件（DFT弛豫优化）
+
+#### 热力学性质
+- 比热容 (J/(g·K))
+- 混合焓 (eV/atom)
+- 扩散系数 (m²/s)
+- 热膨胀系数 (K⁻¹)
+
+#### 力学性质
+- 杨氏模量 (GPa)
+- 体模量 (GPa)
+- 剪切模量 (GPa)
+- 泊松比
+- 弹性常数矩阵 (Cij)
+- 应力-应变曲线
+
+#### 缺陷性质
+- 空位形成能 (eV)
+- 间隙原子形成能 (eV)
+- 层错能 (mJ/m²)
+
+### 数据来源
+
+- **DFT**: 密度泛函理论计算
+- **DPA-1**: 深度势能模型 1 代
+- **DPA-3**: 深度势能模型 3 代
+- **MD**: 分子动力学模拟
+- **Experiment**: 实验数据
+
+### 当前数据规模
+
+```bash
+# 查看统计信息
+总材料数: 123 个
+总数据点: 5904 个
+涵盖温度: 0K - 1000K
+数据源类型: 5 种
+```
+
+---
+
+## 数据查询
+
+### 网页界面查询
+
+访问: **https://weiqichen77.github.io/jkw-7element-alloy-database/**
+
+#### 1. 基础搜索
+- **关键词搜索**: 输入材料名称、元素符号、ID
+- **示例**: 搜索 "Al-Ni", "mp-bbgt", "Alloy-IM-00001"
+
+#### 2. 筛选功能
+
+**按材料类型筛选**:
+- ☐ 全部 (All)
+- ☐ 单质 (Element)
+- ☐ 固溶体 (Solid Solution)
+- ☐ 金属间化合物 (Intermetallic)
+- ☐ 非晶 (Amorphous)
+- ☐ 界面 (Interface)
+
+**按性质分类筛选**:
+- ☐ 结构 (Structure)
+- ☐ 热力学 (Thermodynamics)
+- ☐ 力学 (Mechanics)
+- ☐ 缺陷 (Defects)
+
+#### 3. 查看详细信息
+
+点击材料行展开详细信息，包括：
+- 材料基本信息（组成、类型、来源）
+- 原子结构 3D 可视化
+- 各温度点的性质数据
+- POSCAR 文件下载
+- RDF、应力-应变曲线数据
+
+#### 4. 数据导出
+
+**支持格式**:
+- **JSON**: 完整数据结构
+- **CSV**: 表格格式（适合 Excel）
+- **POSCAR ZIP**: 批量下载晶体结构文件
+
+**导出选项**:
+- 导出全部数据
+- 导出筛选后的数据
+- 导出选中的材料
+
+### API 接口（开发中）
+
+```javascript
+// 获取所有材料
+fetch('https://weiqichen77.github.io/jkw-7element-alloy-database/data/materials.json')
+  .then(response => response.json())
+  .then(data => console.log(data));
+
+// 材料数据结构
+{
+  "id": "Alloy-IM-00001",
+  "name": "Nb20Al10",
+  "source": "mp-bbgt",
+  "type": "intermetallic",
+  "composition": "Nb20Al10",
+  "elements": ["Nb", "Al"],
+  "atomCount": {"Nb": 20, "Al": 10},
+  "poscar": "data/intermetallic/mp-bbgt/POSCAR",
+  "data": [
+    {
+      "temperature": 0,
+      "source": "DFT",
+      "properties": { ... }
+    }
+  ]
+}
+```
+
+---
+
+## 数据上传
+
+### 准备数据
+
+#### 方式 1: 使用 CSV 模板（推荐）
+
+1. **下载模板**: `example-template-v2.csv`
+
+2. **填写数据**:
+```csv
+name,source,type,composition,poscar,temperature,data_source,density,...
+Nb20Al10,mp-xxxxx,intermetallic,Nb20Al10,data/intermetallic/mp-xxxxx/POSCAR,0,DFT,8.57,...
+Nb20Al10,mp-xxxxx,intermetallic,Nb20Al10,data/intermetallic/mp-xxxxx/POSCAR,300,DPA-3,8.55,...
+```
+
+**必填字段**:
+- `name`: 材料名称
+- `source`: 数据来源标识（如 mp-xxxxx, custom-001）
+- `type`: 材料类型（element, solid-solution, intermetallic, amorphous, interface）
+- `composition`: 化学式（如 Al2Cu4Ni1）
+- `temperature`: 温度 (K)
+- `data_source`: 数据计算方法（DFT, DPA-1, DPA-3, MD, Experiment）
+
+3. **转换为 JSON**:
+```bash
+node scripts/convert-data-v2.js your-data.csv output.json
+```
+
+#### 方式 2: 直接编写 JSON
+
+```json
+{
+  "name": "Nb20Al10",
+  "source": "mp-xxxxx",
+  "type": "intermetallic",
+  "composition": "Nb20Al10",
+  "elements": ["Nb", "Al"],
+  "atomCount": {"Nb": 20, "Al": 10},
+  "poscar": "data/intermetallic/mp-xxxxx/POSCAR",
+  "data": [
+    {
+      "temperature": 0,
+      "source": "DFT",
+      "properties": {
+        "structure": {
+          "density": 8.57,
+          "latticeParameters": {
+            "a": 3.52, "b": 3.52, "c": 3.52,
+            "alpha": 90, "beta": 90, "gamma": 90,
+            "pointGroup": "Fm-3m"
+          }
+        },
+        "thermodynamics": {
+          "mixingEnthalpy": -0.25
+        },
+        "mechanics": {
+          "youngsModulus": 200,
+          "bulkModulus": 160
+        },
+        "defects": {
+          "vacancyFormationEnergy": 1.35
+        }
+      }
+    }
+  ]
+}
+```
+
+**注意**:
+- ✅ **不要**包含 `id` 字段（系统自动生成）
+- ✅ POSCAR 文件默认来自 **DFT 弛豫**
+- ✅ 使用相对路径（从仓库根目录）
+
+### 组织文件
+
+创建材料目录并放置文件：
+
+```bash
+# 创建材料目录（目录名 = source 字段值）
+mkdir -p data/intermetallic/mp-xxxxx
+
+# 添加结构文件（必需）
+cp your_structure.vasp data/intermetallic/mp-xxxxx/POSCAR
+
+# 添加可选数据文件
+cp rdf_data.txt data/intermetallic/mp-xxxxx/rdf.dat
+cp stress_strain.txt data/intermetallic/mp-xxxxx/stress_strain.dat
+```
+
+**目录结构**:
+```
+data/intermetallic/mp-xxxxx/
+├── POSCAR              # 晶体结构（DFT弛豫）
+├── rdf.dat             # 径向分布函数（可选）
+└── stress_strain.dat   # 应力-应变数据（可选）
+```
+
+### 验证数据
+
+```bash
+# 验证 JSON 格式
+node scripts/validate-data.js your-data.json
+
+# 检查重复
+node scripts/check-duplicates.js
+```
+
+### 提交数据
+
+#### 方式 1: GitHub Pull Request（推荐）
+
+1. Fork 仓库
+2. 添加数据文件和 POSCAR
+3. 提交 Pull Request
+4. 等待审核和合并
+
+#### 方式 2: 联系管理员
+
+发送数据到: [管理员邮箱]
+
+包含：
+- JSON 数据文件
+- POSCAR 及其他数据文件
+- 数据来源说明
+
+---
+
+## 数据结构
+
+### JSON 格式说明
+
+#### 材料顶层字段
+
+| 字段 | 类型 | 必需 | 说明 |
+|------|------|------|------|
+| name | String | ✓ | 材料名称 |
+| source | String | ✓ | 数据来源 ID（如 mp-xxxxx） |
+| type | String | ✓ | 材料类型 |
+| composition | String | ✓ | 化学式（如 Al2Cu4） |
+| elements | Array | ✓ | 元素列表 ["Al", "Cu"] |
+| atomCount | Object | ✓ | 原子数 {"Al": 2, "Cu": 4} |
+| poscar | String | ✗ | POSCAR 文件路径 |
+| data | Array | ✓ | 性质数据数组 |
+
+**自动生成字段**（不要在输入中包含）:
+- `id`: 系统自动分配（格式：Alloy-XX-#####）
+
+#### 数据点结构
+
+```json
+{
+  "temperature": 300,      // 温度 (K)
+  "source": "DFT",         // 数据来源
+  "properties": {
+    "structure": { ... },
+    "thermodynamics": { ... },
+    "mechanics": { ... },
+    "defects": { ... }
+  }
+}
+```
+
+### 组成符号规则
+
+#### 基础格式
+- 元素符号 + 原子数: `Al2Cu4Ni1` → Al₂Cu₄Ni₁
+
+#### 非晶前缀
+- 使用 `a-` 前缀: `a-Al2Cu4` → a-Al₂Cu₄
+
+#### 界面符号
+- 使用 `/` 分隔两侧: `Al2Cu3/Nb4Ta5` → Al₂Cu₃/Nb₄Ta₅
+- 可组合非晶: `a-Al2Cu3/Nb4Ta5` → a-Al₂Cu₃/Nb₄Ta₅
+
+---
+
+## 常见问题
+
+### Q: 如何搜索特定元素的合金？
+**A**: 在搜索框输入元素符号（如 "Al"），系统会显示所有包含该元素的材料。
+
+### Q: 数据有版权限制吗？
+**A**: 数据主要来自 Materials Project 和研究文献，使用时请注明来源。
+
+### Q: 可以下载整个数据库吗？
+**A**: 可以，点击"Export Data"选择"All Data"，导出完整 JSON 或 CSV 文件。
+
+### Q: POSCAR 文件是什么格式？
+**A**: VASP POSCAR 格式，包含晶体结构信息。默认为 DFT 弛豫优化后的结构。
+
+### Q: 如何引用此数据库？
+**A**: 
+```
+7-Element Alloy Materials Database (Al-Ni-Cu-Zr-Nb-Ta-W System)
+https://weiqichen77.github.io/jkw-7element-alloy-database/
+```
+
+### Q: 发现数据错误怎么办？
+**A**: 在 GitHub 仓库提交 Issue，或联系管理员。
+
+---
+
+## 技术支持
+
+- **GitHub 仓库**: https://github.com/weiqichen77/jkw-7element-alloy-database
+- **网页界面**: https://weiqichen77.github.io/jkw-7element-alloy-database/
+- **问题报告**: GitHub Issues
+
+---
+
+## 版本信息
+
+- **当前版本**: V2.1
+- **最后更新**: 2026-02-03
+- **材料数量**: 123
+- **数据点数**: 5904
+
+---
+
+**快速链接**:
+- 📖 [完整 API 文档](docs/API.md)
+- 🏗️ [数据结构详细说明](docs/DATA_STRUCTURE_V2.md)
+- 📁 [目录结构指南](docs/DIRECTORY_STRUCTURE.md)

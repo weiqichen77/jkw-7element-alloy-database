@@ -15,11 +15,25 @@ A comprehensive materials database for multi-principal element alloys with multi
 
 **Live Demo:** [https://weiqichen77.github.io/jkw-7element-alloy-database/](https://weiqichen77.github.io/jkw-7element-alloy-database/)
 
-### Quick Start
+### 📚 Documentation
 
-- **New users?** Start with [QUICK_START.md](QUICK_START.md)
-- **Want to upload data?** See [DATA_UPLOAD_GUIDE.md](DATA_UPLOAD_GUIDE.md) 
-- **Need technical details?** Check [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)
+**📖 [User Guide](USER_GUIDE.md)** - Complete guide for database users
+
+Quick navigation to what you need:
+- 💾 **Database Contents** - What materials and properties are included
+- 🔍 **Data Query** - How to search and export data via web interface
+- 📤 **Data Upload** - How to contribute new material data
+- 📋 **Data Structure** - Format specifications and field definitions
+
+**📂 Technical Documentation** (in `docs/` folder)
+- [API.md](docs/API.md) - API interface documentation
+- [DATA_STRUCTURE_V2.md](docs/DATA_STRUCTURE_V2.md) - Detailed data schema
+- [DIRECTORY_STRUCTURE.md](docs/DIRECTORY_STRUCTURE.md) - File organization guide
+
+**⚙️ Administrator Documentation** (in `admin/` folder)
+- [DEPLOYMENT_GUIDE.md](admin/DEPLOYMENT_GUIDE.md) - Deployment instructions
+- [SCRIPTS_REFERENCE.md](admin/SCRIPTS_REFERENCE.md) - Scripts reference
+- [DATA_UPDATE_GUIDE.md](admin/DATA_UPDATE_GUIDE.md) - Data update procedures
 
 ### Key Features
 
@@ -77,25 +91,9 @@ Visit the live website: [https://wqchen007.github.io/jkw-7element-alloy-database
    ```
 4. Website updates automatically via GitHub Actions
 
-### Documentation
+### Example Data Format
 
-Comprehensive guides for all aspects of the database:
-
-**User Guides** (Start here!)
-- [FRONTEND_USER_GUIDE.md](FRONTEND_USER_GUIDE.md) - How to use the web interface
-- [DATA_UPLOAD_GUIDE.md](DATA_UPLOAD_GUIDE.md) - How to upload new material data ⭐
-- [QUICK_START.md](QUICK_START.md) - Quick setup guide
-
-**Technical Documentation**
-- [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) - GitHub Pages deployment
-- [GITHUB_PAGES_SETUP.md](GITHUB_PAGES_SETUP.md) - CI/CD automation
-- [SCRIPTS_REFERENCE.md](SCRIPTS_REFERENCE.md) - Utility scripts reference
-- [DOCUMENTATION_INDEX.md](DOCUMENTATION_INDEX.md) - Complete documentation index
-
-**Advanced Guides** (in `docs/` folder)
-- [docs/DATA_INTEGRATION_GUIDE.md](docs/DATA_INTEGRATION_GUIDE.md)
-- [docs/DATA_STRUCTURE_V2.md](docs/DATA_STRUCTURE_V2.md)
-- [docs/SOURCE_FORMAT_GUIDE.md](docs/SOURCE_FORMAT_GUIDE.md)
+See [USER_GUIDE.md](USER_GUIDE.md) for complete data format documentation.
 
 ### Local Development
 
@@ -243,18 +241,25 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 访问在线网站：[https://weiqichen77.github.io/jkw-7element-alloy-database/](https://weiqichen77.github.io/jkw-7element-alloy-database/)
 
-**新用户？** 从 [快速开始指南](QUICK_START.md) 开始
-**要上传数据？** 查看 [数据上传指南](DATA_UPLOAD_GUIDE.md)
-**需要技术细节？** 查看 [部署指南](DEPLOYMENT_GUIDE.md)
+### 📚 文档
 
-### 文档
+**📖 [用户指南](USER_GUIDE.md)** - 完整的数据库使用指南
 
-- [前端使用指南](FRONTEND_USER_GUIDE.md) - 网页使用说明
-- [数据上传指南](DATA_UPLOAD_GUIDE.md) - 数据准备和上传步骤
-- [脚本参考](SCRIPTS_REFERENCE.md) - 数据处理脚本文档
-- [文档索引](DOCUMENTATION_INDEX.md) - 完整文档导航
-- [快速开始](QUICK_START.md) - 快速入门指南
-- [部署指南](DEPLOYMENT_GUIDE.md) - GitHub Pages 部署说明
+快速导航到您需要的内容：
+- 💾 **数据库内容** - 包含哪些材料和性质
+- 🔍 **数据查询** - 如何通过网页界面搜索和导出数据
+- 📤 **数据上传** - 如何贡献新的材料数据
+- 📋 **数据结构** - 格式规范和字段定义
+
+**📂 技术文档**（`docs/` 目录）
+- [API.md](docs/API.md) - API 接口文档
+- [DATA_STRUCTURE_V2.md](docs/DATA_STRUCTURE_V2.md) - 详细数据架构
+- [DIRECTORY_STRUCTURE.md](docs/DIRECTORY_STRUCTURE.md) - 文件组织指南
+
+**⚙️ 管理员文档**（`admin/` 目录）
+- [DEPLOYMENT_GUIDE.md](admin/DEPLOYMENT_GUIDE.md) - 部署说明
+- [SCRIPTS_REFERENCE.md](admin/SCRIPTS_REFERENCE.md) - 脚本参考
+- [DATA_UPDATE_GUIDE.md](admin/DATA_UPDATE_GUIDE.md) - 数据更新流程
 
 ### 本地开发
 
