@@ -255,7 +255,6 @@ jobs:
           EOF
       
       - name: Update frontend to use mock API
-        if: false  # Disabled - use frontend files directly
         run: |
           # Update app.js to use the mock API for GitHub Pages with i18n support
           cat > _site/js/app.js << 'EOF'
@@ -1925,6 +1924,7 @@ jobs:
               html += '<button onclick="resetView(\'' + material.id + '\')" class="viewer-btn">' + (currentLang === 'en' ? 'Reset View' : '重置视角') + '</button>';
               html += '<button onclick="toggleStyle(\'' + material.id + '\')" class="viewer-btn">' + (currentLang === 'en' ? 'Toggle Style' : '切换样式') + '</button>';
               html += '<a href="' + relativePath + '" download class="viewer-btn download-btn">' + (currentLang === 'en' ? 'Download POSCAR' : '下载POSCAR') + '</a>';
+              html += '<span style="color: #888; font-size: 11px; margin-left: 10px;">' + (currentLang === 'en' ? '(atomic structure file)' : '(原子结构文件)') + '</span>';
               html += '</div>';
               html += '</div>';
               html += '</div>';
@@ -2768,7 +2768,6 @@ jobs:
           EOF
       
       - name: Enhance index.html
-        if: false  # Disabled - use frontend files directly
         run: |
           cat > _site/index.html << 'EOF'
           <!doctype html>
@@ -2962,7 +2961,6 @@ jobs:
           EOF
       
       - name: Enhance CSS
-        if: false  # Disabled - use frontend files directly
         run: |
           cat > _site/css/style.css << 'EOF'
           * {
