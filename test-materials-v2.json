@@ -16,7 +16,6 @@
       {
         "temperature": 0,
         "source": "DFT",
-        "poscarSource": "DFT",
         "properties": {
           "structure": {
             "density": 7.85,
@@ -59,7 +58,6 @@
       {
         "temperature": 0,
         "source": "DPA-3",
-        "poscarSource": "DFT",
         "properties": {
           "structure": {
             "density": 7.83,
@@ -86,7 +84,6 @@
       {
         "temperature": 300,
         "source": "DFT",
-        "poscarSource": "DFT",
         "properties": {
           "structure": {
             "density": 7.82,
@@ -123,7 +120,6 @@
       {
         "temperature": 0,
         "source": "DFT",
-        "poscarSource": "DFT",
         "properties": {
           "structure": {
             "density": 8.9,

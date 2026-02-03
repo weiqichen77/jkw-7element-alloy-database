@@ -175,11 +175,6 @@ function convertToMaterial(rows) {
       properties: {}
     };
     
-    // Add poscar_source if provided (specifies which data source the POSCAR structure comes from)
-    if (row.poscar_source && row.poscar_source !== '') {
-      dataPoint.poscarSource = row.poscar_source;
-    }
-    
     // Structure properties
     const structure = {};
     if (row.density) structure.density = parseFloat(row.density);

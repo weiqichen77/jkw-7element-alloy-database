@@ -66,10 +66,7 @@ Each entry in the `data` array:
 |-------|------|----------|-------------|
 | `temperature` | Number | ✓ | Temperature in Kelvin |
 | `source` | String | ✓ | Calculation method: "DFT", "CALPHAD", "Experiment", etc. |
-| `poscarSource` | String | ✗ | Specifies which data source the POSCAR structure comes from (e.g., "DFT", "DPA-3"). Use when POSCAR originates from different source than current data entry. |
 | `properties` | Object | ✓ | Contains structure, thermodynamics, mechanics, defects |
-
-**Note on `poscarSource`**: When a material has multiple data entries with different sources (e.g., DFT at 0K, DPA-3 at 0K, DFT at 300K), use `poscarSource` to indicate which source the POSCAR file corresponds to. This information will be displayed in the web interface next to the structure file link.
 
 #### Structure Properties
 
