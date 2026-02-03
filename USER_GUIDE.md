@@ -181,6 +181,8 @@ Nb20Al10,mp-xxxxx,intermetallic,Nb20Al10,data/intermetallic/mp-xxxxx/POSCAR,DFT 
 - `poscar_source`: POSCAR 结构来源（如 "DFT relaxation", "DPA-1 model", "DPA-3 model", "Experiment"）
   - 若不填写，网页显示时默认为 "DFT relaxation"
 
+> **注意**: CSV 使用下划线命名（如 `point_group`），转换后 JSON 使用驼峰命名（如 `pointGroup`）
+
 3. **转换为 JSON**:
 ```bash
 node scripts/convert-data-v2.js your-data.csv output.json
@@ -206,8 +208,12 @@ node scripts/convert-data-v2.js your-data.csv output.json
         "structure": {
           "density": 8.57,
           "latticeParameters": {
-            "a": 3.52, "b": 3.52, "c": 3.52,
-            "alpha": 90, "beta": 90, "gamma": 90,
+            "a": 3.52,
+            "b": 3.52,
+            "c": 3.52,
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90,
             "pointGroup": "Fm-3m"
           }
         },

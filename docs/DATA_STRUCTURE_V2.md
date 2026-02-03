@@ -54,11 +54,6 @@ This document describes the enhanced data structure for the alloy materials data
   "poscar": "data/intermetallic/mp-xxxxx/POSCAR",
   "poscar_source": "DFT relaxation",
   "data": [
-    "Cu": 4,
-    "Ni": 1
-  },
-  "poscar": "data/intermetallic/mp-xxxxx/POSCAR",
-  "data": [
     {
       "temperature": 0,
       "source": "DFT",
