@@ -41,8 +41,8 @@ This document describes the enhanced data structure for the alloy materials data
 
 ```json
 {
-  "id": 1,
   "name": "Material-Name",
+  "source": "mp-xxxxx",
   "type": "solid-solution",
   "composition": "Al2Cu4Ni1",
   "elements": ["Al", "Cu", "Ni"],
@@ -51,7 +51,7 @@ This document describes the enhanced data structure for the alloy materials data
     "Cu": 4,
     "Ni": 1
   },
-  "poscar": "data/poscar/material-1.vasp",
+  "poscar": "data/intermetallic/mp-xxxxx/POSCAR",
   "data": [
     {
       "temperature": 0,
@@ -138,15 +138,28 @@ This document describes the enhanced data structure for the alloy materials data
 
 ## Field Descriptions
 
-### Basic Information
+### Basic Information (User-Provided)
 
-- **id** (number, required): Unique identifier
-- **name** (string, required): Material name
-- **type** (string, required): Material type (element|solid-solution|intermetallic|amorphous|interface)
+- **name** (string, required): Material name (e.g., "Nb20Al10")
+- **source** (string, required): Data source identifier (e.g., "mp-bbgt" from Materials Project, or custom ID)
+- **type** (string, required): Material type
+  - `element`: Pure element (单质)
+  - `solid-solution`: Solid solution (固溶体)
+  - `intermetallic`: Intermetallic compound (金属间化合物)
+  - `amorphous`: Amorphous material (非晶)
+  - `interface`: Interface structure (界面)
 - **composition** (string, required): Chemical composition formula (e.g., "Al2Cu4Ni1")
-- **elements** (array, required): List of element symbols
-- **atomCount** (object, required): Number of atoms per element
-- **poscar** (string, optional): Path to POSCAR file
+- **elements** (array, required): List of element symbols (e.g., ["Al", "Cu", "Ni"])
+- **atomCount** (object, required): Number of atoms per element (e.g., `{"Al": 2, "Cu": 4, "Ni": 1}`)
+- **poscar** (string, optional): Path to POSCAR file (e.g., "data/intermetallic/mp-bbgt/POSCAR")
+  - **Default**: Assumed to be from DFT relaxation
+
+### Auto-Generated Fields
+
+- **id** (string): Unique identifier automatically assigned by the system
+  - Format: "Alloy-XX-#####" where XX is type code (E=element, SS=solid-solution, IM=intermetallic, AM=amorphous, IF=interface)
+  - Example: "Alloy-IM-00001" for first intermetallic compound
+  - **Do not include this field in your input JSON**
 
 ### Data Array
 
