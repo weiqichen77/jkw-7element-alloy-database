@@ -152,11 +152,13 @@ The database uses a hierarchical JSON format with multi-temperature and multi-so
 
 ```json
 {
-  "id": 1,
   "name": "Al3Zr3-intermetallic",
-  "source": "Research Database",
+  "source": "mp-xxxxx",
   "type": "intermetallic",
   "composition": "Al3Zr3",
+  "elements": ["Al", "Zr"],
+  "atomCount": {"Al": 3, "Zr": 3},
+  "poscar": "data/intermetallic/mp-xxxxx/POSCAR",
   "data": [
     {
       "temperature": 0,
@@ -401,11 +403,13 @@ open http://localhost:8000/frontend/
 
 ```json
 {
-  "id": 1,
   "name": "Al3Zr3-intermetallic",
-  "source": "Research Database",
+  "source": "mp-xxxxx",
   "type": "intermetallic",
   "composition": "Al3Zr3",
+  "elements": ["Al", "Zr"],
+  "atomCount": {"Al": 3, "Zr": 3},
+  "poscar": "data/intermetallic/mp-xxxxx/POSCAR",
   "data": [
     {
       "temperature": 0,

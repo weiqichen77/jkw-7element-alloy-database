@@ -256,11 +256,13 @@ Al2Cu4,Wang Lab,solid-solution,Al2Cu4,...,DPA-1_251208,...
 
 ```json
 {
-  "id": 1,
   "name": "Material-Name",
-  "source": "Wang Lab",
+  "source": "mp-xxxxx",
   "type": "solid-solution",
   "composition": "Al2Cu4",
+  "elements": ["Al", "Cu"],
+  "atomCount": {"Al": 2, "Cu": 4},
+  "poscar": "data/intermetallic/mp-xxxxx/POSCAR",
   "data": [
     {
       "temperature": 0,

@@ -55,21 +55,23 @@ Search test for "Al": 112 results ✓
 
 ## 📝 数据结构兼容性
 
-### materials.json 结构
+### materials.json 结构（系统自动生成ID）
 ```json
 {
-  "id": 1,
+  "id": "Alloy-IM-00001",
   "name": "Al3Zr3-intermetallic",
+  "source": "mp-xxxxx",
   "type": "intermetallic",
   "data": [...]
 }
 ```
 
-### materials_intermetallic.json 结构
+### materials_intermetallic.json 结构（用户提供source）
 ```json
 {
-  "id": "mp-bbgt",
+  "id": "Alloy-IM-00002",
   "name": "Nb20Al10",
+  "source": "mp-bbgt",
   "type": "intermetallic",
   "elements": ["Nb", "Al"],
   "atomCount": {"Nb": 20, "Al": 10},

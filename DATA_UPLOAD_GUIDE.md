@@ -183,10 +183,10 @@ backend/data/
 For easier data preparation, use the provided CSV template `example-template-v2.csv`:
 
 ```csv
-name,source,type,composition,poscar,temperature,data_source,poscar_source,density,...
-Material-Name,Your Lab,solid-solution,Al2Cu4,data/poscar/sample.vasp,0,DFT,DFT,7.85,...
-Material-Name,Your Lab,solid-solution,Al2Cu4,data/poscar/sample.vasp,0,DPA-3,DFT,7.83,...
-Material-Name,Your Lab,solid-solution,Al2Cu4,data/poscar/sample.vasp,300,DFT,DFT,7.82,...
+name,source,type,composition,poscar,temperature,data_source,density,...
+Material-Name,mp-xxxxx,solid-solution,Al2Cu4,data/intermetallic/mp-xxxxx/POSCAR,0,DFT,7.85,...
+Material-Name,mp-xxxxx,solid-solution,Al2Cu4,data/intermetallic/mp-xxxxx/POSCAR,0,DPA-3,7.83,...
+Material-Name,mp-xxxxx,solid-solution,Al2Cu4,data/intermetallic/mp-xxxxx/POSCAR,300,DFT,7.82,...
 ```
 
 **Key Fields**:
@@ -197,13 +197,8 @@ Material-Name,Your Lab,solid-solution,Al2Cu4,data/poscar/sample.vasp,300,DFT,DFT
 - `poscar`: Path to POSCAR file (same for all rows of same material)
 - `temperature`: Temperature in Kelvin
 - `data_source`: Data calculation method (DFT, DPA-1, DPA-3, MD, Experiment)
-- **`poscar_source`**: **NEW** - Specifies which data_source the POSCAR structure originates from
 
-**Important**: The `poscar_source` field allows you to specify which calculation method was used to generate the POSCAR structure. For example:
-- If you have DFT data at 0K, DPA-3 data at 0K, and DFT data at 300K
-- And the POSCAR file was generated using DFT calculations
-- Then set `poscar_source` to "DFT" for all three rows
-- This will be displayed on the website to indicate the structure's origin
+**Note**: POSCAR files are assumed to be from **DFT relaxation** by default. This is indicated on the website as "structure from DFT relaxation".
 
 **Convert CSV to JSON**:
 ```bash
@@ -217,13 +212,13 @@ Create your `materials.json` or `materials_intermetallic.json` with proper struc
 ```json
 [
   {
-    "id": 1,
     "name": "Al-Ni",
-    "type": "Binary",
+    "source": "mp-xxxxx",
+    "type": "solid-solution",
     "composition": "Al80Ni20",
     "elements": ["Al", "Ni"],
-    "atomCount": 100,
-    "density": 3.45,
+    "atomCount": {"Al": 80, "Ni": 20},
+    "poscar": "data/intermetallic/mp-xxxxx/POSCAR",
     "data": [
       {
         "temperature": 300,
@@ -267,15 +262,24 @@ node -e "require('fs').readFileSync('./materials.json', 'utf8') && console.log('
 
 ### Step 3: Organize Supporting Files (Optional)
 
-If you have POSCAR or RDF files:
+If you have POSCAR or RDF files, place them in the appropriate directories:
 
 ```bash
-mkdir -p backend/data/poscar/material_id_1
-cp your_poscar_file backend/data/poscar/material_id_1/POSCAR
+# For intermetallic materials
+mkdir -p data/intermetallic/mp-xxxxx
+cp your_poscar_file data/intermetallic/mp-xxxxx/POSCAR
+cp your_rdf_file data/intermetallic/mp-xxxxx/rdf.dat
+cp your_stress_strain_file data/intermetallic/mp-xxxxx/stress_strain.dat
 
-mkdir -p backend/data/rdf/material_id_1
-cp your_rdf_file backend/data/rdf/material_id_1/rdf_data.txt
+# For solid solution materials
+mkdir -p data/solid-solution/custom-001
+cp your_poscar_file data/solid-solution/custom-001/POSCAR
 ```
+
+**Note**: 
+- Directory name should match the `source` field in your JSON
+- POSCAR files are assumed to be from **DFT relaxation** by default
+- Use relative paths in JSON: `"poscar": "data/intermetallic/mp-xxxxx/POSCAR"`
 
 ### Step 4: Test with Sample Data
 
@@ -402,13 +406,13 @@ Expected output:
 
 ```json
 {
-  "id": 1,
   "name": "Al-Ni",
-  "type": "Binary",
+  "source": "custom-001",
+  "type": "solid-solution",
   "composition": "Al80Ni20",
   "elements": ["Al", "Ni"],
-  "atomCount": 100,
-  "density": 3.45,
+  "atomCount": {"Al": 80, "Ni": 20},
+  "poscar": "data/solid-solution/custom-001/POSCAR",
   "data": [
     {
       "temperature": 300,
@@ -484,13 +488,12 @@ For intermetallic compounds, use string IDs in "mp-xxxx" format:
 
 ```json
 {
-  "id": 99,
   "name": "Al-Ni-Cu",
-  "type": "Ternary",
+  "source": "exp-2024-001",
+  "type": "solid-solution",
   "composition": "Al70Ni15Cu15",
   "elements": ["Al", "Ni", "Cu"],
-  "atomCount": 200,
-  "density": 3.56,
+  "atomCount": {"Al": 70, "Ni": 15, "Cu": 15},
   "data": [
     {
       "temperature": 300,
