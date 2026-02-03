@@ -408,7 +408,7 @@ node scripts/generate-poscar-files.js <data_file> [--output <dir>]
 ```bash
 node scripts/generate-poscar-files.js \
   backend/data/materials.json \
-  --output backend/data/poscar
+  --output data/intermetallic
 ```
 
 ---
