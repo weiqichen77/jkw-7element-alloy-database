@@ -164,9 +164,9 @@ fetch('https://weiqichen77.github.io/jkw-7element-alloy-database/data/materials.
 
 2. **填写数据**:
 ```csv
-name,source,type,composition,poscar,temperature,data_source,density,...
-Nb20Al10,mp-xxxxx,intermetallic,Nb20Al10,data/intermetallic/mp-xxxxx/POSCAR,0,DFT,8.57,...
-Nb20Al10,mp-xxxxx,intermetallic,Nb20Al10,data/intermetallic/mp-xxxxx/POSCAR,300,DPA-3,8.55,...
+name,source,type,composition,poscar,poscar_source,temperature,data_source,density,...
+Nb20Al10,mp-xxxxx,intermetallic,Nb20Al10,data/intermetallic/mp-xxxxx/POSCAR,DFT relaxation,0,DFT,8.57,...
+Nb20Al10,mp-xxxxx,intermetallic,Nb20Al10,data/intermetallic/mp-xxxxx/POSCAR,DFT relaxation,300,DPA-3,8.55,...
 ```
 
 **必填字段**:
@@ -176,6 +176,10 @@ Nb20Al10,mp-xxxxx,intermetallic,Nb20Al10,data/intermetallic/mp-xxxxx/POSCAR,300,
 - `composition`: 化学式（如 Al2Cu4Ni1）
 - `temperature`: 温度 (K)
 - `data_source`: 数据计算方法（DFT, DPA-1, DPA-3, MD, Experiment）
+
+**可选字段**:
+- `poscar_source`: POSCAR 结构来源（如 "DFT relaxation", "DPA-1 model", "DPA-3 model", "Experiment"）
+  - 若不填写，网页显示时默认为 "DFT relaxation"
 
 3. **转换为 JSON**:
 ```bash
@@ -193,6 +197,7 @@ node scripts/convert-data-v2.js your-data.csv output.json
   "elements": ["Nb", "Al"],
   "atomCount": {"Nb": 20, "Al": 10},
   "poscar": "data/intermetallic/mp-xxxxx/POSCAR",
+  "poscar_source": "DFT relaxation",
   "data": [
     {
       "temperature": 0,
@@ -224,7 +229,8 @@ node scripts/convert-data-v2.js your-data.csv output.json
 
 **注意**:
 - ✅ **不要**包含 `id` 字段（系统自动生成）
-- ✅ POSCAR 文件默认来自 **DFT 弛豫**
+- ✅ **可选**：添加 `poscar_source` 字段指定结构来源（如 "DFT relaxation", "DPA-1 model", "DPA-3 model", "Experiment"）
+- ✅ 若不指定 `poscar_source`，网页将默认显示 "DFT relaxation"
 - ✅ 使用相对路径（从仓库根目录）
 
 ### 组织文件
@@ -296,6 +302,7 @@ node scripts/check-duplicates.js
 | elements | Array | ✓ | 元素列表 ["Al", "Cu"] |
 | atomCount | Object | ✓ | 原子数 {"Al": 2, "Cu": 4} |
 | poscar | String | ✗ | POSCAR 文件路径 |
+| poscar_source | String | ✗ | POSCAR 来源说明（如 "DFT relaxation", "DPA-1 model", "DPA-3 model", "Experiment"） |
 | data | Array | ✓ | 性质数据数组 |
 
 **自动生成字段**（不要在输入中包含）:

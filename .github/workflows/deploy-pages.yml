@@ -1924,7 +1924,21 @@ jobs:
               html += '<button onclick="resetView(\'' + material.id + '\')" class="viewer-btn">' + (currentLang === 'en' ? 'Reset View' : '重置视角') + '</button>';
               html += '<button onclick="toggleStyle(\'' + material.id + '\')" class="viewer-btn">' + (currentLang === 'en' ? 'Toggle Style' : '切换样式') + '</button>';
               html += '<a href="' + relativePath + '" download class="viewer-btn download-btn">' + (currentLang === 'en' ? 'Download POSCAR' : '下载POSCAR') + '</a>';
-              html += '<span style="color: #888; font-size: 11px; margin-left: 10px;">' + (currentLang === 'en' ? '(structure from DFT relaxation)' : '(结构来自DFT弛豫)') + '</span>';
+              
+              // Display POSCAR source - user-specified or default to DFT relaxation
+              let poscarSourceText = '';
+              if (material.poscar_source) {
+                // User specified the source
+                poscarSourceText = currentLang === 'en' 
+                  ? '(structure from ' + material.poscar_source + ')'
+                  : '(结构来自' + material.poscar_source + ')';
+              } else {
+                // Default: assume DFT relaxation
+                poscarSourceText = currentLang === 'en' 
+                  ? '(structure from DFT relaxation)'
+                  : '(结构来自DFT弛豫)';
+              }
+              html += '<span style="color: #888; font-size: 11px; margin-left: 10px;">' + poscarSourceText + '</span>';
               html += '</div>';
               html += '</div>';
               html += '</div>';

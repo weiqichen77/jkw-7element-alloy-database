@@ -167,6 +167,11 @@ function convertToMaterial(rows) {
     material.poscar = firstRow.poscar;
   }
   
+  // Add POSCAR source if provided (optional)
+  if (firstRow.poscar_source && firstRow.poscar_source !== '') {
+    material.poscar_source = firstRow.poscar_source;
+  }
+  
   // Process each row as a temperature/data_source data point
   rows.forEach(row => {
     const dataPoint = {

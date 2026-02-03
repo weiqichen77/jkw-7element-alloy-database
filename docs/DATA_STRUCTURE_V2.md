@@ -52,6 +52,12 @@ This document describes the enhanced data structure for the alloy materials data
     "Ni": 1
   },
   "poscar": "data/intermetallic/mp-xxxxx/POSCAR",
+  "poscar_source": "DFT relaxation",
+  "data": [
+    "Cu": 4,
+    "Ni": 1
+  },
+  "poscar": "data/intermetallic/mp-xxxxx/POSCAR",
   "data": [
     {
       "temperature": 0,
@@ -152,6 +158,10 @@ This document describes the enhanced data structure for the alloy materials data
 - **elements** (array, required): List of element symbols (e.g., ["Al", "Cu", "Ni"])
 - **atomCount** (object, required): Number of atoms per element (e.g., `{"Al": 2, "Cu": 4, "Ni": 1}`)
 - **poscar** (string, optional): Path to POSCAR file (e.g., "data/intermetallic/mp-bbgt/POSCAR")
+- **poscar_source** (string, optional): Description of POSCAR structure origin
+  - Common values: "DFT relaxation", "DPA-1 model", "DPA-3 model", "Experiment"
+  - If not provided, frontend will display "DFT relaxation" as default
+  - Visible to users when viewing material details on the website
   - **Default**: Assumed to be from DFT relaxation
 
 ### Auto-Generated Fields
