@@ -1,32 +1,38 @@
-# 7元合金材料数据库 - 用户指南
+# 7-Element Alloy Materials Database - User Guide
 
-> **核心系统**: Al-Ni-Cu-Zr-Nb-Ta-W 体系合金材料性质数据库
+> **Core System**: Al-Ni-Cu-Zr-Nb-Ta-W alloy materials property database
 
-## 📚 快速导航
-
-| 我想... | 查看章节 |
-|---------|----------|
-| 了解数据库包含什么 | [数据库内容](#数据库内容) |
-| 查询和使用数据 | [数据查询](#数据查询) |
-| 上传新数据 | [数据上传](#数据上传) |
-| 更新已有数据 | [更新已存在的数据](#更新已存在的数据) |
-| 查看数据格式 | [数据结构](#数据结构) |
+[English](#english) | [中文](#中文)
 
 ---
 
-## 数据库内容
+## English
 
-### 材料类型
+### 📚 Quick Navigation
 
-数据库包含以下类型的合金材料：
+| I want to... | Go to |
+|--------------|-------|
+| Know what's in the database | [Database Contents](#database-contents) |
+| Query and use data | [Data Query](#data-query) |
+| Upload new data | [Data Upload](#data-upload) |
+| Update existing data | [Update Existing Data](#update-existing-data) |
+| View data format | [Data Structure](#data-structure) |
 
-| 类型 | 说明 | ID前缀 | 示例 |
-|------|------|--------|------|
-| 单质 (Element) | 纯元素 | Alloy-E- | Al, Cu, Ni |
-| 固溶体 (Solid Solution) | 固溶体合金 | Alloy-SS- | Al-Ni, Al-Cu |
-| 金属间化合物 (Intermetallic) | 金属间化合物 | Alloy-IM- | Al₃Ni₂, NbAl₃ |
-| 非晶 (Amorphous) | 非晶材料 | Alloy-AM- | a-Al₂Cu₃ |
-| 界面 (Interface) | 界面结构 | Alloy-IF- | Al₂Cu₃/Nb₄Ta₅ |
+---
+
+### Database Contents
+
+#### Material Types
+
+The database contains the following types of alloy materials:
+
+| Type | Description | ID Prefix | Examples |
+|------|-------------|-----------|----------|
+| Element | Pure elements | Alloy-E- | Al, Cu, Ni |
+| Solid Solution | Solid solution alloys | Alloy-SS- | Al-Ni, Al-Cu |
+| Intermetallic | Intermetallic compounds | Alloy-IM- | Al₃Ni₂, NbAl₃ |
+| Amorphous | Amorphous materials | Alloy-AM- | a-Al₂Cu₃ |
+| Interface | Interface structures | Alloy-IF- | Al₂Cu₃/Nb₄Ta₅ |
 
 ### 性质数据
 
@@ -265,6 +271,154 @@ data/intermetallic/mp-xxxxx/
 ```
 
 ### 验证数据
+
+```bash
+# 验证 JSON 格式
+node scripts/validate-data.js your-data.json
+
+# 检查重复和已存在的数据
+node scripts/check-duplicates.js your-data.json
+```
+
+**输出示例**:
+```
+✅ 没有发现重复数据
+新材料数量: 5
+
+或者：
+
+⚠️  Found 2 duplicate materials:
+1. Nb20Al10 (ID: Alloy-IM-00001)
+   - Source: mp-bbgt
+   - Existing data points: 3 (temperatures: 0K, 300K, 600K)
+```
+
+### Update Existing Data
+
+If duplicate data is detected, you can choose different update modes:
+
+#### Update Modes
+
+```bash
+# 1. Add new temperature points
+node scripts/update-materials.js your-data.json --mode=add-temp
+```
+- Only add data for new temperature points
+- Existing temperature data remains unchanged
+- **Use case**: Supplement properties at different temperatures
+
+```bash
+# 2. Add new data sources
+node scripts/update-materials.js your-data.json --mode=add-source
+```
+- Only add data from new sources (DFT/DPA-1/DPA-3, etc.)
+- Existing data sources remain unchanged
+- **Use case**: Calculate the same material with different methods
+
+```bash
+# 3. Partial update (non-empty fields only)
+node scripts/update-materials.js your-data.json --mode=partial
+```
+- Only update provided non-empty fields
+- Empty or omitted fields retain original values
+- **Use case**: Correct or supplement partial property data
+
+```bash
+# 4. Full replacement (default mode)
+node scripts/update-materials.js your-data.json --mode=full
+# Or shorthand
+node scripts/update-materials.js your-data.json
+```
+- Completely replace the entire material entry
+- Preserve auto-generated ID
+- **Use case**: Re-provide complete material data
+
+#### Usage Examples
+
+**Scenario 1: Add new temperature points**
+```json
+// Only provide data for new temperature points
+{
+  "name": "Nb20Al10",
+  "source": "mp-bbgt",
+  "type": "intermetallic",
+  "composition": "Nb20Al10",
+  "data": [
+    {
+      "temperature": 900,  // New temperature point
+      "source": "DFT",
+      "properties": { ... }
+    }
+  ]
+}
+```
+```bash
+node scripts/update-materials.js new-temps.json --mode=add-temp
+```
+
+**Scenario 2: Add new calculation method data**
+```json
+// Same temperature, different data source
+{
+  "name": "Nb20Al10",
+  "source": "mp-bbgt",
+  "data": [
+    {
+      "temperature": 0,
+      "source": "DPA-3",  // New data source
+      "properties": { ... }
+    }
+  ]
+}
+```
+```bash
+node scripts/update-materials.js dpa3-data.json --mode=add-source
+```
+
+**Scenario 3: Correct partial properties**
+```json
+// Only provide fields to be updated
+{
+  "name": "Nb20Al10",
+  "source": "mp-bbgt",
+  "data": [
+    {
+      "temperature": 0,
+      "source": "DFT",
+      "properties": {
+        "mechanics": {
+          "youngsModulus": 205  // Corrected value
+          // Other fields remain unchanged
+        }
+      }
+    }
+  ]
+}
+```
+```bash
+node scripts/update-materials.js corrections.json --mode=partial
+```
+
+#### General Options
+
+```bash
+# Skip confirmation prompt
+node scripts/update-materials.js your-data.json --mode=add-temp --force
+```
+
+**Matching Rules**:
+- Material matching: `name` + `source` + `type` + `composition`
+- Data point matching: `temperature` + `source` (data origin)
+
+**Notes**:
+- ✅ Auto-generated IDs always remain unchanged
+- ✅ New materials are directly added to the database
+- ✅ Manual commit and push required after updates
+- ⚠️  Recommended to check data with `check-duplicates.js` first
+
+---
+
+### 验证数据（中文版）
 
 ```bash
 # 验证 JSON 格式
