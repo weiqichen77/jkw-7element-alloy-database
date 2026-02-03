@@ -311,19 +311,21 @@ open http://localhost:8000/frontend/
 
 ```json
 {
-  "id": 1,
   "name": "Al3Zr3-intermetallic",
-  "source": "Research Database",
+  "source": "mp-xxxxx",
   "type": "intermetallic",
   "composition": "Al3Zr3",
+  "elements": ["Al", "Zr"],
+  "atomCount": {"Al": 3, "Zr": 3},
+  "poscar": "data/intermetallic/mp-xxxxx/POSCAR",
   "data": [
     {
       "temperature": 0,
       "source": "DPA-3",
       "properties": {
-        "structure": { "density": 6.87, "latticeParameters": {...}, "rdf": [[...]] },
+        "structure": { "density": 6.87, "latticeParameters": {...}, "rdf": "data/intermetallic/mp-xxxxx/rdf.dat" },
         "thermodynamics": { "mixingEnthalpy": 0.61, ... },
-        "mechanics": { "youngsModulus": 140.22, "stressStrain": [[...]], ... },
+        "mechanics": { "youngsModulus": 140.22, "stressStrain": "data/intermetallic/mp-xxxxx/stress_strain.dat", ... },
         "defects": { "vacancyFormationEnergy": 1.33, ... }
       }
     }

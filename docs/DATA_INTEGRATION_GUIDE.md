@@ -294,7 +294,7 @@ node scripts/fix-data-paths.js
 node scripts/validate-data.js
 
 # 3. 检查文件是否存在
-ls -la backend/data/poscar/
+ls -la data/intermetallic/
 ls -la backend/data/rdf/
 ```
 
@@ -373,7 +373,7 @@ git push
 "poscar": "data/poscar/mp-bbgt/POSCAR"
 
 // 也可以是
-"poscar": "backend/data/poscar/mp-bbgt.vasp"
+"poscar": "data/intermetallic/mp-bbgt.vasp"
 "poscar": "static/structures/mp-bbgt.vasp"
 ```
 

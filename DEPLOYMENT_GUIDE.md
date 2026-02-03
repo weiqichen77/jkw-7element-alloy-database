@@ -161,7 +161,7 @@ backend/data/
 | 文件类型 | 是否有 | 位置 | 备注 |
 |---------|-------|------|------|
 | 主数据JSON | ✅ 有 | `backend/data/materials_intermetallic.json` | 123个材料，492个数据点 |
-| POSCAR结构文件 | ❌ 待补充 | `backend/data/poscar/` | 需要添加实际的晶体结构文件 |
+| POSCAR结构文件 | ❌ 待补充 | `data/intermetallic/` | 需要添加实际的晶体结构文件 |
 | RDF数据文件 | ❌ 可选 | `backend/data/rdf/` | 如果有径向分布函数数据 |
 | 应力-应变曲线 | ❌ 可选 | `backend/data/stress-strain/` | 如果有机械性能数据 |
 
@@ -174,7 +174,7 @@ backend/data/
 #### 方案A: 使用现有的POSCAR文件 (简单)
 ```bash
 # 检查现有的POSCAR文件
-ls -la backend/data/poscar/
+ls -la data/intermetallic/
 
 # 更新JSON中的poscar字段指向实际文件位置
 # 示例：在你的JSON中找到对应的材料，添加:
@@ -250,10 +250,10 @@ Git提交 + GitHub Pages部署
 
 ```bash
 # 1. 创建目录结构
-mkdir -p backend/data/poscar/mp-bbgt
+mkdir -p data/intermetallic/mp-bbgt
 
 # 2. 复制POSCAR文件
-cp /path/to/POSCAR backend/data/poscar/mp-bbgt/POSCAR
+cp /path/to/POSCAR data/intermetallic/mp-bbgt/POSCAR
 
 # 3. 更新JSON中的poscar字段
 # "poscar": "data/poscar/mp-bbgt/POSCAR"
