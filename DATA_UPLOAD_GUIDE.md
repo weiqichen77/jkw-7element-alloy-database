@@ -66,7 +66,10 @@ Each entry in the `data` array:
 |-------|------|----------|-------------|
 | `temperature` | Number | ✓ | Temperature in Kelvin |
 | `source` | String | ✓ | Calculation method: "DFT", "CALPHAD", "Experiment", etc. |
+| `poscarSource` | String | ✗ | Specifies which data source the POSCAR structure comes from (e.g., "DFT", "DPA-3"). Use when POSCAR originates from different source than current data entry. |
 | `properties` | Object | ✓ | Contains structure, thermodynamics, mechanics, defects |
+
+**Note on `poscarSource`**: When a material has multiple data entries with different sources (e.g., DFT at 0K, DPA-3 at 0K, DFT at 300K), use `poscarSource` to indicate which source the POSCAR file corresponds to. This information will be displayed in the web interface next to the structure file link.
 
 #### Structure Properties
 
@@ -159,7 +162,39 @@ backend/data/
 
 ## Preparing Your Data
 
-### Step 1: Create JSON File
+### Option 1: Using CSV Template (Recommended)
+
+For easier data preparation, use the provided CSV template `example-template-v2.csv`:
+
+```csv
+name,source,type,composition,poscar,temperature,data_source,poscar_source,density,...
+Material-Name,Your Lab,solid-solution,Al2Cu4,data/poscar/sample.vasp,0,DFT,DFT,7.85,...
+Material-Name,Your Lab,solid-solution,Al2Cu4,data/poscar/sample.vasp,0,DPA-3,DFT,7.83,...
+Material-Name,Your Lab,solid-solution,Al2Cu4,data/poscar/sample.vasp,300,DFT,DFT,7.82,...
+```
+
+**Key Fields**:
+- `name`: Material name (same for multiple rows of same material)
+- `source`: Lab/research group name
+- `type`: Material type (element, solid-solution, intermetallic, amorphous, interface)
+- `composition`: Chemical formula (e.g., Al2Cu4)
+- `poscar`: Path to POSCAR file (same for all rows of same material)
+- `temperature`: Temperature in Kelvin
+- `data_source`: Data calculation method (DFT, DPA-1, DPA-3, MD, Experiment)
+- **`poscar_source`**: **NEW** - Specifies which data_source the POSCAR structure originates from
+
+**Important**: The `poscar_source` field allows you to specify which calculation method was used to generate the POSCAR structure. For example:
+- If you have DFT data at 0K, DPA-3 data at 0K, and DFT data at 300K
+- And the POSCAR file was generated using DFT calculations
+- Then set `poscar_source` to "DFT" for all three rows
+- This will be displayed on the website to indicate the structure's origin
+
+**Convert CSV to JSON**:
+```bash
+node scripts/convert-data-v2.js your-data.csv output.json
+```
+
+### Option 2: Create JSON Directly
 
 Create your `materials.json` or `materials_intermetallic.json` with proper structure:
 

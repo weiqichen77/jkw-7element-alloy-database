@@ -56,6 +56,7 @@ This document describes the enhanced data structure for the alloy materials data
     {
       "temperature": 0,
       "source": "DFT",
+      "poscarSource": "DFT",
       "properties": {
         "structure": {
           "density": 7.85,
@@ -153,7 +154,8 @@ This document describes the enhanced data structure for the alloy materials data
 Each entry in the `data` array contains:
 
 - **temperature** (number, required): Temperature in Kelvin (K)
-- **source** (string, required): Data source (DFT|DPA-1|DPA-3|other)
+- **source** (string, required): Data source (DFT|DPA-1|DPA-3|MD|Experiment|other)
+- **poscarSource** (string, optional): **NEW in V2.1** - Specifies which data source the POSCAR structure originates from. Use when POSCAR file comes from a different calculation method than the current data entry. For example, if you have DFT and DPA-3 data but POSCAR was generated from DFT, set `poscarSource: "DFT"` for all entries.
 - **properties** (object): Property groups
 
 ### Property Groups
@@ -213,3 +215,79 @@ Example calculation for a single temperature/source entry:
 Total: 43 data points for this entry
 
 If this material has 2 sources (DFT, DPA-3) at 0K: 43 × 2 = 86 data points
+
+## POSCAR Source Field Usage (V2.1 Feature)
+
+The `poscarSource` field allows you to specify which data source was used to generate the POSCAR structure file. This is particularly useful when:
+
+### Use Case 1: Multiple Data Sources, Single POSCAR
+
+You have property data from multiple calculation methods (e.g., DFT and DPA-3), but the POSCAR structure was generated using only one method (e.g., DFT).
+
+```json
+{
+  "name": "Al2Cu4-sample",
+  "poscar": "data/poscar/al2cu4.vasp",
+  "data": [
+    {
+      "temperature": 0,
+      "source": "DFT",
+      "poscarSource": "DFT",
+      "properties": { /* DFT properties */ }
+    },
+    {
+      "temperature": 0,
+      "source": "DPA-3",
+      "poscarSource": "DFT",
+      "properties": { /* DPA-3 properties */ }
+    },
+    {
+      "temperature": 300,
+      "source": "DFT",
+      "poscarSource": "DFT",
+      "properties": { /* DFT properties at 300K */ }
+    }
+  ]
+}
+```
+
+In this example:
+- All three data entries share the same POSCAR file
+- The POSCAR was generated from DFT calculations at 0K
+- The `poscarSource: "DFT"` field indicates this on the website
+- Users can see that DPA-3 data uses a DFT-optimized structure
+
+### Use Case 2: Mixed Data Sources
+
+When you have data from experiments and simulations:
+
+```json
+{
+  "name": "Ni-pure",
+  "poscar": "data/poscar/ni.vasp",
+  "data": [
+    {
+      "temperature": 0,
+      "source": "DFT",
+      "poscarSource": "DFT",
+      "properties": { /* DFT properties */ }
+    },
+    {
+      "temperature": 300,
+      "source": "Experiment",
+      "poscarSource": "DFT",
+      "properties": { /* Experimental properties */ }
+    }
+  ]
+}
+```
+
+Here the experimental data at 300K uses the DFT-optimized structure for reference.
+
+### Display on Website
+
+When users view material details, the POSCAR source is displayed:
+- Next to the "Structure File" link: `View POSCAR (Source: DFT)`
+- In the "Data Sources" section for each entry: `DPA-3 (POSCAR from DFT)`
+
+This provides transparency about which calculation method generated the atomic structure.

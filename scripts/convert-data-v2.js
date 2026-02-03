@@ -175,6 +175,11 @@ function convertToMaterial(rows) {
       properties: {}
     };
     
+    // Add poscar_source if provided (specifies which data source the POSCAR structure comes from)
+    if (row.poscar_source && row.poscar_source !== '') {
+      dataPoint.poscarSource = row.poscar_source;
+    }
+    
     // Structure properties
     const structure = {};
     if (row.density) structure.density = parseFloat(row.density);
@@ -374,9 +379,10 @@ async function convertData(inputFile, outputFile) {
  * Generate template
  */
 function generateTemplate(outputFile) {
-  const template = `id,name,type,composition,poscar,temperature,source,density,lattice_a,lattice_b,lattice_c,lattice_alpha,lattice_beta,lattice_gamma,point_group,rdf,specific_heat,mixing_enthalpy,diffusion_coefficient,thermal_expansion,youngs_modulus,bulk_modulus,shear_modulus,poissons_ratio,elastic_constants,stress_strain,vacancy_formation_energy,interstitial_formation_energy_dumbbell111,interstitial_formation_energy_dumbbell100,interstitial_formation_energy_crowdion111,stacking_fault_energy
-1,Material-Name,solid-solution,Al2Cu4,data/poscar/sample.vasp,0,DFT,7.85,3.52,3.52,3.52,90,90,90,Fm-3m,data/rdf/sample.dat,0.45,-0.25,1.2e-10,1.5e-5,200,160,80,0.3,"[[230,135,135,0,0,0],[135,230,135,0,0,0],[135,135,230,0,0,0],[0,0,0,118,0,0],[0,0,0,0,118,0],[0,0,0,0,0,118]]",data/stress-strain/sample.dat,1.2,3.5,3.8,4.2,0.05
-1,Material-Name,solid-solution,Al2Cu4,data/poscar/sample.vasp,300,DFT,7.82,3.53,3.53,3.53,90,90,90,Fm-3m,,0.48,,,,,,,,,,,,,,,
+  const template = `id,name,type,composition,poscar,temperature,source,data_source,poscar_source,density,lattice_a,lattice_b,lattice_c,lattice_alpha,lattice_beta,lattice_gamma,point_group,rdf,specific_heat,mixing_enthalpy,diffusion_coefficient,thermal_expansion,youngs_modulus,bulk_modulus,shear_modulus,poissons_ratio,elastic_constants,stress_strain,vacancy_formation_energy,interstitial_formation_energy_dumbbell111,interstitial_formation_energy_dumbbell100,interstitial_formation_energy_crowdion111,stacking_fault_energy
+1,Material-Name,solid-solution,Al2Cu4,data/poscar/sample.vasp,0,Your Lab,DFT,DFT,7.85,3.52,3.52,3.52,90,90,90,Fm-3m,data/rdf/sample.dat,0.45,-0.25,1.2e-10,1.5e-5,200,160,80,0.3,"[[230,135,135,0,0,0],[135,230,135,0,0,0],[135,135,230,0,0,0],[0,0,0,118,0,0],[0,0,0,0,118,0],[0,0,0,0,0,118]]",data/stress-strain/sample.dat,1.2,3.5,3.8,4.2,0.05
+1,Material-Name,solid-solution,Al2Cu4,data/poscar/sample.vasp,0,Your Lab,DPA-3,DFT,7.83,3.52,3.52,3.52,90,90,90,Fm-3m,,,,,,195,,,,,,,3.6,,,,
+1,Material-Name,solid-solution,Al2Cu4,data/poscar/sample.vasp,300,Your Lab,DFT,DFT,7.82,3.53,3.53,3.53,90,90,90,Fm-3m,,0.48,,,,,,,,,,,,,,,
 `;
   
   fs.writeFileSync(outputFile, template);
@@ -384,6 +390,7 @@ function generateTemplate(outputFile) {
   console.log('\nTemplate includes examples with multiple temperatures and data sources.');
   console.log('Material types: element, solid-solution, intermetallic, amorphous, interface');
   console.log('Data sources: DFT, DPA-1, DPA-3');
+  console.log('Note: poscar_source specifies which data source the POSCAR structure comes from (e.g., DFT, DPA-3)');
 }
 
 // CLI
