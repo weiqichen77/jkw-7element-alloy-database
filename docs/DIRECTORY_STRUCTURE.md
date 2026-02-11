@@ -11,19 +11,35 @@ data/
 ├── materials.json                    # Main materials database (merged, with auto-generated IDs)
 ├── intermetallic/                    # Intermetallic compounds organized by source
 │   ├── mp-bbgt/                      # Materials Project ID: mp-bbgt
-│   │   ├── POSCAR                    # Crystal structure (DFT relaxed)
-│   │   ├── rdf.dat                   # Radial distribution function (optional)
-│   │   └── stress_strain.dat         # Stress-strain data (optional)
+│   │   ├── DFT/                      # DFT calculation results
+│   │   │   ├── POSCAR                # Crystal structure (DFT relaxed)
+│   │   │   ├── rdf.dat               # Radial distribution function (optional)
+│   │   │   └── stress_strain.dat     # Stress-strain data (optional)
+│   │   ├── DPA-1/                    # Deep potential model generation 1 (optional)
+│   │   │   ├── POSCAR                # Structure from DPA-1
+│   │   │   ├── rdf.dat               # RDF from DPA-1
+│   │   │   └── stress_strain.dat     # Stress-strain from DPA-1
+│   │   └── DPA-3/                    # Deep potential model generation 3 (optional)
+│   │       ├── POSCAR                # Structure from DPA-3
+│   │       └── rdf.dat               # RDF from DPA-3
 │   ├── mp-be/
-│   │   └── POSCAR
+│   │   └── DFT/
+│   │       └── POSCAR
 │   ├── mp-beq/
-│   │   └── POSCAR
+│   │   └── DFT/
+│   │       └── POSCAR
 │   └── ...                           # More Materials Project entries
-└── solid-solution/                   # Solid solution alloys (future expansion)
-    ├── custom-001/
-    │   ├── POSCAR
-    │   └── ...
-    └── ...
+├── solid-solution/                   # Solid solution alloys (future expansion)
+│   ├── custom-001/
+│   │   ├── DFT/
+│   │   │   └── POSCAR
+│   │   └── MD/                       # Molecular dynamics results (optional)
+│   │       └── rdf.dat
+│   └── ...
+└── amorphous/                        # Amorphous materials
+    └── exp-001/
+        └── Experiment/               # Experimental data
+            └── rdf.dat
 
 backend/data/
 ├── materials.json                    # Copy for backend API serving
@@ -41,41 +57,56 @@ Each material's data is stored in a directory named after its **source ID**:
 
 ## File Types and Locations
 
+### Data Source Subdirectories
+
+Each material's directory contains subdirectories organized by **data source**:
+
+- **DFT**: Density Functional Theory calculations
+- **DPA-1**: Deep Potential model generation 1
+- **DPA-3**: Deep Potential model generation 3
+- **MD**: Molecular Dynamics simulations
+- **Experiment**: Experimental measurements
+
+**Purpose**: This structure allows the same material to have structure/property files from multiple calculation methods or experiments.
+
 ### 1. Crystal Structure Files (POSCAR)
 
-**Location**: `data/{type}/{source-id}/POSCAR`
+**Location**: `data/{type}/{source-id}/{data-source}/POSCAR`
 
-**Default assumption**: Structure from **DFT relaxation**
-
-**Example**:
+**Examples**:
 ```
-data/intermetallic/mp-bbgt/POSCAR
+data/intermetallic/mp-bbgt/DFT/POSCAR         # DFT relaxed structure
+data/intermetallic/mp-bbgt/DPA-1/POSCAR       # DPA-1 model structure
+data/intermetallic/mp-bbgt/DPA-3/POSCAR       # DPA-3 model structure
 ```
 
 **Format**: VASP POSCAR format (5 or 6 line header)
 
 ### 2. Radial Distribution Function (RDF)
 
-**Location**: `data/{type}/{source-id}/rdf.dat`
+**Location**: `data/{type}/{source-id}/{data-source}/rdf.dat`
 
 **Optional**: Include if available
 
-**Example**:
+**Examples**:
 ```
-data/intermetallic/mp-bbgt/rdf.dat
+data/intermetallic/mp-bbgt/DFT/rdf.dat        # RDF from DFT
+data/intermetallic/mp-bbgt/DPA-3/rdf.dat      # RDF from DPA-3
+data/amorphous/sample-01/Experiment/rdf.dat   # Experimental RDF
 ```
 
 **Format**: Two-column text file (distance, g(r))
 
 ### 3. Stress-Strain Curves
 
-**Location**: `data/{type}/{source-id}/stress_strain.dat`
+**Location**: `data/{type}/{source-id}/{data-source}/stress_strain.dat`
 
 **Optional**: Include if available
 
-**Example**:
+**Examples**:
 ```
-data/intermetallic/mp-bbgt/stress_strain.dat
+data/intermetallic/mp-bbgt/DFT/stress_strain.dat     # DFT stress-strain
+data/intermetallic/mp-bbgt/DPA-1/stress_strain.dat   # DPA-1 stress-strain
 ```
 
 **Format**: Two-column text file (strain, stress in GPa)
@@ -105,24 +136,40 @@ Materials are organized by type in subdirectories:
 
 ## Adding New Materials
 
-### Step 1: Create Source Directory
+### Step 1: Create Directory Structure
 
 ```bash
-mkdir -p data/intermetallic/mp-xxxxx
+# Create material directory with data source subdirectory
+mkdir -p data/intermetallic/mp-xxxxx/DFT
+
+# For multiple data sources
+mkdir -p data/intermetallic/mp-xxxxx/DPA-1
+mkdir -p data/intermetallic/mp-xxxxx/DPA-3
 ```
 
-### Step 2: Add Structure File
+### Step 2: Add Structure Files
 
-Place your POSCAR file:
+Place your POSCAR files in appropriate data source directories:
 ```bash
-cp your_structure.vasp data/intermetallic/mp-xxxxx/POSCAR
+# DFT structure
+cp dft_structure.vasp data/intermetallic/mp-xxxxx/DFT/POSCAR
+
+# DPA-1 structure (if available)
+cp dpa1_structure.vasp data/intermetallic/mp-xxxxx/DPA-1/POSCAR
+
+# DPA-3 structure (if available)
+cp dpa3_structure.vasp data/intermetallic/mp-xxxxx/DPA-3/POSCAR
 ```
 
 ### Step 3: Add Optional Data Files
 
 ```bash
-cp rdf_data.txt data/intermetallic/mp-xxxxx/rdf.dat
-cp stress_strain.txt data/intermetallic/mp-xxxxx/stress_strain.dat
+# Add RDF and stress-strain data for each source
+cp dft_rdf.txt data/intermetallic/mp-xxxxx/DFT/rdf.dat
+cp dft_stress_strain.txt data/intermetallic/mp-xxxxx/DFT/stress_strain.dat
+
+cp dpa1_rdf.txt data/intermetallic/mp-xxxxx/DPA-1/rdf.dat
+cp dpa3_rdf.txt data/intermetallic/mp-xxxxx/DPA-3/rdf.dat
 ```
 
 ### Step 4: Create Material JSON Entry

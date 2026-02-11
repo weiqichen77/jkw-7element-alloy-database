@@ -184,24 +184,43 @@ node scripts/convert-data-v2.js your-data.csv output.json
 创建材料目录并放置文件：
 
 ```bash
-# 创建材料目录（目录名 = source 字段值）
-mkdir -p data/intermetallic/mp-xxxxx
+# 创建材料目录（含数据源子目录）
+# （目录名称 = source 字段值）
+mkdir -p data/intermetallic/mp-xxxxx/DFT
 
-# 添加结构文件（必需）
-cp your_structure.vasp data/intermetallic/mp-xxxxx/POSCAR
+# 添加结构文件
+cp your_structure.vasp data/intermetallic/mp-xxxxx/DFT/POSCAR
 
 # 添加可选数据文件
-cp rdf_data.txt data/intermetallic/mp-xxxxx/rdf.dat
-cp stress_strain.txt data/intermetallic/mp-xxxxx/stress_strain.dat
+cp rdf_data.txt data/intermetallic/mp-xxxxx/DFT/rdf.dat
+cp stress_strain.txt data/intermetallic/mp-xxxxx/DFT/stress_strain.dat
 ```
 
-**目录结构**:
+**目录结构**：
 ```
 data/intermetallic/mp-xxxxx/
-├── POSCAR              # 晶体结构（DFT弛豫）
-├── rdf.dat             # 径向分布函数（可选）
-└── stress_strain.dat   # 应力-应变数据（可选）
+└── DFT/                    # 数据来源子目录
+    ├── POSCAR              # 晶体结构（DFT弛豫）
+    ├── rdf.dat             # 径向分布函数（可选）
+    └── stress_strain.dat   # 应力-应变数据（可选）
 ```
+
+**多数据源支持**（可选）：
+```bash
+# 如果有来自多个数据源的文件（DFT、DPA-1、DPA-3等）
+mkdir -p data/intermetallic/mp-xxxxx/DPA-1
+mkdir -p data/intermetallic/mp-xxxxx/DPA-3
+
+cp dpa1_structure.vasp data/intermetallic/mp-xxxxx/DPA-1/POSCAR
+cp dpa3_structure.vasp data/intermetallic/mp-xxxxx/DPA-3/POSCAR
+```
+
+**支持的数据源目录**：
+- `DFT/` - 密度泛函理论计算
+- `DPA-1/` - 深度势能模型第一代
+- `DPa-3/` - 深度势能模型第三代
+- `MD/` - 分子动力学模拟
+- `Experiment/` - 实验测量数据
 
 ### 验证数据
 

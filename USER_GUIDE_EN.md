@@ -220,24 +220,43 @@ node scripts/convert-data-v2.js your-data.csv output.json
 Create material directory and place files:
 
 ```bash
-# Create material directory (directory name = source field value)
-mkdir -p data/intermetallic/mp-xxxxx
+# Create material directory with data source subdirectory
+# (directory name = source field value)
+mkdir -p data/intermetallic/mp-xxxxx/DFT
 
-# Add structure file (required)
-cp your_structure.vasp data/intermetallic/mp-xxxxx/POSCAR
+# Add structure file
+cp your_structure.vasp data/intermetallic/mp-xxxxx/DFT/POSCAR
 
 # Add optional data files
-cp rdf_data.txt data/intermetallic/mp-xxxxx/rdf.dat
-cp stress_strain.txt data/intermetallic/mp-xxxxx/stress_strain.dat
+cp rdf_data.txt data/intermetallic/mp-xxxxx/DFT/rdf.dat
+cp stress_strain.txt data/intermetallic/mp-xxxxx/DFT/stress_strain.dat
 ```
 
 **Directory structure**:
 ```
 data/intermetallic/mp-xxxxx/
-├── POSCAR              # Crystal structure (DFT relaxed)
-├── rdf.dat             # Radial distribution function (optional)
-└── stress_strain.dat   # Stress-strain data (optional)
+└── DFT/                    # Data source subdirectory
+    ├── POSCAR              # Crystal structure (DFT relaxed)
+    ├── rdf.dat             # Radial distribution function (optional)
+    └── stress_strain.dat   # Stress-strain data (optional)
 ```
+
+**Multiple data sources** (optional):
+```bash
+# If you have data from multiple sources (DFT, DPA-1, DPA-3, etc.)
+mkdir -p data/intermetallic/mp-xxxxx/DPA-1
+mkdir -p data/intermetallic/mp-xxxxx/DPA-3
+
+cp dpa1_structure.vasp data/intermetallic/mp-xxxxx/DPA-1/POSCAR
+cp dpa3_structure.vasp data/intermetallic/mp-xxxxx/DPA-3/POSCAR
+```
+
+**Supported data source directories**:
+- `DFT/` - Density Functional Theory calculations
+- `DPA-1/` - Deep Potential model generation 1
+- `DPA-3/` - Deep Potential model generation 3
+- `MD/` - Molecular Dynamics simulations
+- `Experiment/` - Experimental measurements
 
 ### Validate Data
 

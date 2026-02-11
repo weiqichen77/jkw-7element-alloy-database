@@ -322,15 +322,16 @@ open http://localhost:8000/frontend/
   "composition": "Al3Zr3",
   "elements": ["Al", "Zr"],
   "atomCount": {"Al": 3, "Zr": 3},
-  "poscar": "data/intermetallic/mp-xxxxx/POSCAR",
+  "poscar": "data/intermetallic/mp-xxxxx/DFT/POSCAR",
+  "poscar_source": "DFT relaxation",
   "data": [
     {
       "temperature": 0,
-      "source": "DPA-3",
+      "source": "DFT",
       "properties": {
-        "structure": { "density": 6.87, "latticeParameters": {...}, "rdf": "data/intermetallic/mp-xxxxx/rdf.dat" },
+        "structure": { "density": 6.87, "latticeParameters": {...}, "rdf": "data/intermetallic/mp-xxxxx/DFT/rdf.dat" },
         "thermodynamics": { "mixingEnthalpy": 0.61, ... },
-        "mechanics": { "youngsModulus": 140.22, "stressStrain": "data/intermetallic/mp-xxxxx/stress_strain.dat", ... },
+        "mechanics": { "youngsModulus": 140.22, "stressStrain": "data/intermetallic/mp-xxxxx/DFT/stress_strain.dat", ... },
         "defects": { "vacancyFormationEnergy": 1.33, ... }
       }
     }
