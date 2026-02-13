@@ -57,6 +57,8 @@ node scripts/fix-json-format.js /path/to/materials_solid_solution_0213.json
 5. **Empty Fields Removal**
    - Removes fields with `null`, `""`, or `undefined` values
 
+**Important:** The script **preserves all unknown/custom fields** - it will not remove or report errors for fields that are not in the standard schema. This ensures forward compatibility and allows you to include custom metadata or experimental fields in your JSON files.
+
 **Output:**
 ```
 ═══════════════════════════════════════════════

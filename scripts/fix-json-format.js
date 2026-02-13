@@ -17,6 +17,7 @@ const FIXES = {
   DATA_SOURCE_NORMALIZE: true,   // DPA1_251208 → DPA-1, DPA3 → DPA-3
   REMOVE_EMPTY_FIELDS: true,     // Remove fields with empty strings or null
   ADD_MISSING_FIELDS: false,     // Add missing required fields (set to false by default)
+  PRESERVE_UNKNOWN_FIELDS: true, // Keep unknown fields instead of reporting errors
 };
 
 const VALID_TYPES = ['element', 'solid-solution', 'intermetallic', 'amorphous', 'interface'];
@@ -119,6 +120,7 @@ function normalizePath(filePath) {
 }
 
 // Remove empty or null fields from object
+// Preserves all non-empty fields, including unknown/custom fields
 function removeEmptyFields(obj) {
   if (typeof obj !== 'object' || obj === null) return obj;
   
@@ -130,11 +132,13 @@ function removeEmptyFields(obj) {
   let removedCount = 0;
   
   for (const [key, value] of Object.entries(obj)) {
+    // Skip empty values
     if (value === null || value === '' || value === undefined) {
       removedCount++;
       continue;
     }
     
+    // Recursively clean objects, preserve all other values
     if (typeof value === 'object') {
       cleaned[key] = removeEmptyFields(value);
     } else {
@@ -229,6 +233,9 @@ function fixMaterial(material, index) {
     });
   }
   
+  // Preserve all other fields (including unknown fields)
+  // This ensures forward compatibility and allows custom fields
+  
   if (fixed) {
     stats.fixedMaterials++;
   }
@@ -237,10 +244,11 @@ function fixMaterial(material, index) {
 }
 
 // Validate material structure
+// Only validates required fields - unknown/custom fields are preserved and ignored
 function validateMaterial(material, index) {
   const errors = [];
   
-  // Check required fields
+  // Check required fields only
   if (!material.name) errors.push('Missing required field: name');
   if (!material.source) errors.push('Missing required field: source');
   if (!material.type) errors.push('Missing required field: type');
@@ -251,6 +259,8 @@ function validateMaterial(material, index) {
   if (!material.atomCount || typeof material.atomCount !== 'object') {
     errors.push('Missing or invalid field: atomCount (must be object)');
   }
+  
+  // Note: Unknown fields are intentionally ignored for forward compatibility
   
   // Check data array
   if (!material.data || !Array.isArray(material.data)) {

@@ -4,6 +4,33 @@
 
 This document describes the enhanced data structure for the alloy materials database, supporting multiple temperatures, data sources, and expanded property categories.
 
+### Extensibility and Custom Fields
+
+The database schema is **forward-compatible** and **extensible**:
+
+- ✅ **Unknown fields are preserved**: You can include custom fields not defined in this schema
+- ✅ **No validation errors**: Custom fields will not cause import or processing errors
+- ✅ **Frontend compatible**: The web interface safely ignores unknown fields
+- ✅ **Use cases**: Add experimental metadata, internal tracking IDs, or proprietary data
+
+**Example with custom fields:**
+```json
+{
+  "name": "Custom Material",
+  "source": "lab-2024-001",
+  "customLabId": "EXP-12345",
+  "researchGroup": "Materials Lab A",
+  "internalNotes": "High priority sample",
+  "metadata": {
+    "date": "2026-02-13",
+    "researcher": "Dr. Smith"
+  },
+  ...standard fields...
+}
+```
+
+All custom fields will be preserved through processing and storage.
+
 ## Material Types
 
 - `element`: Pure element (单质)
