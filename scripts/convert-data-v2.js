@@ -162,23 +162,34 @@ function convertToMaterial(rows) {
     data: []
   };
   
-  // Add POSCAR if provided
-  if (firstRow.poscar && firstRow.poscar !== '') {
-    material.poscar = firstRow.poscar;
-  }
-  
-  // Add POSCAR source if provided (optional)
-  if (firstRow.poscar_source && firstRow.poscar_source !== '') {
-    material.poscar_source = firstRow.poscar_source;
-  }
-  
   // Process each row as a temperature/data_source data point
   rows.forEach(row => {
     const dataPoint = {
-      temperature: parseFloat(row.temperature) || 0,
       source: row.data_source || row.source || 'DFT',  // Use data_source column, fallback to source
-      properties: {}
     };
+    
+    // Add temperature if not 'init' source
+    if (dataPoint.source !== 'init') {
+      dataPoint.temperature = parseFloat(row.temperature) || 0;
+    }
+    
+    // Add POSCAR path (required for each data entry)
+    if (row.poscar && row.poscar !== '') {
+      dataPoint.poscar = row.poscar;
+    }
+    
+    // Add POSCAR source description (optional)
+    if (row.poscar_source && row.poscar_source !== '') {
+      dataPoint.poscar_source = row.poscar_source;
+    }
+    
+    // For 'init' source, only include structure file, no properties
+    if (dataPoint.source === 'init') {
+      material.data.push(dataPoint);
+      return;
+    }
+    
+    dataPoint.properties = {};
     
     // Structure properties
     const structure = {};
@@ -284,6 +295,18 @@ function validateMaterial(material) {
   
   // Validate each data entry
   material.data.forEach((entry, index) => {
+    // For 'init' source, only require source and poscar
+    if (entry.source === 'init') {
+      if (!entry.source) {
+        errors.push(`Data entry ${index}: missing source`);
+      }
+      if (!entry.poscar) {
+        errors.push(`Data entry ${index}: 'init' entry must have poscar field`);
+      }
+      return;
+    }
+    
+    // For regular entries, require temperature, source, and properties
     if (entry.temperature === undefined) {
       errors.push(`Data entry ${index}: missing temperature`);
     }

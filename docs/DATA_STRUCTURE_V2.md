@@ -51,12 +51,16 @@ This document describes the enhanced data structure for the alloy materials data
     "Cu": 4,
     "Ni": 1
   },
-  "poscar": "data/intermetallic/mp-xxxxx/POSCAR",
-  "poscar_source": "DFT relaxation",
   "data": [
+    {
+      "source": "init",
+      "poscar": "data/solid-solution/mp-xxxxx/init/POSCAR"
+    },
     {
       "temperature": 0,
       "source": "DFT",
+      "poscar": "data/solid-solution/mp-xxxxx/DFT/POSCAR",
+      "poscar_source": "DFT relaxation",
       "properties": {
         "structure": {
           "density": 7.85,
@@ -69,7 +73,7 @@ This document describes the enhanced data structure for the alloy materials data
             "gamma": 90,
             "pointGroup": "Fm-3m"
           },
-          "rdf": "data/rdf/material-1-0K-DFT.dat"
+          "rdf": "data/solid-solution/mp-xxxxx/DFT/rdf.dat"
         },
         "thermodynamics": {
           "specificHeat": 0.45,
@@ -90,7 +94,7 @@ This document describes the enhanced data structure for the alloy materials data
             [0, 0, 0, 0, 118, 0],
             [0, 0, 0, 0, 0, 118]
           ],
-          "stressStrain": "data/stress-strain/material-1-0K-DFT.dat"
+          "stressStrain": "data/solid-solution/mp-xxxxx/DFT/stress_strain.dat"
         },
         "defects": {
           "vacancyFormationEnergy": 1.2,
@@ -106,6 +110,8 @@ This document describes the enhanced data structure for the alloy materials data
     {
       "temperature": 300,
       "source": "DFT",
+      "poscar": "data/solid-solution/mp-xxxxx/DFT/POSCAR",
+      "poscar_source": "DFT relaxation",
       "properties": {
         "structure": {
           "density": 7.82,
@@ -127,9 +133,20 @@ This document describes the enhanced data structure for the alloy materials data
     {
       "temperature": 0,
       "source": "DPA-3",
+      "poscar": "data/solid-solution/mp-xxxxx/DPA-3/POSCAR",
+      "poscar_source": "DPA-3 model",
       "properties": {
         "structure": {
-          "density": 7.83
+          "density": 7.83,
+          "latticeParameters": {
+            "a": 3.52,
+            "b": 3.52,
+            "c": 3.52,
+            "alpha": 90,
+            "beta": 90,
+            "gamma": 90,
+            "pointGroup": "Fm-3m"
+          }
         }
       }
     }
@@ -152,12 +169,6 @@ This document describes the enhanced data structure for the alloy materials data
 - **composition** (string, required): Chemical composition formula (e.g., "Al2Cu4Ni1")
 - **elements** (array, required): List of element symbols (e.g., ["Al", "Cu", "Ni"])
 - **atomCount** (object, required): Number of atoms per element (e.g., `{"Al": 2, "Cu": 4, "Ni": 1}`)
-- **poscar** (string, optional): Path to POSCAR file (e.g., "data/intermetallic/mp-bbgt/POSCAR")
-- **poscar_source** (string, optional): Description of POSCAR structure origin
-  - Common values: "DFT relaxation", "DPA-1 model", "DPA-3 model", "Experiment"
-  - If not provided, frontend will display "DFT relaxation" as default
-  - Visible to users when viewing material details on the website
-  - **Default**: Assumed to be from DFT relaxation
 
 ### Auto-Generated Fields
 
@@ -168,12 +179,42 @@ This document describes the enhanced data structure for the alloy materials data
 
 ### Data Array
 
-Each entry in the `data` array contains:
+The `data` array contains multiple entries for different conditions (temperature, calculation method, etc.). Each entry represents a specific set of measurements or calculations.
 
+#### Initial Structure Entry (Optional)
+
+A special entry with `source: "init"` provides the initial/reference structure without properties:
+
+```json
+{
+  "source": "init",
+  "poscar": "data/solid-solution/mp-xxxxx/init/POSCAR"
+}
+```
+
+This entry:
+- Contains only structural information (POSCAR file)
+- No `temperature` field (represents the starting configuration)
+- No `properties` field (no calculated properties)
+- Used as reference structure for visualization
+
+#### Regular Data Entries
+
+Each regular entry in the `data` array contains:
 
 - **temperature** (number, required): Temperature in Kelvin (K)
-- **source** (string, required): Data source (DFT|DPA-1|DPA-3|MD|Experiment|other)
-- **properties** (object): Property groups
+- **source** (string, required): Data source/calculation method
+  - Common values: `DFT`, `DPA-1`, `DPA-3`, `MD`, `Experiment`
+  - Also accepts custom source names (e.g., `DPA1_251208`)
+- **poscar** (string, required): Path to POSCAR structure file for this specific condition
+  - Format: `data/{type}/{source-id}/{data-source}/POSCAR`
+  - Example: `data/intermetallic/mp-bbgt/DFT/POSCAR`
+  - **Rationale**: Different temperatures and calculation methods may produce different structures
+- **poscar_source** (string, optional): Human-readable description of structure origin
+  - Common values: `"DFT relaxation"`, `"DPA-1 model"`, `"DPA-3 model"`, `"MD simulation"`, `"Experiment"`
+  - Displayed to users in structure visualization interface
+  - If not provided, defaults to the value of `source` field
+- **properties** (object): Property groups (see below)
 
 ### Property Groups
 

@@ -204,15 +204,52 @@
         } else if (material.id) {
           html += `<div class="detail-item"><div class="detail-item-label">ID</div><div class="detail-item-value">${material.id}</div></div>`;
         }
-        
-        // Display POSCAR link if available at top level
-        if (material.poscar) {
-          let poscarInfo = `<a href="${material.poscar}" target="_blank" style="color: #3498db; text-decoration: underline;">View POSCAR</a>`;
-          poscarInfo += ` <span style="color: #888; font-size: 11px;">(atomic structure file)</span>`;
-          html += `<div class="detail-item"><div class="detail-item-label">Structure File</div><div class="detail-item-value">${poscarInfo}</div></div>`;
-        }
-        
         html += '</div></div>';
+      }
+      
+      // Structure Visualization Section with Selector
+      if (material.data && material.data.length > 0) {
+        // Find available structures
+        const structures = [];
+        material.data.forEach((dataEntry, idx) => {
+          if (dataEntry.poscar) {
+            const label = dataEntry.source === 'init' 
+              ? 'Initial Structure'
+              : `${dataEntry.temperature || 0}K - ${dataEntry.source}`;
+            const poscarSource = dataEntry.poscar_source || dataEntry.source;
+            structures.push({ idx, label, poscarSource, ...dataEntry });
+          }
+        });
+        
+        if (structures.length > 0) {
+          // Find default structure: prefer 0K DFT, else first structure
+          let defaultIdx = structures.findIndex(s => s.temperature === 0 && s.source === 'DFT');
+          if (defaultIdx === -1) defaultIdx = 0;
+          
+          html += '<div class="detail-section">';
+          html += '<div class="detail-section-title">Crystal Structure Visualization</div>';
+          
+          if (structures.length > 1) {
+            html += '<div style="margin-bottom: 10px;">';
+            html += '<select id="structure-selector-' + (material.source || material.id) + '" onchange="updateStructureDisplay(this, \'' + (material.source || material.id) + '\')" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 13px;">';
+            structures.forEach((s, i) => {
+              const selected = i === defaultIdx ? 'selected' : '';
+              html += `<option value="${s.idx}" ${selected}>${s.label}</option>`;
+            });
+            html += '</select>';
+            html += '</div>';
+          }
+          
+          html += '<div id="structure-info-' + (material.source || material.id) + '">';
+          const defaultStructure = structures[defaultIdx];
+          html += `<div class="detail-item"><div class="detail-item-label">Structure Source</div><div class="detail-item-value">${defaultStructure.poscarSource}</div></div>`;
+          html += `<div class="detail-item"><div class="detail-item-label">Structure File</div><div class="detail-item-value"><a href="${defaultStructure.poscar}" target="_blank" style="color: #3498db; text-decoration: underline;">View POSCAR</a> <span style="color: #888; font-size: 11px;">(atomic structure file)</span></div></div>`;
+          html += '</div>';
+          html += '</div>';
+          
+          // Store structures data for later use
+          window['structures_' + (material.source || material.id)] = structures;
+        }
       }
       
       
@@ -282,6 +319,32 @@
       
       html += '</div>';
       return html;
+    }
+    
+    function updateStructureDisplay(selectElement, materialId) {
+      const selectedIdx = parseInt(selectElement.value);
+      const structures = window['structures_' + materialId];
+      
+      if (structures && structures[selectedIdx]) {
+        const structure = structures.find(s => s.idx === selectedIdx);
+        const infoDiv = document.getElementById('structure-info-' + materialId);
+        
+        if (infoDiv && structure) {
+          infoDiv.innerHTML = `
+            <div class="detail-item">
+              <div class="detail-item-label">Structure Source</div>
+              <div class="detail-item-value">${structure.poscarSource}</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-label">Structure File</div>
+              <div class="detail-item-value">
+                <a href="${structure.poscar}" target="_blank" style="color: #3498db; text-decoration: underline;">View POSCAR</a>
+                <span style="color: #888; font-size: 11px;">(atomic structure file)</span>
+              </div>
+            </div>
+          `;
+        }
+      }
     }
     
     window.addEventListener('load', loadData);
