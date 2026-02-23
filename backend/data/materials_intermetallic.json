@@ -12,7 +12,7 @@
       "Nb": 20,
       "Al": 10
     },
-    "poscar": "/data/intermetallic/mp-bbgt/POSCAR",
+    "poscar": "/data/intermetallic/mp-bbgt/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -392,7 +392,7 @@
     "atomCount": {
       "Cu": 1
     },
-    "poscar": "/data/intermetallic/mp-be/POSCAR",
+    "poscar": "/data/intermetallic/mp-be/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -774,7 +774,7 @@
       "Nb": 6,
       "Al": 2
     },
-    "poscar": "/data/intermetallic/mp-beq/POSCAR",
+    "poscar": "/data/intermetallic/mp-beq/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -1156,7 +1156,7 @@
       "Zr": 1,
       "Al": 3
     },
-    "poscar": "/data/intermetallic/mp-bgkwl/POSCAR",
+    "poscar": "/data/intermetallic/mp-bgkwl/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -1538,7 +1538,7 @@
       "Ta": 4,
       "Ni": 12
     },
-    "poscar": "/data/intermetallic/mp-bgkwm/POSCAR",
+    "poscar": "/data/intermetallic/mp-bgkwm/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -1918,7 +1918,7 @@
     "atomCount": {
       "Ta": 30
     },
-    "poscar": "/data/intermetallic/mp-bgkxe/POSCAR",
+    "poscar": "/data/intermetallic/mp-bgkxe/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -2300,7 +2300,7 @@
       "Ta": 1,
       "Ni": 3
     },
-    "poscar": "/data/intermetallic/mp-bglxz/POSCAR",
+    "poscar": "/data/intermetallic/mp-bglxz/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -2682,7 +2682,7 @@
       "Zr": 10,
       "Al": 8
     },
-    "poscar": "/data/intermetallic/mp-bgmiw/POSCAR",
+    "poscar": "/data/intermetallic/mp-bgmiw/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -3064,7 +3064,7 @@
       "Zr": 3,
       "Cu": 1
     },
-    "poscar": "/data/intermetallic/mp-bhakt/POSCAR",
+    "poscar": "/data/intermetallic/mp-bhakt/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -3446,7 +3446,7 @@
       "Ta": 2,
       "Ni": 6
     },
-    "poscar": "/data/intermetallic/mp-bih/POSCAR",
+    "poscar": "/data/intermetallic/mp-bih/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -3828,7 +3828,7 @@
       "Al": 12,
       "Ni": 4
     },
-    "poscar": "/data/intermetallic/mp-bjkld/POSCAR",
+    "poscar": "/data/intermetallic/mp-bjkld/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -4210,7 +4210,7 @@
       "Zr": 14,
       "Ni": 20
     },
-    "poscar": "/data/intermetallic/mp-bkfpt/POSCAR",
+    "poscar": "/data/intermetallic/mp-bkfpt/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -4594,7 +4594,7 @@
       "Al": 2,
       "Ni": 8
     },
-    "poscar": "/data/intermetallic/mp-bkgsd/POSCAR",
+    "poscar": "/data/intermetallic/mp-bkgsd/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -4976,7 +4976,7 @@
       "Ta": 20,
       "Al": 10
     },
-    "poscar": "/data/intermetallic/mp-bkkoo/POSCAR",
+    "poscar": "/data/intermetallic/mp-bkkoo/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -5358,7 +5358,7 @@
       "Al": 1,
       "Ni": 3
     },
-    "poscar": "/data/intermetallic/mp-bmglc/POSCAR",
+    "poscar": "/data/intermetallic/mp-bmglc/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -5740,7 +5740,7 @@
       "Al": 3,
       "Ni": 2
     },
-    "poscar": "/data/intermetallic/mp-bor/POSCAR",
+    "poscar": "/data/intermetallic/mp-bor/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -6120,7 +6120,7 @@
     "atomCount": {
       "Zr": 1
     },
-    "poscar": "/data/intermetallic/mp-bp/POSCAR",
+    "poscar": "/data/intermetallic/mp-bp/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -6500,7 +6500,7 @@
     "atomCount": {
       "Ta": 30
     },
-    "poscar": "/data/intermetallic/mp-bq/POSCAR",
+    "poscar": "/data/intermetallic/mp-bq/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -6884,7 +6884,7 @@
       "Al": 5,
       "Ni": 2
     },
-    "poscar": "/data/intermetallic/mp-bsqx/POSCAR",
+    "poscar": "/data/intermetallic/mp-bsqx/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -7266,7 +7266,7 @@
       "Al": 12,
       "W": 3
     },
-    "poscar": "/data/intermetallic/mp-bswu/POSCAR",
+    "poscar": "/data/intermetallic/mp-bswu/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -7648,7 +7648,7 @@
       "Al": 10,
       "W": 2
     },
-    "poscar": "/data/intermetallic/mp-bswv/POSCAR",
+    "poscar": "/data/intermetallic/mp-bswv/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -8030,7 +8030,7 @@
       "Zr": 1,
       "Cu": 5
     },
-    "poscar": "/data/intermetallic/mp-bthb/POSCAR",
+    "poscar": "/data/intermetallic/mp-bthb/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -8410,7 +8410,7 @@
     "atomCount": {
       "Ta": 1
     },
-    "poscar": "/data/intermetallic/mp-by/POSCAR",
+    "poscar": "/data/intermetallic/mp-by/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -8792,7 +8792,7 @@
       "Ta": 1,
       "W": 3
     },
-    "poscar": "/data/intermetallic/mp-cdsqz/POSCAR",
+    "poscar": "/data/intermetallic/mp-cdsqz/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -9174,7 +9174,7 @@
       "Nb": 2,
       "Ni": 6
     },
-    "poscar": "/data/intermetallic/mp-cdv/POSCAR",
+    "poscar": "/data/intermetallic/mp-cdv/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -9556,7 +9556,7 @@
       "Al": 2,
       "Cu": 1
     },
-    "poscar": "/data/intermetallic/mp-cechq/POSCAR",
+    "poscar": "/data/intermetallic/mp-cechq/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -9938,7 +9938,7 @@
       "Al": 3,
       "Cu": 1
     },
-    "poscar": "/data/intermetallic/mp-cecij/POSCAR",
+    "poscar": "/data/intermetallic/mp-cecij/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -10318,7 +10318,7 @@
     "atomCount": {
       "Cu": 2
     },
-    "poscar": "/data/intermetallic/mp-ceieo/POSCAR",
+    "poscar": "/data/intermetallic/mp-ceieo/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -10700,7 +10700,7 @@
       "Zr": 3,
       "Al": 1
     },
-    "poscar": "/data/intermetallic/mp-cep/POSCAR",
+    "poscar": "/data/intermetallic/mp-cep/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -11080,7 +11080,7 @@
     "atomCount": {
       "Al": 1
     },
-    "poscar": "/data/intermetallic/mp-cevps/POSCAR",
+    "poscar": "/data/intermetallic/mp-cevps/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -11462,7 +11462,7 @@
       "Nb": 1,
       "Ni": 3
     },
-    "poscar": "/data/intermetallic/mp-cewci/POSCAR",
+    "poscar": "/data/intermetallic/mp-cewci/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -11844,7 +11844,7 @@
       "Nb": 1,
       "Ni": 3
     },
-    "poscar": "/data/intermetallic/mp-cewjq/POSCAR",
+    "poscar": "/data/intermetallic/mp-cewjq/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -12226,7 +12226,7 @@
       "Nb": 3,
       "Ni": 1
     },
-    "poscar": "/data/intermetallic/mp-cewki/POSCAR",
+    "poscar": "/data/intermetallic/mp-cewki/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -12608,7 +12608,7 @@
       "Al": 1,
       "Ni": 1
     },
-    "poscar": "/data/intermetallic/mp-cff/POSCAR",
+    "poscar": "/data/intermetallic/mp-cff/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -12990,7 +12990,7 @@
       "Al": 1,
       "Cu": 3
     },
-    "poscar": "/data/intermetallic/mp-cfjyp/POSCAR",
+    "poscar": "/data/intermetallic/mp-cfjyp/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -13370,7 +13370,7 @@
     "atomCount": {
       "Ni": 1
     },
-    "poscar": "/data/intermetallic/mp-cfkfg/POSCAR",
+    "poscar": "/data/intermetallic/mp-cfkfg/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -13752,7 +13752,7 @@
       "Al": 1,
       "Cu": 1
     },
-    "poscar": "/data/intermetallic/mp-cgexl/POSCAR",
+    "poscar": "/data/intermetallic/mp-cgexl/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -14134,7 +14134,7 @@
       "Al": 2,
       "Ni": 4
     },
-    "poscar": "/data/intermetallic/mp-cgiiu/POSCAR",
+    "poscar": "/data/intermetallic/mp-cgiiu/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -14516,7 +14516,7 @@
       "Zr": 2,
       "Cu": 2
     },
-    "poscar": "/data/intermetallic/mp-cisso/POSCAR",
+    "poscar": "/data/intermetallic/mp-cisso/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -14898,7 +14898,7 @@
       "Zr": 2,
       "Cu": 4
     },
-    "poscar": "/data/intermetallic/mp-cjatz/POSCAR",
+    "poscar": "/data/intermetallic/mp-cjatz/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -15280,7 +15280,7 @@
       "Zr": 4,
       "Cu": 2
     },
-    "poscar": "/data/intermetallic/mp-cjhtk/POSCAR",
+    "poscar": "/data/intermetallic/mp-cjhtk/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -15662,7 +15662,7 @@
       "Nb": 2,
       "Ni": 4
     },
-    "poscar": "/data/intermetallic/mp-cjhvp/POSCAR",
+    "poscar": "/data/intermetallic/mp-cjhvp/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -16044,7 +16044,7 @@
       "Nb": 7,
       "Ni": 6
     },
-    "poscar": "/data/intermetallic/mp-ckvmr/POSCAR",
+    "poscar": "/data/intermetallic/mp-ckvmr/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -16424,7 +16424,7 @@
     "atomCount": {
       "Nb": 7
     },
-    "poscar": "/data/intermetallic/mp-ckvqr/POSCAR",
+    "poscar": "/data/intermetallic/mp-ckvqr/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -16804,7 +16804,7 @@
     "atomCount": {
       "Cu": 6
     },
-    "poscar": "/data/intermetallic/mp-cltys/POSCAR",
+    "poscar": "/data/intermetallic/mp-cltys/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -17186,7 +17186,7 @@
       "Ta": 10,
       "Al": 6
     },
-    "poscar": "/data/intermetallic/mp-cpcbn/POSCAR",
+    "poscar": "/data/intermetallic/mp-cpcbn/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -17568,7 +17568,7 @@
       "Al": 4,
       "Cu": 16
     },
-    "poscar": "/data/intermetallic/mp-cphvp/POSCAR",
+    "poscar": "/data/intermetallic/mp-cphvp/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -17948,7 +17948,7 @@
     "atomCount": {
       "Al": 4
     },
-    "poscar": "/data/intermetallic/mp-cpifo/POSCAR",
+    "poscar": "/data/intermetallic/mp-cpifo/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -18330,7 +18330,7 @@
       "Al": 3,
       "Cu": 1
     },
-    "poscar": "/data/intermetallic/mp-cpigf/POSCAR",
+    "poscar": "/data/intermetallic/mp-cpigf/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -18712,7 +18712,7 @@
       "Al": 2,
       "Cu": 6
     },
-    "poscar": "/data/intermetallic/mp-cpiii/POSCAR",
+    "poscar": "/data/intermetallic/mp-cpiii/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -19094,7 +19094,7 @@
       "Al": 2,
       "Ni": 6
     },
-    "poscar": "/data/intermetallic/mp-cpiiy/POSCAR",
+    "poscar": "/data/intermetallic/mp-cpiiy/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -19476,7 +19476,7 @@
       "Nb": 3,
       "Cu": 1
     },
-    "poscar": "/data/intermetallic/mp-cpmtq/POSCAR",
+    "poscar": "/data/intermetallic/mp-cpmtq/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -19858,7 +19858,7 @@
       "Zr": 6,
       "Al": 2
     },
-    "poscar": "/data/intermetallic/mp-cppla/POSCAR",
+    "poscar": "/data/intermetallic/mp-cppla/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -20240,7 +20240,7 @@
       "Zr": 3,
       "Ta": 1
     },
-    "poscar": "/data/intermetallic/mp-cpplg/POSCAR",
+    "poscar": "/data/intermetallic/mp-cpplg/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -20622,7 +20622,7 @@
       "Zr": 2,
       "Cu": 6
     },
-    "poscar": "/data/intermetallic/mp-cpplw/POSCAR",
+    "poscar": "/data/intermetallic/mp-cpplw/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -21004,7 +21004,7 @@
       "Zr": 6,
       "Ta": 2
     },
-    "poscar": "/data/intermetallic/mp-cppmj/POSCAR",
+    "poscar": "/data/intermetallic/mp-cppmj/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -21386,7 +21386,7 @@
       "Zr": 14,
       "Cu": 20
     },
-    "poscar": "/data/intermetallic/mp-cppnh/POSCAR",
+    "poscar": "/data/intermetallic/mp-cppnh/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -21768,7 +21768,7 @@
       "Nb": 8,
       "Ni": 16
     },
-    "poscar": "/data/intermetallic/mp-cpugr/POSCAR",
+    "poscar": "/data/intermetallic/mp-cpugr/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -22150,7 +22150,7 @@
       "Ta": 20,
       "Al": 10
     },
-    "poscar": "/data/intermetallic/mp-cpxpb/POSCAR",
+    "poscar": "/data/intermetallic/mp-cpxpb/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -22534,7 +22534,7 @@
       "Al": 16,
       "Ni": 7
     },
-    "poscar": "/data/intermetallic/mp-cpxut/POSCAR",
+    "poscar": "/data/intermetallic/mp-cpxut/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -22916,7 +22916,7 @@
       "Ta": 17,
       "Al": 12
     },
-    "poscar": "/data/intermetallic/mp-cpyjx/POSCAR",
+    "poscar": "/data/intermetallic/mp-cpyjx/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -23298,7 +23298,7 @@
       "Zr": 6,
       "Ni": 23
     },
-    "poscar": "/data/intermetallic/mp-cpyrn/POSCAR",
+    "poscar": "/data/intermetallic/mp-cpyrn/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -23680,7 +23680,7 @@
       "Zr": 12,
       "Cu": 32
     },
-    "poscar": "/data/intermetallic/mp-cqazd/POSCAR",
+    "poscar": "/data/intermetallic/mp-cqazd/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -24062,7 +24062,7 @@
       "Zr": 1,
       "Nb": 1
     },
-    "poscar": "/data/intermetallic/mp-crdqo/POSCAR",
+    "poscar": "/data/intermetallic/mp-crdqo/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -24446,7 +24446,7 @@
       "Nb": 1,
       "Al": 6
     },
-    "poscar": "/data/intermetallic/mp-crdrc/POSCAR",
+    "poscar": "/data/intermetallic/mp-crdrc/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -24830,7 +24830,7 @@
       "Al": 1,
       "Ni": 2
     },
-    "poscar": "/data/intermetallic/mp-crduq/POSCAR",
+    "poscar": "/data/intermetallic/mp-crduq/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -25214,7 +25214,7 @@
       "Al": 1,
       "Cu": 2
     },
-    "poscar": "/data/intermetallic/mp-crduw/POSCAR",
+    "poscar": "/data/intermetallic/mp-crduw/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -25598,7 +25598,7 @@
       "Al": 2,
       "Ni": 8
     },
-    "poscar": "/data/intermetallic/mp-crdwv/POSCAR",
+    "poscar": "/data/intermetallic/mp-crdwv/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -25982,7 +25982,7 @@
       "Al": 3,
       "Ni": 1
     },
-    "poscar": "/data/intermetallic/mp-crebd/POSCAR",
+    "poscar": "/data/intermetallic/mp-crebd/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -26366,7 +26366,7 @@
       "Nb": 1,
       "Al": 12
     },
-    "poscar": "/data/intermetallic/mp-crebn/POSCAR",
+    "poscar": "/data/intermetallic/mp-crebn/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -26748,7 +26748,7 @@
       "Ta": 22,
       "Al": 8
     },
-    "poscar": "/data/intermetallic/mp-crhmq/POSCAR",
+    "poscar": "/data/intermetallic/mp-crhmq/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -27130,7 +27130,7 @@
       "Ta": 1,
       "W": 1
     },
-    "poscar": "/data/intermetallic/mp-crhmx/POSCAR",
+    "poscar": "/data/intermetallic/mp-crhmx/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -27512,7 +27512,7 @@
       "Ta": 1,
       "Nb": 1
     },
-    "poscar": "/data/intermetallic/mp-crhqa/POSCAR",
+    "poscar": "/data/intermetallic/mp-crhqa/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -27896,7 +27896,7 @@
       "Nb": 1,
       "Al": 6
     },
-    "poscar": "/data/intermetallic/mp-crhqb/POSCAR",
+    "poscar": "/data/intermetallic/mp-crhqb/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -28280,7 +28280,7 @@
       "Nb": 1,
       "W": 1
     },
-    "poscar": "/data/intermetallic/mp-crhqj/POSCAR",
+    "poscar": "/data/intermetallic/mp-crhqj/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -28664,7 +28664,7 @@
       "Al": 2,
       "Ni": 9
     },
-    "poscar": "/data/intermetallic/mp-crhuh/POSCAR",
+    "poscar": "/data/intermetallic/mp-crhuh/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -29048,7 +29048,7 @@
       "Al": 2,
       "Ni": 12
     },
-    "poscar": "/data/intermetallic/mp-crhvt/POSCAR",
+    "poscar": "/data/intermetallic/mp-crhvt/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -29432,7 +29432,7 @@
       "Al": 4,
       "Cu": 4
     },
-    "poscar": "/data/intermetallic/mp-crhxa/POSCAR",
+    "poscar": "/data/intermetallic/mp-crhxa/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -29816,7 +29816,7 @@
       "Cu": 3,
       "Ni": 9
     },
-    "poscar": "/data/intermetallic/mp-crhyd/POSCAR",
+    "poscar": "/data/intermetallic/mp-crhyd/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -30200,7 +30200,7 @@
       "Al": 4,
       "Ni": 4
     },
-    "poscar": "/data/intermetallic/mp-crhyq/POSCAR",
+    "poscar": "/data/intermetallic/mp-crhyq/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -30582,7 +30582,7 @@
       "Nb": 1,
       "W": 1
     },
-    "poscar": "/data/intermetallic/mp-crlfg/POSCAR",
+    "poscar": "/data/intermetallic/mp-crlfg/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -30966,7 +30966,7 @@
       "Al": 2,
       "Ni": 9
     },
-    "poscar": "/data/intermetallic/mp-crllk/POSCAR",
+    "poscar": "/data/intermetallic/mp-crllk/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -31348,7 +31348,7 @@
       "Nb": 4,
       "Al": 1
     },
-    "poscar": "/data/intermetallic/mp-crllp/POSCAR",
+    "poscar": "/data/intermetallic/mp-crllp/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -31732,7 +31732,7 @@
       "Al": 4,
       "Cu": 4
     },
-    "poscar": "/data/intermetallic/mp-crlls/POSCAR",
+    "poscar": "/data/intermetallic/mp-crlls/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -32116,7 +32116,7 @@
       "Al": 4,
       "Ni": 4
     },
-    "poscar": "/data/intermetallic/mp-crlmi/POSCAR",
+    "poscar": "/data/intermetallic/mp-crlmi/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -32498,7 +32498,7 @@
       "Cu": 1,
       "Ni": 1
     },
-    "poscar": "/data/intermetallic/mp-crtdv/POSCAR",
+    "poscar": "/data/intermetallic/mp-crtdv/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -32880,7 +32880,7 @@
       "Cu": 1,
       "Ni": 3
     },
-    "poscar": "/data/intermetallic/mp-crtec/POSCAR",
+    "poscar": "/data/intermetallic/mp-crtec/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -33264,7 +33264,7 @@
       "Cu": 1,
       "W": 2
     },
-    "poscar": "/data/intermetallic/mp-crwtq/POSCAR",
+    "poscar": "/data/intermetallic/mp-crwtq/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -33646,7 +33646,7 @@
       "Al": 4,
       "Ni": 15
     },
-    "poscar": "/data/intermetallic/mp-crxqf/POSCAR",
+    "poscar": "/data/intermetallic/mp-crxqf/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -34028,7 +34028,7 @@
       "Al": 4,
       "Cu": 15
     },
-    "poscar": "/data/intermetallic/mp-crxrs/POSCAR",
+    "poscar": "/data/intermetallic/mp-crxrs/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -34410,7 +34410,7 @@
       "Al": 1,
       "Ni": 1
     },
-    "poscar": "/data/intermetallic/mp-crxwe/POSCAR",
+    "poscar": "/data/intermetallic/mp-crxwe/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -34794,7 +34794,7 @@
       "Cu": 4,
       "Ni": 2
     },
-    "poscar": "/data/intermetallic/mp-crxzu/POSCAR",
+    "poscar": "/data/intermetallic/mp-crxzu/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -35174,7 +35174,7 @@
     "atomCount": {
       "Nb": 1
     },
-    "poscar": "/data/intermetallic/mp-cx/POSCAR",
+    "poscar": "/data/intermetallic/mp-cx/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -35556,7 +35556,7 @@
       "Zr": 10,
       "Al": 6
     },
-    "poscar": "/data/intermetallic/mp-daq/POSCAR",
+    "poscar": "/data/intermetallic/mp-daq/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -35938,7 +35938,7 @@
       "Zr": 1,
       "Cu": 1
     },
-    "poscar": "/data/intermetallic/mp-dha/POSCAR",
+    "poscar": "/data/intermetallic/mp-dha/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -36320,7 +36320,7 @@
       "Zr": 2,
       "Ni": 4
     },
-    "poscar": "/data/intermetallic/mp-dio/POSCAR",
+    "poscar": "/data/intermetallic/mp-dio/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -36700,7 +36700,7 @@
     "atomCount": {
       "W": 1
     },
-    "poscar": "/data/intermetallic/mp-dn/POSCAR",
+    "poscar": "/data/intermetallic/mp-dn/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -37082,7 +37082,7 @@
       "Al": 5,
       "Cu": 5
     },
-    "poscar": "/data/intermetallic/mp-dse/POSCAR",
+    "poscar": "/data/intermetallic/mp-dse/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -37464,7 +37464,7 @@
       "Zr": 4,
       "Al": 2
     },
-    "poscar": "/data/intermetallic/mp-duj/POSCAR",
+    "poscar": "/data/intermetallic/mp-duj/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -37846,7 +37846,7 @@
       "Al": 1,
       "Ni": 3
     },
-    "poscar": "/data/intermetallic/mp-dvt/POSCAR",
+    "poscar": "/data/intermetallic/mp-dvt/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -38228,7 +38228,7 @@
       "Zr": 4,
       "Al": 8
     },
-    "poscar": "/data/intermetallic/mp-ecq/POSCAR",
+    "poscar": "/data/intermetallic/mp-ecq/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -38610,7 +38610,7 @@
       "Zr": 2,
       "Cu": 2
     },
-    "poscar": "/data/intermetallic/mp-ekwqy/POSCAR",
+    "poscar": "/data/intermetallic/mp-ekwqy/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -38990,7 +38990,7 @@
     "atomCount": {
       "Zr": 2
     },
-    "poscar": "/data/intermetallic/mp-fb/POSCAR",
+    "poscar": "/data/intermetallic/mp-fb/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -39370,7 +39370,7 @@
     "atomCount": {
       "Al": 1
     },
-    "poscar": "/data/intermetallic/mp-fe/POSCAR",
+    "poscar": "/data/intermetallic/mp-fe/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -39754,7 +39754,7 @@
       "Al": 1,
       "Cu": 2
     },
-    "poscar": "/data/intermetallic/mp-fns/POSCAR",
+    "poscar": "/data/intermetallic/mp-fns/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -40134,7 +40134,7 @@
     "atomCount": {
       "Al": 2
     },
-    "poscar": "/data/intermetallic/mp-fupsa/POSCAR",
+    "poscar": "/data/intermetallic/mp-fupsa/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -40518,7 +40518,7 @@
       "Al": 1,
       "Cu": 2
     },
-    "poscar": "/data/intermetallic/mp-fupug/POSCAR",
+    "poscar": "/data/intermetallic/mp-fupug/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -40902,7 +40902,7 @@
       "Al": 1,
       "Ni": 2
     },
-    "poscar": "/data/intermetallic/mp-fvs/POSCAR",
+    "poscar": "/data/intermetallic/mp-fvs/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -41282,7 +41282,7 @@
     "atomCount": {
       "Nb": 7
     },
-    "poscar": "/data/intermetallic/mp-fzwer/POSCAR",
+    "poscar": "/data/intermetallic/mp-fzwer/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -41666,7 +41666,7 @@
       "Al": 1,
       "Ni": 2
     },
-    "poscar": "/data/intermetallic/mp-hdd/POSCAR",
+    "poscar": "/data/intermetallic/mp-hdd/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -42050,7 +42050,7 @@
       "Al": 3,
       "Ni": 3
     },
-    "poscar": "/data/intermetallic/mp-imd/POSCAR",
+    "poscar": "/data/intermetallic/mp-imd/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -42434,7 +42434,7 @@
       "Al": 1,
       "Ni": 2
     },
-    "poscar": "/data/intermetallic/mp-itt/POSCAR",
+    "poscar": "/data/intermetallic/mp-itt/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -42814,7 +42814,7 @@
     "atomCount": {
       "Zr": 1
     },
-    "poscar": "/data/intermetallic/mp-mud/POSCAR",
+    "poscar": "/data/intermetallic/mp-mud/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -43194,7 +43194,7 @@
     "atomCount": {
       "Ni": 2
     },
-    "poscar": "/data/intermetallic/mp-pen/POSCAR",
+    "poscar": "/data/intermetallic/mp-pen/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -43574,7 +43574,7 @@
     "atomCount": {
       "W": 8
     },
-    "poscar": "/data/intermetallic/mp-qty/POSCAR",
+    "poscar": "/data/intermetallic/mp-qty/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -43956,7 +43956,7 @@
       "Al": 6,
       "W": 3
     },
-    "poscar": "/data/intermetallic/mp-sns/POSCAR",
+    "poscar": "/data/intermetallic/mp-sns/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -44338,7 +44338,7 @@
       "Zr": 2,
       "Ni": 6
     },
-    "poscar": "/data/intermetallic/mp-sr/POSCAR",
+    "poscar": "/data/intermetallic/mp-sr/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -44720,7 +44720,7 @@
       "Zr": 4,
       "Al": 2
     },
-    "poscar": "/data/intermetallic/mp-sxh/POSCAR",
+    "poscar": "/data/intermetallic/mp-sxh/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -45102,7 +45102,7 @@
       "Al": 1,
       "Cu": 3
     },
-    "poscar": "/data/intermetallic/mp-sxl/POSCAR",
+    "poscar": "/data/intermetallic/mp-sxl/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -45484,7 +45484,7 @@
       "Al": 2,
       "Cu": 1
     },
-    "poscar": "/data/intermetallic/mp-syc/POSCAR",
+    "poscar": "/data/intermetallic/mp-syc/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -45866,7 +45866,7 @@
       "Al": 2,
       "Cu": 6
     },
-    "poscar": "/data/intermetallic/mp-syk/POSCAR",
+    "poscar": "/data/intermetallic/mp-syk/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -46246,7 +46246,7 @@
     "atomCount": {
       "Ni": 1
     },
-    "poscar": "/data/intermetallic/mp-x/POSCAR",
+    "poscar": "/data/intermetallic/mp-x/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,
@@ -46628,7 +46628,7 @@
       "Zr": 2,
       "W": 4
     },
-    "poscar": "/data/intermetallic/mp-zz/POSCAR",
+    "poscar": "/data/intermetallic/mp-zz/DFT/POSCAR",
     "data": [
       {
         "temperature": 0,

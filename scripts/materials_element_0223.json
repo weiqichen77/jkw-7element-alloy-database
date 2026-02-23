@@ -1,0 +1,6849 @@
+[
+  {
+    "name": "Al-bcc",
+    "type": "solid-element",
+    "composition": "Al",
+    "elements": [
+      "Al"
+    ],
+    "atomCount": {
+      "Al": 2
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.22848994466441,
+              "b": 3.22848994165151,
+              "c": 3.22848994228508,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Al-fcc",
+    "type": "solid-element",
+    "composition": "Al",
+    "elements": [
+      "Al"
+    ],
+    "atomCount": {
+      "Al": 4
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 4.03791305134356,
+              "b": 4.03788598970524,
+              "c": 4.03789574449938,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null,
+            "cohesiveEnergy": -3.2588287871331048
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": 33.2566153909843,
+            "poissonsRatio": 0.36611318190233,
+            "elasticConstants": [
+              [
+                120.615046613493,
+                69.5573548675353,
+                69.7310620296105,
+                0.0150127018326105,
+                1.08187529153489,
+                -0.90223040141699
+              ],
+              [
+                69.5573548675353,
+                119.69029520233,
+                68.7549224270581,
+                0.439097970981342,
+                1.59692771833027,
+                -0.0440712804705765
+              ],
+              [
+                69.7310620296105,
+                68.7549224270581,
+                119.900017918573,
+                0.353122062620466,
+                1.15477984293627,
+                0.42236884470026
+              ],
+              [
+                0.0150127018326105,
+                0.439097970981342,
+                0.353122062620466,
+                33.3254431968656,
+                -0.238548882666344,
+                -0.0145233799653085
+              ],
+              [
+                1.08187529153489,
+                1.59692771833027,
+                1.15477984293627,
+                -0.238548882666344,
+                33.6120244506409,
+                0.317413535783738
+              ],
+              [
+                -0.90223040141699,
+                -0.0440712804705765,
+                0.42236884470026,
+                -0.0145233799653085,
+                0.317413535783738,
+                32.8323785254465
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": 0.683302533776441,
+            "interstitialFormationEnergy": {
+              "crowdion_110": 2.53740964255667,
+              "dumbbell_100": 2.53741014925617,
+              "dumbbell_110": 2.53741046215691,
+              "dumbbell_111": 2.53741722725681,
+              "octahedral": 2.53741263775737,
+              "tetrahedral": 3.08150228655722
+            },
+            "stackingFaultEnergy": {
+              "100_110_usf": 0.368,
+              "111_110_usf": 0.3202,
+              "111_112_isf": 0.0809,
+              "111_112_usf": 0.1351
+            }
+          }
+        }
+      },
+      {
+        "temperature": 600,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 4.1016618282576,
+              "b": 4.09699930003746,
+              "c": 4.09559761373124,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": 18.1158300288387,
+            "poissonsRatio": 0.374541584331133,
+            "elasticConstants": [
+              [
+                91.2058929919314,
+                52.4191596092187,
+                51.3312144122284,
+                3.72921912727531,
+                -5.37772434137752,
+                6.18391222703435
+              ],
+              [
+                52.4191596092187,
+                75.2738064567599,
+                43.684703059797,
+                1.00850049368721,
+                -2.60437340470556,
+                9.64527597266544
+              ],
+              [
+                51.3312144122284,
+                43.684703059797,
+                79.7266327264965,
+                4.72350979843029,
+                -3.86621183196286,
+                3.89848335528109
+              ],
+              [
+                3.72921912727531,
+                1.00850049368721,
+                4.72350979843029,
+                19.5982781881656,
+                4.51822140853251,
+                -0.699690726667088
+              ],
+              [
+                -5.37772434137752,
+                -2.60437340470556,
+                -3.86621183196286,
+                4.51822140853251,
+                16.4146243966307,
+                1.22504191212947
+              ],
+              [
+                6.18391222703435,
+                9.64527597266544,
+                3.89848335528109,
+                -0.699690726667088,
+                1.22504191212947,
+                18.3345875017197
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 1500,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": 42.6233647491389,
+            "poissonsRatio": 0.366095500370392,
+            "elasticConstants": [
+              [
+                56.9090547358124,
+                40.9809668060603,
+                43.982570368345,
+                27.1291677840408,
+                -22.4275034823893,
+                -16.482053314447
+              ],
+              [
+                40.9809668060603,
+                115.818238650841,
+                53.183266477305,
+                5.6314636390353,
+                -19.9297687449051,
+                18.1695416647546
+              ],
+              [
+                43.982570368345,
+                53.183266477305,
+                66.477723762335,
+                24.3287878259995,
+                -26.4466440411176,
+                -3.38222424283685
+              ],
+              [
+                27.1291677840408,
+                5.6314636390353,
+                24.3287878259995,
+                43.6047793359345,
+                -9.63517182611206,
+                -0.77791443742612
+              ],
+              [
+                -22.4275034823893,
+                -19.9297687449051,
+                -26.4466440411176,
+                -9.63517182611206,
+                59.7512182493262,
+                -5.76640930740128
+              ],
+              [
+                -16.482053314447,
+                18.1695416647546,
+                -3.38222424283685,
+                -0.77791443742612,
+                -5.76640930740128,
+                24.5140966621561
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 0,
+        "source": "DFT",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 4.039783498,
+              "b": 4.039783498,
+              "c": 4.039783498,
+              "alpha": 90.0,
+              "beta": 90.0,
+              "gamma": 90.0,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": 80.69850421481448,
+            "bulkModulus": 77.70170444444473,
+            "shearModulus": 30.408538666666672,
+            "poissonsRatio": 0.32690533240380326,
+            "elasticConstants": [
+              [
+                90.46716000000033,
+                71.31898000000027,
+                71.31898000000027,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                71.31894000000025,
+                90.46720000000033,
+                71.31894000000025,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                71.31898000000027,
+                71.31898000000027,
+                90.46718000000033,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                2.000000000043765e-05,
+                2.000000000043765e-05,
+                44.298159999999996,
+                0.0,
+                0.0
+              ],
+              [
+                2.000000000043765e-05,
+                2.000000000151618e-05,
+                2.000000000043765e-05,
+                0.0,
+                44.298159999999996,
+                0.0
+              ],
+              [
+                0.0,
+                1.000000000039858e-05,
+                1.00000000011176e-05,
+                0.0,
+                0.0,
+                44.298159999999996
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": 0.638,
+            "interstitialFormationEnergy": {
+              "dumbbell_100": 2.587,
+              "dumbbell_110": 2.902,
+              "dumbbell_111": 3.083,
+              "crowdion_110": 2.902,
+              "octahedral": 2.812,
+              "tetrahedral": 3.118
+            },
+            "stackingFaultEnergy": {
+              "100_110_usf": 0.319,
+              "111_110_usf": 0.353,
+              "111_112_isf": 0.126,
+              "111_112_usf": 0.17
+            }
+          }
+        }
+      },
+      {
+        "temperature": 0,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 4.03339481093256,
+              "b": 4.03339480610825,
+              "c": 4.03339481970828,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 600,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 4.11779967595669,
+              "b": 4.09694433526043,
+              "c": 4.11146528417938,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": [
+              [
+                110.316785613861,
+                57.517003501385,
+                54.907515321647,
+                -4.91188352926439,
+                2.05756043357356,
+                -1.24909472935519
+              ],
+              [
+                57.517003501385,
+                97.725506118422,
+                53.7511628953768,
+                -2.46885867918738,
+                -5.58819441845276,
+                2.20162934243525
+              ],
+              [
+                54.907515321647,
+                53.7511628953768,
+                105.50603461454,
+                -1.83633149933738,
+                -4.39646293518479,
+                1.00787185269358
+              ],
+              [
+                -4.91188352926439,
+                -2.46885867918738,
+                -1.83633149933738,
+                29.4654246615905,
+                1.69218729591587,
+                3.77804281107824
+              ],
+              [
+                2.05756043357356,
+                -5.58819441845276,
+                -4.39646293518479,
+                1.69218729591587,
+                29.9752078376502,
+                -0.05625860826393
+              ],
+              [
+                -1.24909472935519,
+                2.20162934243525,
+                1.00787185269358,
+                3.77804281107824,
+                -0.05625860826393,
+                31.5668104052553
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 900,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 4.13818909965344,
+              "b": 4.18147117330791,
+              "c": 4.15244555549909,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": [
+              [
+                102.441046636839,
+                60.1785558352645,
+                61.3047688134855,
+                5.72730894447536,
+                0.88316954932471,
+                -0.946865480953675
+              ],
+              [
+                60.1785558352645,
+                98.2686766923585,
+                58.2342664416777,
+                4.53626323969652,
+                1.38003295930392,
+                -0.71978521895222
+              ],
+              [
+                61.3047688134855,
+                58.2342664416777,
+                106.873596146889,
+                -4.90178774144878,
+                -1.10217932372372,
+                0.30296790028611
+              ],
+              [
+                5.72730894447536,
+                4.53626323969652,
+                -4.90178774144878,
+                26.5057756121721,
+                -2.62950725972749,
+                -0.496130800354563
+              ],
+              [
+                0.88316954932471,
+                1.38003295930392,
+                -1.10217932372372,
+                -2.62950725972749,
+                25.4326800510518,
+                -3.28055406356579
+              ],
+              [
+                -0.946865480953675,
+                -0.71978521895222,
+                0.30296790028611,
+                -0.496130800354563,
+                -3.28055406356579,
+                30.9082129492833
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.97915137242093,
+              "b": 3.83001219299582,
+              "c": 5.3873752920505,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": [
+              [
+                54.9278781934535,
+                51.9603221559291,
+                55.5820261999528,
+                -14.5675320664991,
+                3.53207916410081,
+                0.930805674614535
+              ],
+              [
+                51.9603221559291,
+                64.0968511552635,
+                52.902820588227,
+                -15.5114689808094,
+                -5.43431312307776,
+                -10.5427449511377
+              ],
+              [
+                55.5820261999528,
+                52.902820588227,
+                100.752047107862,
+                -9.96317093349975,
+                1.93183780960605,
+                6.17879973717965
+              ],
+              [
+                -14.5675320664991,
+                -15.5114689808094,
+                -9.96317093349975,
+                37.6453208837115,
+                -2.98976169713002,
+                -2.6082163665363
+              ],
+              [
+                3.53207916410081,
+                -5.43431312307776,
+                1.93183780960605,
+                -2.98976169713002,
+                23.2106236945405,
+                1.76711787735301
+              ],
+              [
+                0.930805674614535,
+                -10.5427449511377,
+                6.17879973717965,
+                -2.6082163665363,
+                1.76711787735301,
+                30.5177823577101
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 298,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": null
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "100": "data/element/Al/fcc/DPA3_7ele_cryfinal/298k/strain/100"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Al-hcp",
+    "type": "solid-element",
+    "composition": "Al",
+    "elements": [
+      "Al"
+    ],
+    "atomCount": {
+      "Al": 2
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 2.83337075626906,
+              "b": 4.90754210653787,
+              "c": 4.75423090619092,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cd-hcp",
+    "type": "solid-element",
+    "composition": "Cd",
+    "elements": [
+      "Cd"
+    ],
+    "atomCount": {
+      "Cd": 2
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.01942722494237,
+              "b": 5.22980136335689,
+              "c": 5.71164416539065,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 4,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.01941203740387,
+              "b": 5.22977505776856,
+              "c": 5.71634086765726,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cr-bcc",
+    "type": "solid-element",
+    "composition": "Cr",
+    "elements": [
+      "Cr"
+    ],
+    "atomCount": {
+      "Cr": 2
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 2.93461407486931,
+              "b": 2.93461406750443,
+              "c": 2.93461407373346,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cr-fcc",
+    "type": "solid-element",
+    "composition": "Cr",
+    "elements": [
+      "Cr"
+    ],
+    "atomCount": {
+      "Cr": 4
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.64983099042307,
+              "b": 3.64983099042307,
+              "c": 3.64983099042307,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cr-hcp",
+    "type": "solid-element",
+    "composition": "Cr",
+    "elements": [
+      "Cr"
+    ],
+    "atomCount": {
+      "Cr": 2
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 2.59488942175439,
+              "b": 4.49448031850163,
+              "c": 4.16337251345544,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cu-bcc",
+    "type": "solid-element",
+    "composition": "Cu",
+    "elements": [
+      "Cu"
+    ],
+    "atomCount": {
+      "Cu": 2
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 2.86827008045608,
+              "b": 2.86827008045608,
+              "c": 2.86827008045608,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 0,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 2.8882580814252,
+              "b": 2.8882580835926,
+              "c": 2.88825808553301,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cu-fcc",
+    "type": "solid-element",
+    "composition": "Cu",
+    "elements": [
+      "Cu"
+    ],
+    "atomCount": {
+      "Cu": 4
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.63478369627741,
+              "b": 3.63478361837166,
+              "c": 3.63478384968664,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null,
+            "cohesiveEnergy": -3.1610804919700968
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": 77.259182313634,
+            "poissonsRatio": 0.412454041769243,
+            "elasticConstants": [
+              [
+                157.5488482354,
+                111.225335563945,
+                110.963169377062,
+                -0.469559760207904,
+                -0.326642577084498,
+                -0.046340983909099
+              ],
+              [
+                111.225335563945,
+                158.143802276182,
+                112.037533380483,
+                -0.446928604274835,
+                0.293542716874692,
+                0.345531803020666
+              ],
+              [
+                110.963169377062,
+                112.037533380483,
+                160.416535154092,
+                -0.555114818358928,
+                -0.53895894137807,
+                -0.152591867634094
+              ],
+              [
+                -0.469559760207904,
+                -0.446928604274835,
+                -0.555114818358928,
+                77.2312754605041,
+                -0.10906141861953,
+                0.112455181063499
+              ],
+              [
+                -0.326642577084498,
+                0.293542716874692,
+                -0.53895894137807,
+                -0.10906141861953,
+                77.1204693618253,
+                0.190163169867665
+              ],
+              [
+                -0.046340983909099,
+                0.345531803020666,
+                -0.152591867634094,
+                0.112455181063499,
+                0.190163169867665,
+                77.4258021185727
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": 0.970648611197248,
+            "interstitialFormationEnergy": {
+              "tetrahedral": 3.03083881107159,
+              "dumbbell_100": 3.03084168117493,
+              "dumbbell_110": 3.03083905111998,
+              "dumbbell_111": 3.03083884110674,
+              "crowdion_110": 3.03084529121406,
+              "octahedral": 3.34495249111205
+            },
+            "stackingFaultEnergy": {
+              "100_110_usf": 0.7315,
+              "111_110_usf": 0.4958,
+              "111_112_isf": 0.0414,
+              "111_112_usf": 0.1623
+            }
+          }
+        }
+      },
+      {
+        "temperature": 600,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.68372149044521,
+              "b": 3.66660735611936,
+              "c": 3.68366207505183,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": 58.9323003230948,
+            "poissonsRatio": 0.399905932690143,
+            "elasticConstants": [
+              [
+                125.011066798072,
+                86.0737924172462,
+                85.7950989332008,
+                -1.18190362718217,
+                -17.3539449295656,
+                -2.42036328892025
+              ],
+              [
+                86.0737924172462,
+                131.344462448046,
+                101.427262851113,
+                -3.08384244590923,
+                -1.68763640759378,
+                3.75255239025464
+              ],
+              [
+                85.7950989332008,
+                101.427262851113,
+                153.74941631374,
+                5.47079768610458,
+                5.34254313902601,
+                6.58088253947242
+              ],
+              [
+                -1.18190362718217,
+                -3.08384244590923,
+                5.47079768610458,
+                55.2578479178243,
+                1.67139659212304,
+                0.2106351054625
+              ],
+              [
+                -17.3539449295656,
+                -1.68763640759378,
+                5.34254313902601,
+                1.67139659212304,
+                59.3661887683712,
+                1.73811608698816
+              ],
+              [
+                -2.42036328892025,
+                3.75255239025464,
+                6.58088253947242,
+                0.2106351054625,
+                1.73811608698816,
+                62.1728642830889
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 1500,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.8164181596927,
+              "b": 3.8123076759376,
+              "c": 3.67191218461192,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": 10.1386808216006,
+            "poissonsRatio": 0.534477041091127,
+            "elasticConstants": [
+              [
+                78.2092489125634,
+                89.5738396044977,
+                96.4353420873644,
+                -5.2282834121354,
+                -9.03835888532732,
+                -38.7013259229602
+              ],
+              [
+                89.5738396044977,
+                50.5456866103848,
+                56.795017548793,
+                -38.1513506681689,
+                -24.8781311532936,
+                4.30901054277305
+              ],
+              [
+                96.4353420873644,
+                56.795017548793,
+                82.7245492370679,
+                -2.54936906275878,
+                -8.5807412320396,
+                -25.711635616754
+              ],
+              [
+                -5.2282834121354,
+                -38.1513506681689,
+                -2.54936906275878,
+                32.726168905422,
+                44.7054479935669,
+                6.72111637747615
+              ],
+              [
+                -9.03835888532732,
+                -24.8781311532936,
+                -8.5807412320396,
+                44.7054479935669,
+                0.295844189962502,
+                -9.83454449670435
+              ],
+              [
+                -38.7013259229602,
+                4.30901054277305,
+                -25.711635616754,
+                6.72111637747615,
+                -9.83454449670435,
+                -2.6059706305827
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 0,
+        "source": "DFT",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.634440229,
+              "b": 3.634440229,
+              "c": 3.634440229,
+              "alpha": 90.0,
+              "beta": 90.0,
+              "gamma": 90.0,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": 152.17266432325843,
+            "bulkModulus": 138.65065555555603,
+            "shearModulus": 57.76899466666672,
+            "poissonsRatio": 0.31707904215151217,
+            "elasticConstants": [
+              [
+                178.70830000000063,
+                118.59244000000038,
+                118.59244000000038,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                118.63538000000038,
+                178.7517400000006,
+                118.63538000000038,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                118.60788000000042,
+                118.60788000000042,
+                178.72446000000056,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.019839999999999147,
+                0.01908000000000085,
+                0.01908000000000121,
+                76.24108,
+                0.0,
+                0.0
+              ],
+              [
+                -0.00032999999999949183,
+                -0.00022000000000085956,
+                -0.00030999999999941366,
+                0.0,
+                76.2413,
+                0.0
+              ],
+              [
+                0.0034800000000002945,
+                0.003480000000001373,
+                0.0027199999999991233,
+                0.0,
+                0.0,
+                76.24118000000001
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": 1.064,
+            "interstitialFormationEnergy": {
+              "dumbbell_100": 3.088,
+              "dumbbell_110": 3.386,
+              "dumbbell_111": 3.593,
+              "crowdion_110": 3.386,
+              "octahedral": 3.352,
+              "tetrahedral": 3.644
+            },
+            "stackingFaultEnergy": {
+              "100_110_usf": null,
+              "111_110_usf": 0.522,
+              "111_112_isf": 0.042,
+              "111_112_usf": 0.17
+            }
+          }
+        }
+      },
+      {
+        "temperature": 0,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.62899843208897,
+              "b": 3.62899842406698,
+              "c": 3.62899841674164,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 600,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.6737432738735,
+              "b": 3.6338708751101,
+              "c": 3.69845778927424,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": [
+              [
+                178.616916623352,
+                118.626843770191,
+                123.932938708954,
+                1.84132295893476,
+                -3.9225093494301,
+                -4.7975105171951
+              ],
+              [
+                118.626843770191,
+                163.098887677262,
+                126.860708068703,
+                -7.90959281209859,
+                -0.39432323388981,
+                0.4085233782599
+              ],
+              [
+                123.932938708954,
+                126.860708068703,
+                173.99291022984,
+                5.17208113806102,
+                1.9656877147489,
+                -3.93363244235986
+              ],
+              [
+                1.84132295893476,
+                -7.90959281209859,
+                5.17208113806102,
+                74.5841113995789,
+                0.78729536833102,
+                1.21380697405446
+              ],
+              [
+                -3.9225093494301,
+                -0.39432323388981,
+                1.9656877147489,
+                0.78729536833102,
+                68.0300710115968,
+                -6.84844509997505
+              ],
+              [
+                -4.7975105171951,
+                0.4085233782599,
+                -3.93363244235986,
+                1.21380697405446,
+                -6.84844509997505,
+                69.2136200974323
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 900,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.66541506931901,
+              "b": 3.70251449172957,
+              "c": 3.70785813234064,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": [
+              [
+                168.43359534773,
+                118.541623027792,
+                119.168959997182,
+                -0.973808372297742,
+                -4.00479021454462,
+                -1.47462334402693
+              ],
+              [
+                118.541623027792,
+                159.79910735418,
+                129.636852284469,
+                4.06705169326412,
+                5.66345175160637,
+                0.77783389506445
+              ],
+              [
+                119.168959997182,
+                129.636852284469,
+                152.42753733223,
+                8.9993550738804,
+                4.00182680816996,
+                2.0937625025946
+              ],
+              [
+                -0.973808372297742,
+                4.06705169326412,
+                8.9993550738804,
+                67.4413860886104,
+                1.80235055484445,
+                6.3107455059299
+              ],
+              [
+                -4.00479021454462,
+                5.66345175160637,
+                4.00182680816996,
+                1.80235055484445,
+                76.0215471163309,
+                -0.360601537343695
+              ],
+              [
+                -1.47462334402693,
+                0.77783389506445,
+                2.0937625025946,
+                6.3107455059299,
+                -0.360601537343695,
+                70.3052628748063
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 4.37337702543055,
+              "b": 3.7760241041878,
+              "c": 3.28161551976363,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": [
+              [
+                173.188785065044,
+                118.369197843216,
+                127.180107355756,
+                12.1475383542782,
+                -8.58581190048431,
+                18.5801655277322
+              ],
+              [
+                118.369197843216,
+                161.494625907436,
+                131.470489850004,
+                12.893562514492,
+                8.2290965509406,
+                18.3727865671024
+              ],
+              [
+                127.180107355756,
+                131.470489850004,
+                158.527346904162,
+                5.19255661795481,
+                0.97005888633428,
+                -5.66568123769976
+              ],
+              [
+                12.1475383542782,
+                12.893562514492,
+                5.19255661795481,
+                74.4627287591498,
+                -8.44263310164477,
+                3.00370907011251
+              ],
+              [
+                -8.58581190048431,
+                8.2290965509406,
+                0.97005888633428,
+                -8.44263310164477,
+                80.8768969049175,
+                -2.41933892662006
+              ],
+              [
+                18.5801655277322,
+                18.3727865671024,
+                -5.66568123769976,
+                3.00370907011251,
+                -2.41933892662006,
+                41.3835443252162
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 298,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": null
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "100": "data/element/Cu/fcc/DPA3_7ele_cryfinal/298k/strain/100"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cu-hcp",
+    "type": "solid-element",
+    "composition": "Cu",
+    "elements": [
+      "Cu"
+    ],
+    "atomCount": {
+      "Cu": 2
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 2.55610148218287,
+              "b": 4.42729763644284,
+              "c": 4.16237812862863,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 0,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 2.5654788074714,
+              "b": 4.44353964028168,
+              "c": 4.20568351067885,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Mo-bcc",
+    "type": "solid-element",
+    "composition": "Mo",
+    "elements": [
+      "Mo"
+    ],
+    "atomCount": {
+      "Mo": 2
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.16471778471803,
+              "b": 3.16471781591752,
+              "c": 3.16471773591889,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null,
+            "cohesiveEnergy": -0.8846892769699934
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Mo-fcc",
+    "type": "solid-element",
+    "composition": "Mo",
+    "elements": [
+      "Mo"
+    ],
+    "atomCount": {
+      "Mo": 4
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 4.503532265498,
+              "b": 3.96161162959534,
+              "c": 3.54486182785584,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Mo-hcp",
+    "type": "solid-element",
+    "composition": "Mo",
+    "elements": [
+      "Mo"
+    ],
+    "atomCount": {
+      "Mo": 2
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 2.73565427336283,
+              "b": 4.73829219340734,
+              "c": 4.46730472160214,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Nb-bcc",
+    "type": "solid-element",
+    "composition": "Nb",
+    "elements": [
+      "Nb"
+    ],
+    "atomCount": {
+      "Nb": 2
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.31047244526868,
+              "b": 3.31047244988823,
+              "c": 3.31047244586802,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null,
+            "cohesiveEnergy": -7.09962493208991
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": 8.89033144147937,
+            "poissonsRatio": 0.357359227504004,
+            "elasticConstants": [
+              [
+                235.418047929031,
+                129.314830472451,
+                131.251600874869,
+                0.323636704215031,
+                1.03726245851468,
+                -1.45466050757377
+              ],
+              [
+                129.314830472451,
+                231.991231402168,
+                128.995280226599,
+                0.828905880528558,
+                1.78862122222584,
+                -1.58125294582748
+              ],
+              [
+                131.251600874869,
+                128.995280226599,
+                233.141371086583,
+                0.060846584394154,
+                1.19985024251928,
+                -1.7021119210488
+              ],
+              [
+                0.323636704215031,
+                0.828905880528558,
+                0.060846584394154,
+                9.01927146803557,
+                -0.0483461354919634,
+                0.117008614118993
+              ],
+              [
+                1.03726245851468,
+                1.78862122222584,
+                1.19985024251928,
+                -0.0483461354919634,
+                8.78988634260008,
+                -0.16606106398033
+              ],
+              [
+                -1.45466050757377,
+                -1.58125294582748,
+                -1.7021119210488,
+                0.117008614118993,
+                -0.16606106398033,
+                8.86183651380246
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": 2.79065293917665,
+            "interstitialFormationEnergy": {
+              "dumbbell_110": 5.00811956299003,
+              "dumbbell_100": 5.3752755469759,
+              "dumbbell_111": 28.7566004119872,
+              "crowdion_111": 30.3264418379986,
+              "octahedral": 5.45895781199215,
+              "tetrahedral": 5.00812420397415
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 600,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.37280762585899,
+              "b": 3.37587713590559,
+              "c": 3.37115883605456,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": 22.5061519418775,
+            "poissonsRatio": 0.342838306063012,
+            "elasticConstants": [
+              [
+                188.984761912303,
+                98.8140658314745,
+                95.9275294224312,
+                -3.51874307899609,
+                -3.44450318380978,
+                -6.60772092205855
+              ],
+              [
+                98.8140658314745,
+                186.438413472174,
+                95.2072437590655,
+                -2.83024686149226,
+                -2.33879739657393,
+                -6.61383864139787
+              ],
+              [
+                95.9275294224312,
+                95.2072437590655,
+                180.358564377726,
+                -1.58931739594857,
+                -2.39874945080863,
+                -5.19027725090962
+              ],
+              [
+                -3.51874307899609,
+                -2.83024686149226,
+                -1.58931739594857,
+                22.0170487173716,
+                -0.147354013239391,
+                -0.173399162840235
+              ],
+              [
+                -3.44450318380978,
+                -2.33879739657393,
+                -2.39874945080863,
+                -0.147354013239391,
+                22.0926174178854,
+                -0.727847385973095
+              ],
+              [
+                -6.60772092205855,
+                -6.61383864139787,
+                -5.19027725090962,
+                -0.173399162840235,
+                -0.727847385973095,
+                23.4087896903756
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 1500,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.39892920281748,
+              "b": 3.39205793102709,
+              "c": 3.39207259596378,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": 32.0405533101688,
+            "poissonsRatio": 0.345705668161164,
+            "elasticConstants": [
+              [
+                157.105924337162,
+                86.1768852695192,
+                85.5630157949733,
+                -4.38482435729954,
+                -9.83385977900131,
+                -6.42720144691211
+              ],
+              [
+                86.1768852695192,
+                167.817034692294,
+                88.8217437112,
+                0.801502538357875,
+                -1.7062658465405,
+                -5.23280684929705
+              ],
+              [
+                85.5630157949733,
+                88.8217437112,
+                168.224891794506,
+                -2.15055883466778,
+                -2.12738330147136,
+                -1.70038176048078
+              ],
+              [
+                -4.38482435729954,
+                0.801502538357875,
+                -2.15055883466778,
+                35.5736402439259,
+                5.48320670987761,
+                6.71515321643779
+              ],
+              [
+                -9.83385977900131,
+                -1.7062658465405,
+                -2.12738330147136,
+                5.48320670987761,
+                30.0594096541484,
+                1.21849785385402
+              ],
+              [
+                -6.42720144691211,
+                -5.23280684929705,
+                -1.70038176048078,
+                6.71515321643779,
+                1.21849785385402,
+                30.488610032432
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 0,
+        "source": "DFT",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.308069434,
+              "b": 3.308069434,
+              "c": 3.308069434,
+              "alpha": 90.0,
+              "beta": 90.0,
+              "gamma": 90.0,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": 99.67791777160367,
+            "bulkModulus": 170.1220422222228,
+            "shearModulus": 35.5396853333334,
+            "poissonsRatio": 0.40234665609312115,
+            "elasticConstants": [
+              [
+                252.56388000000092,
+                129.06480000000045,
+                129.06480000000045,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                128.8394000000004,
+                252.33228000000082,
+                128.8394000000004,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                128.96628000000047,
+                128.96628000000047,
+                252.46126000000083,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.016760000000000233,
+                0.014050000000000071,
+                0.014099999999999906,
+                18.0786,
+                0.0,
+                0.0
+              ],
+              [
+                -0.004330000000000201,
+                -0.0034200000000000606,
+                -0.004170000000000115,
+                0.0,
+                18.079780000000003,
+                0.0
+              ],
+              [
+                0.009779999999999744,
+                0.009749999999999717,
+                0.008760000000000432,
+                0.0,
+                0.0,
+                18.07724
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": 2.646,
+            "interstitialFormationEnergy": {
+              "dumbbell_100": 4.502,
+              "dumbbell_110": 4.204,
+              "dumbbell_111": 3.949,
+              "crowdion_111": 3.948,
+              "octahedral": 4.618,
+              "tetrahedral": 4.422
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 0,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.31294024664954,
+              "b": 3.31294024573474,
+              "c": 3.31294023945472,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 600,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.32462580213159,
+              "b": 3.33106949092334,
+              "c": 3.32327166446638,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": [
+              [
+                224.729692077107,
+                130.218640703135,
+                134.899089709591,
+                -3.7901178264182,
+                -0.752067986062605,
+                -1.92776230831676
+              ],
+              [
+                130.218640703135,
+                223.313328957029,
+                133.745440305533,
+                -2.40145512265297,
+                1.74526883130672,
+                -3.43903148986823
+              ],
+              [
+                134.899089709591,
+                133.745440305533,
+                223.784785995058,
+                -1.15998599848532,
+                -0.0314040834860749,
+                -1.06989395624017
+              ],
+              [
+                -3.7901178264182,
+                -2.40145512265297,
+                -1.15998599848532,
+                11.2850016972444,
+                -2.77010627576201,
+                -2.7887772604526
+              ],
+              [
+                -0.752067986062605,
+                1.74526883130672,
+                -0.0314040834860749,
+                -2.77010627576201,
+                9.72290935710672,
+                -1.07267173449097
+              ],
+              [
+                -1.92776230831676,
+                -3.43903148986823,
+                -1.06989395624017,
+                -2.7887772604526,
+                -1.07267173449097,
+                11.6510591203319
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.34981671594978,
+              "b": 3.34326692531475,
+              "c": 3.35908659812197,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": [
+              [
+                198.294293126495,
+                128.781413422185,
+                111.644393804024,
+                -13.2342741393977,
+                3.76444727032616,
+                -10.690470497138
+              ],
+              [
+                128.781413422185,
+                197.231319086558,
+                110.372432711916,
+                -2.07423189806004,
+                5.21848750306632,
+                -15.0441243863941
+              ],
+              [
+                111.644393804024,
+                110.372432711916,
+                194.751824041613,
+                -3.23206811984513,
+                0.38587781822772,
+                -15.9349994759765
+              ],
+              [
+                -13.2342741393977,
+                -2.07423189806004,
+                -3.23206811984513,
+                16.3463625318129,
+                1.71197055108014,
+                7.29195882197442
+              ],
+              [
+                3.76444727032616,
+                5.21848750306632,
+                0.38587781822772,
+                1.71197055108014,
+                23.8137407924966,
+                0.913705635868302
+              ],
+              [
+                -10.690470497138,
+                -15.0441243863941,
+                -15.9349994759765,
+                7.29195882197442,
+                0.913705635868302,
+                25.0071734621811
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 900,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.33123286673784,
+              "b": 3.32892925768465,
+              "c": 3.33910263315303,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": [
+              [
+                225.68338842995,
+                122.863853758372,
+                123.5695249997,
+                1.5245536571886,
+                -3.40425628411141,
+                -1.13205080823814
+              ],
+              [
+                122.863853758372,
+                212.008092579235,
+                111.424557723093,
+                -1.16643803797265,
+                -5.09864031132243,
+                -1.16984774677589
+              ],
+              [
+                123.5695249997,
+                111.424557723093,
+                200.731107351909,
+                2.97538497330378,
+                -0.820234236423345,
+                0.01686645113315
+              ],
+              [
+                1.5245536571886,
+                -1.16643803797265,
+                2.97538497330378,
+                15.2662146793694,
+                -1.0489906677796,
+                -3.19600779344727
+              ],
+              [
+                -3.40425628411141,
+                -5.09864031132243,
+                -0.820234236423345,
+                -1.0489906677796,
+                15.193886041793,
+                0.500706413794747
+              ],
+              [
+                -1.13205080823814,
+                -1.16984774677589,
+                0.01686645113315,
+                -3.19600779344727,
+                0.500706413794747,
+                18.6996094090299
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 298,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": null
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "001": "data/element/Nb/bcc/DPA3_7ele_cryfinal/298k/strain/001"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Nb-fcc",
+    "type": "solid-element",
+    "composition": "Nb",
+    "elements": [
+      "Nb"
+    ],
+    "atomCount": {
+      "Nb": 4
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 4.38135313846537,
+              "b": 4.12120069881318,
+              "c": 4.12077586555314,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 0,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 4.1667334768954,
+              "b": 4.29554630549766,
+              "c": 4.16662325195783,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Nb-hcp",
+    "type": "solid-element",
+    "composition": "Nb",
+    "elements": [
+      "Nb"
+    ],
+    "atomCount": {
+      "Nb": 2
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 2.94316128897933,
+              "b": 5.09770488738211,
+              "c": 4.72765456742482,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 0,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 2.93396377800636,
+              "b": 5.08177433107375,
+              "c": 4.73648806416912,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Ni-bcc",
+    "type": "solid-element",
+    "composition": "Ni",
+    "elements": [
+      "Ni"
+    ],
+    "atomCount": {
+      "Ni": 2
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 2.78631220553887,
+              "b": 2.78631220553887,
+              "c": 2.78631220553887,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 0,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 2.79653387149594,
+              "b": 2.7965338727056,
+              "c": 2.79653386852376,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Ni-fcc",
+    "type": "solid-element",
+    "composition": "Ni",
+    "elements": [
+      "Ni"
+    ],
+    "atomCount": {
+      "Ni": 4
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.51546171135995,
+              "b": 3.51546171519852,
+              "c": 3.51546170443874,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null,
+            "cohesiveEnergy": -4.348165480419993
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": 107.788095145448,
+            "poissonsRatio": 0.409107686936625,
+            "elasticConstants": [
+              [
+                246.115595049924,
+                170.223165201235,
+                171.367914949565,
+                -0.380035282388317,
+                0.250130191062173,
+                0.953054022512655
+              ],
+              [
+                170.223165201235,
+                248.891968614836,
+                172.732978144082,
+                -0.667245273936084,
+                0.503633988913289,
+                0.357560856148245
+              ],
+              [
+                171.367914949565,
+                172.732978144082,
+                247.853404667727,
+                0.191143152503422,
+                0.283480091248235,
+                0.735424083604748
+              ],
+              [
+                -0.380035282388317,
+                -0.667245273936084,
+                0.191143152503422,
+                106.480838913274,
+                -0.335851169025486,
+                -0.450761782469241
+              ],
+              [
+                0.250130191062173,
+                0.503633988913289,
+                0.283480091248235,
+                -0.335851169025486,
+                107.86106212427,
+                -0.25362685519268
+              ],
+              [
+                0.953054022512655,
+                0.357560856148245,
+                0.735424083604748,
+                -0.450761782469241,
+                -0.25362685519268,
+                109.022384398799
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": 1.42222837381996,
+            "interstitialFormationEnergy": {
+              "dumbbell_100": 4.17146786791272,
+              "dumbbell_110": 4.17147066793405,
+              "dumbbell_111": 4.62185399793088,
+              "crowdion_110": 12.3316952579189,
+              "octahedral": 4.43113841791637,
+              "tetrahedral": 4.65134759806097
+            },
+            "stackingFaultEnergy": {
+              "100_110_usf": 1.1453,
+              "111_110_usf": 0.7506,
+              "111_112_isf": 0.138,
+              "111_112_usf": 0.2603
+            }
+          }
+        }
+      },
+      {
+        "temperature": 600,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.5402052520286,
+              "b": 3.53969067059328,
+              "c": 3.54483001457708,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": 92.7902416588781,
+            "poissonsRatio": 0.409052738575347,
+            "elasticConstants": [
+              [
+                215.764443049567,
+                154.803792170979,
+                149.943916795086,
+                -7.03797292113675,
+                0.86747096351945,
+                -13.9443110820087
+              ],
+              [
+                154.803792170979,
+                235.702402530131,
+                160.62489755057,
+                -2.00226261048563,
+                -0.5783278283966,
+                -20.4125484218092
+              ],
+              [
+                149.943916795086,
+                160.62489755057,
+                220.844182873182,
+                7.27239952562103,
+                5.11514562327297,
+                -3.33491569751141
+              ],
+              [
+                -7.03797292113675,
+                -2.00226261048563,
+                7.27239952562103,
+                98.4408240368317,
+                -2.12502329800332,
+                -4.63462094786047
+              ],
+              [
+                0.86747096351945,
+                -0.5783278283966,
+                5.11514562327297,
+                -2.12502329800332,
+                94.8776244979928,
+                -2.55753728675762
+              ],
+              [
+                -13.9443110820087,
+                -20.4125484218092,
+                -3.33491569751141,
+                -4.63462094786047,
+                -2.55753728675762,
+                85.0522764418098
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 1500,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.61530109013871,
+              "b": 3.5649106330979,
+              "c": 3.59984856249036,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": 52.9762005324265,
+            "poissonsRatio": 0.462750900597185,
+            "elasticConstants": [
+              [
+                136.118097483301,
+                126.801925401215,
+                133.933674664796,
+                5.46054477851275,
+                -8.01246096700594,
+                -15.7515856491447
+              ],
+              [
+                126.801925401215,
+                155.443293077728,
+                120.302693316359,
+                -5.6582846624577,
+                14.056291499055,
+                12.1143130362445
+              ],
+              [
+                133.933674664796,
+                120.302693316359,
+                150.820201119247,
+                26.2317202737168,
+                -6.916058788325,
+                -5.67830988434281
+              ],
+              [
+                5.46054477851275,
+                -5.6582846624577,
+                26.2317202737168,
+                47.3325998765006,
+                27.7049614668624,
+                -15.7623270074598
+              ],
+              [
+                -8.01246096700594,
+                14.056291499055,
+                -6.916058788325,
+                27.7049614668624,
+                80.2882418522316,
+                3.73461655075455
+              ],
+              [
+                -15.7515856491447,
+                12.1143130362445,
+                -5.67830988434281,
+                -15.7623270074598,
+                3.73461655075455,
+                31.3077598685474
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 0,
+        "source": "DFT",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.509976755,
+              "b": 3.509976755,
+              "c": 3.509976755,
+              "alpha": 90.0,
+              "beta": 90.0,
+              "gamma": 90.0,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": 223.84806513803827,
+            "bulkModulus": 200.90565111111178,
+            "shearModulus": 85.15861000000007,
+            "poissonsRatio": 0.3143008389758716,
+            "elasticConstants": [
+              [
+                256.8181800000009,
+                172.89674000000062,
+                172.89674000000062,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                172.9488200000006,
+                256.86832000000084,
+                172.9488200000006,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                172.9508800000006,
+                172.9508800000006,
+                256.871480000001,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0057100000000002,
+                0.005669999999999504,
+                0.005659999999999825,
+                113.95142,
+                0.0,
+                0.0
+              ],
+              [
+                0.012490000000001705,
+                0.012320000000000322,
+                0.012490000000000985,
+                0.0,
+                113.95104000000003,
+                0.0
+              ],
+              [
+                0.012410000000000672,
+                0.012420000000003227,
+                0.011670000000000479,
+                0.0,
+                0.0,
+                113.95203000000001
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": 1.447,
+            "interstitialFormationEnergy": {
+              "dumbbell_100": 4.493,
+              "dumbbell_110": 5.282,
+              "dumbbell_111": 5.109,
+              "crowdion_110": 5.281,
+              "octahedral": 4.714,
+              "tetrahedral": 5.093
+            },
+            "stackingFaultEnergy": {
+              "100_110_usf": null,
+              "111_110_usf": 0.798,
+              "111_112_isf": 0.149,
+              "111_112_usf": 0.297
+            }
+          }
+        }
+      },
+      {
+        "temperature": 0,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.51411102767462,
+              "b": 3.51411104329385,
+              "c": 3.51411103445888,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 900,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.52381273489774,
+              "b": 3.56679300739966,
+              "c": 3.57662220976786,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": [
+              [
+                244.829147084102,
+                182.370759144338,
+                170.233768513816,
+                6.19287757955856,
+                3.79711996813629,
+                2.45566326926804
+              ],
+              [
+                182.370759144338,
+                238.685230021691,
+                169.122728982841,
+                10.7348651629192,
+                3.28769782990607,
+                5.70025740099124
+              ],
+              [
+                170.233768513816,
+                169.122728982841,
+                240.628946654272,
+                -3.93189429066821,
+                -12.9749758936047,
+                -3.99030757053662
+              ],
+              [
+                6.19287757955856,
+                10.7348651629192,
+                -3.93189429066821,
+                103.810542259446,
+                1.7026633175077,
+                -11.5750928611888
+              ],
+              [
+                3.79711996813629,
+                3.28769782990607,
+                -12.9749758936047,
+                1.7026633175077,
+                100.420850273965,
+                3.61039574270633
+              ],
+              [
+                2.45566326926804,
+                5.70025740099124,
+                -3.99030757053662,
+                -11.5750928611888,
+                3.61039574270633,
+                106.082512106517
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 600,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.54429059931625,
+              "b": 3.53642721990638,
+              "c": 3.5413727380975,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": [
+              [
+                230.713065798886,
+                186.638009063539,
+                181.07149448756,
+                3.26774095182949,
+                -3.62783272116818,
+                1.91809601707227
+              ],
+              [
+                186.638009063539,
+                251.179799832201,
+                189.700034575101,
+                1.23294771910853,
+                -0.70869667757798,
+                -2.24735335677018
+              ],
+              [
+                181.07149448756,
+                189.700034575101,
+                245.794275608295,
+                1.99358055711398,
+                1.68969671318109,
+                -4.90258628453411
+              ],
+              [
+                3.26774095182949,
+                1.23294771910853,
+                1.99358055711398,
+                111.20416370995,
+                -1.88564329120337,
+                -0.494181534481295
+              ],
+              [
+                -3.62783272116818,
+                -0.70869667757798,
+                1.68969671318109,
+                -1.88564329120337,
+                109.656510932212,
+                2.90051516602897
+              ],
+              [
+                1.91809601707227,
+                -2.24735335677018,
+                -4.90258628453411,
+                -0.494181534481295,
+                2.90051516602897,
+                106.380441908257
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.58401926979119,
+              "b": 3.63000978059923,
+              "c": 3.56282408626415,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": [
+              [
+                229.146219993063,
+                174.589896266401,
+                165.097061469824,
+                2.51087262132456,
+                4.44292332667837,
+                16.7179486489871
+              ],
+              [
+                174.589896266401,
+                182.63937465982,
+                167.019610220254,
+                -9.29736180723235,
+                4.77862490319615,
+                15.0099115865391
+              ],
+              [
+                165.097061469824,
+                167.019610220254,
+                212.652224448241,
+                1.61011564020881,
+                0.993306958233806,
+                -0.819665113197115
+              ],
+              [
+                2.51087262132456,
+                -9.29736180723235,
+                1.61011564020881,
+                88.0760621691798,
+                3.06903032200377,
+                5.2333327498336
+              ],
+              [
+                4.44292332667837,
+                4.77862490319615,
+                0.993306958233806,
+                3.06903032200377,
+                82.9870432976249,
+                -1.89143764107773
+              ],
+              [
+                16.7179486489871,
+                15.0099115865391,
+                -0.819665113197115,
+                5.2333327498336,
+                -1.89143764107773,
+                106.086636702213
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 298,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": null
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "100": "data/element/Ni/fcc/DPA3_7ele_cryfinal/298k/strain/100"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Ni-hcp",
+    "type": "solid-element",
+    "composition": "Ni",
+    "elements": [
+      "Ni"
+    ],
+    "atomCount": {
+      "Ni": 2
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 2.47606095499144,
+              "b": 4.28866337668269,
+              "c": 4.0994042493111,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 0,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 2.48190984535962,
+              "b": 4.29879395196828,
+              "c": 4.08798418943237,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Pt-fcc",
+    "type": "solid-element",
+    "composition": "Pt",
+    "elements": [
+      "Pt"
+    ],
+    "atomCount": {
+      "Pt": 4
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.96644731262525,
+              "b": 3.9664473124759,
+              "c": 3.96644731353057,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": 48.7213067225599,
+            "poissonsRatio": 0.437702445660419,
+            "elasticConstants": [
+              [
+                301.464274767391,
+                234.172703296168,
+                234.301390580064,
+                -0.280769221752084,
+                -0.0717664376892645,
+                1.42435841933486
+              ],
+              [
+                234.172703296168,
+                299.498743070254,
+                233.224183662444,
+                -0.426059858220951,
+                -0.419287572365053,
+                1.02846770483745
+              ],
+              [
+                234.301390580064,
+                233.224183662444,
+                300.478656194958,
+                -0.519293582674139,
+                0.0335176368128185,
+                0.76654777767724
+              ],
+              [
+                -0.280769221752084,
+                -0.426059858220951,
+                -0.519293582674139,
+                48.5585447845877,
+                0.0861469542585692,
+                0.0794316191873338
+              ],
+              [
+                -0.0717664376892645,
+                -0.419287572365053,
+                0.0335176368128185,
+                0.0861469542585692,
+                49.0428853366321,
+                -0.136276962922003
+              ],
+              [
+                1.42435841933486,
+                1.02846770483745,
+                0.76654777767724,
+                0.0794316191873338,
+                -0.136276962922003,
+                48.5624900464599
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": {
+              "100_110_usf": 0.5038,
+              "111_110_usf": 0.499,
+              "111_112_isf": 0.3048,
+              "111_112_usf": 0.308
+            }
+          }
+        }
+      },
+      {
+        "temperature": 0,
+        "source": "DFT",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": null
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": {
+              "100_110_usf": 0.532,
+              "111_110_usf": 0.5,
+              "111_112_isf": 0.281,
+              "111_112_usf": 0.292
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Ta-bcc",
+    "type": "solid-element",
+    "composition": "Ta",
+    "elements": [
+      "Ta"
+    ],
+    "atomCount": {
+      "Ta": 2
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.31931975474913,
+              "b": 3.31932013915581,
+              "c": 3.31932132606558,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null,
+            "cohesiveEnergy": -9.18993686056001
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": 55.8276023557807,
+            "poissonsRatio": 0.414845565244562,
+            "elasticConstants": [
+              [
+                237.538236372549,
+                169.618562767825,
+                168.556003302751,
+                -0.00501693612649151,
+                -0.030666030971864,
+                0.113740371711006
+              ],
+              [
+                169.618562767825,
+                240.9533137033,
+                169.273791557624,
+                -0.351272073077534,
+                0.0185128104478775,
+                -0.509589364771938
+              ],
+              [
+                168.556003302751,
+                169.273791557624,
+                237.28241920945,
+                -0.0749691381197975,
+                0.370659404463332,
+                -0.06687151391976
+              ],
+              [
+                -0.00501693612649151,
+                -0.351272073077534,
+                -0.0749691381197975,
+                55.7070486446242,
+                0.0351433643974602,
+                -0.115218430538881
+              ],
+              [
+                -0.030666030971864,
+                0.0185128104478775,
+                0.370659404463332,
+                0.0351433643974602,
+                55.8136648657358,
+                0.125095490313008
+              ],
+              [
+                0.113740371711006,
+                -0.509589364771938,
+                -0.06687151391976,
+                -0.115218430538881,
+                0.125095490313008,
+                55.9620935569822
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": 3.16382538012112,
+            "interstitialFormationEnergy": {
+              "tetrahedral": 5.99878003424965,
+              "dumbbell_100": 7.0750376212527,
+              "dumbbell_110": 6.24382859826437,
+              "dumbbell_111": 38.6362938992679,
+              "crowdion_111": 32.1358339862491,
+              "octahedral": 7.02980681526242
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 600,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.3733888032333,
+              "b": 3.38161501998814,
+              "c": 3.37666035545759,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": 57.7125482043999,
+            "poissonsRatio": 0.417766966707108,
+            "elasticConstants": [
+              [
+                198.078303359261,
+                141.572450486451,
+                141.898531481878,
+                5.3614906692558,
+                4.23451280062287,
+                3.00591830598264
+              ],
+              [
+                141.572450486451,
+                197.789339219492,
+                142.227233633449,
+                5.27392000028597,
+                7.14033214252906,
+                5.50603149228452
+              ],
+              [
+                141.898531481878,
+                142.227233633449,
+                197.419005455735,
+                3.54768514249504,
+                4.71863546684319,
+                3.72277360016679
+              ],
+              [
+                5.3614906692558,
+                5.27392000028597,
+                3.54768514249504,
+                57.5274554531143,
+                -0.46497114799487,
+                -0.51483179576762
+              ],
+              [
+                4.23451280062287,
+                7.14033214252906,
+                4.71863546684319,
+                -0.46497114799487,
+                56.7743910110567,
+                -0.895368666221405
+              ],
+              [
+                3.00591830598264,
+                5.50603149228452,
+                3.72277360016679,
+                -0.51483179576762,
+                -0.895368666221405,
+                58.8357981490287
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 1500,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.40171998052766,
+              "b": 3.46600264421008,
+              "c": 3.41541143071184,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": 52.756391570436,
+            "poissonsRatio": 0.40148452812084,
+            "elasticConstants": [
+              [
+                154.907830535449,
+                103.917156245511,
+                106.775249216367,
+                -18.1481581339202,
+                -21.3442402920442,
+                -17.9188722983257
+              ],
+              [
+                103.917156245511,
+                152.741344991434,
+                104.89572424277,
+                -10.7767884688431,
+                -14.6335825464758,
+                -13.6385490311466
+              ],
+              [
+                106.775249216367,
+                104.89572424277,
+                162.815724462459,
+                -9.53419498786587,
+                -12.5542434744723,
+                -14.0230395878617
+              ],
+              [
+                -18.1481581339202,
+                -10.7767884688431,
+                -9.53419498786587,
+                55.0187564358634,
+                0.60395586442504,
+                -2.81383743976832
+              ],
+              [
+                -21.3442402920442,
+                -14.6335825464758,
+                -12.5542434744723,
+                0.60395586442504,
+                50.7329871382142,
+                0.521829189831115
+              ],
+              [
+                -17.9188722983257,
+                -13.6385490311466,
+                -14.0230395878617,
+                -2.81383743976832,
+                0.521829189831115,
+                52.5174311372304
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 0,
+        "source": "DFT",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.320382726,
+              "b": 3.320382726,
+              "c": 3.320382726,
+              "alpha": 90.0,
+              "beta": 90.0,
+              "gamma": 90.0,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": 181.93513708737882,
+            "bulkModulus": 195.1551511111118,
+            "shearModulus": 67.65281733333345,
+            "poissonsRatio": 0.3446235076283879,
+            "elasticConstants": [
+              [
+                272.28556000000094,
+                156.5897600000005,
+                156.5897600000005,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                156.58914000000055,
+                272.284500000001,
+                156.58914000000055,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                156.59118000000058,
+                156.59118000000058,
+                272.28614000000096,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                -0.0004599999999996403,
+                -0.0007100000000002574,
+                -0.0007199999999999819,
+                74.18947,
+                0.0,
+                0.0
+              ],
+              [
+                0.0014499999999999132,
+                0.0016900000000004912,
+                0.0014499999999999806,
+                0.0,
+                74.19014000000003,
+                0.0
+              ],
+              [
+                -0.0007500000000007733,
+                -0.0007500000000000093,
+                -0.0017499999999992877,
+                0.0,
+                0.0,
+                74.18863000000005
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": 2.864,
+            "interstitialFormationEnergy": {
+              "dumbbell_100": 5.889,
+              "dumbbell_110": 5.479,
+              "dumbbell_111": 4.773,
+              "crowdion_111": 4.774,
+              "octahedral": 5.946,
+              "tetrahedral": 5.77
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 0,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.32009802375056,
+              "b": 3.32009802166625,
+              "c": 3.32009802434583,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 600,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.33568838914432,
+              "b": 3.34599966277095,
+              "c": 3.32274893500714,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": [
+              [
+                221.896359748533,
+                169.776097348038,
+                169.513266831359,
+                3.02565562202873,
+                0.855962665351355,
+                4.5243678065756
+              ],
+              [
+                169.776097348038,
+                221.50757660404,
+                167.505407052547,
+                1.95865268111373,
+                0.657007385720825,
+                4.44946892127906
+              ],
+              [
+                169.513266831359,
+                167.505407052547,
+                226.232035352653,
+                3.46087106288711,
+                3.15439813988612,
+                6.7548412032843
+              ],
+              [
+                3.02565562202873,
+                1.95865268111373,
+                3.46087106288711,
+                68.0093150861114,
+                -0.367895898668572,
+                2.60522047999099
+              ],
+              [
+                0.855962665351355,
+                0.657007385720825,
+                3.15439813988612,
+                -0.367895898668572,
+                65.318839771684,
+                0.14142768820315
+              ],
+              [
+                4.5243678065756,
+                4.44946892127906,
+                6.7548412032843,
+                2.60522047999099,
+                0.14142768820315,
+                68.7952529713947
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.36709360535954,
+              "b": 3.36970094135979,
+              "c": 3.33047940547951,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": [
+              [
+                200.262593398541,
+                131.215645610325,
+                143.065313584873,
+                3.57399564952068,
+                2.50491741680556,
+                2.87821075434567
+              ],
+              [
+                131.215645610325,
+                190.289045510947,
+                142.008962291248,
+                3.3758296318079,
+                1.25577718792478,
+                0.953543629462535
+              ],
+              [
+                143.065313584873,
+                142.008962291248,
+                199.000829890224,
+                1.83026794480225,
+                1.80104363319894,
+                1.38530217947609
+              ],
+              [
+                3.57399564952068,
+                3.3758296318079,
+                1.83026794480225,
+                70.2670875883101,
+                4.30678875631359,
+                5.56500148555659
+              ],
+              [
+                2.50491741680556,
+                1.25577718792478,
+                1.80104363319894,
+                4.30678875631359,
+                64.8796700900204,
+                2.87540377161437
+              ],
+              [
+                2.87821075434567,
+                0.953543629462535,
+                1.38530217947609,
+                5.56500148555659,
+                2.87540377161437,
+                55.3299123832144
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 900,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.33622664804947,
+              "b": 3.36517035478297,
+              "c": 3.32676698867099,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": [
+              [
+                225.455206266155,
+                168.374056228225,
+                162.319833624519,
+                -5.73911558280362,
+                -4.05209273871359,
+                -2.98359627472496
+              ],
+              [
+                168.374056228225,
+                226.141724538009,
+                163.981582778586,
+                -5.49367539355569,
+                -2.33388064701145,
+                2.63571329549984
+              ],
+              [
+                162.319833624519,
+                163.981582778586,
+                215.907553605988,
+                -1.80086785790796,
+                0.838852948467835,
+                -0.960016323326077
+              ],
+              [
+                -5.73911558280362,
+                -5.49367539355569,
+                -1.80086785790796,
+                61.7613935038422,
+                -1.00851337033046,
+                0.697639875112801
+              ],
+              [
+                -4.05209273871359,
+                -2.33388064701145,
+                0.838852948467835,
+                -1.00851337033046,
+                63.6146972655856,
+                -1.40760293989635
+              ],
+              [
+                -2.98359627472496,
+                2.63571329549984,
+                -0.960016323326077,
+                0.697639875112801,
+                -1.40760293989635,
+                64.6486078191242
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 298,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": null
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "001": "data/element/Ta/bcc/DPA3_7ele_cryfinal/298k/strain/001"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Ta-fcc",
+    "type": "solid-element",
+    "composition": "Ta",
+    "elements": [
+      "Ta"
+    ],
+    "atomCount": {
+      "Ta": 4
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 4.22225206239437,
+              "b": 4.22225205972336,
+              "c": 4.22225206113944,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 0,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 4.39473351593091,
+              "b": 4.12864296699604,
+              "c": 4.12860773311922,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Ta-hcp",
+    "type": "solid-element",
+    "composition": "Ta",
+    "elements": [
+      "Ta"
+    ],
+    "atomCount": {
+      "Ta": 2
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.10832259940985,
+              "b": 5.38377266849242,
+              "c": 4.8182531075017,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 0,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.10832259940985,
+              "b": 5.38377266849242,
+              "c": 4.8182531075017,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "V-bcc",
+    "type": "solid-element",
+    "composition": "V",
+    "elements": [
+      "V"
+    ],
+    "atomCount": {
+      "V": 2
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 2.99801988423998,
+              "b": 2.99801986503541,
+              "c": 2.99801986378199,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "V-fcc",
+    "type": "solid-element",
+    "composition": "V",
+    "elements": [
+      "V"
+    ],
+    "atomCount": {
+      "V": 4
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.83118515279087,
+              "b": 3.83118515279087,
+              "c": 3.83118515279087,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "V-hcp",
+    "type": "solid-element",
+    "composition": "V",
+    "elements": [
+      "V"
+    ],
+    "atomCount": {
+      "V": 2
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 2.59290863206401,
+              "b": 4.49104949011878,
+              "c": 4.23420206547649,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "W-bcc",
+    "type": "solid-element",
+    "composition": "W",
+    "elements": [
+      "W"
+    ],
+    "atomCount": {
+      "W": 2
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.15231800711357,
+              "b": 3.15231811638085,
+              "c": 3.15231809450449,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null,
+            "cohesiveEnergy": -9.014329647580098
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": 135.233134830585,
+            "poissonsRatio": 0.283564500814398,
+            "elasticConstants": [
+              [
+                511.427678971013,
+                203.574288816132,
+                200.899075647689,
+                -0.551974712388036,
+                -3.53873323463471,
+                -1.59069234571584
+              ],
+              [
+                203.574288816132,
+                513.671474528734,
+                203.865011444199,
+                -0.93725863729832,
+                -1.49966581594173,
+                -1.73529990570571
+              ],
+              [
+                200.899075647689,
+                203.865011444199,
+                511.888751423826,
+                0.20960181978441,
+                -1.3716623826012,
+                -0.90060247860214
+              ],
+              [
+                -0.551974712388036,
+                -0.93725863729832,
+                0.20960181978441,
+                134.938973585821,
+                -1.16701115259417,
+                -1.11310024662503
+              ],
+              [
+                -3.53873323463471,
+                -1.49966581594173,
+                -1.3716623826012,
+                -1.16701115259417,
+                134.566408381923,
+                0.315832228295608
+              ],
+              [
+                -1.59069234571584,
+                -1.73529990570571,
+                -0.90060247860214,
+                -1.11310024662503,
+                0.315832228295608,
+                136.194022524012
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": 3.41414942053962,
+            "interstitialFormationEnergy": {
+              "octahedral": 10.4796819157491,
+              "dumbbell_100": 22.0374767467438,
+              "dumbbell_110": 10.7768209937494,
+              "dumbbell_111": 32.2338598287606,
+              "crowdion_111": 28.2806574547431,
+              "tetrahedral": 10.4796866537363
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 600,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.21306159395857,
+              "b": 3.20888454800531,
+              "c": 3.22170513199584,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": 118.079899788559,
+            "poissonsRatio": 0.281841700397236,
+            "elasticConstants": [
+              [
+                423.659153122151,
+                168.330258460318,
+                164.761120469938,
+                8.25680110158864,
+                7.63923352039845,
+                10.6043623327512
+              ],
+              [
+                168.330258460318,
+                425.392258036164,
+                164.929076837057,
+                8.39490363409014,
+                6.56655364614353,
+                8.48291314612253
+              ],
+              [
+                164.761120469938,
+                164.929076837057,
+                419.950028930758,
+                4.1647087272472,
+                3.87708365030503,
+                5.36264875481918
+              ],
+              [
+                8.25680110158864,
+                8.39490363409014,
+                4.1647087272472,
+                120.163402178159,
+                0.524479956650555,
+                -0.83178909489991
+              ],
+              [
+                7.63923352039845,
+                6.56655364614353,
+                3.87708365030503,
+                0.524479956650555,
+                118.660809442124,
+                0.55167693248853
+              ],
+              [
+                10.6043623327512,
+                8.48291314612253,
+                5.36264875481918,
+                -0.83178909489991,
+                0.55167693248853,
+                115.415487745395
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 1500,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.28802403943682,
+              "b": 3.28174077192451,
+              "c": 3.18053803256794,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": 95.0062553159407,
+            "poissonsRatio": 0.297048193109432,
+            "elasticConstants": [
+              [
+                321.462999999755,
+                128.711655936545,
+                136.661319701733,
+                -14.3641559479502,
+                -4.49914924944457,
+                -7.02133286677457
+              ],
+              [
+                128.711655936545,
+                288.74880976212,
+                133.00592210185,
+                -16.7275697205016,
+                -8.5039693896612,
+                -9.23993780782656
+              ],
+              [
+                136.661319701733,
+                133.00592210185,
+                332.53476298139,
+                -10.018380456518,
+                -0.32163389556493,
+                -8.45072930381125
+              ],
+              [
+                -14.3641559479502,
+                -16.7275697205016,
+                -10.018380456518,
+                88.3903256207742,
+                -2.70041997696275,
+                -3.86720206365704
+              ],
+              [
+                -4.49914924944457,
+                -8.5039693896612,
+                -0.32163389556493,
+                -2.70041997696275,
+                96.7856229999276,
+                3.0469010507599
+              ],
+              [
+                -7.02133286677457,
+                -9.23993780782656,
+                -8.45072930381125,
+                -3.86720206365704,
+                3.0469010507599,
+                99.8428173271203
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 0,
+        "source": "DFT",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.185917858,
+              "b": 3.185917858,
+              "c": 3.185917858,
+              "alpha": 90.0,
+              "beta": 90.0,
+              "gamma": 90.0,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": 361.18274928343726,
+            "bulkModulus": 304.65950222222324,
+            "shearModulus": 138.65919800000017,
+            "poissonsRatio": 0.30241179270140023,
+            "elasticConstants": [
+              [
+                497.81656000000163,
+                208.08568000000076,
+                208.08568000000076,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                208.08298000000076,
+                497.8138200000018,
+                208.08298000000076,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                208.07906000000074,
+                208.07906000000074,
+                497.80970000000156,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                -0.0006799999999990617,
+                -0.0006900000000000445,
+                -0.0006699999999997418,
+                134.52283,
+                0.0,
+                0.0
+              ],
+              [
+                -0.0008900000000000621,
+                -0.000859999999998327,
+                -0.0008899999999995227,
+                0.0,
+                134.52229,
+                0.0
+              ],
+              [
+                7.999999999990812e-05,
+                0.00011000000000042978,
+                0.00020000000000150044,
+                0.0,
+                0.0,
+                134.52229000000003
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": 3.223,
+            "interstitialFormationEnergy": {
+              "dumbbell_100": 12.196,
+              "dumbbell_110": 10.576,
+              "dumbbell_111": 10.287,
+              "crowdion_111": 10.289,
+              "octahedral": 12.265,
+              "tetrahedral": 11.717
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 0,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.15115556080569,
+              "b": 3.15115557970669,
+              "c": 3.15115565112312,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.1756455266775,
+              "b": 3.16921291904778,
+              "c": 3.17510236936955,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": [
+              [
+                445.188591265597,
+                174.308731875211,
+                181.217447425707,
+                10.785517350455,
+                5.48093710152262,
+                4.54579384952656
+              ],
+              [
+                174.308731875211,
+                466.038815689178,
+                177.782461880822,
+                3.23567979300041,
+                0.99680411681701,
+                8.04090552730484
+              ],
+              [
+                181.217447425707,
+                177.782461880822,
+                455.1077961618,
+                -3.10656656501956,
+                2.88912116068325,
+                3.92153472891332
+              ],
+              [
+                10.785517350455,
+                3.23567979300041,
+                -3.10656656501956,
+                133.407605154617,
+                -4.37220731632841,
+                -6.40054592314636
+              ],
+              [
+                5.48093710152262,
+                0.99680411681701,
+                2.88912116068325,
+                -4.37220731632841,
+                136.985819266246,
+                -0.852563026109982
+              ],
+              [
+                4.54579384952656,
+                8.04090552730484,
+                3.92153472891332,
+                -6.40054592314636,
+                -0.852563026109982,
+                142.124295122564
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 600,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.16353630072647,
+              "b": 3.15881911371462,
+              "c": 3.15721539850612,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": [
+              [
+                501.655466801276,
+                183.049388279885,
+                177.223625976025,
+                0.51109173866485,
+                -2.42647116226169,
+                0.380505287902817
+              ],
+              [
+                183.049388279885,
+                504.796889028971,
+                183.146090720787,
+                -6.51673716903083,
+                0.766136400534665,
+                1.87027115013185
+              ],
+              [
+                177.223625976025,
+                183.146090720787,
+                499.937338400218,
+                -1.34069907106842,
+                4.55061434878847,
+                1.58868465946861
+              ],
+              [
+                0.51109173866485,
+                -6.51673716903083,
+                -1.34069907106842,
+                153.312572505137,
+                0.68374818702141,
+                -0.115729211222255
+              ],
+              [
+                -2.42647116226169,
+                0.766136400534665,
+                4.55061434878847,
+                0.68374818702141,
+                154.896028569575,
+                -2.83526340891812
+              ],
+              [
+                0.380505287902817,
+                1.87027115013185,
+                1.58868465946861,
+                -0.115729211222255,
+                -2.83526340891812,
+                154.949482905456
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 900,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.1679103774964,
+              "b": 3.16587519410289,
+              "c": 3.16046285801271,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": [
+              [
+                476.981848758612,
+                164.232676509382,
+                170.874369239169,
+                -2.10333045287841,
+                0.388080320677745,
+                -7.0243259535661
+              ],
+              [
+                164.232676509382,
+                464.358141455984,
+                167.399991233395,
+                -4.80089328640502,
+                -6.73542145286821,
+                -10.8173753788034
+              ],
+              [
+                170.874369239169,
+                167.399991233395,
+                477.666241270757,
+                -3.81507076306666,
+                -1.1355675240768,
+                -10.074053127605
+              ],
+              [
+                -2.10333045287841,
+                -4.80089328640502,
+                -3.81507076306666,
+                148.42237089678,
+                -4.97052090981989,
+                -3.66377063067749
+              ],
+              [
+                0.388080320677745,
+                -6.73542145286821,
+                -1.1355675240768,
+                -4.97052090981989,
+                140.129786583602,
+                1.86968743307001
+              ],
+              [
+                -7.0243259535661,
+                -10.8173753788034,
+                -10.074053127605,
+                -3.66377063067749,
+                1.86968743307001,
+                136.509636370721
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 298,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": null
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "001": "data/element/W/bcc/DPA3_7ele_cryfinal/298k/strain/001"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "W-fcc",
+    "type": "solid-element",
+    "composition": "W",
+    "elements": [
+      "W"
+    ],
+    "atomCount": {
+      "W": 4
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 4.01326979563554,
+              "b": 4.01326979563554,
+              "c": 4.01326979563554,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 0,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 4.01326979563554,
+              "b": 4.01326979563554,
+              "c": 4.01326979563554,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "W-hcp",
+    "type": "solid-element",
+    "composition": "W",
+    "elements": [
+      "W"
+    ],
+    "atomCount": {
+      "W": 2
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 2.99392384934729,
+              "b": 5.18562822106169,
+              "c": 4.50103766624459,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 0,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 2.8625521366171,
+              "b": 4.95808573993566,
+              "c": 4.41998348209905,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Zn-hcp",
+    "type": "solid-element",
+    "composition": "Zn",
+    "elements": [
+      "Zn"
+    ],
+    "atomCount": {
+      "Zn": 2
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 2.66797202526738,
+              "b": 4.62106310093554,
+              "c": 4.96868351221393,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 4,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 2.61886786366236,
+              "b": 4.53601219817257,
+              "c": 5.30630771565581,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Zr-bcc",
+    "type": "solid-element",
+    "composition": "Zr",
+    "elements": [
+      "Zr"
+    ],
+    "atomCount": {
+      "Zr": 2
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.59757728558667,
+              "b": 3.5975057481316,
+              "c": 3.59747151386517,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Im-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Zr-fcc",
+    "type": "solid-element",
+    "composition": "Zr",
+    "elements": [
+      "Zr"
+    ],
+    "atomCount": {
+      "Zr": 4
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 4.53513827985722,
+              "b": 4.53513844050449,
+              "c": 4.53513859425771,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Zr-hcp",
+    "type": "solid-element",
+    "composition": "Zr",
+    "elements": [
+      "Zr"
+    ],
+    "atomCount": {
+      "Zr": 2
+    },
+    "data": [
+      {
+        "temperature": 0,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.22941864876263,
+              "b": 5.59351717856731,
+              "c": 5.1795071598084,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null,
+            "cohesiveEnergy": -6.255446395520039
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": 34.3974928345314,
+            "poissonsRatio": 0.294374719854857,
+            "elasticConstants": [
+              [
+                154.03206812603,
+                81.1823049948553,
+                64.0010002391498,
+                0.13094634439785,
+                -0.171429321188496,
+                -3.26634062925614
+              ],
+              [
+                81.1823049948553,
+                150.609404133505,
+                62.1045996491974,
+                0.194712390529045,
+                -0.098825959931902,
+                -1.99426723716388
+              ],
+              [
+                64.0010002391498,
+                62.1045996491974,
+                192.234027192415,
+                0.0808898662455795,
+                -0.753327806224052,
+                -0.368965858514915
+              ],
+              [
+                0.13094634439785,
+                0.194712390529045,
+                0.0808898662455795,
+                33.1112562811614,
+                -0.00510428669269899,
+                1.13246396404797
+              ],
+              [
+                -0.171429321188496,
+                -0.098825959931902,
+                -0.753327806224052,
+                -0.00510428669269899,
+                33.6807657573022,
+                0.400625491410668
+              ],
+              [
+                -3.26634062925614,
+                -1.99426723716388,
+                -0.368965858514915,
+                1.13246396404797,
+                0.400625491410668,
+                36.4004564651306
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": 2.0960821697372,
+            "interstitialFormationEnergy": {
+              "basal_split": 2.94171863055089,
+              "split_dumbbell": 3.28985396056669,
+              "crowdion": 2.94172448659083
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 600,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": 18.4814916732382,
+            "poissonsRatio": 0.36183044207127,
+            "elasticConstants": [
+              [
+                119.631769181515,
+                90.3915587779595,
+                72.1623286989455,
+                -3.29939591557512,
+                -4.38584346200715,
+                -8.724451535823
+              ],
+              [
+                90.3915587779595,
+                127.79773905501,
+                70.1850604247173,
+                7.51568841203976,
+                7.57723547207977,
+                2.43514899215644
+              ],
+              [
+                72.1623286989455,
+                70.1850604247173,
+                163.05809652372,
+                4.20791024944722,
+                4.00003152680458,
+                2.90059980423247
+              ],
+              [
+                -3.29939591557512,
+                7.51568841203976,
+                4.20791024944722,
+                23.0274374058601,
+                1.57993147295892,
+                -0.4541782257225
+              ],
+              [
+                -4.38584346200715,
+                7.57723547207977,
+                4.00003152680458,
+                1.57993147295892,
+                20.4800845951363,
+                -1.91101076775583
+              ],
+              [
+                -8.724451535823,
+                2.43514899215644,
+                2.90059980423247,
+                -0.4541782257225,
+                -1.91101076775583,
+                11.9369530187183
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 1500,
+        "source": "Alloy_tongqi",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": 7.31239189145346,
+            "poissonsRatio": 0.490642240640629,
+            "elasticConstants": [
+              [
+                58.074456273175,
+                116.742574606025,
+                60.8231006729683,
+                0.31518096651812,
+                -1.82425592154959,
+                9.9400046098171
+              ],
+              [
+                116.742574606025,
+                92.2725550016075,
+                92.062731282243,
+                2.4203857721467,
+                12.4116669162413,
+                -27.8586628340509
+              ],
+              [
+                60.8231006729683,
+                92.062731282243,
+                129.566354615501,
+                -6.91714450019423,
+                -1.29574551775293,
+                3.82946414746872
+              ],
+              [
+                0.31518096651812,
+                2.4203857721467,
+                -6.91714450019423,
+                5.84077832529449,
+                9.49535563961527,
+                -20.2733698400882
+              ],
+              [
+                -1.82425592154959,
+                12.4116669162413,
+                -1.29574551775293,
+                9.49535563961527,
+                16.485182302907,
+                -9.01117645259378
+              ],
+              [
+                9.9400046098171,
+                -27.8586628340509,
+                3.82946414746872,
+                -20.2733698400882,
+                -9.01117645259378,
+                -0.3887849538411
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 0,
+        "source": "DFT",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.233447365,
+              "b": 3.2334076304491983,
+              "c": 5.166780555,
+              "alpha": 90.0,
+              "beta": 90.0,
+              "gamma": 120.00040651977184,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": 101.82023515718656,
+            "bulkModulus": 93.93280222222255,
+            "shearModulus": 38.58760800000006,
+            "poissonsRatio": 0.3193385186921458,
+            "elasticConstants": [
+              [
+                153.50128000000052,
+                55.82656000000019,
+                65.77960000000023,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                55.830320000000185,
+                153.4146800000005,
+                65.80412000000022,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                65.7973800000002,
+                65.79616000000021,
+                163.6451200000006,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                -0.001910000000000632,
+                -0.002260000000000112,
+                -0.0019599999999997484,
+                27.7577,
+                0.0,
+                0.0
+              ],
+              [
+                -0.0002700000000001562,
+                -0.00024000000000021872,
+                0.00024000000000093773,
+                0.0,
+                27.766460000000002,
+                0.0
+              ],
+              [
+                0.0001699999999999452,
+                -0.00015999999999972636,
+                9.999999999859315e-06,
+                0.0,
+                0.0,
+                43.030280000000005
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": 1.94,
+            "interstitialFormationEnergy": {
+              "split_dumbbell": 2.99,
+              "basal_split": 2.82,
+              "crowdion": 3.26,
+              "basal_crowdion": null,
+              "octahedral": 2.91,
+              "basal_octahedral": 2.69,
+              "tetrahedral": null,
+              "basal_tetrahedral": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 0,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.23865205274967,
+              "b": 5.60950990339967,
+              "c": 5.159648128549,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 900,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.23113603727601,
+              "b": 5.59649178272881,
+              "c": 5.24667005076245,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": [
+              [
+                98.9120413957888,
+                102.258409501177,
+                74.2518940297196,
+                -4.22198373167241,
+                1.79213845566067,
+                11.3660400203762
+              ],
+              [
+                102.258409501177,
+                96.4368719170826,
+                76.7456388078556,
+                0.66403140390132,
+                -4.29255706403098,
+                -5.0645637276888
+              ],
+              [
+                74.2518940297196,
+                76.7456388078556,
+                149.945532339558,
+                3.86967822820083,
+                0.30497178985862,
+                -3.36959006026213
+              ],
+              [
+                -4.22198373167241,
+                0.66403140390132,
+                3.86967822820083,
+                20.155290534288,
+                -0.429612842737227,
+                -4.67443930753136
+              ],
+              [
+                1.79213845566067,
+                -4.29255706403098,
+                0.30497178985862,
+                -0.429612842737227,
+                18.0012897939611,
+                4.26187666365102
+              ],
+              [
+                11.3660400203762,
+                -5.0645637276888,
+                -3.36959006026213,
+                -4.67443930753136,
+                4.26187666365102,
+                15.3232989771319
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 600,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.21936006720066,
+              "b": 5.5760952042499,
+              "c": 5.2307976739412,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": [
+              [
+                126.284283693187,
+                77.2737474590462,
+                67.7873154192875,
+                -3.91575553774123,
+                -4.99346255338662,
+                -9.90612391842186
+              ],
+              [
+                77.2737474590462,
+                119.721563673192,
+                74.5872274543516,
+                3.74157444957594,
+                3.75252440625155,
+                5.23089579883128
+              ],
+              [
+                67.7873154192875,
+                74.5872274543516,
+                165.352244595627,
+                1.17492510231259,
+                3.30371864336643,
+                -4.33730868916614
+              ],
+              [
+                -3.91575553774123,
+                3.74157444957594,
+                1.17492510231259,
+                18.5167872834278,
+                0.39796091488708,
+                0.347321344097335
+              ],
+              [
+                -4.99346255338662,
+                3.75252440625155,
+                3.30371864336643,
+                0.39796091488708,
+                18.9338299968577,
+                0.768144896304819
+              ],
+              [
+                -9.90612391842186,
+                5.23089579883128,
+                -4.33730868916614,
+                0.347321344097335,
+                0.768144896304819,
+                24.6675576494129
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": 3.43481779726667,
+              "b": 5.94927893960769,
+              "c": 5.2488743571976,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 120,
+              "pointGroup": "P63/mmc"
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": [
+              [
+                111.898977537421,
+                98.8746801594115,
+                76.0167248125173,
+                1.22521920437887,
+                -8.61045446025384,
+                -5.54665525879195
+              ],
+              [
+                98.8746801594115,
+                79.6691754252115,
+                69.216579435045,
+                2.18660773018288,
+                4.34652021166483,
+                0.370554260589355
+              ],
+              [
+                76.0167248125173,
+                69.216579435045,
+                132.841305765761,
+                4.40492643501744,
+                -4.85015266882839,
+                -4.9502712453482
+              ],
+              [
+                1.22521920437887,
+                2.18660773018288,
+                4.40492643501744,
+                16.856388872105,
+                -0.10663411229542,
+                -6.32497366159343
+              ],
+              [
+                -8.61045446025384,
+                4.34652021166483,
+                -4.85015266882839,
+                -0.10663411229542,
+                17.6015509616331,
+                -1.50609825484489
+              ],
+              [
+                -5.54665525879195,
+                0.370554260589355,
+                -4.9502712453482,
+                -6.32497366159343,
+                -1.50609825484489,
+                -5.5583231565867
+              ]
+            ],
+            "stressStrain": null
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        },
+        "thermostat": "nose_hoover"
+      },
+      {
+        "temperature": 298,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": null
+            },
+            "rdf": null
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "0001": "data/element/Zr/hcp/DPA3_7ele_cryfinal/298k/strain/0001"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": null,
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  }
+]

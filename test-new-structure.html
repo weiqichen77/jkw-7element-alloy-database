@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Structure Test</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .material { border: 1px solid #ddd; padding: 20px; margin: 20px 0; border-radius: 4px; }
+    .section { margin: 15px 0; }
+    .label { font-weight: bold; color: #555; }
+    select { padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 13px; margin: 10px 0; }
+    .structure-info { background: #f5f5f5; padding: 10px; border-radius: 4px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>New Data Structure Test</h1>
+  <div id="content"></div>
+  
+  <script>
+    async function loadTest() {
+      try {
+        const response = await fetch('test-new-structure.json');
+        const materials = await response.json();
+        
+        const content = document.getElementById('content');
+        
+        materials.forEach(material => {
+          const div = document.createElement('div');
+          div.className = 'material';
+          
+          let html = `
+            <h2>${material.name} (${material.source})</h2>
+            <div class="section">
+              <span class="label">Type:</span> ${material.type}<br>
+              <span class="label">Composition:</span> ${material.composition}<br>
+              <span class="label">Elements:</span> ${material.elements.join(', ')}
+            </div>
+          `;
+          
+          // Structure visualization section
+          if (material.data && material.data.length > 0) {
+            const structures = [];
+            material.data.forEach((dataEntry, idx) => {
+              if (dataEntry.poscar) {
+                const label = dataEntry.source === 'init' 
+                  ? 'Initial Structure'
+                  : `${dataEntry.temperature || 0}K - ${dataEntry.source}`;
+                const poscarSource = dataEntry.poscar_source || dataEntry.source;
+                structures.push({ idx, label, poscarSource, poscar: dataEntry.poscar });
+              }
+            });
+            
+            if (structures.length > 0) {
+              // Find default: prefer 0K DFT
+              let defaultIdx = structures.findIndex(s => 
+                material.data[s.idx].temperature === 0 && material.data[s.idx].source === 'DFT'
+              );
+              if (defaultIdx === -1) defaultIdx = 0;
+              
+              html += `
+                <div class="section">
+                  <div class="label">Crystal Structure Visualization</div>
+                  ${structures.length > 1 ? `
+                    <select id="struct-${material.source}" onchange="updateStructure('${material.source}', this.value)">
+                      ${structures.map((s, i) => `
+                        <option value="${i}" ${i === defaultIdx ? 'selected' : ''}>${s.label}</option>
+                      `).join('')}
+                    </select>
+                  ` : ''}
+                  <div id="info-${material.source}" class="structure-info">
+                    <div><span class="label">Source:</span> ${structures[defaultIdx].poscarSource}</div>
+                    <div><span class="label">File:</span> <a href="${structures[defaultIdx].poscar}" target="_blank">${structures[defaultIdx].poscar}</a></div>
+                  </div>
+                </div>
+              `;
+              
+              // Store structures for updating
+              window['structures_' + material.source] = structures;
+            }
+          }
+          
+          div.innerHTML = html;
+          content.appendChild(div);
+        });
+        
+        console.log('✓ Test data loaded successfully!');
+      } catch (error) {
+        document.getElementById('content').innerHTML = `<div style="color: red;">Error: ${error.message}</div>`;
+        console.error('Error loading test data:', error);
+      }
+    }
+    
+    function updateStructure(materialId, idx) {
+      const structures = window['structures_' + materialId];
+      const selected = structures[parseInt(idx)];
+      
+      const infoDiv = document.getElementById('info-' + materialId);
+      infoDiv.innerHTML = `
+        <div><span class="label">Source:</span> ${selected.poscarSource}</div>
+        <div><span class="label">File:</span> <a href="${selected.poscar}" target="_blank">${selected.poscar}</a></div>
+      `;
+    }
+    
+    window.addEventListener('load', loadTest);
+  </script>
+</body>
+</html>

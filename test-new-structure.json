@@ -1,0 +1,79 @@
+[
+  {
+    "source": "test-001",
+    "name": "Test Material",
+    "type": "solid-solution",
+    "composition": "Al2Cu4",
+    "elements": ["Al", "Cu"],
+    "atomCount": {
+      "Al": 2,
+      "Cu": 4
+    },
+    "data": [
+      {
+        "source": "init",
+        "poscar": "data/solid-solution/test-001/init/POSCAR"
+      },
+      {
+        "temperature": 0,
+        "source": "DFT",
+        "poscar": "data/solid-solution/test-001/DFT/POSCAR",
+        "poscar_source": "DFT relaxation",
+        "properties": {
+          "structure": {
+            "density": 7.85,
+            "latticeParameters": {
+              "a": 3.52,
+              "b": 3.52,
+              "c": 3.52,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            }
+          },
+          "mechanics": {
+            "youngsModulus": 200,
+            "bulkModulus": 160,
+            "shearModulus": 80,
+            "poissonsRatio": 0.3
+          }
+        }
+      },
+      {
+        "temperature": 300,
+        "source": "DFT",
+        "poscar": "data/solid-solution/test-001/DFT/POSCAR",
+        "poscar_source": "DFT relaxation at 300K",
+        "properties": {
+          "structure": {
+            "density": 7.82,
+            "latticeParameters": {
+              "a": 3.53,
+              "b": 3.53,
+              "c": 3.53,
+              "alpha": 90,
+              "beta": 90,
+              "gamma": 90,
+              "pointGroup": "Fm-3m"
+            }
+          }
+        }
+      },
+      {
+        "temperature": 0,
+        "source": "DPA-3",
+        "poscar": "data/solid-solution/test-001/DPA-3/POSCAR",
+        "poscar_source": "DPA-3 model",
+        "properties": {
+          "structure": {
+            "density": 7.83
+          },
+          "mechanics": {
+            "youngsModulus": 195
+          }
+        }
+      }
+    ]
+  }
+]
