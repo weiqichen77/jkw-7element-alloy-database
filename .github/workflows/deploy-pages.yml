@@ -1449,7 +1449,7 @@ jobs:
                     html += '<div class="stacking-display">';
                     html += '<span>' + types[0] + ': ' + formatValue(defects.stackingFaultEnergy[types[0]], 2) + '</span>';
                     if (types.length > 1) {
-                      html += '<button class="types-expand" onclick="toggleSites(this, event)">▼</button>';
+                      html += '<button class="sites-expand" onclick="toggleSites(this, event)">▼</button>';
                       html += '<div class="sites-details hidden">';
                       for (const type of types.slice(1)) {
                         html += '<div>' + type + ': ' + formatValue(defects.stackingFaultEnergy[type], 2) + ' mJ/m²</div>';
@@ -1677,14 +1677,16 @@ jobs:
           // Toggle interstitial sites display
           window.toggleSites = function(btn, event) {
             event.stopPropagation();
-            const cell = btn.closest('.interstitial-cell');
+            // Support both interstitial-cell and stacking-cell
+            const cell = btn.closest('.interstitial-cell, .stacking-cell');
+            if (!cell) return;
             const details = cell.querySelector('.sites-details');
             if (details) {
               const isHidden = details.classList.contains('hidden');
               details.classList.toggle('hidden');
               btn.textContent = isHidden ? '▲' : '▼';
               // Adjust z-index to prevent content overlap
-              if (cell) cell.style.zIndex = isHidden ? '100' : '1';
+              cell.style.zIndex = isHidden ? '100' : '1';
             }
           };
           
@@ -3667,6 +3669,18 @@ jobs:
           }
           
           .interstitial-display {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+          }
+          
+          /* Stacking Fault Types */
+          .stacking-cell {
+            position: relative;
+            z-index: 1;
+          }
+          
+          .stacking-display {
             display: flex;
             align-items: center;
             gap: 8px;
