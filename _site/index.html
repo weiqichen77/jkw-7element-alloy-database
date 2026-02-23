@@ -323,14 +323,30 @@
             html += '</div>';
             
             // Display stress-strain curve if available
-            if (mech.stressStrain && Array.isArray(mech.stressStrain) && mech.stressStrain.length > 0) {
-              html += '<div style="margin-top: 15px;">';
-              html += '<div class="detail-item-label" style="margin-bottom: 8px;">Stress-Strain Curve</div>';
-              html += '<div style="background: #f8f9fa; padding: 10px; border-radius: 4px; font-size: 12px;">';
-              html += '<div style="color: #666;">Data points available: ' + mech.stressStrain.length + '</div>';
-              html += '<div style="margin-top: 5px;"><a href="#" onclick="event.preventDefault(); alert(\'Stress-Strain data visualization coming soon!\');" style="color: #3498db; text-decoration: underline;">View Curve</a></div>';
-              html += '</div>';
-              html += '</div>';
+            if (mech.stressStrain) {
+              if (Array.isArray(mech.stressStrain) && mech.stressStrain.length > 0) {
+                // Array format - data points
+                html += '<div style="margin-top: 15px;">';
+                html += '<div class="detail-item-label" style="margin-bottom: 8px;">Stress-Strain Curve</div>';
+                html += '<div style="background: #f8f9fa; padding: 10px; border-radius: 4px; font-size: 12px;">';
+                html += '<div style="color: #666;">Data points available: ' + mech.stressStrain.length + '</div>';
+                html += '<div style="margin-top: 5px;"><a href="#" onclick="event.preventDefault(); alert(\'Stress-Strain data visualization coming soon!\');" style="color: #3498db; text-decoration: underline;">View Curve</a></div>';
+                html += '</div>';
+                html += '</div>';
+              } else if (typeof mech.stressStrain === 'object' && !Array.isArray(mech.stressStrain)) {
+                // Object format - directory paths
+                html += '<div style="margin-top: 15px;">';
+                html += '<div class="detail-item-label" style="margin-bottom: 8px;">Stress-Strain Data</div>';
+                html += '<div style="background: #f8f9fa; padding: 10px; border-radius: 4px; font-size: 12px;">';
+                html += '<div style="color: #666; margin-bottom: 8px;">Available strain directions:</div>';
+                html += '<div style="display: flex; flex-wrap: wrap; gap: 8px;">';
+                for (const [direction, path] of Object.entries(mech.stressStrain)) {
+                  html += `<div style="background: white; padding: 6px 12px; border-radius: 4px; border: 1px solid #ddd;"><span style="font-weight: 600;">[${direction}]</span> <a href="/${path}" target="_blank" style="color: #3498db; text-decoration: underline; margin-left: 8px;">View Data</a></div>`;
+                }
+                html += '</div>';
+                html += '</div>';
+                html += '</div>';
+              }
             }
             
             html += '</div>';
@@ -339,20 +355,35 @@
           // Display defects properties
           if (props.defects) {
             const defects = props.defects;
-            const hasData = defects.vacancyFormationEnergy || defects.interstitialFormationEnergy || defects.stackingFaultEnergy;
+            const hasVacancy = defects.vacancyFormationEnergy != null;
+            const hasInterstitial = defects.interstitialFormationEnergy != null;
+            const hasStackingFault = defects.stackingFaultEnergy != null;
             
-            if (hasData) {
+            if (hasVacancy || hasInterstitial || hasStackingFault) {
               html += '<div class="detail-section">';
               html += '<div class="detail-section-title">Defect Properties</div>';
               html += '<div class="detail-grid">';
               
-              if (defects.vacancyFormationEnergy !== null && defects.vacancyFormationEnergy !== undefined) {
+              if (hasVacancy) {
                 html += `<div class="detail-item"><div class="detail-item-label">Vacancy Formation Energy (eV)</div><div class="detail-item-value">${defects.vacancyFormationEnergy.toFixed(3)}</div></div>`;
               }
-              if (defects.interstitialFormationEnergy !== null && defects.interstitialFormationEnergy !== undefined) {
-                html += `<div class="detail-item"><div class="detail-item-label">Interstitial Formation Energy (eV)</div><div class="detail-item-value">${defects.interstitialFormationEnergy.toFixed(3)}</div></div>`;
+              
+              if (hasInterstitial) {
+                // Check if interstitialFormationEnergy is an object with multiple types
+                if (typeof defects.interstitialFormationEnergy === 'object' && !Array.isArray(defects.interstitialFormationEnergy)) {
+                  html += '<div class="detail-item" style="grid-column: 1 / -1;"><div class="detail-item-label">Interstitial Formation Energy (eV)</div><div class="detail-item-value" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-top: 8px;">';
+                  for (const [type, energy] of Object.entries(defects.interstitialFormationEnergy)) {
+                    const displayType = type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                    html += `<div style="background: #f8f9fa; padding: 8px; border-radius: 4px;"><span style="color: #666; font-size: 11px;">${displayType}:</span> <strong>${energy.toFixed(3)}</strong></div>`;
+                  }
+                  html += '</div></div>';
+                } else {
+                  // Single value
+                  html += `<div class="detail-item"><div class="detail-item-label">Interstitial Formation Energy (eV)</div><div class="detail-item-value">${defects.interstitialFormationEnergy.toFixed(3)}</div></div>`;
+                }
               }
-              if (defects.stackingFaultEnergy !== null && defects.stackingFaultEnergy !== undefined) {
+              
+              if (hasStackingFault) {
                 html += `<div class="detail-item"><div class="detail-item-label">Stacking Fault Energy (mJ/m²)</div><div class="detail-item-value">${defects.stackingFaultEnergy.toFixed(3)}</div></div>`;
               }
               

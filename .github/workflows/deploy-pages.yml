@@ -65,6 +65,20 @@ jobs:
           cp backend/data/materials.json _site/data/
           cp backend/data/materials_intermetallic.json _site/data/ 2>/dev/null || true
           
+          # Copy element POSCAR and strain data files
+          if [ -d "data/element" ]; then
+            echo "Copying element data files..."
+            cp -r data/element _site/data/
+            echo "✓ Copied element directory"
+          fi
+          
+          # Copy solid_solution POSCAR files
+          if [ -d "data/solid_solution" ]; then
+            echo "Copying solid_solution POSCAR files..."
+            cp -r data/solid_solution _site/data/
+            echo "✓ Copied solid_solution directory"
+          fi
+          
           # Copy intermetallic POSCAR files
           if [ -d "data/intermetallic" ]; then
             echo "Copying intermetallic POSCAR files..."
