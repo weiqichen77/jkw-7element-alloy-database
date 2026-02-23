@@ -1413,21 +1413,25 @@ jobs:
               
               // Interstitial with multiple sites
               html += '<td class="interstitial-cell">';
-              if (defects.interstitialFormationEnergy) {
-                if (typeof defects.interstitialFormationEnergy === 'object') {
-                  // Multiple sites
+              if (defects.interstitialFormationEnergy != null) {
+                if (typeof defects.interstitialFormationEnergy === 'object' && !Array.isArray(defects.interstitialFormationEnergy)) {
+                  // Multiple sites - check if object is not empty
                   const sites = Object.keys(defects.interstitialFormationEnergy);
-                  html += '<div class="interstitial-display">';
-                  html += '<span>' + sites[0] + ': ' + formatValue(defects.interstitialFormationEnergy[sites[0]], 3) + '</span>';
-                  if (sites.length > 1) {
-                    html += '<button class="sites-expand" onclick="toggleSites(this, event)">▼</button>';
-                    html += '<div class="sites-details hidden">';
-                    for (const site of sites.slice(1)) {
-                      html += '<div>' + site + ': ' + formatValue(defects.interstitialFormationEnergy[site], 3) + ' eV</div>';
+                  if (sites.length > 0) {
+                    html += '<div class="interstitial-display">';
+                    html += '<span>' + sites[0] + ': ' + formatValue(defects.interstitialFormationEnergy[sites[0]], 3) + '</span>';
+                    if (sites.length > 1) {
+                      html += '<button class="sites-expand" onclick="toggleSites(this, event)">▼</button>';
+                      html += '<div class="sites-details hidden">';
+                      for (const site of sites.slice(1)) {
+                        html += '<div>' + site + ': ' + formatValue(defects.interstitialFormationEnergy[site], 3) + ' eV</div>';
+                      }
+                      html += '</div>';
                     }
                     html += '</div>';
+                  } else {
+                    html += '-';
                   }
-                  html += '</div>';
                 } else {
                   html += formatValue(defects.interstitialFormationEnergy, 3);
                 }
@@ -1497,11 +1501,17 @@ jobs:
                   html += '<td>' + normalizeSource(dataPoint.source) + '</td>';
                   html += '<td>' + formatValue(d.vacancyFormationEnergy, 3) + '</td>';
                   html += '<td>';
-                  if (typeof d.interstitialFormationEnergy === 'object') {
+                  if (d.interstitialFormationEnergy != null && typeof d.interstitialFormationEnergy === 'object' && !Array.isArray(d.interstitialFormationEnergy)) {
                     const sites = Object.keys(d.interstitialFormationEnergy);
-                    html += sites.map(s => s + ':' + formatValue(d.interstitialFormationEnergy[s], 3)).join(', ');
-                  } else {
+                    if (sites.length > 0) {
+                      html += sites.map(s => s + ':' + formatValue(d.interstitialFormationEnergy[s], 3)).join(', ');
+                    } else {
+                      html += '-';
+                    }
+                  } else if (d.interstitialFormationEnergy != null) {
                     html += formatValue(d.interstitialFormationEnergy, 3);
+                  } else {
+                    html += '-';
                   }
                   html += '</td>';
                   html += '<td>' + formatValue(d.stackingFaultEnergy, 2) + '</td>';
@@ -2068,13 +2078,16 @@ jobs:
               html += '<div class="detail-item"><label>' + t('table.vacancyEnergy') + ':</label><span>' + formatValue(defects.vacancyFormationEnergy, 3) + ' eV</span></div>';
               
               // Interstitial with multiple sites
-              if (defects.interstitialFormationEnergy) {
-                if (typeof defects.interstitialFormationEnergy === 'object') {
-                  html += '<div class="detail-item full-width"><label>' + t('table.interstitialEnergy') + ':</label><div class="sites-list">';
-                  for (const [site, energy] of Object.entries(defects.interstitialFormationEnergy)) {
-                    html += '<div><strong>' + site + ':</strong> ' + formatValue(energy, 3) + ' eV</div>';
+              if (defects.interstitialFormationEnergy != null) {
+                if (typeof defects.interstitialFormationEnergy === 'object' && !Array.isArray(defects.interstitialFormationEnergy)) {
+                  const entries = Object.entries(defects.interstitialFormationEnergy);
+                  if (entries.length > 0) {
+                    html += '<div class="detail-item full-width"><label>' + t('table.interstitialEnergy') + ':</label><div class="sites-list">';
+                    for (const [site, energy] of entries) {
+                      html += '<div><strong>' + site + ':</strong> ' + formatValue(energy, 3) + ' eV</div>';
+                    }
+                    html += '</div></div>';
                   }
-                  html += '</div></div>';
                 } else {
                   html += '<div class="detail-item"><label>' + t('table.interstitialEnergy') + ':</label><span>' + formatValue(defects.interstitialFormationEnergy, 3) + ' eV</span></div>';
                 }
@@ -2209,13 +2222,16 @@ jobs:
             html += '<div class="detail-item"><label>' + t('table.vacancyEnergy') + ':</label><span>' + formatValue(defects.vacancyFormationEnergy, 3) + ' eV</span></div>';
             
             // Interstitial with multiple sites
-            if (defects.interstitialFormationEnergy) {
-              if (typeof defects.interstitialFormationEnergy === 'object') {
-                html += '<div class="detail-item full-width"><label>' + t('table.interstitialEnergy') + ':</label><div class="sites-list">';
-                for (const [site, energy] of Object.entries(defects.interstitialFormationEnergy)) {
-                  html += '<div><strong>' + site + ':</strong> ' + formatValue(energy, 3) + ' eV</div>';
+            if (defects.interstitialFormationEnergy != null) {
+              if (typeof defects.interstitialFormationEnergy === 'object' && !Array.isArray(defects.interstitialFormationEnergy)) {
+                const entries = Object.entries(defects.interstitialFormationEnergy);
+                if (entries.length > 0) {
+                  html += '<div class="detail-item full-width"><label>' + t('table.interstitialEnergy') + ':</label><div class="sites-list">';
+                  for (const [site, energy] of entries) {
+                    html += '<div><strong>' + site + ':</strong> ' + formatValue(energy, 3) + ' eV</div>';
+                  }
+                  html += '</div></div>';
                 }
-                html += '</div></div>';
               } else {
                 html += '<div class="detail-item"><label>' + t('table.interstitialEnergy') + ':</label><span>' + formatValue(defects.interstitialFormationEnergy, 3) + ' eV</span></div>';
               }
