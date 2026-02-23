@@ -213,17 +213,25 @@
         const structures = [];
         material.data.forEach((dataEntry, idx) => {
           if (dataEntry.poscar) {
-            const label = dataEntry.source === 'init' 
-              ? 'Initial Structure'
-              : `${dataEntry.temperature || 0}K - ${dataEntry.source}`;
+            let label;
+            if (dataEntry.source === 'init') {
+              label = 'Initial Structure';
+            } else if (dataEntry.temperature !== undefined && dataEntry.temperature !== null) {
+              label = `${dataEntry.temperature}K - ${dataEntry.source}`;
+            } else {
+              label = dataEntry.source;
+            }
             const poscarSource = dataEntry.poscar_source || dataEntry.source;
             structures.push({ idx, label, poscarSource, ...dataEntry });
           }
         });
         
         if (structures.length > 0) {
-          // Find default structure: prefer 0K DFT, else first structure
+          // Find default structure: prefer 0K DFT, else first DFT structure, else first structure
           let defaultIdx = structures.findIndex(s => s.temperature === 0 && s.source === 'DFT');
+          if (defaultIdx === -1) {
+            defaultIdx = structures.findIndex(s => s.source === 'DFT');
+          }
           if (defaultIdx === -1) defaultIdx = 0;
           
           html += '<div class="detail-section">';
@@ -312,7 +320,44 @@
             html += `<div class="detail-item"><div class="detail-item-label">Shear Modulus (GPa)</div><div class="detail-item-value">${mech.shearModulus ? mech.shearModulus.toFixed(2) : 'N/A'}</div></div>`;
             html += `<div class="detail-item"><div class="detail-item-label">Poisson's Ratio</div><div class="detail-item-value">${mech.poissonsRatio ? mech.poissonsRatio.toFixed(3) : 'N/A'}</div></div>`;
             
-            html += '</div></div>';
+            html += '</div>';
+            
+            // Display stress-strain curve if available
+            if (mech.stressStrain && Array.isArray(mech.stressStrain) && mech.stressStrain.length > 0) {
+              html += '<div style="margin-top: 15px;">';
+              html += '<div class="detail-item-label" style="margin-bottom: 8px;">Stress-Strain Curve</div>';
+              html += '<div style="background: #f8f9fa; padding: 10px; border-radius: 4px; font-size: 12px;">';
+              html += '<div style="color: #666;">Data points available: ' + mech.stressStrain.length + '</div>';
+              html += '<div style="margin-top: 5px;"><a href="#" onclick="event.preventDefault(); alert(\'Stress-Strain data visualization coming soon!\');" style="color: #3498db; text-decoration: underline;">View Curve</a></div>';
+              html += '</div>';
+              html += '</div>';
+            }
+            
+            html += '</div>';
+          }
+          
+          // Display defects properties
+          if (props.defects) {
+            const defects = props.defects;
+            const hasData = defects.vacancyFormationEnergy || defects.interstitialFormationEnergy || defects.stackingFaultEnergy;
+            
+            if (hasData) {
+              html += '<div class="detail-section">';
+              html += '<div class="detail-section-title">Defect Properties</div>';
+              html += '<div class="detail-grid">';
+              
+              if (defects.vacancyFormationEnergy !== null && defects.vacancyFormationEnergy !== undefined) {
+                html += `<div class="detail-item"><div class="detail-item-label">Vacancy Formation Energy (eV)</div><div class="detail-item-value">${defects.vacancyFormationEnergy.toFixed(3)}</div></div>`;
+              }
+              if (defects.interstitialFormationEnergy !== null && defects.interstitialFormationEnergy !== undefined) {
+                html += `<div class="detail-item"><div class="detail-item-label">Interstitial Formation Energy (eV)</div><div class="detail-item-value">${defects.interstitialFormationEnergy.toFixed(3)}</div></div>`;
+              }
+              if (defects.stackingFaultEnergy !== null && defects.stackingFaultEnergy !== undefined) {
+                html += `<div class="detail-item"><div class="detail-item-label">Stacking Fault Energy (mJ/m²)</div><div class="detail-item-value">${defects.stackingFaultEnergy.toFixed(3)}</div></div>`;
+              }
+              
+              html += '</div></div>';
+            }
           }
         }
       }
