@@ -1440,7 +1440,33 @@ jobs:
               }
               html += '</td>';
               
-              html += '<td>' + formatValue(defects.stackingFaultEnergy, 2) + '</td>';
+              // Stacking fault energy with multiple types
+              html += '<td class="stacking-cell">';
+              if (defects.stackingFaultEnergy != null) {
+                if (typeof defects.stackingFaultEnergy === 'object' && !Array.isArray(defects.stackingFaultEnergy)) {
+                  const types = Object.keys(defects.stackingFaultEnergy);
+                  if (types.length > 0) {
+                    html += '<div class="stacking-display">';
+                    html += '<span>' + types[0] + ': ' + formatValue(defects.stackingFaultEnergy[types[0]], 2) + '</span>';
+                    if (types.length > 1) {
+                      html += '<button class="types-expand" onclick="toggleSites(this, event)">▼</button>';
+                      html += '<div class="sites-details hidden">';
+                      for (const type of types.slice(1)) {
+                        html += '<div>' + type + ': ' + formatValue(defects.stackingFaultEnergy[type], 2) + ' mJ/m²</div>';
+                      }
+                      html += '</div>';
+                    }
+                    html += '</div>';
+                  } else {
+                    html += '-';
+                  }
+                } else {
+                  html += formatValue(defects.stackingFaultEnergy, 2);
+                }
+              } else {
+                html += '-';
+              }
+              html += '</td>';
               html += '</tr>';
               
               if (hasSecondary) {
@@ -1514,7 +1540,20 @@ jobs:
                     html += '-';
                   }
                   html += '</td>';
-                  html += '<td>' + formatValue(d.stackingFaultEnergy, 2) + '</td>';
+                  html += '<td>';
+                  if (d.stackingFaultEnergy != null && typeof d.stackingFaultEnergy === 'object' && !Array.isArray(d.stackingFaultEnergy)) {
+                    const types = Object.keys(d.stackingFaultEnergy);
+                    if (types.length > 0) {
+                      html += types.map(t => t + ':' + formatValue(d.stackingFaultEnergy[t], 2)).join(', ');
+                    } else {
+                      html += '-';
+                    }
+                  } else if (d.stackingFaultEnergy != null) {
+                    html += formatValue(d.stackingFaultEnergy, 2);
+                  } else {
+                    html += '-';
+                  }
+                  html += '</td>';
                   html += '</tr>';
                 }
                 
@@ -2093,7 +2132,22 @@ jobs:
                 }
               }
               
-              html += '<div class="detail-item"><label>' + t('table.stackingFault') + ':</label><span>' + formatValue(defects.stackingFaultEnergy, 2) + ' mJ/m²</span></div>';
+              // Stacking fault energy with multiple types
+              if (defects.stackingFaultEnergy != null) {
+                if (typeof defects.stackingFaultEnergy === 'object' && !Array.isArray(defects.stackingFaultEnergy)) {
+                  const entries = Object.entries(defects.stackingFaultEnergy);
+                  if (entries.length > 0) {
+                    html += '<div class="detail-item full-width"><label>' + t('table.stackingFault') + ':</label><div class="sites-list">';
+                    for (const [type, energy] of entries) {
+                      html += '<div><strong>' + type + ':</strong> ' + formatValue(energy, 2) + ' mJ/m²</div>';
+                    }
+                    html += '</div></div>';
+                  }
+                } else {
+                  html += '<div class="detail-item"><label>' + t('table.stackingFault') + ':</label><span>' + formatValue(defects.stackingFaultEnergy, 2) + ' mJ/m²</span></div>';
+                }
+              }
+              
               html += '</div>';
               html += '</div>';
             });
@@ -2237,7 +2291,22 @@ jobs:
               }
             }
             
-            html += '<div class="detail-item"><label>' + t('table.stackingFault') + ':</label><span>' + formatValue(defects.stackingFaultEnergy, 2) + ' mJ/m²</span></div>';
+            // Stacking fault energy with multiple types
+            if (defects.stackingFaultEnergy != null) {
+              if (typeof defects.stackingFaultEnergy === 'object' && !Array.isArray(defects.stackingFaultEnergy)) {
+                const entries = Object.entries(defects.stackingFaultEnergy);
+                if (entries.length > 0) {
+                  html += '<div class="detail-item full-width"><label>' + t('table.stackingFault') + ':</label><div class="sites-list">';
+                  for (const [type, energy] of entries) {
+                    html += '<div><strong>' + type + ':</strong> ' + formatValue(energy, 2) + ' mJ/m²</div>';
+                  }
+                  html += '</div></div>';
+                }
+              } else {
+                html += '<div class="detail-item"><label>' + t('table.stackingFault') + ':</label><span>' + formatValue(defects.stackingFaultEnergy, 2) + ' mJ/m²</span></div>';
+              }
+            }
+            
             html += '</div></div>';
             
             return html;
@@ -2764,7 +2833,9 @@ jobs:
                 row.push(typeof defects.interstitialFormationEnergy === 'object' ? 
                   JSON.stringify(defects.interstitialFormationEnergy) : 
                   (defects.interstitialFormationEnergy || ''));
-                row.push(defects.stackingFaultEnergy || '');
+                row.push(typeof defects.stackingFaultEnergy === 'object' ? 
+                  JSON.stringify(defects.stackingFaultEnergy) : 
+                  (defects.stackingFaultEnergy || ''));
                 
                 rows.push(row.join(','));
               });
