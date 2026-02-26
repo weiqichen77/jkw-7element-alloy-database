@@ -1,0 +1,119 @@
+# Artillery 负载测试配置
+# 用于专业的并发性能测试
+#
+# 安装: npm install -g artillery@latest
+# 运行: artillery run load-test-artillery.yml
+# 查看报告: artillery run --output report.json load-test-artillery.yml && artillery report report.json
+
+config:
+  target: "https://weiqichen77.github.io"
+  phases:
+    # 阶段1: 预热阶段 - 逐步增加负载
+    - duration: 30
+      arrivalRate: 5
+      name: "Warm up - 预热阶段"
+    
+    # 阶段2: 负载测试 - 稳定并发
+    - duration: 60
+      arrivalRate: 20
+      name: "Sustained load - 稳定负载"
+    
+    # 阶段3: 压力测试 - 峰值并发
+    - duration: 30
+      arrivalRate: 50
+      name: "Spike test - 压力峰值"
+    
+    # 阶段4: 降温阶段
+    - duration: 20
+      arrivalRate: 5
+      name: "Cool down - 降温阶段"
+  
+  # HTTP 配置
+  http:
+    timeout: 30
+  
+  # 性能指标配置
+  metrics:
+    # 自定义指标
+    - name: "page_load_complete"
+      unit: "ms"
+
+  # 插件配置（可选）
+  plugins:
+    # 输出详细的性能指标
+    expect: {}
+    metrics-by-endpoint: {}
+
+scenarios:
+  # 场景1: 访问主页
+  - name: "Visit Homepage"
+    weight: 40
+    flow:
+      - get:
+          url: "/jkw-7element-alloy-database/"
+          expect:
+            - statusCode: 200
+          capture:
+            - json: "$"
+              as: "response"
+      
+      # 加载CSS资源
+      - get:
+          url: "/jkw-7element-alloy-database/css/style.css"
+      
+      # 加载JS资源  
+      - get:
+          url: "/jkw-7element-alloy-database/js/app.js"
+      
+      # 思考时间（模拟用户阅读页面）
+      - think: 2
+
+  # 场景2: 加载材料数据
+  - name: "Load Materials Data"
+    weight: 30
+    flow:
+      - get:
+          url: "/jkw-7element-alloy-database/data/materials.json"
+          expect:
+            - statusCode: 200
+            - contentType: "application/json"
+      
+      - think: 1
+
+  # 场景3: 浏览不同页面
+  - name: "Browse Multiple Pages"
+    weight: 20
+    flow:
+      # 访问主页
+      - get:
+          url: "/jkw-7element-alloy-database/"
+      
+      # 加载特定元素数据
+      - get:
+          url: "/jkw-7element-alloy-database/data/element/Al/materials.json"
+      
+      - think: 1
+      
+      - get:
+          url: "/jkw-7element-alloy-database/data/element/Cu/materials.json"
+      
+      - think: 2
+
+  # 场景4: API查询
+  - name: "API Queries"
+    weight: 10
+    flow:
+      - get:
+          url: "/jkw-7element-alloy-database/data/materials.json"
+      
+      - think: 0.5
+      
+      # 模拟多次查询
+      - loop:
+          - get:
+              url: "/jkw-7element-alloy-database/data/materials.json"
+          - think: 0.5
+        count: 3
+
+# 自定义报告输出
+# 运行后会在控制台显示详细的性能指标

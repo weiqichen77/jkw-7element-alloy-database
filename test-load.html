@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>网页并发加载测试工具</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, 'Microsoft YaHei', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #2c3e50;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #7f8c8d;
+      font-size: 14px;
+    }
+
+    .config-panel {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      color: #2c3e50;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border-color 0.3s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .input-hint {
+      color: #95a5a6;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    button {
+      flex: 1;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: #667eea;
+      color: white;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: #5568d3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-secondary {
+      background: #e0e0e0;
+      color: #2c3e50;
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: #d0d0d0;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .progress-panel {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: none;
+    }
+
+    .progress-panel.show {
+      display: block;
+    }
+
+    .progress-bar-container {
+      background: #f0f0f0;
+      border-radius: 10px;
+      height: 30px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      width: 0%;
+      transition: width 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .status-text {
+      text-align: center;
+      color: #7f8c8d;
+      font-size: 14px;
+    }
+
+    .results-panel {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: none;
+    }
+
+    .results-panel.show {
+      display: block;
+    }
+
+    .score-display {
+      text-align: center;
+      padding: 40px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 12px;
+      color: white;
+      margin-bottom: 30px;
+    }
+
+    .score-number {
+      font-size: 72px;
+      font-weight: 700;
+      margin: 10px 0;
+    }
+
+    .score-grade {
+      font-size: 36px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .score-desc {
+      font-size: 18px;
+      opacity: 0.9;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+
+    .stat-label {
+      color: #7f8c8d;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      color: #2c3e50;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .stat-unit {
+      color: #95a5a6;
+      font-size: 14px;
+      margin-left: 5px;
+    }
+
+    .details-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .details-table th {
+      background: #f8f9fa;
+      padding: 12px;
+      text-align: left;
+      font-weight: 600;
+      color: #2c3e50;
+      font-size: 13px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .details-table td {
+      padding: 12px;
+      border-bottom: 1px solid #f0f0f0;
+      color: #555;
+      font-size: 13px;
+    }
+
+    .recommendations {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    .recommendations h3 {
+      color: #856404;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+
+    .recommendations ul {
+      margin-left: 20px;
+      color: #856404;
+    }
+
+    .recommendations li {
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+
+    .error-message {
+      background: #f8d7da;
+      border-left: 4px solid #dc3545;
+      padding: 15px;
+      border-radius: 8px;
+      color: #721c24;
+      margin-top: 15px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 0.8s linear infinite;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🚀 网页并发加载测试工具</h1>
+      <p class="subtitle">测试网页在多用户并发访问时的性能表现</p>
+    </div>
+
+    <div class="config-panel">
+      <h2 style="color: #2c3e50; margin-bottom: 25px; font-size: 20px;">测试配置</h2>
+      
+      <div class="form-group">
+        <label for="testUrl">测试网址</label>
+        <input type="text" id="testUrl" placeholder="例如: https://example.com" value="https://weiqichen77.github.io/jkw-7element-alloy-database/">
+        <div class="input-hint">输入您要测试的完整网址</div>
+      </div>
+
+      <div class="form-group">
+        <label for="concurrentUsers">并发用户数</label>
+        <input type="number" id="concurrentUsers" min="1" max="500" value="100">
+        <div class="input-hint">同时访问网页的用户数量（建议: 1-500）</div>
+      </div>
+
+      <div class="form-group">
+        <label for="requestsPerUser">每用户请求次数</label>
+        <input type="number" id="requestsPerUser" min="1" max="20" value="3">
+        <div class="input-hint">每个用户发起的请求次数（模拟真实浏览行为）</div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn-primary" id="startTest">
+          <span id="startBtnText">开始测试</span>
+        </button>
+        <button class="btn-secondary" id="stopTest" disabled>停止测试</button>
+      </div>
+    </div>
+
+    <div class="progress-panel" id="progressPanel">
+      <h2 style="color: #2c3e50; margin-bottom: 20px; font-size: 20px;">测试进行中...</h2>
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar">0%</div>
+      </div>
+      <div class="status-text" id="statusText">准备开始测试...</div>
+    </div>
+
+    <div class="results-panel" id="resultsPanel">
+      <h2 style="color: #2c3e50; margin-bottom: 25px; font-size: 20px;">测试结果</h2>
+      
+      <div class="score-display">
+        <div style="font-size: 16px; opacity: 0.9;">综合评分</div>
+        <div class="score-number" id="scoreNumber">--</div>
+        <div class="score-grade" id="scoreGrade">--</div>
+        <div class="score-desc" id="scoreDesc">--</div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">总请求数</div>
+          <div class="stat-value" id="totalRequests">--</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">成功率</div>
+          <div class="stat-value" id="successRate">--<span class="stat-unit">%</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">平均响应时间</div>
+          <div class="stat-value" id="avgResponseTime">--<span class="stat-unit">ms</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">测试时长</div>
+          <div class="stat-value" id="testDuration">--<span class="stat-unit">秒</span></div>
+        </div>
+      </div>
+
+      <h3 style="color: #2c3e50; margin-bottom: 15px; font-size: 18px;">详细统计</h3>
+      <table class="details-table">
+        <thead>
+          <tr>
+            <th>指标</th>
+            <th>数值</th>
+            <th>说明</th>
+          </tr>
+        </thead>
+        <tbody id="detailsTableBody">
+          <!-- 动态填充 -->
+        </tbody>
+      </table>
+
+      <div id="recommendationsContainer"></div>
+    </div>
+  </div>
+
+  <script>
+    class LoadTester {
+      constructor() {
+        this.isRunning = false;
+        this.shouldStop = false;
+        this.stats = {
+          totalRequests: 0,
+          successfulRequests: 0,
+          failedRequests: 0,
+          responseTimes: [],
+          startTime: 0,
+          endTime: 0
+        };
+      }
+
+      async makeRequest(url) {
+        const startTime = performance.now();
+        
+        try {
+          const response = await fetch(url, {
+            method: 'GET',
+            mode: 'no-cors', // 允许跨域请求
+            cache: 'no-cache'
+          });
+          
+          const responseTime = performance.now() - startTime;
+          
+          // no-cors 模式下无法读取响应，但能测试加载时间
+          return {
+            success: true,
+            responseTime: responseTime,
+            statusCode: 0 // no-cors 模式无法获取状态码
+          };
+        } catch (error) {
+          const responseTime = performance.now() - startTime;
+          return {
+            success: false,
+            responseTime: responseTime,
+            error: error.message
+          };
+        }
+      }
+
+      async simulateUser(userId, url, requestsPerUser, onProgress) {
+        const results = [];
+        
+        for (let i = 0; i < requestsPerUser; i++) {
+          if (this.shouldStop) break;
+          
+          const result = await this.makeRequest(url);
+          results.push(result);
+          
+          this.stats.totalRequests++;
+          if (result.success) {
+            this.stats.successfulRequests++;
+            this.stats.responseTimes.push(result.responseTime);
+          } else {
+            this.stats.failedRequests++;
+          }
+          
+          if (onProgress) {
+            onProgress(this.stats.totalRequests);
+          }
+          
+          // 请求之间的小延迟（模拟真实用户行为）
+          if (i < requestsPerUser - 1) {
+            await new Promise(resolve => setTimeout(resolve, 100 + Math.random() * 200));
+          }
+        }
+        
+        return results;
+      }
+
+      calculateStats() {
+        const times = this.stats.responseTimes.sort((a, b) => a - b);
+        const len = times.length;
+        
+        if (len === 0) {
+          return {
+            avg: 0, min: 0, max: 0,
+            p50: 0, p90: 0, p95: 0, p99: 0
+          };
+        }
+        
+        const sum = times.reduce((a, b) => a + b, 0);
+        const avg = sum / len;
+        
+        return {
+          avg: avg,
+          min: times[0],
+          max: times[len - 1],
+          p50: times[Math.floor(len * 0.5)],
+          p90: times[Math.floor(len * 0.9)],
+          p95: times[Math.floor(len * 0.95)],
+          p99: times[Math.floor(len * 0.99)]
+        };
+      }
+
+      evaluatePerformance(avgResponseTime, successRate) {
+        let score = 100;
+        
+        // 基于响应时间评分
+        if (avgResponseTime > 5000) score -= 50;
+        else if (avgResponseTime > 3000) score -= 40;
+        else if (avgResponseTime > 2000) score -= 30;
+        else if (avgResponseTime > 1000) score -= 20;
+        else if (avgResponseTime > 500) score -= 10;
+        
+        // 基于成功率评分
+        if (successRate < 50) score -= 50;
+        else if (successRate < 80) score -= 30;
+        else if (successRate < 95) score -= 15;
+        else if (successRate < 99) score -= 5;
+        
+        score = Math.max(0, score);
+        
+        let grade, description;
+        if (score >= 95) {
+          grade = 'A+';
+          description = '优秀 - 网页加载非常流畅';
+        } else if (score >= 85) {
+          grade = 'A';
+          description = '良好 - 网页加载流畅';
+        } else if (score >= 75) {
+          grade = 'B';
+          description = '中等 - 网页加载基本流畅';
+        } else if (score >= 60) {
+          grade = 'C';
+          description = '合格 - 网页加载有些卡顿';
+        } else if (score >= 40) {
+          grade = 'D';
+          description = '较差 - 网页加载明显卡顿';
+        } else {
+          grade = 'F';
+          description = '不合格 - 网页加载严重卡顿或失败';
+        }
+        
+        return { score, grade, description };
+      }
+
+      async start(url, concurrentUsers, requestsPerUser) {
+        if (this.isRunning) return;
+        
+        this.isRunning = true;
+        this.shouldStop = false;
+        this.stats = {
+          totalRequests: 0,
+          successfulRequests: 0,
+          failedRequests: 0,
+          responseTimes: [],
+          startTime: Date.now(),
+          endTime: 0
+        };
+
+        const totalRequests = concurrentUsers * requestsPerUser;
+        
+        const onProgress = (completed) => {
+          const percentage = (completed / totalRequests * 100).toFixed(1);
+          updateProgress(percentage, `已完成 ${completed}/${totalRequests} 个请求`);
+        };
+
+        // 创建并发用户
+        const userPromises = [];
+        for (let i = 0; i < concurrentUsers; i++) {
+          if (this.shouldStop) break;
+          
+          const promise = this.simulateUser(i, url, requestsPerUser, onProgress);
+          userPromises.push(promise);
+          
+          // 稍微错开用户开始时间（模拟真实场景）
+          await new Promise(resolve => setTimeout(resolve, 10));
+        }
+
+        // 等待所有用户完成
+        await Promise.all(userPromises);
+        
+        this.stats.endTime = Date.now();
+        this.isRunning = false;
+        
+        return this.getResults();
+      }
+
+      stop() {
+        this.shouldStop = true;
+      }
+
+      getResults() {
+        const duration = (this.stats.endTime - this.stats.startTime) / 1000;
+        const successRate = this.stats.totalRequests > 0
+          ? (this.stats.successfulRequests / this.stats.totalRequests) * 100
+          : 0;
+        
+        const responseStats = this.calculateStats();
+        const performance = this.evaluatePerformance(responseStats.avg, successRate);
+        
+        return {
+          totalRequests: this.stats.totalRequests,
+          successfulRequests: this.stats.successfulRequests,
+          failedRequests: this.stats.failedRequests,
+          successRate: successRate,
+          duration: duration,
+          responseStats: responseStats,
+          performance: performance
+        };
+      }
+    }
+
+    // UI 控制
+    const tester = new LoadTester();
+    
+    const elements = {
+      testUrl: document.getElementById('testUrl'),
+      concurrentUsers: document.getElementById('concurrentUsers'),
+      requestsPerUser: document.getElementById('requestsPerUser'),
+      startBtn: document.getElementById('startTest'),
+      stopBtn: document.getElementById('stopTest'),
+      startBtnText: document.getElementById('startBtnText'),
+      progressPanel: document.getElementById('progressPanel'),
+      progressBar: document.getElementById('progressBar'),
+      statusText: document.getElementById('statusText'),
+      resultsPanel: document.getElementById('resultsPanel')
+    };
+
+    function updateProgress(percentage, statusText) {
+      elements.progressBar.style.width = percentage + '%';
+      elements.progressBar.textContent = percentage + '%';
+      elements.statusText.textContent = statusText;
+    }
+
+    function displayResults(results) {
+      // 显示得分
+      document.getElementById('scoreNumber').textContent = results.performance.score;
+      document.getElementById('scoreGrade').textContent = results.performance.grade;
+      document.getElementById('scoreDesc').textContent = results.performance.description;
+      
+      // 显示基本统计
+      document.getElementById('totalRequests').textContent = results.totalRequests;
+      document.getElementById('successRate').textContent = results.successRate.toFixed(2);
+      document.getElementById('avgResponseTime').textContent = results.responseStats.avg.toFixed(0);
+      document.getElementById('testDuration').textContent = results.duration.toFixed(2);
+      
+      // 显示详细统计表格
+      const detailsBody = document.getElementById('detailsTableBody');
+      detailsBody.innerHTML = `
+        <tr>
+          <td>成功请求数</td>
+          <td>${results.successfulRequests}</td>
+          <td>成功完成的请求数量</td>
+        </tr>
+        <tr>
+          <td>失败请求数</td>
+          <td>${results.failedRequests}</td>
+          <td>失败或超时的请求数量</td>
+        </tr>
+        <tr>
+          <td>最小响应时间</td>
+          <td>${results.responseStats.min.toFixed(0)} ms</td>
+          <td>最快的请求响应时间</td>
+        </tr>
+        <tr>
+          <td>最大响应时间</td>
+          <td>${results.responseStats.max.toFixed(0)} ms</td>
+          <td>最慢的请求响应时间</td>
+        </tr>
+        <tr>
+          <td>中位数 (P50)</td>
+          <td>${results.responseStats.p50.toFixed(0)} ms</td>
+          <td>50%的请求响应时间低于此值</td>
+        </tr>
+        <tr>
+          <td>P90</td>
+          <td>${results.responseStats.p90.toFixed(0)} ms</td>
+          <td>90%的请求响应时间低于此值</td>
+        </tr>
+        <tr>
+          <td>P95</td>
+          <td>${results.responseStats.p95.toFixed(0)} ms</td>
+          <td>95%的请求响应时间低于此值</td>
+        </tr>
+        <tr>
+          <td>P99</td>
+          <td>${results.responseStats.p99.toFixed(0)} ms</td>
+          <td>99%的请求响应时间低于此值</td>
+        </tr>
+      `;
+      
+      // 显示优化建议
+      const recommendations = [];
+      if (results.responseStats.avg > 1000) {
+        recommendations.push('响应时间较慢，建议优化服务器性能或使用CDN加速');
+      }
+      if (results.successRate < 99) {
+        recommendations.push('成功率偏低，建议检查服务器稳定性和网络连接');
+      }
+      if (results.failedRequests > 0) {
+        recommendations.push('存在失败请求，建议检查网络配置和CORS设置');
+      }
+      if (results.responseStats.max > results.responseStats.avg * 3) {
+        recommendations.push('响应时间波动较大，建议优化资源加载和缓存策略');
+      }
+      
+      const recContainer = document.getElementById('recommendationsContainer');
+      if (recommendations.length > 0) {
+        recContainer.innerHTML = `
+          <div class="recommendations">
+            <h3>💡 优化建议</h3>
+            <ul>
+              ${recommendations.map(rec => `<li>${rec}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      } else {
+        recContainer.innerHTML = '';
+      }
+      
+      // 显示结果面板
+      elements.resultsPanel.classList.add('show');
+      
+      // 滚动到结果区域
+      elements.resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    elements.startBtn.addEventListener('click', async () => {
+      const url = elements.testUrl.value.trim();
+      const concurrentUsers = parseInt(elements.concurrentUsers.value);
+      const requestsPerUser = parseInt(elements.requestsPerUser.value);
+      
+      // 验证输入
+      if (!url) {
+        alert('请输入测试网址');
+        return;
+      }
+      
+      if (concurrentUsers < 1 || concurrentUsers > 500) {
+        alert('并发用户数应在1-500之间');
+        return;
+      }
+      
+      if (requestsPerUser < 1 || requestsPerUser > 20) {
+        alert('每用户请求次数应在1-20之间');
+        return;
+      }
+      
+      // 更新UI状态
+      elements.startBtn.disabled = true;
+      elements.stopBtn.disabled = false;
+      elements.progressPanel.classList.add('show');
+      elements.resultsPanel.classList.remove('show');
+      elements.startBtnText.innerHTML = '<span class="spinner"></span>';
+      
+      updateProgress(0, '正在启动测试...');
+      
+      try {
+        // 开始测试
+        const results = await tester.start(url, concurrentUsers, requestsPerUser);
+        
+        // 显示结果
+        updateProgress(100, '测试完成！');
+        displayResults(results);
+        
+      } catch (error) {
+        console.error('测试失败:', error);
+        elements.progressPanel.innerHTML += `
+          <div class="error-message">
+            ❌ 测试失败: ${error.message}
+          </div>
+        `;
+      } finally {
+        elements.startBtn.disabled = false;
+        elements.stopBtn.disabled = true;
+        elements.startBtnText.textContent = '开始测试';
+      }
+    });
+
+    elements.stopBtn.addEventListener('click', () => {
+      tester.stop();
+      elements.stopBtn.disabled = true;
+      updateProgress(0, '测试已停止');
+    });
+
+    // 回车键触发测试
+    [elements.testUrl, elements.concurrentUsers, elements.requestsPerUser].forEach(input => {
+      input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !elements.startBtn.disabled) {
+          elements.startBtn.click();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
