@@ -1,0 +1,47 @@
+# Artillery 验收测试配置 - 针对GitHub Pages优化
+# 100并发用户验收测试
+
+config:
+  target: "https://weiqichen77.github.io/jkw-7element-alloy-database"
+  phases:
+    # 阶段1: 预热阶段 - 逐步增加负载
+    - duration: 20
+      arrivalRate: 10
+      name: "预热阶段 - Warm up"
+    
+    # 阶段2: 稳定负载 - 持续100并发
+    - duration: 40
+      arrivalRate: 50
+      name: "100并发验收测试"
+    
+    # 阶段3: 降温阶段
+    - duration: 10
+      arrivalRate: 5
+      name: "降温阶段 - Cool down"
+  
+  # HTTP 配置
+  http:
+    timeout: 30
+  
+  # 性能指标配置
+  ensure:
+    maxErrorRate: 5  # 最大错误率 5%（验收标准：<5%即通过）
+    p95: 3000        # P95响应时间 < 3秒
+    p99: 5000        # P99响应时间 < 5秒
+
+scenarios:
+  # 场景1: 访问主页
+  - name: "访问主页"
+    weight: 50
+    flow:
+      - get:
+          url: "/"
+      - think: 1
+
+  # 场景2: 加载材料数据
+  - name: "加载材料数据"
+    weight: 50
+    flow:
+      - get:
+          url: "/data/materials.json"
+      - think: 1
