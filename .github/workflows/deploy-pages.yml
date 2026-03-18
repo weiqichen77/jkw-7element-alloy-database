@@ -2161,11 +2161,7 @@ jobs:
               if (struct.rdf) {
                 html += '<div class="chart-container">';
                 html += '<h5>' + t('table.rdf') + '</h5>';
-                if (Array.isArray(struct.rdf)) {
-                  html += renderChart(struct.rdf, 'rdf-' + material.id + '-' + idx, 'RDF');
-                } else {
-                  html += formatFile(struct.rdf, material.id, dataPoint.temperature, dataPoint.source);
-                }
+                html += renderChart(struct.rdf, 'rdf-' + material.id + '-' + idx, 'RDF');
                 html += '</div>';
               }
               html += '</div>';
