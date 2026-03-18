@@ -1,0 +1,110 @@
+[
+  {
+    "id": "Alloy-IM-00001",
+    "name": "Nb20Al10",
+    "type": "intermetallic",
+    "source": "DPA1_260109",
+    "temperature": 0,
+    "oldPoscar": "data/intermetallic/mp-bbgt/DPA1_260109/POSCAR",
+    "newPoscar": "data/intermetallic/mp-bbgt/DPA1_251208/POSCAR"
+  },
+  {
+    "id": "Alloy-IM-00001",
+    "name": "Nb20Al10",
+    "type": "intermetallic",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 0,
+    "oldPoscar": "data/intermetallic/mp-bbgt/DPA3_7ele_cryfinal/POSCAR",
+    "newPoscar": "data/intermetallic/mp-bbgt/DPA3/POSCAR"
+  },
+  {
+    "id": "Alloy-IM-00001",
+    "name": "Nb20Al10",
+    "type": "intermetallic",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": 0,
+    "oldPoscar": null,
+    "newPoscar": "data/intermetallic/mp-bbgt/DPA1_251208/POSCAR"
+  },
+  {
+    "id": "Alloy-IM-00002",
+    "name": "Cu1",
+    "type": "intermetallic",
+    "source": "DPA1_260109",
+    "temperature": 0,
+    "oldPoscar": "data/intermetallic/mp-be/DPA1_260109/POSCAR",
+    "newPoscar": "data/intermetallic/mp-be/DPA1_251208/POSCAR"
+  },
+  {
+    "id": "Alloy-IM-00002",
+    "name": "Cu1",
+    "type": "intermetallic",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 0,
+    "oldPoscar": "data/intermetallic/mp-be/DPA3_7ele_cryfinal/POSCAR",
+    "newPoscar": "data/intermetallic/mp-be/DPA3/POSCAR"
+  },
+  {
+    "id": "Alloy-IM-00002",
+    "name": "Cu1",
+    "type": "intermetallic",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": 0,
+    "oldPoscar": null,
+    "newPoscar": "data/intermetallic/mp-be/DPA1_251208/POSCAR"
+  },
+  {
+    "id": "Alloy-IM-00003",
+    "name": "Nb6Al2",
+    "type": "intermetallic",
+    "source": "DPA1_260109",
+    "temperature": 0,
+    "oldPoscar": "data/intermetallic/mp-beq/DPA1_260109/POSCAR",
+    "newPoscar": "data/intermetallic/mp-beq/DPA1_251208/POSCAR"
+  },
+  {
+    "id": "Alloy-IM-00003",
+    "name": "Nb6Al2",
+    "type": "intermetallic",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 0,
+    "oldPoscar": "data/intermetallic/mp-beq/DPA3_7ele_cryfinal/POSCAR",
+    "newPoscar": "data/intermetallic/mp-beq/DPA3/POSCAR"
+  },
+  {
+    "id": "Alloy-IM-00003",
+    "name": "Nb6Al2",
+    "type": "intermetallic",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": 0,
+    "oldPoscar": null,
+    "newPoscar": "data/intermetallic/mp-beq/DPA1_251208/POSCAR"
+  },
+  {
+    "id": "Alloy-IM-00004",
+    "name": "Zr1Al3",
+    "type": "intermetallic",
+    "source": "DPA1_260109",
+    "temperature": 0,
+    "oldPoscar": "data/intermetallic/mp-bgkwl/DPA1_260109/POSCAR",
+    "newPoscar": "data/intermetallic/mp-bgkwl/DPA1_251208/POSCAR"
+  },
+  {
+    "id": "Alloy-IM-00004",
+    "name": "Zr1Al3",
+    "type": "intermetallic",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 0,
+    "oldPoscar": "data/intermetallic/mp-bgkwl/DPA3_7ele_cryfinal/POSCAR",
+    "newPoscar": "data/intermetallic/mp-bgkwl/DPA3/POSCAR"
+  },
+  {
+    "id": "Alloy-IM-00004",
+    "name": "Zr1Al3",
+    "type": "intermetallic",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": 0,
+    "oldPoscar": null,
+    "newPoscar": "data/intermetallic/mp-bgkwl/DPA1_251208/POSCAR"
+  }
+]

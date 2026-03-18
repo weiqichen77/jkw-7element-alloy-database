@@ -1,0 +1,562 @@
+[
+  {
+    "name": "Al8Cu46Zr46",
+    "type": "amorphous",
+    "composition": "Al8Cu46Zr46",
+    "elements": [
+      "Al",
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Al": 8,
+      "Cu": 46,
+      "Zr": 46
+    },
+    "data": [
+      {
+        "temperature_start": null,
+        "temperature_end": 1000,
+        "ramping_speed": 50000,
+        "source": "DFT",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Al/Cu/Zr/DFT/8_46_46/null_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          }
+        }
+      },
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Al/Cu/Zr/DPA1_7ele_cry260226/8_46_46/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 3.186964966e-11,
+            "thermalExpansion": null
+          }
+        }
+      },
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Al/Cu/Zr/DPA3_7ele_cryfinal/8_46_46/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cu46Zr54",
+    "type": "amorphous",
+    "composition": "Cu46Zr54",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Cu": 46,
+      "Zr": 54
+    },
+    "data": [
+      {
+        "temperature_start": null,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DFT",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DFT/46_54/null_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          }
+        }
+      },
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/46_54/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 3.232922567e-10,
+            "thermalExpansion": null
+          }
+        }
+      },
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA3_7ele_cryfinal/46_54/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cu10Zr90",
+    "type": "amorphous",
+    "composition": "Cu10Zr90",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Cu": 10,
+      "Zr": 90
+    },
+    "data": [
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/10_90/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 3.284079301e-10,
+            "thermalExpansion": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cu20Zr80",
+    "type": "amorphous",
+    "composition": "Cu20Zr80",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Cu": 20,
+      "Zr": 80
+    },
+    "data": [
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/20_80/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 4.307108955e-10,
+            "thermalExpansion": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cu30Zr70",
+    "type": "amorphous",
+    "composition": "Cu30Zr70",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Cu": 30,
+      "Zr": 70
+    },
+    "data": [
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/30_70/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 1.529004356e-10,
+            "thermalExpansion": null
+          }
+        }
+      },
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA3_7ele_cryfinal/30_70/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cu40Zr60",
+    "type": "amorphous",
+    "composition": "Cu40Zr60",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Cu": 40,
+      "Zr": 60
+    },
+    "data": [
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/40_60/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 2.293253828e-10,
+            "thermalExpansion": null
+          }
+        }
+      },
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA3_7ele_cryfinal/40_60/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cu50Zr50",
+    "type": "amorphous",
+    "composition": "Cu50Zr50",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Cu": 50,
+      "Zr": 50
+    },
+    "data": [
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/50_50/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 1.632909066e-10,
+            "thermalExpansion": null
+          }
+        }
+      },
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA3_7ele_cryfinal/50_50/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cu54Zr46",
+    "type": "amorphous",
+    "composition": "Cu54Zr46",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Cu": 54,
+      "Zr": 46
+    },
+    "data": [
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/54_46/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 5.12718336e-10,
+            "thermalExpansion": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cu60Zr40",
+    "type": "amorphous",
+    "composition": "Cu60Zr40",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Cu": 60,
+      "Zr": 40
+    },
+    "data": [
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/60_40/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 1.130322061e-10,
+            "thermalExpansion": null
+          }
+        }
+      },
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA3_7ele_cryfinal/60_40/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cu70Zr30",
+    "type": "amorphous",
+    "composition": "Cu70Zr30",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Cu": 70,
+      "Zr": 30
+    },
+    "data": [
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/70_30/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 3.07250414e-10,
+            "thermalExpansion": null
+          }
+        }
+      },
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA3_7ele_cryfinal/70_30/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cu80Zr20",
+    "type": "amorphous",
+    "composition": "Cu80Zr20",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Cu": 80,
+      "Zr": 20
+    },
+    "data": [
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/80_20/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 5.097591686e-10,
+            "thermalExpansion": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cu90Zr10",
+    "type": "amorphous",
+    "composition": "Cu90Zr10",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Cu": 90,
+      "Zr": 10
+    },
+    "data": [
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/90_10/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat": null,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 1.622138705e-09,
+            "thermalExpansion": null
+          }
+        }
+      }
+    ]
+  }
+]

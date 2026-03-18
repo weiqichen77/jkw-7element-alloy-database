@@ -1,0 +1,86 @@
+[
+  {
+    "materialId": "Alloy-E-00002",
+    "materialName": "Al-fcc",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 298,
+    "poscar": null,
+    "poscarExists": false,
+    "stressStrain": {
+      "100": "data/element/Al/fcc/DPA3_7ele_cryfinal/298k/strain/100/sxx_0_syy_0_szz_5.0e10_sxy_0_sxz_0_syz_0.dat"
+    },
+    "status": "blocked-missing-poscar"
+  },
+  {
+    "materialId": "Alloy-E-00009",
+    "materialName": "Cu-fcc",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 298,
+    "poscar": null,
+    "poscarExists": false,
+    "stressStrain": {
+      "100": "data/element/Cu/fcc/DPA3_7ele_cryfinal/298k/strain/100/sxx_0_syy_0_szz_5.0e10_sxy_0_sxz_0_syz_0.dat"
+    },
+    "status": "blocked-missing-poscar"
+  },
+  {
+    "materialId": "Alloy-E-00014",
+    "materialName": "Nb-bcc",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 298,
+    "poscar": null,
+    "poscarExists": false,
+    "stressStrain": {
+      "001": "data/element/Nb/bcc/DPA3_7ele_cryfinal/298k/strain/001/sxx_0_syy_0_szz_5.0e10_sxy_0_sxz_0_syz_0.dat"
+    },
+    "status": "blocked-missing-poscar"
+  },
+  {
+    "materialId": "Alloy-E-00018",
+    "materialName": "Ni-fcc",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 298,
+    "poscar": null,
+    "poscarExists": false,
+    "stressStrain": {
+      "100": "data/element/Ni/fcc/DPA3_7ele_cryfinal/298k/strain/100/sxx_0_syy_0_szz_5.0e10_sxy_0_sxz_0_syz_0.dat"
+    },
+    "status": "blocked-missing-poscar"
+  },
+  {
+    "materialId": "Alloy-E-00021",
+    "materialName": "Ta-bcc",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 298,
+    "poscar": null,
+    "poscarExists": false,
+    "stressStrain": {
+      "001": "data/element/Ta/bcc/DPA3_7ele_cryfinal/298k/strain/001/sxx_0_syy_0_szz_5.0e10_sxy_0_sxz_0_syz_0.dat"
+    },
+    "status": "blocked-missing-poscar"
+  },
+  {
+    "materialId": "Alloy-E-00027",
+    "materialName": "W-bcc",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 298,
+    "poscar": null,
+    "poscarExists": false,
+    "stressStrain": {
+      "001": "data/element/W/bcc/DPA3_7ele_cryfinal/298k/strain/001/sxx_0_syy_0_szz_5.0e10_sxy_0_sxz_0_syz_0.dat"
+    },
+    "status": "blocked-missing-poscar"
+  },
+  {
+    "materialId": "Alloy-E-00033",
+    "materialName": "Zr-hcp",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 298,
+    "poscar": null,
+    "poscarExists": false,
+    "stressStrain": {
+      "0001": "data/element/Zr/hcp/DPA3_7ele_cryfinal/298k/strain/0001/sxx_0_syy_0_szz_5.0e10_sxy_0_sxz_0_syz_0.dat"
+    },
+    "status": "blocked-missing-poscar"
+  }
+]

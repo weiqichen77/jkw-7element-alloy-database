@@ -1,0 +1,13 @@
+data/amorphous/Cu/Zr/DPA1_7ele_cry260226/fcc/50_50/2000_1000K/50000K_per_ns/rdf.final_eq_1000K.txt
+data/amorphous/Cu/Zr/DPA1_7ele_cry260226/fcc/70_30/2000_1000K/50000K_per_ns/rdf.final_eq_1000K.txt
+data/amorphous/Cu/Zr/DPA3_7ele_cryfinal/fcc/50_50/2000_1000K/50000K_per_ns/rdf.final_eq_1000K.txt
+data/amorphous/Cu/Zr/DPA3_7ele_cryfinal/fcc/60_40/2000_1000K/50000K_per_ns/rdf.final_eq_1000K.txt
+data/amorphous/Cu/Zr/DPA3_7ele_cryfinal/fcc/70_30/2000_1000K/50000K_per_ns/rdf.final_eq_1000K.txt
+data/amorphous/__pycache__/compare_dft_dpa_rdf.cpython-312.pyc
+data/amorphous/__pycache__/plot_binary_rdf.cpython-312.pyc
+data/amorphous/average_binary_rdf.sh
+data/amorphous/compare_dft_dpa_rdf.py
+data/amorphous/copy_binary_rdf.sh
+data/amorphous/copy_cu_zr_rdf.sh
+data/amorphous/plot_binary_rdf.py
+data/amorphous/rdf_compare_overview.png

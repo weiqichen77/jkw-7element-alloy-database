@@ -306,6 +306,11 @@
             html += `<div class="detail-item"><div class="detail-item-label">Formation Energy (eV)</div><div class="detail-item-value">${thermo.formationEnergy ? thermo.formationEnergy.toFixed(3) : 'N/A'}</div></div>`;
             html += `<div class="detail-item"><div class="detail-item-label">Mixing Enthalpy (eV)</div><div class="detail-item-value">${thermo.mixingEnthalpy ? thermo.mixingEnthalpy.toFixed(3) : 'N/A'}</div></div>`;
             
+            const cv = thermo.specificHeat_v ?? thermo.specificHeat;
+            const cp = thermo.specificHeat_p ?? thermo.specificHeat;
+            html += `<div class="detail-item"><div class="detail-item-label">Specific Heat C_v (J/(g·K))</div><div class="detail-item-value">${cv != null ? Number(cv).toFixed(4) : 'N/A'}</div></div>`;
+            html += `<div class="detail-item"><div class="detail-item-label">Specific Heat C_p (J/(g·K))</div><div class="detail-item-value">${cp != null ? Number(cp).toFixed(4) : 'N/A'}</div></div>`;
+            
             html += '</div></div>';
           }
           

@@ -1,0 +1,65 @@
+[
+  {
+    "materialName": "Al-fcc",
+    "materialType": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 298,
+    "stressStrain": {
+      "100": "data/element/Al/fcc/DPA3_7ele_cryfinal/298k/strain/100/sxx_0_syy_0_szz_5.0e10_sxy_0_sxz_0_syz_0.dat"
+    }
+  },
+  {
+    "materialName": "Cu-fcc",
+    "materialType": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 298,
+    "stressStrain": {
+      "100": "data/element/Cu/fcc/DPA3_7ele_cryfinal/298k/strain/100/sxx_0_syy_0_szz_5.0e10_sxy_0_sxz_0_syz_0.dat"
+    }
+  },
+  {
+    "materialName": "Nb-bcc",
+    "materialType": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 298,
+    "stressStrain": {
+      "001": "data/element/Nb/bcc/DPA3_7ele_cryfinal/298k/strain/001/sxx_0_syy_0_szz_5.0e10_sxy_0_sxz_0_syz_0.dat"
+    }
+  },
+  {
+    "materialName": "Ni-fcc",
+    "materialType": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 298,
+    "stressStrain": {
+      "100": "data/element/Ni/fcc/DPA3_7ele_cryfinal/298k/strain/100/sxx_0_syy_0_szz_5.0e10_sxy_0_sxz_0_syz_0.dat"
+    }
+  },
+  {
+    "materialName": "Ta-bcc",
+    "materialType": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 298,
+    "stressStrain": {
+      "001": "data/element/Ta/bcc/DPA3_7ele_cryfinal/298k/strain/001/sxx_0_syy_0_szz_5.0e10_sxy_0_sxz_0_syz_0.dat"
+    }
+  },
+  {
+    "materialName": "W-bcc",
+    "materialType": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 298,
+    "stressStrain": {
+      "001": "data/element/W/bcc/DPA3_7ele_cryfinal/298k/strain/001/sxx_0_syy_0_szz_5.0e10_sxy_0_sxz_0_syz_0.dat"
+    }
+  },
+  {
+    "materialName": "Zr-hcp",
+    "materialType": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 298,
+    "stressStrain": {
+      "0001": "data/element/Zr/hcp/DPA3_7ele_cryfinal/298k/strain/0001/sxx_0_syy_0_szz_5.0e10_sxy_0_sxz_0_syz_0.dat"
+    }
+  }
+]

@@ -1,0 +1,1138 @@
+[
+  {
+    "id": "Alloy-E-00001",
+    "name": "Al-bcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00002",
+    "name": "Al-fcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00002",
+    "name": "Al-fcc",
+    "type": "element",
+    "source": "10.1139/p65-018",
+    "temperature": 300,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00002",
+    "name": "Al-fcc",
+    "type": "element",
+    "source": "https://www.alfa-chemistry.com/resources/specific-heat-capacity-of-chemical-elements-chart.html",
+    "temperature": 300,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00002",
+    "name": "Al-fcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 600,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00002",
+    "name": "Al-fcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 1500,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00002",
+    "name": "Al-fcc",
+    "type": "element",
+    "source": "DFT",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00002",
+    "name": "Al-fcc",
+    "type": "element",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00002",
+    "name": "Al-fcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00002",
+    "name": "Al-fcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 298,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00002",
+    "name": "Al-fcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 600,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00002",
+    "name": "Al-fcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 900,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00002",
+    "name": "Al-fcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 1500,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00003",
+    "name": "Al-hcp",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00004",
+    "name": "Cd-hcp",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00004",
+    "name": "Cd-hcp",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 4,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00005",
+    "name": "Cr-bcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00006",
+    "name": "Cr-fcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00007",
+    "name": "Cr-hcp",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00008",
+    "name": "Cu-bcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00008",
+    "name": "Cu-bcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00009",
+    "name": "Cu-fcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00009",
+    "name": "Cu-fcc",
+    "type": "element",
+    "source": "10.1021/ja01650a009",
+    "temperature": 300,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00009",
+    "name": "Cu-fcc",
+    "type": "element",
+    "source": "https://srd.nist.gov/jpcrdreprint/1.555728.pdf",
+    "temperature": 300,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00009",
+    "name": "Cu-fcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 600,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00009",
+    "name": "Cu-fcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 1500,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00009",
+    "name": "Cu-fcc",
+    "type": "element",
+    "source": "DFT",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00009",
+    "name": "Cu-fcc",
+    "type": "element",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00009",
+    "name": "Cu-fcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00009",
+    "name": "Cu-fcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 298,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00009",
+    "name": "Cu-fcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 600,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00009",
+    "name": "Cu-fcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 900,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00009",
+    "name": "Cu-fcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 1500,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00010",
+    "name": "Cu-hcp",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00010",
+    "name": "Cu-hcp",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00011",
+    "name": "Mo-bcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00012",
+    "name": "Mo-fcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00013",
+    "name": "Mo-hcp",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00014",
+    "name": "Nb-bcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00014",
+    "name": "Nb-bcc",
+    "type": "element",
+    "source": "https://tpds.db.aist.go.jp/detail/niobium_en.html",
+    "temperature": 300,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00014",
+    "name": "Nb-bcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 600,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00014",
+    "name": "Nb-bcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 1500,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00014",
+    "name": "Nb-bcc",
+    "type": "element",
+    "source": "DFT",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00014",
+    "name": "Nb-bcc",
+    "type": "element",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00014",
+    "name": "Nb-bcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00014",
+    "name": "Nb-bcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 298,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00014",
+    "name": "Nb-bcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 600,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00014",
+    "name": "Nb-bcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 900,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00014",
+    "name": "Nb-bcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 1500,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00015",
+    "name": "Nb-fcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00015",
+    "name": "Nb-fcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00016",
+    "name": "Nb-hcp",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00016",
+    "name": "Nb-hcp",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00017",
+    "name": "Ni-bcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00017",
+    "name": "Ni-bcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00018",
+    "name": "Ni-fcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00018",
+    "name": "Ni-fcc",
+    "type": "element",
+    "source": "10.1139/p65-018",
+    "temperature": 300,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00018",
+    "name": "Ni-fcc",
+    "type": "element",
+    "source": "https://www.alfa-chemistry.com/resources/specific-heat-capacity-of-chemical-elements-chart.html",
+    "temperature": 300,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00018",
+    "name": "Ni-fcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 600,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00018",
+    "name": "Ni-fcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 1500,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00018",
+    "name": "Ni-fcc",
+    "type": "element",
+    "source": "DFT",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00018",
+    "name": "Ni-fcc",
+    "type": "element",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00018",
+    "name": "Ni-fcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00018",
+    "name": "Ni-fcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 298,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00018",
+    "name": "Ni-fcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 600,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00018",
+    "name": "Ni-fcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 900,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00018",
+    "name": "Ni-fcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 1500,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00019",
+    "name": "Ni-hcp",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00019",
+    "name": "Ni-hcp",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00020",
+    "name": "Pt-fcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00020",
+    "name": "Pt-fcc",
+    "type": "element",
+    "source": "DFT",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00021",
+    "name": "Ta-bcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00021",
+    "name": "Ta-bcc",
+    "type": "element",
+    "source": "https://materialsdata.nist.gov/bitstream/handle/11115/166/Thermophysical%20Properties.pdf",
+    "temperature": 300,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00021",
+    "name": "Ta-bcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 600,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00021",
+    "name": "Ta-bcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 1500,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00021",
+    "name": "Ta-bcc",
+    "type": "element",
+    "source": "DFT",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00021",
+    "name": "Ta-bcc",
+    "type": "element",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00021",
+    "name": "Ta-bcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00021",
+    "name": "Ta-bcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 298,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00021",
+    "name": "Ta-bcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 600,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00021",
+    "name": "Ta-bcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 900,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00021",
+    "name": "Ta-bcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 1500,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00022",
+    "name": "Ta-fcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00022",
+    "name": "Ta-fcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00023",
+    "name": "Ta-hcp",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00023",
+    "name": "Ta-hcp",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00024",
+    "name": "V-bcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00025",
+    "name": "V-fcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00026",
+    "name": "V-hcp",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00027",
+    "name": "W-bcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00027",
+    "name": "W-bcc",
+    "type": "element",
+    "source": "https://nvlpubs.nist.gov/nistpubs/ScientificPapers/nbsscientificpaper515vol20p483_A2b.pdf",
+    "temperature": 300,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00027",
+    "name": "W-bcc",
+    "type": "element",
+    "source": "https://srd.nist.gov/jpcrdreprint/1.555728.pdf",
+    "temperature": 300,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00027",
+    "name": "W-bcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 600,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00027",
+    "name": "W-bcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 1500,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00027",
+    "name": "W-bcc",
+    "type": "element",
+    "source": "DFT",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00027",
+    "name": "W-bcc",
+    "type": "element",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00027",
+    "name": "W-bcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00027",
+    "name": "W-bcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 298,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00027",
+    "name": "W-bcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 600,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00027",
+    "name": "W-bcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 900,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00027",
+    "name": "W-bcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 1500,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00028",
+    "name": "W-fcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00028",
+    "name": "W-fcc",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00029",
+    "name": "W-hcp",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00029",
+    "name": "W-hcp",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00030",
+    "name": "Zn-hcp",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00030",
+    "name": "Zn-hcp",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 4,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00031",
+    "name": "Zr-bcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00032",
+    "name": "Zr-fcc",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00033",
+    "name": "Zr-hcp",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00033",
+    "name": "Zr-hcp",
+    "type": "element",
+    "source": "https://inis.iaea.org/records/e456z-tj670",
+    "temperature": 300,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00033",
+    "name": "Zr-hcp",
+    "type": "element",
+    "source": "https://www.sciencedirect.com/science/article/abs/pii/S0364591613000734",
+    "temperature": 300,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00033",
+    "name": "Zr-hcp",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 600,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00033",
+    "name": "Zr-hcp",
+    "type": "element",
+    "source": "Alloy_tongqi",
+    "temperature": 1500,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00033",
+    "name": "Zr-hcp",
+    "type": "element",
+    "source": "DFT",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00033",
+    "name": "Zr-hcp",
+    "type": "element",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00033",
+    "name": "Zr-hcp",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 0,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00033",
+    "name": "Zr-hcp",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 298,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00033",
+    "name": "Zr-hcp",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 600,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00033",
+    "name": "Zr-hcp",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 900,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-E-00033",
+    "name": "Zr-hcp",
+    "type": "element",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": 1500,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-AM-00001",
+    "name": "Al8Cu46Zr46",
+    "type": "amorphous",
+    "source": "DFT",
+    "temperature": null,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-AM-00001",
+    "name": "Al8Cu46Zr46",
+    "type": "amorphous",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": null,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-AM-00001",
+    "name": "Al8Cu46Zr46",
+    "type": "amorphous",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": null,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-AM-00002",
+    "name": "Cu46Zr54",
+    "type": "amorphous",
+    "source": "DFT",
+    "temperature": null,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-AM-00002",
+    "name": "Cu46Zr54",
+    "type": "amorphous",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": null,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-AM-00002",
+    "name": "Cu46Zr54",
+    "type": "amorphous",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": null,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-AM-00003",
+    "name": "Cu10Zr90",
+    "type": "amorphous",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": null,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-AM-00004",
+    "name": "Cu20Zr80",
+    "type": "amorphous",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": null,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-AM-00005",
+    "name": "Cu30Zr70",
+    "type": "amorphous",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": null,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-AM-00005",
+    "name": "Cu30Zr70",
+    "type": "amorphous",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": null,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-AM-00006",
+    "name": "Cu40Zr60",
+    "type": "amorphous",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": null,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-AM-00006",
+    "name": "Cu40Zr60",
+    "type": "amorphous",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": null,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-AM-00007",
+    "name": "Cu50Zr50",
+    "type": "amorphous",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": null,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-AM-00007",
+    "name": "Cu50Zr50",
+    "type": "amorphous",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": null,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-AM-00008",
+    "name": "Cu54Zr46",
+    "type": "amorphous",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": null,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-AM-00009",
+    "name": "Cu60Zr40",
+    "type": "amorphous",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": null,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-AM-00009",
+    "name": "Cu60Zr40",
+    "type": "amorphous",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": null,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-AM-00010",
+    "name": "Cu70Zr30",
+    "type": "amorphous",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": null,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-AM-00010",
+    "name": "Cu70Zr30",
+    "type": "amorphous",
+    "source": "DPA3_7ele_cryfinal",
+    "temperature": null,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-AM-00011",
+    "name": "Cu80Zr20",
+    "type": "amorphous",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": null,
+    "currentPoscar": null
+  },
+  {
+    "id": "Alloy-AM-00012",
+    "name": "Cu90Zr10",
+    "type": "amorphous",
+    "source": "DPA1_7ele_cry260226",
+    "temperature": null,
+    "currentPoscar": null
+  }
+]
