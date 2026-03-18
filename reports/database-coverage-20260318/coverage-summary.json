@@ -421,5 +421,21 @@
         "pct": 100
       }
     }
+  },
+  "methodComparison": {
+    "webDisplayMethod": {
+      "description": "Frontend countDataProperties (updated, strict has-value checks)",
+      "total": 33041,
+      "rawDataPoints": 7542,
+      "notes": [
+        "Specific heat is counted as one combined field (specificHeat or C_v/C_p)."
+      ]
+    },
+    "reportFieldMethod": {
+      "description": "propertyCoverageByDataPoint aggregated by per-key counts",
+      "total": 33063,
+      "deltaVsWeb": 22,
+      "deltaReason": "Report counts C_v and C_p as two separate keys when both exist; web combines them as one specific-heat field."
+    }
   }
 }

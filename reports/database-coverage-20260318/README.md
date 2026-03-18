@@ -108,3 +108,16 @@ Data-point-level = fraction of all 7542 `data[]` records with a valid value.
 ## 6) Machine-readable Metrics
 
 - `reports/database-coverage-20260318/coverage-summary.json`
+
+## 7) Counting-Method Consistency Note
+
+To avoid confusion between web UI totals and report totals:
+
+- Web UI total (`countDataProperties`, updated): **33,041**
+  - Specific heat is counted as one combined field (`specificHeat` or `C_v/C_p`).
+- Report per-key total (`propertyCoverageByDataPoint`): **33,063**
+  - `C_v` and `C_p` are counted as separate keys.
+
+Difference: **22**
+
+Reason: entries that have both `C_v` and `C_p` are counted once in web UI, but twice in per-key report metrics.

@@ -884,43 +884,34 @@ jobs:
               
               // Structure properties
               if (props.structure) {
-                if (props.structure.density !== undefined && props.structure.density !== '-') count++;
-                if (props.structure.latticeParameters && props.structure.latticeParameters.a !== undefined && props.structure.latticeParameters.a !== '-') count++;
+                if (hasDataValue(props.structure.density)) count++;
+                if (hasDataValue(props.structure.latticeParameters)) count++;
                 if (hasDataValue(props.structure.rdf)) count++;
               }
               
               // Thermodynamics properties
               if (props.thermodynamics) {
                 if (hasDataValue(props.thermodynamics.specificHeat) || hasDataValue(props.thermodynamics.specificHeat_v) || hasDataValue(props.thermodynamics.specificHeat_p)) count++;
-                if (props.thermodynamics.mixingEnthalpy !== undefined && props.thermodynamics.mixingEnthalpy !== '-') count++;
-                if (props.thermodynamics.diffusionCoefficient !== undefined && props.thermodynamics.diffusionCoefficient !== '-') count++;
+                if (hasDataValue(props.thermodynamics.mixingEnthalpy)) count++;
+                if (hasDataValue(props.thermodynamics.diffusionCoefficient)) count++;
+                if (hasDataValue(props.thermodynamics.thermalExpansion)) count++;
               }
               
               // Mechanics properties
               if (props.mechanics) {
-                if (props.mechanics.youngsModulus !== undefined && props.mechanics.youngsModulus !== '-') count++;
-                if (props.mechanics.bulkModulus !== undefined && props.mechanics.bulkModulus !== '-') count++;
-                if (props.mechanics.shearModulus !== undefined && props.mechanics.shearModulus !== '-') count++;
+                if (hasDataValue(props.mechanics.elasticConstants)) count++;
+                if (hasDataValue(props.mechanics.youngsModulus)) count++;
+                if (hasDataValue(props.mechanics.bulkModulus)) count++;
+                if (hasDataValue(props.mechanics.shearModulus)) count++;
+                if (hasDataValue(props.mechanics.poissonsRatio)) count++;
                 if (hasDataValue(props.mechanics.stressStrain)) count++;
               }
               
               // Defects properties
               if (props.defects) {
-                if (props.defects.vacancyFormationEnergy !== undefined && props.defects.vacancyFormationEnergy !== '-') count++;
-                // Interstitial formation energy might have multiple structures
-                if (props.defects.interstitialFormationEnergy) {
-                  const interstitial = props.defects.interstitialFormationEnergy;
-                  if (typeof interstitial === 'object' && interstitial !== null) {
-                    // Count each interstitial structure type that has data
-                    Object.keys(interstitial).forEach(key => {
-                      if (interstitial[key] !== undefined && interstitial[key] !== '-') {
-                        count++;
-                      }
-                    });
-                  } else if (interstitial !== undefined && interstitial !== '-') {
-                    count++;
-                  }
-                }
+                if (hasDataValue(props.defects.vacancyFormationEnergy)) count++;
+                if (hasDataValue(props.defects.interstitialFormationEnergy)) count++;
+                if (hasDataValue(props.defects.stackingFaultEnergy)) count++;
               }
               
               return count;
