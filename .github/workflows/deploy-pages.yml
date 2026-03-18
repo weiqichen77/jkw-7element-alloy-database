@@ -1718,12 +1718,21 @@ jobs:
           
           function formatFile(file, materialId, temperature, source) {
             if (!file) return '-';
+            if (typeof file === 'string' && file.trim() === '') return '-';
             // If file is an array (RDF or stress-strain data), show chart indicator with click
             if (Array.isArray(file)) {
               return '<a href="#" class="chart-indicator" data-material-id="' + materialId + '" data-temperature="' + temperature + '" data-source="' + source + '">📊 Chart</a>';
             }
+            // Object can represent multi-direction stress-strain datasets
+            if (typeof file === 'object') {
+              return '<a href="#" class="chart-indicator" data-material-id="' + materialId + '" data-temperature="' + temperature + '" data-source="' + source + '">📊 Chart</a>';
+            }
             // If file is a string (URL/path)
             if (typeof file === 'string') {
+              // Text data files are parsed into charts in detail view
+              if (/\.(txt|dat|csv)(\?|$)/i.test(file)) {
+                return '<a href="#" class="chart-indicator" data-material-id="' + materialId + '" data-temperature="' + temperature + '" data-source="' + source + '">📊 Chart</a>';
+              }
               const filename = file.split('/').pop();
               return '<a href="' + file + '" target="_blank">📄 ' + filename + '</a>';
             }
@@ -2559,9 +2568,46 @@ jobs:
             if (!data || data === '-') {
               return '<p class="no-data">' + t('noDataAvailable') + '</p>';
             }
+
+            // Object can be stress-strain mappings like {"100": "path/to/file.dat"}
+            if (typeof data === 'object' && !Array.isArray(data)) {
+              const entries = Object.entries(data).filter(([, v]) => v !== null && v !== undefined && v !== '' && v !== '-');
+              if (entries.length === 0) {
+                return '<p class="no-data">' + t('noDataAvailable') + '</p>';
+              }
+
+              // Support object form with x/y arrays
+              if ('x' in data && 'y' in data && Array.isArray(data.x) && Array.isArray(data.y)) {
+                const points = data.x.map((x, i) => ({ x: Number(x), y: Number(data.y[i]) })).filter((p) => Number.isFinite(p.x) && Number.isFinite(p.y));
+                return '<canvas id="' + id + '" class="chart-canvas"></canvas><script>renderPlot("' + id + '", ' + JSON.stringify(points) + ', "' + title + '");</script>';
+              }
+
+              let html = '<div class="multi-chart">';
+              entries.forEach(([label, value], i) => {
+                const subId = id + '-' + i;
+                html += '<div class="chart-subitem">';
+                html += '<div style="font-size:12px;color:#555;margin-bottom:6px;">' + label + '</div>';
+                if (typeof value === 'string' && /\.(txt|dat|csv)(\?|$)/i.test(value)) {
+                  html += '<canvas id="' + subId + '" class="chart-canvas"></canvas>';
+                  html += '<script>renderPlotFromFile("' + subId + '", "' + value.replace(/"/g, '&quot;') + '", "' + title + ' - ' + label + '");</script>';
+                } else if (Array.isArray(value)) {
+                  html += '<canvas id="' + subId + '" class="chart-canvas"></canvas>';
+                  html += '<script>renderPlot("' + subId + '", ' + JSON.stringify(value) + ', "' + title + ' - ' + label + '");</script>';
+                } else {
+                  html += '<p class="no-data">' + t('noDataAvailable') + '</p>';
+                }
+                html += '</div>';
+              });
+              html += '</div>';
+              return html;
+            }
             
             // If data is a URL (string), display as image
             if (typeof data === 'string') {
+              // Parse text-like RDF/stress-strain files into curves
+              if (/\.(txt|dat|csv)(\?|$)/i.test(data)) {
+                return '<canvas id="' + id + '" class="chart-canvas"></canvas><script>renderPlotFromFile("' + id + '", "' + data.replace(/"/g, '&quot;') + '", "' + title + '");</script>';
+              }
               return '<img src="' + data + '" alt="' + title + '" class="chart-image" />';
             }
             
@@ -2573,6 +2619,49 @@ jobs:
             
             return '<p>' + t('noDataAvailable') + '</p>';
           }
+
+          function parseTextSeries(content) {
+            const points = [];
+            const lines = String(content || '').split(/\r?\n/);
+            for (const raw of lines) {
+              const line = raw.trim();
+              if (!line || line.startsWith('#')) continue;
+              const cols = line.split(/[\s,]+/).filter(Boolean);
+              if (cols.length < 2) continue;
+              const x = Number(cols[0]);
+              const y = Number(cols[1]);
+              if (Number.isFinite(x) && Number.isFinite(y)) {
+                points.push({ x, y });
+              }
+            }
+            return points;
+          }
+
+          window.renderPlotFromFile = function(canvasId, filePath, title) {
+            fetch(filePath)
+              .then((resp) => {
+                if (!resp.ok) throw new Error('HTTP ' + resp.status);
+                return resp.text();
+              })
+              .then((text) => {
+                const points = parseTextSeries(text);
+                if (!points.length) {
+                  const canvas = document.getElementById(canvasId);
+                  if (canvas && canvas.parentElement) {
+                    canvas.parentElement.innerHTML = '<p class="no-data">' + t('noDataAvailable') + ' (parse failed)</p>';
+                  }
+                  return;
+                }
+                window.renderPlot(canvasId, points, title);
+              })
+              .catch((err) => {
+                console.error('Failed to render file chart:', filePath, err);
+                const canvas = document.getElementById(canvasId);
+                if (canvas && canvas.parentElement) {
+                  canvas.parentElement.innerHTML = '<p class="no-data">' + t('noDataAvailable') + ' (load failed)</p>';
+                }
+              });
+          };
           
           // Simple plot rendering using Canvas
           window.renderPlot = function(canvasId, data, title) {
@@ -2599,16 +2688,37 @@ jobs:
               const padding = 40;
               const plotWidth = width - 2 * padding;
               const plotHeight = height - 2 * padding;
-              
-              const xStep = plotWidth / (data.length - 1);
-              const yMin = Math.min(...data.map(d => d.y || d[1] || d));
-              const yMax = Math.max(...data.map(d => d.y || d[1] || d));
+
+              const points = data
+                .map((d, i) => {
+                  if (typeof d === 'number') return { x: i, y: d };
+                  if (Array.isArray(d)) return { x: Number(d[0]), y: Number(d[1]) };
+                  if (typeof d === 'object') {
+                    const x = Number((d.x !== undefined) ? d.x : i);
+                    const y = Number((d.y !== undefined) ? d.y : d[1]);
+                    return { x, y };
+                  }
+                  return { x: i, y: Number(d) };
+                })
+                .filter((p) => Number.isFinite(p.x) && Number.isFinite(p.y));
+
+              if (points.length < 2) {
+                ctx.fillStyle = '#666';
+                ctx.textAlign = 'center';
+                ctx.fillText(t('noDataAvailable'), width / 2, height / 2);
+                return;
+              }
+
+              const xMin = Math.min(...points.map(p => p.x));
+              const xMax = Math.max(...points.map(p => p.x));
+              const xRange = xMax - xMin || 1;
+              const yMin = Math.min(...points.map(p => p.y));
+              const yMax = Math.max(...points.map(p => p.y));
               const yRange = yMax - yMin || 1;
-              
-              data.forEach((point, i) => {
-                const y = typeof point === 'object' ? (point.y || point[1]) : point;
-                const x = padding + i * xStep;
-                const plotY = height - padding - ((y - yMin) / yRange) * plotHeight;
+
+              points.forEach((point, i) => {
+                const x = padding + ((point.x - xMin) / xRange) * plotWidth;
+                const plotY = height - padding - ((point.y - yMin) / yRange) * plotHeight;
                 
                 if (i === 0) {
                   ctx.moveTo(x, plotY);
