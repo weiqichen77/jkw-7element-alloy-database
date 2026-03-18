@@ -437,5 +437,22 @@
       "deltaVsWeb": 22,
       "deltaReason": "Report counts C_v and C_p as two separate keys when both exist; web combines them as one specific-heat field."
     }
+  },
+  "categoryEntryTotals": {
+    "fieldLevel": {
+      "structure": 8166,
+      "thermodynamics": 4196,
+      "mechanics": 16572,
+      "defects": 4129,
+      "total": 33063
+    },
+    "webDisplayCaliber": {
+      "structure": 8166,
+      "thermodynamics": 4174,
+      "mechanics": 16572,
+      "defects": 4129,
+      "total": 33041
+    },
+    "note": "Web caliber merges C_v and C_p as one specific-heat entry when both exist."
   }
 }

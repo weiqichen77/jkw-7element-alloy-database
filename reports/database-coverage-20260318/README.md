@@ -100,6 +100,33 @@ Data-point-level = fraction of all 7542 `data[]` records with a valid value.
 
 Web UI equivalent total (same counting logic as current frontend): **33,041**
 
+### 4.1 Four-Category Entry Totals
+
+These are the counts you asked for: Structure, Thermodynamics, Mechanics, Defects.
+
+`Web display caliber` (same as current page total = 33,041):
+
+| Category | Entries |
+|---|---:|
+| Structure | 8,166 |
+| Thermodynamics | 4,174 |
+| Mechanics | 16,572 |
+| Defects | 4,129 |
+| **Total** | **33,041** |
+
+`Field-level caliber` (per-key report total = 33,063):
+
+| Category | Entries |
+|---|---:|
+| Structure | 8,166 |
+| Thermodynamics | 4,196 |
+| Mechanics | 16,572 |
+| Defects | 4,129 |
+| **Total** | **33,063** |
+
+Difference explanation:
+- Thermodynamics differs by 22 because field-level counts `C_v` and `C_p` separately, while web display counts them as one specific-heat entry when both exist.
+
 ## 5) Notes for Current Version
 
 - Main-table value selection now follows source-priority logic per property field.
