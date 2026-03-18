@@ -640,6 +640,33 @@ jobs:
 
             return best || getPrimaryData(material);
           }
+
+          function selectBestDataByPredicate(material, predicate) {
+            if (!material.data || material.data.length === 0) return null;
+            const sourceOrder = { 'DFT': 1, 'DPA-3': 2, 'DPA-1': 3, 'Experiment': 4, 'MD': 5 };
+            let best = null;
+            let bestRank = Number.POSITIVE_INFINITY;
+
+            for (const d of material.data) {
+              if (!predicate(d)) continue;
+              const sourceRank = sourceOrder[getSourceBase(d.source)] || 99;
+              const tempRank = typeof d.temperature === 'number' ? d.temperature : 9999;
+              const rank = sourceRank * 100000 + tempRank;
+              if (rank < bestRank) {
+                best = d;
+                bestRank = rank;
+              }
+            }
+
+            return best;
+          }
+
+          function formatDataMeta(dataEntry) {
+            if (!dataEntry) return '';
+            const temp = (typeof dataEntry.temperature === 'number') ? (dataEntry.temperature + 'K') : '-';
+            const src = normalizeSource(dataEntry.source || '-');
+            return ' <span class="data-meta">(' + temp + ', ' + src + ')</span>';
+          }
           
           // Check if material has data for V2 format
           function hasV2Data(material) {
@@ -852,12 +879,12 @@ jobs:
               if (props.structure) {
                 if (props.structure.density !== undefined && props.structure.density !== '-') count++;
                 if (props.structure.latticeParameters && props.structure.latticeParameters.a !== undefined && props.structure.latticeParameters.a !== '-') count++;
-                if (props.structure.rdf && Array.isArray(props.structure.rdf) && props.structure.rdf.length > 0) count++;
+                if (hasDataValue(props.structure.rdf)) count++;
               }
               
               // Thermodynamics properties
               if (props.thermodynamics) {
-                if (props.thermodynamics.specificHeat !== undefined && props.thermodynamics.specificHeat !== '-') count++;
+                if (hasDataValue(props.thermodynamics.specificHeat) || hasDataValue(props.thermodynamics.specificHeat_v) || hasDataValue(props.thermodynamics.specificHeat_p)) count++;
                 if (props.thermodynamics.mixingEnthalpy !== undefined && props.thermodynamics.mixingEnthalpy !== '-') count++;
                 if (props.thermodynamics.diffusionCoefficient !== undefined && props.thermodynamics.diffusionCoefficient !== '-') count++;
               }
@@ -867,7 +894,7 @@ jobs:
                 if (props.mechanics.youngsModulus !== undefined && props.mechanics.youngsModulus !== '-') count++;
                 if (props.mechanics.bulkModulus !== undefined && props.mechanics.bulkModulus !== '-') count++;
                 if (props.mechanics.shearModulus !== undefined && props.mechanics.shearModulus !== '-') count++;
-                if (props.mechanics.stressStrain && Array.isArray(props.mechanics.stressStrain) && props.mechanics.stressStrain.length > 0) count++;
+                if (hasDataValue(props.mechanics.stressStrain)) count++;
               }
               
               // Defects properties
@@ -922,6 +949,7 @@ jobs:
             }
             
             container.innerHTML = html;
+            setTimeout(() => hydrateCharts(container), 0);
           }
           
           function displayStructureTable(data) {
@@ -947,15 +975,20 @@ jobs:
             for (let idx = 0; idx < data.length; idx++) {
               const material = data[idx];
               const primary = getPrimaryData(material);
-              const structureEntry = selectBestDataEntry(material, 'structure', ['density', 'latticeParameters', 'rdf']);
-              const structureData = structureEntry || primary;
+              const densityEntry = selectBestDataByPredicate(material, (d) => hasDataValue(d?.properties?.structure?.density));
+              const latticeEntry = selectBestDataByPredicate(material, (d) => {
+                const lp = d?.properties?.structure?.latticeParameters;
+                return !!lp && (hasDataValue(lp.a) || hasDataValue(lp.b) || hasDataValue(lp.c) || hasDataValue(lp.pointGroup));
+              });
+              const rdfEntry = selectBestDataByPredicate(material, (d) => hasDataValue(d?.properties?.structure?.rdf));
               const secondary = getSecondaryData(material);
               const hasSecondary = secondary.length > 0;
               
               if (!primary) continue;
               
-              const props = structureData.properties || {};
-              const struct = props.structure || {};
+              const densityStruct = densityEntry ? ((densityEntry.properties || {}).structure || {}) : {};
+              const latticeStruct = latticeEntry ? ((latticeEntry.properties || {}).structure || {}) : {};
+              const rdfStruct = rdfEntry ? ((rdfEntry.properties || {}).structure || {}) : {};
               
               // Main row
               html += '<tr class="material-row" data-id="' + material.id + '">';
@@ -972,13 +1005,13 @@ jobs:
               html += '<td>' + formatSourceLabel(material.source) + '</td>';
               html += '<td>' + translateType(material.type) + '</td>';
               html += '<td class="composition">' + formatComposition(material.composition) + '</td>';
-              html += '<td>' + formatValue(struct.density, 3);
-              html += ' <span class="data-meta">(' + structureData.temperature + 'K, ' + normalizeSource(structureData.source) + ')</span>';
+              html += '<td>' + formatValue(densityStruct.density, 3);
+              html += formatDataMeta(densityEntry);
               html += '</td>';
               
               // Lattice parameters with dropdown (show even without pointGroup)
               html += '<td class="lattice-cell">';
-              const lattice = struct.latticeParameters;
+              const lattice = latticeStruct.latticeParameters;
               if (lattice && (lattice.a || lattice.b || lattice.c)) {
                 html += '<div class="lattice-display">';
                 if (lattice.pointGroup && lattice.pointGroup.trim() !== '') {
@@ -1001,7 +1034,7 @@ jobs:
               }
               html += '</td>';
               
-              html += '<td>' + formatFile(struct.rdf, material.id, structureData.temperature, structureData.source) + '</td>';
+              html += '<td>' + formatFile(rdfStruct.rdf, material.id, rdfEntry ? rdfEntry.temperature : undefined, rdfEntry ? rdfEntry.source : undefined) + formatDataMeta(rdfEntry) + '</td>';
               html += '</tr>';
               
               // Expanded row for all data (sorted)
@@ -1124,15 +1157,22 @@ jobs:
             for (let idx = 0; idx < data.length; idx++) {
               const material = data[idx];
               const primary = getPrimaryData(material);
-              const thermoEntry = selectBestDataEntry(material, 'thermodynamics', ['specificHeat', 'specificHeat_v', 'specificHeat_p', 'mixingEnthalpy', 'diffusionCoefficient', 'thermalExpansion']);
-              const thermoData = thermoEntry || primary;
+              const specificHeatEntry = selectBestDataByPredicate(material, (d) => {
+                const th = d?.properties?.thermodynamics || {};
+                return hasDataValue(th.specificHeat) || hasDataValue(th.specificHeat_v) || hasDataValue(th.specificHeat_p);
+              });
+              const mixingEntry = selectBestDataByPredicate(material, (d) => hasDataValue(d?.properties?.thermodynamics?.mixingEnthalpy));
+              const diffusionEntry = selectBestDataByPredicate(material, (d) => hasDataValue(d?.properties?.thermodynamics?.diffusionCoefficient));
+              const thermalExpansionEntry = selectBestDataByPredicate(material, (d) => hasDataValue(d?.properties?.thermodynamics?.thermalExpansion));
               const secondary = getSecondaryData(material);
               const hasSecondary = secondary.length > 0;
               
               if (!primary) continue;
               
-              const props = thermoData.properties || {};
-              const thermo = props.thermodynamics || {};
+              const specificHeat = specificHeatEntry ? (((specificHeatEntry.properties || {}).thermodynamics) || {}) : {};
+              const mixing = mixingEntry ? (((mixingEntry.properties || {}).thermodynamics) || {}) : {};
+              const diffusion = diffusionEntry ? (((diffusionEntry.properties || {}).thermodynamics) || {}) : {};
+              const thermalExp = thermalExpansionEntry ? (((thermalExpansionEntry.properties || {}).thermodynamics) || {}) : {};
               
               html += '<tr class="material-row" data-id="' + material.id + '">';
               
@@ -1147,12 +1187,12 @@ jobs:
               html += '<td>' + formatSourceLabel(material.source) + '</td>';
               html += '<td>' + translateType(material.type) + '</td>';
               html += '<td class="composition">' + formatComposition(material.composition) + '</td>';
-              html += '<td>' + formatSpecificHeatDisplay(thermo);
-              html += ' <span class="data-meta">(' + thermoData.temperature + 'K, ' + normalizeSource(thermoData.source) + ')</span>';
+              html += '<td>' + formatSpecificHeatDisplay(specificHeat);
+              html += formatDataMeta(specificHeatEntry);
               html += '</td>';
-              html += '<td>' + formatValue(thermo.mixingEnthalpy, 2) + '</td>';
-              html += '<td>' + formatScientific(thermo.diffusionCoefficient) + '</td>';
-              html += '<td>' + formatScientific(thermo.thermalExpansion) + '</td>';
+              html += '<td>' + formatValue(mixing.mixingEnthalpy, 2) + formatDataMeta(mixingEntry) + '</td>';
+              html += '<td>' + formatScientific(diffusion.diffusionCoefficient) + formatDataMeta(diffusionEntry) + '</td>';
+              html += '<td>' + formatScientific(thermalExp.thermalExpansion) + formatDataMeta(thermalExpansionEntry) + '</td>';
               html += '</tr>';
               
               if (hasSecondary) {
@@ -1251,16 +1291,20 @@ jobs:
             for (let idx = 0; idx < data.length; idx++) {
               const material = data[idx];
               const primary = getPrimaryData(material);
-              const mechEntry = selectBestDataEntry(material, 'mechanics', ['elasticConstants', 'youngsModulus', 'poissonsRatio', 'stressStrain']);
-              const mechData = mechEntry || primary;
+              const elasticEntry = selectBestDataByPredicate(material, (d) => hasDataValue(d?.properties?.mechanics?.elasticConstants));
+              const youngEntry = selectBestDataByPredicate(material, (d) => hasDataValue(d?.properties?.mechanics?.youngsModulus));
+              const poissonEntry = selectBestDataByPredicate(material, (d) => hasDataValue(d?.properties?.mechanics?.poissonsRatio));
+              const stressEntry = selectBestDataByPredicate(material, (d) => hasDataValue(d?.properties?.mechanics?.stressStrain));
               const secondary = getSecondaryData(material);
               const hasSecondary = secondary.length > 0;
               
               if (!primary) continue;
               
-              const props = mechData.properties || {};
-              const mech = props.mechanics || {};
-              const elastic = mech.elasticConstants;
+              const elasticMech = elasticEntry ? (((elasticEntry.properties || {}).mechanics) || {}) : {};
+              const youngMech = youngEntry ? (((youngEntry.properties || {}).mechanics) || {}) : {};
+              const poissonMech = poissonEntry ? (((poissonEntry.properties || {}).mechanics) || {}) : {};
+              const stressMech = stressEntry ? (((stressEntry.properties || {}).mechanics) || {}) : {};
+              const elastic = elasticMech.elasticConstants;
               
               html += '<tr class="material-row" data-id="' + material.id + '">';
               
@@ -1298,11 +1342,10 @@ jobs:
               }
               html += '</td>';
               
-              html += '<td>' + formatValue(mech.youngsModulus, 2);
-              html += ' <span class="data-meta">(' + mechData.temperature + 'K, ' + normalizeSource(mechData.source) + ')</span>';
+              html += '<td>' + formatValue(youngMech.youngsModulus, 2) + formatDataMeta(youngEntry);
               html += '</td>';
-              html += '<td>' + formatValue(mech.poissonsRatio, 3) + '</td>';
-              html += '<td>' + formatFile(mech.stressStrain, material.id, mechData.temperature, mechData.source) + '</td>';
+              html += '<td>' + formatValue(poissonMech.poissonsRatio, 3) + formatDataMeta(poissonEntry) + '</td>';
+              html += '<td>' + formatFile(stressMech.stressStrain, material.id, stressEntry ? stressEntry.temperature : undefined, stressEntry ? stressEntry.source : undefined) + formatDataMeta(stressEntry) + '</td>';
               html += '</tr>';
               
               if (hasSecondary) {
@@ -1423,13 +1466,17 @@ jobs:
             for (let idx = 0; idx < data.length; idx++) {
               const material = data[idx];
               const primary = getPrimaryData(material);
+              const vacancyEntry = selectBestDataByPredicate(material, (d) => hasDataValue(d?.properties?.defects?.vacancyFormationEnergy));
+              const interstitialEntry = selectBestDataByPredicate(material, (d) => hasDataValue(d?.properties?.defects?.interstitialFormationEnergy));
+              const stackingEntry = selectBestDataByPredicate(material, (d) => hasDataValue(d?.properties?.defects?.stackingFaultEnergy));
               const secondary = getSecondaryData(material);
               const hasSecondary = secondary.length > 0;
               
               if (!primary) continue;
               
-              const props = primary.properties || {};
-              const defects = props.defects || {};
+              const vacancyDefects = vacancyEntry ? (((vacancyEntry.properties || {}).defects) || {}) : {};
+              const interstitialDefects = interstitialEntry ? (((interstitialEntry.properties || {}).defects) || {}) : {};
+              const stackingDefects = stackingEntry ? (((stackingEntry.properties || {}).defects) || {}) : {};
               
               html += '<tr class="material-row" data-id="' + material.id + '">';
               
@@ -1441,27 +1488,27 @@ jobs:
               
               html += '<td>' + material.id + '</td>';
               html += '<td><a href="#" class="material-link" data-id="' + material.id + '">' + material.name + '</a></td>';
-              html += '<td>' + (material.source || '-') + '</td>';
+              html += '<td>' + formatSourceLabel(material.source) + '</td>';
               html += '<td>' + translateType(material.type) + '</td>';
               html += '<td class="composition">' + formatComposition(material.composition) + '</td>';
-              html += '<td>' + formatValue(defects.vacancyFormationEnergy, 3);
-              html += ' <span class="data-meta">(' + primary.temperature + 'K, ' + normalizeSource(primary.source) + ')</span>';
+              html += '<td>' + formatValue(vacancyDefects.vacancyFormationEnergy, 3);
+              html += formatDataMeta(vacancyEntry);
               html += '</td>';
               
               // Interstitial with multiple sites
               html += '<td class="interstitial-cell">';
-              if (defects.interstitialFormationEnergy != null) {
-                if (typeof defects.interstitialFormationEnergy === 'object' && !Array.isArray(defects.interstitialFormationEnergy)) {
+              if (interstitialDefects.interstitialFormationEnergy != null) {
+                if (typeof interstitialDefects.interstitialFormationEnergy === 'object' && !Array.isArray(interstitialDefects.interstitialFormationEnergy)) {
                   // Multiple sites - check if object is not empty
-                  const sites = Object.keys(defects.interstitialFormationEnergy);
+                  const sites = Object.keys(interstitialDefects.interstitialFormationEnergy);
                   if (sites.length > 0) {
                     html += '<div class="interstitial-display">';
-                    html += '<span>' + sites[0] + ': ' + formatValue(defects.interstitialFormationEnergy[sites[0]], 3) + '</span>';
+                    html += '<span>' + sites[0] + ': ' + formatValue(interstitialDefects.interstitialFormationEnergy[sites[0]], 3) + '</span>';
                     if (sites.length > 1) {
                       html += '<button class="sites-expand" onclick="toggleSites(this, event)">▼</button>';
                       html += '<div class="sites-details hidden">';
                       for (const site of sites.slice(1)) {
-                        html += '<div>' + site + ': ' + formatValue(defects.interstitialFormationEnergy[site], 3) + ' eV</div>';
+                        html += '<div>' + site + ': ' + formatValue(interstitialDefects.interstitialFormationEnergy[site], 3) + ' eV</div>';
                       }
                       html += '</div>';
                     }
@@ -1470,26 +1517,27 @@ jobs:
                     html += '-';
                   }
                 } else {
-                  html += formatValue(defects.interstitialFormationEnergy, 3);
+                  html += formatValue(interstitialDefects.interstitialFormationEnergy, 3);
                 }
               } else {
                 html += '-';
               }
+              html += formatDataMeta(interstitialEntry);
               html += '</td>';
               
               // Stacking fault energy with multiple types
               html += '<td class="stacking-cell">';
-              if (defects.stackingFaultEnergy != null) {
-                if (typeof defects.stackingFaultEnergy === 'object' && !Array.isArray(defects.stackingFaultEnergy)) {
-                  const types = Object.keys(defects.stackingFaultEnergy);
+              if (stackingDefects.stackingFaultEnergy != null) {
+                if (typeof stackingDefects.stackingFaultEnergy === 'object' && !Array.isArray(stackingDefects.stackingFaultEnergy)) {
+                  const types = Object.keys(stackingDefects.stackingFaultEnergy);
                   if (types.length > 0) {
                     html += '<div class="stacking-display">';
-                    html += '<span>' + types[0] + ': ' + formatValue(defects.stackingFaultEnergy[types[0]], 2) + '</span>';
+                    html += '<span>' + types[0] + ': ' + formatValue(stackingDefects.stackingFaultEnergy[types[0]], 2) + '</span>';
                     if (types.length > 1) {
                       html += '<button class="sites-expand" onclick="toggleSites(this, event)">▼</button>';
                       html += '<div class="sites-details hidden">';
                       for (const type of types.slice(1)) {
-                        html += '<div>' + type + ': ' + formatValue(defects.stackingFaultEnergy[type], 2) + ' mJ/m²</div>';
+                        html += '<div>' + type + ': ' + formatValue(stackingDefects.stackingFaultEnergy[type], 2) + ' mJ/m²</div>';
                       }
                       html += '</div>';
                     }
@@ -1498,11 +1546,12 @@ jobs:
                     html += '-';
                   }
                 } else {
-                  html += formatValue(defects.stackingFaultEnergy, 2);
+                  html += formatValue(stackingDefects.stackingFaultEnergy, 2);
                 }
               } else {
                 html += '-';
               }
+              html += formatDataMeta(stackingEntry);
               html += '</td>';
               html += '</tr>';
               
@@ -1944,19 +1993,7 @@ jobs:
             
             content.innerHTML = html;
             modal.style.display = 'block';
-            
-            // Force render all charts after DOM is updated
-            setTimeout(() => {
-              // Re-execute all inline scripts for chart rendering
-              const scripts = content.querySelectorAll('script');
-              scripts.forEach(script => {
-                try {
-                  eval(script.textContent);
-                } catch (e) {
-                  console.error('Error executing chart script:', e);
-                }
-              });
-            }, 200);
+            setTimeout(() => hydrateCharts(content), 0);
             
             // Initialize 3D viewer if POSCAR exists (check material.poscar at top level)
             const firstData = material.data[0];
@@ -2062,6 +2099,7 @@ jobs:
             
             // Always use the grouped view format, regardless of filter selection
             container.innerHTML = generateAllDataView(material, filteredData);
+            setTimeout(() => hydrateCharts(container), 0);
             
             // Re-initialize 3D viewers if needed - check material.poscar or struct.poscar
             const firstData = filteredData[0];
@@ -2453,6 +2491,7 @@ jobs:
             const viewDiv = document.getElementById('detailDataView');
             if (viewDiv) {
               viewDiv.innerHTML = generateDetailView(material, dataPoint);
+              setTimeout(() => hydrateCharts(viewDiv), 0);
               // Re-initialize 3D viewer if POSCAR exists - check material.poscar or struct.poscar
               const struct = dataPoint.properties?.structure;
               const poscarPath = material.poscar || struct?.poscar;
@@ -2559,6 +2598,30 @@ jobs:
             viewer.render();
           };
           
+          window.__chartQueue = window.__chartQueue || {};
+
+          function queueChartSpec(id, spec) {
+            window.__chartQueue[id] = spec;
+            return '<canvas id="' + id + '" class="chart-canvas" data-chart-id="' + id + '"></canvas>';
+          }
+
+          function hydrateCharts(container) {
+            const root = container || document;
+            const canvases = root.querySelectorAll('canvas[data-chart-id]');
+            canvases.forEach((canvas) => {
+              if (canvas.dataset.chartHydrated === '1') return;
+              const chartId = canvas.dataset.chartId;
+              const spec = window.__chartQueue[chartId];
+              if (!spec) return;
+              canvas.dataset.chartHydrated = '1';
+              if (spec.kind === 'array') {
+                window.renderPlot(chartId, spec.data, spec.title);
+              } else if (spec.kind === 'file') {
+                window.renderPlotFromFile(chartId, spec.path, spec.title);
+              }
+            });
+          }
+
           // Render chart (image or plot)
           function renderChart(data, id, title) {
             if (!data || data === '-') {
@@ -2575,7 +2638,7 @@ jobs:
               // Support object form with x/y arrays
               if ('x' in data && 'y' in data && Array.isArray(data.x) && Array.isArray(data.y)) {
                 const points = data.x.map((x, i) => ({ x: Number(x), y: Number(data.y[i]) })).filter((p) => Number.isFinite(p.x) && Number.isFinite(p.y));
-                return '<canvas id="' + id + '" class="chart-canvas"></canvas><script>renderPlot("' + id + '", ' + JSON.stringify(points) + ', "' + title + '");</script>';
+                return queueChartSpec(id, { kind: 'array', data: points, title });
               }
 
               let html = '<div class="multi-chart">';
@@ -2584,11 +2647,9 @@ jobs:
                 html += '<div class="chart-subitem">';
                 html += '<div style="font-size:12px;color:#555;margin-bottom:6px;">' + label + '</div>';
                 if (typeof value === 'string' && /\.(txt|dat|csv)(\?|$)/i.test(value)) {
-                  html += '<canvas id="' + subId + '" class="chart-canvas"></canvas>';
-                  html += '<script>renderPlotFromFile("' + subId + '", "' + value.replace(/"/g, '&quot;') + '", "' + title + ' - ' + label + '");</script>';
+                  html += queueChartSpec(subId, { kind: 'file', path: value, title: title + ' - ' + label });
                 } else if (Array.isArray(value)) {
-                  html += '<canvas id="' + subId + '" class="chart-canvas"></canvas>';
-                  html += '<script>renderPlot("' + subId + '", ' + JSON.stringify(value) + ', "' + title + ' - ' + label + '");</script>';
+                  html += queueChartSpec(subId, { kind: 'array', data: value, title: title + ' - ' + label });
                 } else {
                   html += '<p class="no-data">' + t('noDataAvailable') + '</p>';
                 }
@@ -2598,19 +2659,18 @@ jobs:
               return html;
             }
             
-            // If data is a URL (string), display as image
+            // If data is a URL/path (string)
             if (typeof data === 'string') {
               // Parse text-like RDF/stress-strain files into curves
               if (/\.(txt|dat|csv)(\?|$)/i.test(data)) {
-                return '<canvas id="' + id + '" class="chart-canvas"></canvas><script>renderPlotFromFile("' + id + '", "' + data.replace(/"/g, '&quot;') + '", "' + title + '");</script>';
+                return queueChartSpec(id, { kind: 'file', path: data, title });
               }
               return '<img src="' + data + '" alt="' + title + '" class="chart-image" />';
             }
             
             // If data is an array, create a simple plot
             if (Array.isArray(data)) {
-              console.log('Creating chart for:', id, 'with', data.length, 'points');
-              return '<canvas id="' + id + '" class="chart-canvas"></canvas><script>renderPlot("' + id + '", ' + JSON.stringify(data) + ', "' + title + '");</script>';
+              return queueChartSpec(id, { kind: 'array', data, title });
             }
             
             return '<p>' + t('noDataAvailable') + '</p>';
