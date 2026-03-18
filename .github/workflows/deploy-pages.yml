@@ -1619,9 +1619,27 @@ jobs:
             return /^https?:\/\//i.test(value);
           }
 
+          function isDoiSource(value) {
+            if (!value || typeof value !== 'string') return false;
+            return /^10\.\d{4,9}\/\S+$/i.test(value) || /doi\.org\//i.test(value);
+          }
+
+          function extractDoi(value) {
+            if (!value || typeof value !== 'string') return null;
+            const m = value.match(/10\.\d{4,9}\/\S+/i);
+            return m ? m[0] : null;
+          }
+
           function formatSourceLabel(source, asHtml = true) {
             if (!source) return '-';
             if (isHttpUrl(source)) {
+              if (/doi\.org\//i.test(source)) {
+                const doi = extractDoi(source);
+                if (doi) {
+                  if (!asHtml) return 'DOI: ' + doi;
+                  return '<a href="https://doi.org/' + doi + '" target="_blank" rel="noopener noreferrer">DOI: ' + doi + '</a>';
+                }
+              }
               try {
                 const u = new URL(source);
                 const text = 'Reference (' + u.hostname + ')';
@@ -1629,6 +1647,13 @@ jobs:
                 return '<a href="' + source + '" target="_blank" rel="noopener noreferrer">' + text + '</a>';
               } catch (e) {
                 return source;
+              }
+            }
+            if (isDoiSource(source)) {
+              const doi = extractDoi(source);
+              if (doi) {
+                if (!asHtml) return 'DOI: ' + doi;
+                return '<a href="https://doi.org/' + doi + '" target="_blank" rel="noopener noreferrer">DOI: ' + doi + '</a>';
               }
             }
             return normalizeSource(source);
@@ -1658,6 +1683,22 @@ jobs:
           // Normalize source format: DPA3_xxx -> DPA-3_xxx, DPA1_xxx -> DPA-1_xxx
           function normalizeSource(source) {
             if (!source) return source;
+            if (isHttpUrl(source)) {
+              if (/doi\.org\//i.test(source)) {
+                const doi = extractDoi(source);
+                return doi ? 'DOI: ' + doi : source;
+              }
+              try {
+                const u = new URL(source);
+                return 'Reference (' + u.hostname + ')';
+              } catch (e) {
+                return source;
+              }
+            }
+            if (isDoiSource(source)) {
+              const doi = extractDoi(source);
+              return doi ? 'DOI: ' + doi : source;
+            }
             // Replace DPA3 with DPA-3, DPA1 with DPA-1
             return source.replace(/DPA(\d)/g, 'DPA-$1');
           }
