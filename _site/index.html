@@ -3,87 +3,95 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alloy Materials Database</title>
-  <link rel="stylesheet" href="css/style.css">
-  <style>
-    * { box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
-    header { background: #2c3e50; color: white; padding: 25px; margin: -20px -20px 20px -20px; }
-    h1 { margin: 0; font-size: 28px; }
-    .header-subtitle { font-size: 14px; opacity: 0.9; margin-top: 5px; }
-    .search-box { margin: 20px 0; display: flex; gap: 10px; }
-    input { padding: 10px 12px; border: 1px solid #ddd; border-radius: 4px; width: 300px; font-size: 14px; }
-    button { padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: 500; }
-    button:hover { background: #2980b9; }
-    .info { color: #555; font-size: 14px; margin: 15px 0; padding: 10px; background: #fff; border-left: 4px solid #3498db; }
-    .info.success { border-left-color: #27ae60; color: #27ae60; }
-    .info.error { border-left-color: #e74c3c; color: #e74c3c; }
-    
-    .table-container { background: white; border-radius: 4px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-    table { width: 100%; border-collapse: collapse; }
-    th { background: #34495e; color: white; padding: 12px; text-align: left; font-weight: 600; font-size: 13px; }
-    td { border-bottom: 1px solid #ecf0f1; padding: 12px; font-size: 13px; }
-    tr:hover { background: #f9f9f9; }
-    
-    .expandable-row { cursor: pointer; }
-    .expandable-row td:first-child { color: #3498db; font-weight: 500; }
-    .detail-row { display: none; background: #f8f9fa; }
-    .detail-row.show { display: table-row; }
-    .detail-content { padding: 20px; }
-    .detail-section { margin-bottom: 20px; }
-    .detail-section-title { font-weight: 600; color: #2c3e50; margin-bottom: 10px; font-size: 14px; }
-    .detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-    .detail-item { font-size: 12px; }
-    .detail-item-label { color: #7f8c8d; font-weight: 500; margin-bottom: 2px; }
-    .detail-item-value { color: #2c3e50; }
-    
-    #noResults { display: none; }
-    .expand-icon { display: inline-block; transition: transform 0.3s; margin-right: 8px; }
-    .expandable-row.expanded .expand-icon { transform: rotate(90deg); }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Alloy Materials Database</h1>
-    <div class="header-subtitle">Material Properties Database - Al-Ni-Cu-Zr-Nb-Ta-W System</div>
-  </header>
-
-  <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Search: Al, Zr, Nb20Al10, mp-bbgt...">
-    <button onclick="performSearch()">Search</button>
-  </div>
-
-  <div class="info" id="info"></div>
-  
-  <div class="table-container">
-    <table id="resultsTable" style="display: none;">
-      <thead>
-        <tr>
-          <th style="width: 60px;">ID</th>
-          <th style="width: 150px;">Name</th>
-          <th style="width: 80px;">Type</th>
-          <th style="width: 150px;">Elements</th>
-          <th>Density (g/cm³)</th>
-          <th style="width: 80px;">Details</th>
-        </tr>
-      </thead>
-      <tbody id="resultsBody">
-      </tbody>
-    </table>
-    <div id="noResults" class="info error" style="display: none; margin: 20px;">No results found</div>
-  </div>
-
   <script>
     let allMaterials = [];
     let displayedMaterials = [];
     let expandedRows = new Set();
-    
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function isUrl(value) {
+      if (!value || typeof value !== 'string') return false;
+      try {
+        const u = new URL(value);
+        return u.protocol === 'http:' || u.protocol === 'https:';
+      } catch (e) {
+        return false;
+      }
+    }
+
+    function formatDataSource(source) {
+      if (!source) return 'N/A';
+      if (isUrl(source)) {
+        const u = new URL(source);
+        return `<a href="${escapeHtml(source)}" target="_blank" style="color: #3498db; text-decoration: underline;">${escapeHtml(u.hostname)}</a>`;
+      }
+      return escapeHtml(source);
+    }
+
+    function formatDataSourceShort(source) {
+      if (!source) return 'Unknown';
+      if (isUrl(source)) {
+        const u = new URL(source);
+        return `Reference (${u.hostname})`;
+      }
+      return String(source);
+    }
+
+    function hasValue(value) {
+      if (value === null || value === undefined || value === '') return false;
+      if (Array.isArray(value)) return value.length > 0;
+      if (typeof value === 'object') return Object.keys(value).length > 0;
+      return true;
+    }
+
+    function scoreValue(value) {
+      if (!hasValue(value)) return 0;
+      if (Array.isArray(value)) {
+        return value.reduce((acc, v) => acc + scoreValue(v), 0);
+      }
+      if (typeof value === 'object') {
+        return Object.values(value).reduce((acc, v) => acc + scoreValue(v), 0);
+      }
+      return 1;
+    }
+
+    function selectBestDataEntry(material, category) {
+      if (!material.data || material.data.length === 0) return null;
+      let best = null;
+      let bestScore = -1;
+
+      material.data.forEach((entry) => {
+        const obj = entry && entry.properties ? entry.properties[category] : null;
+        if (!obj) return;
+        const score = scoreValue(obj);
+        if (score > bestScore) {
+          best = entry;
+          bestScore = score;
+        }
+      });
+
+      return best;
+    }
+
+    function formatNumber(value, digits) {
+      const n = Number(value);
+      return Number.isFinite(n) ? n.toFixed(digits) : 'N/A';
+    }
+
     async function loadData() {
       try {
         const response = await fetch('./data/materials.json');
         if (!response.ok) throw new Error('Failed to load data');
         allMaterials = await response.json();
-        
+
         document.getElementById('info').innerHTML = `
           <strong>✓ Database loaded successfully!</strong><br>
           Total materials: ${allMaterials.length}
@@ -98,37 +106,37 @@
         console.error('Error loading data:', error);
       }
     }
-    
+
     function performSearch() {
       const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-      
+
       if (!allMaterials.length) {
         document.getElementById('info').innerHTML = '<strong style="color: #e74c3c;">Data not loaded yet</strong>';
         return;
       }
-      
+
       displayedMaterials = allMaterials.filter(material => {
         const name = (material.name || '').toLowerCase();
         const id = String(material.id || '').toLowerCase();
         const source = String(material.source || '').toLowerCase();
         const elements = material.elements ? material.elements.join(' ').toLowerCase() : '';
         const composition = (material.composition || '').toLowerCase();
-        return name.includes(searchTerm) || id.includes(searchTerm) || source.includes(searchTerm) || 
+        return name.includes(searchTerm) || id.includes(searchTerm) || source.includes(searchTerm) ||
                elements.includes(searchTerm) || composition.includes(searchTerm);
       });
-      
+
       displayResults(displayedMaterials, searchTerm);
     }
-    
+
     function displayResults(results, searchTerm) {
       const table = document.getElementById('resultsTable');
       const tbody = document.getElementById('resultsBody');
       const noResults = document.getElementById('noResults');
       const info = document.getElementById('info');
-      
+
       expandedRows.clear();
       tbody.innerHTML = '';
-      
+
       if (results.length === 0) {
         table.style.display = 'none';
         noResults.style.display = 'block';
@@ -139,36 +147,34 @@
         noResults.style.display = 'none';
         info.innerHTML = `<strong>✓ Search results: ${results.length} materials found</strong>`;
         info.className = 'info success';
-        
+
         results.forEach((material, idx) => {
           const displayNumber = idx + 1;
           const sourceId = material.id || material.source || 'N/A';
-          
-          // Extract density from nested structure
+
           let density = material.density;
-          if (!density && material.data && material.data.length > 0) {
-            const props = material.data[0].properties;
-            if (props && props.structure && props.structure.density) {
-              density = props.structure.density;
+          if (!density) {
+            const structureEntry = selectBestDataEntry(material, 'structure');
+            if (structureEntry && structureEntry.properties && structureEntry.properties.structure) {
+              density = structureEntry.properties.structure.density;
             }
           }
-          
-          // Get elements
+
           const elements = material.elements ? material.elements.join(', ') : (material.composition || 'N/A');
-          
+
           const mainRow = tbody.insertRow();
           mainRow.className = 'expandable-row';
           mainRow.dataset.id = sourceId;
-          
+
           mainRow.insertCell(0).textContent = displayNumber;
           mainRow.insertCell(1).textContent = material.name || 'N/A';
           mainRow.insertCell(2).textContent = material.type || 'N/A';
           mainRow.insertCell(3).textContent = elements;
-          mainRow.insertCell(4).textContent = density ? density.toFixed(2) : 'N/A';
+          mainRow.insertCell(4).textContent = Number.isFinite(Number(density)) ? Number(density).toFixed(2) : 'N/A';
           mainRow.insertCell(5).innerHTML = '<span class="expand-icon">▶</span>View';
-          
+
           mainRow.onclick = () => toggleDetail(mainRow, material);
-          
+
           const detailRow = tbody.insertRow();
           detailRow.className = 'detail-row';
           const detailCell = detailRow.insertCell(0);
@@ -177,39 +183,36 @@
         });
       }
     }
-    
+
     function toggleDetail(row, material) {
       const detailRow = row.nextElementSibling;
       const isExpanded = detailRow.classList.contains('show');
-      
+
       document.querySelectorAll('.detail-row.show').forEach(r => r.classList.remove('show'));
       document.querySelectorAll('.expandable-row.expanded').forEach(r => r.classList.remove('expanded'));
-      
+
       if (!isExpanded) {
         detailRow.classList.add('show');
         row.classList.add('expanded');
       }
     }
-    
+
     function formatDetailContent(material) {
       let html = '<div class="detail-content">';
-      
-      // Show source/original ID if available
+
       if (material.source || material.id) {
         html += '<div class="detail-section">';
         html += '<div class="detail-section-title">Material Information</div>';
         html += '<div class="detail-grid">';
         if (material.source) {
-          html += `<div class="detail-item"><div class="detail-item-label">Source ID</div><div class="detail-item-value">${material.source}</div></div>`;
+          html += `<div class="detail-item"><div class="detail-item-label">Source ID</div><div class="detail-item-value">${escapeHtml(material.source)}</div></div>`;
         } else if (material.id) {
-          html += `<div class="detail-item"><div class="detail-item-label">ID</div><div class="detail-item-value">${material.id}</div></div>`;
+          html += `<div class="detail-item"><div class="detail-item-label">ID</div><div class="detail-item-value">${escapeHtml(material.id)}</div></div>`;
         }
         html += '</div></div>';
       }
-      
-      // Structure Visualization Section with Selector
+
       if (material.data && material.data.length > 0) {
-        // Find available structures
         const structures = [];
         material.data.forEach((dataEntry, idx) => {
           if (dataEntry.poscar) {
@@ -217,155 +220,224 @@
             if (dataEntry.source === 'init') {
               label = 'Initial Structure';
             } else if (dataEntry.temperature !== undefined && dataEntry.temperature !== null) {
-              label = `${dataEntry.temperature}K - ${dataEntry.source}`;
+              label = `${dataEntry.temperature}K - ${formatDataSourceShort(dataEntry.source)}`;
             } else {
-              label = dataEntry.source;
+              label = formatDataSourceShort(dataEntry.source);
             }
             const poscarSource = dataEntry.poscar_source || dataEntry.source;
             structures.push({ idx, label, poscarSource, ...dataEntry });
           }
         });
-        
+
         if (structures.length > 0) {
-          // Find default structure: prefer 0K DFT, else first DFT structure, else first structure
           let defaultIdx = structures.findIndex(s => s.temperature === 0 && s.source === 'DFT');
-          if (defaultIdx === -1) {
-            defaultIdx = structures.findIndex(s => s.source === 'DFT');
-          }
+          if (defaultIdx === -1) defaultIdx = structures.findIndex(s => s.source === 'DFT');
           if (defaultIdx === -1) defaultIdx = 0;
-          
+
           html += '<div class="detail-section">';
           html += '<div class="detail-section-title">Crystal Structure Visualization</div>';
-          
+
           if (structures.length > 1) {
             html += '<div style="margin-bottom: 10px;">';
             html += '<select id="structure-selector-' + (material.source || material.id) + '" onchange="updateStructureDisplay(this, \'' + (material.source || material.id) + '\')" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 13px;">';
             structures.forEach((s, i) => {
               const selected = i === defaultIdx ? 'selected' : '';
-              html += `<option value="${s.idx}" ${selected}>${s.label}</option>`;
+              html += `<option value="${s.idx}" ${selected}>${escapeHtml(s.label)}</option>`;
             });
             html += '</select>';
             html += '</div>';
           }
-          
+
           html += '<div id="structure-info-' + (material.source || material.id) + '">';
           const defaultStructure = structures[defaultIdx];
-          html += `<div class="detail-item"><div class="detail-item-label">Structure Source</div><div class="detail-item-value">${defaultStructure.poscarSource}</div></div>`;
-          html += `<div class="detail-item"><div class="detail-item-label">Structure File</div><div class="detail-item-value"><a href="${defaultStructure.poscar}" target="_blank" style="color: #3498db; text-decoration: underline;">View POSCAR</a> <span style="color: #888; font-size: 11px;">(atomic structure file)</span></div></div>`;
+          html += `<div class="detail-item"><div class="detail-item-label">Structure Source</div><div class="detail-item-value">${formatDataSource(defaultStructure.poscarSource)}</div></div>`;
+          html += `<div class="detail-item"><div class="detail-item-label">Structure File</div><div class="detail-item-value"><a href="${escapeHtml(defaultStructure.poscar)}" target="_blank" style="color: #3498db; text-decoration: underline;">View POSCAR</a> <span style="color: #888; font-size: 11px;">(atomic structure file)</span></div></div>`;
           html += '</div>';
           html += '</div>';
-          
-          // Store structures data for later use
+
           window['structures_' + (material.source || material.id)] = structures;
         }
       }
-      
-      
+
       if (material.data && material.data.length > 0) {
-        const firstData = material.data[0];
-        
-        if (firstData.properties) {
-          const props = firstData.properties;
-          
-          if (props.structure) {
-            html += '<div class="detail-section">';
-            html += '<div class="detail-section-title">Structure Properties</div>';
-            html += '<div class="detail-grid">';
-            
-            const struct = props.structure;
-            if (struct.latticeParameters) {
-              const lp = struct.latticeParameters;
-              html += `<div class="detail-item"><div class="detail-item-label">Lattice a (Å)</div><div class="detail-item-value">${lp.a ? lp.a.toFixed(4) : 'N/A'}</div></div>`;
-              html += `<div class="detail-item"><div class="detail-item-label">Lattice b (Å)</div><div class="detail-item-value">${lp.b ? lp.b.toFixed(4) : 'N/A'}</div></div>`;
-              html += `<div class="detail-item"><div class="detail-item-label">Lattice c (Å)</div><div class="detail-item-value">${lp.c ? lp.c.toFixed(4) : 'N/A'}</div></div>`;
-              html += `<div class="detail-item"><div class="detail-item-label">Alpha (°)</div><div class="detail-item-value">${lp.alpha ? lp.alpha.toFixed(2) : 'N/A'}</div></div>`;
-              html += `<div class="detail-item"><div class="detail-item-label">Beta (°)</div><div class="detail-item-value">${lp.beta ? lp.beta.toFixed(2) : 'N/A'}</div></div>`;
-              html += `<div class="detail-item"><div class="detail-item-label">Gamma (°)</div><div class="detail-item-value">${lp.gamma ? lp.gamma.toFixed(2) : 'N/A'}</div></div>`;
-              
-              // Check for pointGroup in latticeParameters (only if not empty string)
-              if (lp.pointGroup && lp.pointGroup.trim() !== '') {
-                html += `<div class="detail-item"><div class="detail-item-label">Point Group</div><div class="detail-item-value">${lp.pointGroup}</div></div>`;
+        const structureEntry = selectBestDataEntry(material, 'structure');
+        const thermoEntry = selectBestDataEntry(material, 'thermodynamics');
+        const mechanicsEntry = selectBestDataEntry(material, 'mechanics');
+        const defectsEntry = selectBestDataEntry(material, 'defects');
+
+        if (structureEntry && structureEntry.properties && structureEntry.properties.structure) {
+          const struct = structureEntry.properties.structure;
+          html += '<div class="detail-section">';
+          html += '<div class="detail-section-title">Structure Properties</div>';
+          html += '<div class="detail-grid">';
+          html += `<div class="detail-item"><div class="detail-item-label">Property Source</div><div class="detail-item-value">${formatDataSource(structureEntry.source)}</div></div>`;
+
+          if (struct.latticeParameters) {
+            const lp = struct.latticeParameters;
+            html += `<div class="detail-item"><div class="detail-item-label">Lattice a (Å)</div><div class="detail-item-value">${formatNumber(lp.a, 4)}</div></div>`;
+            html += `<div class="detail-item"><div class="detail-item-label">Lattice b (Å)</div><div class="detail-item-value">${formatNumber(lp.b, 4)}</div></div>`;
+            html += `<div class="detail-item"><div class="detail-item-label">Lattice c (Å)</div><div class="detail-item-value">${formatNumber(lp.c, 4)}</div></div>`;
+            html += `<div class="detail-item"><div class="detail-item-label">Alpha (°)</div><div class="detail-item-value">${formatNumber(lp.alpha, 2)}</div></div>`;
+            html += `<div class="detail-item"><div class="detail-item-label">Beta (°)</div><div class="detail-item-value">${formatNumber(lp.beta, 2)}</div></div>`;
+            html += `<div class="detail-item"><div class="detail-item-label">Gamma (°)</div><div class="detail-item-value">${formatNumber(lp.gamma, 2)}</div></div>`;
+
+            if (lp.pointGroup && lp.pointGroup.trim() !== '') {
+              html += `<div class="detail-item"><div class="detail-item-label">Point Group</div><div class="detail-item-value">${escapeHtml(lp.pointGroup)}</div></div>`;
+            }
+          }
+
+          if (struct.pointGroup && struct.pointGroup.trim() !== '') {
+            html += `<div class="detail-item"><div class="detail-item-label">Point Group</div><div class="detail-item-value">${escapeHtml(struct.pointGroup)}</div></div>`;
+          }
+
+          html += `<div class="detail-item"><div class="detail-item-label">Density (g/cm³)</div><div class="detail-item-value">${formatNumber(struct.density, 3)}</div></div>`;
+          if (typeof struct.rdf === 'string' && struct.rdf) {
+            html += `<div class="detail-item"><div class="detail-item-label">RDF</div><div class="detail-item-value"><a href="${escapeHtml(struct.rdf)}" target="_blank" style="color: #3498db; text-decoration: underline;">View RDF</a></div></div>`;
+          }
+          html += '</div></div>';
+        }
+
+        if (thermoEntry && thermoEntry.properties && thermoEntry.properties.thermodynamics) {
+          const thermo = thermoEntry.properties.thermodynamics;
+          html += '<div class="detail-section">';
+          html += '<div class="detail-section-title">Thermodynamic Properties</div>';
+          html += '<div class="detail-grid">';
+          html += `<div class="detail-item"><div class="detail-item-label">Property Source</div><div class="detail-item-value">${formatDataSource(thermoEntry.source)}</div></div>`;
+          html += `<div class="detail-item"><div class="detail-item-label">Formation Energy (eV)</div><div class="detail-item-value">${formatNumber(thermo.formationEnergy, 3)}</div></div>`;
+          html += `<div class="detail-item"><div class="detail-item-label">Mixing Enthalpy (eV)</div><div class="detail-item-value">${formatNumber(thermo.mixingEnthalpy, 3)}</div></div>`;
+
+          const cv = thermo.specificHeat_v ?? thermo.specificHeat;
+          const cp = thermo.specificHeat_p ?? thermo.specificHeat;
+          html += `<div class="detail-item"><div class="detail-item-label">Specific Heat C_v (J/(g·K))</div><div class="detail-item-value">${formatNumber(cv, 4)}</div></div>`;
+          html += `<div class="detail-item"><div class="detail-item-label">Specific Heat C_p (J/(g·K))</div><div class="detail-item-value">${formatNumber(cp, 4)}</div></div>`;
+          html += `<div class="detail-item"><div class="detail-item-label">Diffusion Coefficient (m²/s)</div><div class="detail-item-value">${hasValue(thermo.diffusionCoefficient) ? Number(thermo.diffusionCoefficient).toExponential(3) : 'N/A'}</div></div>`;
+          html += `<div class="detail-item"><div class="detail-item-label">Thermal Expansion (K⁻¹)</div><div class="detail-item-value">${hasValue(thermo.thermalExpansion) ? Number(thermo.thermalExpansion).toExponential(3) : 'N/A'}</div></div>`;
+          html += '</div></div>';
+        }
+
+        if (mechanicsEntry && mechanicsEntry.properties && mechanicsEntry.properties.mechanics) {
+          const mech = mechanicsEntry.properties.mechanics;
+          html += '<div class="detail-section">';
+          html += '<div class="detail-section-title">Mechanical Properties</div>';
+          html += '<div class="detail-grid">';
+          html += `<div class="detail-item"><div class="detail-item-label">Property Source</div><div class="detail-item-value">${formatDataSource(mechanicsEntry.source)}</div></div>`;
+          html += `<div class="detail-item"><div class="detail-item-label">Young's Modulus (GPa)</div><div class="detail-item-value">${formatNumber(mech.youngsModulus, 2)}</div></div>`;
+          html += `<div class="detail-item"><div class="detail-item-label">Bulk Modulus (GPa)</div><div class="detail-item-value">${formatNumber(mech.bulkModulus, 2)}</div></div>`;
+          html += `<div class="detail-item"><div class="detail-item-label">Shear Modulus (GPa)</div><div class="detail-item-value">${formatNumber(mech.shearModulus, 2)}</div></div>`;
+          html += `<div class="detail-item"><div class="detail-item-label">Poisson's Ratio</div><div class="detail-item-value">${formatNumber(mech.poissonsRatio, 3)}</div></div>`;
+          html += '</div>';
+
+          if (mech.stressStrain) {
+            if (Array.isArray(mech.stressStrain) && mech.stressStrain.length > 0) {
+              html += '<div style="margin-top: 15px;">';
+              html += '<div class="detail-item-label" style="margin-bottom: 8px;">Stress-Strain Curve</div>';
+              html += '<div style="background: #f8f9fa; padding: 10px; border-radius: 4px; font-size: 12px;">';
+              html += '<div style="color: #666;">Data points available: ' + mech.stressStrain.length + '</div>';
+              html += '<div style="margin-top: 5px;"><a href="#" onclick="event.preventDefault(); alert(\'Stress-Strain data visualization coming soon!\');" style="color: #3498db; text-decoration: underline;">View Curve</a></div>';
+              html += '</div>';
+              html += '</div>';
+            } else if (typeof mech.stressStrain === 'object' && !Array.isArray(mech.stressStrain)) {
+              html += '<div style="margin-top: 15px;">';
+              html += '<div class="detail-item-label" style="margin-bottom: 8px;">Stress-Strain Data</div>';
+              html += '<div style="background: #f8f9fa; padding: 10px; border-radius: 4px; font-size: 12px;">';
+              html += '<div style="color: #666; margin-bottom: 8px;">Available strain directions:</div>';
+              html += '<div style="display: flex; flex-wrap: wrap; gap: 8px;">';
+              for (const [direction, p] of Object.entries(mech.stressStrain)) {
+                html += `<div style="background: white; padding: 6px 12px; border-radius: 4px; border: 1px solid #ddd;"><span style="font-weight: 600;">[${escapeHtml(direction)}]</span> <a href="/${escapeHtml(p)}" target="_blank" style="color: #3498db; text-decoration: underline; margin-left: 8px;">View Data</a></div>`;
               }
+              html += '</div>';
+              html += '</div>';
+              html += '</div>';
             }
-            
-            // Also check for pointGroup at structure level (only if not empty string)
-            if (struct.pointGroup && struct.pointGroup.trim() !== '') {
-              html += `<div class="detail-item"><div class="detail-item-label">Point Group</div><div class="detail-item-value">${struct.pointGroup}</div></div>`;
+          }
+
+          html += '</div>';
+        }
+
+        if (defectsEntry && defectsEntry.properties && defectsEntry.properties.defects) {
+          const defects = defectsEntry.properties.defects;
+          const hasVacancy = defects.vacancyFormationEnergy != null;
+          const hasInterstitial = defects.interstitialFormationEnergy != null;
+          const hasStackingFault = defects.stackingFaultEnergy != null;
+
+          if (hasVacancy || hasInterstitial || hasStackingFault) {
+            html += '<div class="detail-section">';
+            html += '<div class="detail-section-title">Defect Properties</div>';
+            html += '<div class="detail-grid">';
+            html += `<div class="detail-item"><div class="detail-item-label">Property Source</div><div class="detail-item-value">${formatDataSource(defectsEntry.source)}</div></div>`;
+
+            if (hasVacancy) {
+              html += `<div class="detail-item"><div class="detail-item-label">Vacancy Formation Energy (eV)</div><div class="detail-item-value">${formatNumber(defects.vacancyFormationEnergy, 3)}</div></div>`;
             }
-            
-            html += `<div class="detail-item"><div class="detail-item-label">Density (g/cm³)</div><div class="detail-item-value">${struct.density ? struct.density.toFixed(3) : 'N/A'}</div></div>`;
-            html += '</div></div>';
-          }
-          
-          if (props.thermodynamics) {
-            html += '<div class="detail-section">';
-            html += '<div class="detail-section-title">Thermodynamic Properties</div>';
-            html += '<div class="detail-grid">';
-            
-            const thermo = props.thermodynamics;
-            html += `<div class="detail-item"><div class="detail-item-label">Formation Energy (eV)</div><div class="detail-item-value">${thermo.formationEnergy ? thermo.formationEnergy.toFixed(3) : 'N/A'}</div></div>`;
-            html += `<div class="detail-item"><div class="detail-item-label">Mixing Enthalpy (eV)</div><div class="detail-item-value">${thermo.mixingEnthalpy ? thermo.mixingEnthalpy.toFixed(3) : 'N/A'}</div></div>`;
-            
-            const cv = thermo.specificHeat_v ?? thermo.specificHeat;
-            const cp = thermo.specificHeat_p ?? thermo.specificHeat;
-            html += `<div class="detail-item"><div class="detail-item-label">Specific Heat C_v (J/(g·K))</div><div class="detail-item-value">${cv != null ? Number(cv).toFixed(4) : 'N/A'}</div></div>`;
-            html += `<div class="detail-item"><div class="detail-item-label">Specific Heat C_p (J/(g·K))</div><div class="detail-item-value">${cp != null ? Number(cp).toFixed(4) : 'N/A'}</div></div>`;
-            
-            html += '</div></div>';
-          }
-          
-          if (props.mechanics) {
-            html += '<div class="detail-section">';
-            html += '<div class="detail-section-title">Mechanical Properties</div>';
-            html += '<div class="detail-grid">';
-            
-            const mech = props.mechanics;
-            html += `<div class="detail-item"><div class="detail-item-label">Young's Modulus (GPa)</div><div class="detail-item-value">${mech.youngsModulus ? mech.youngsModulus.toFixed(2) : 'N/A'}</div></div>`;
-            html += `<div class="detail-item"><div class="detail-item-label">Bulk Modulus (GPa)</div><div class="detail-item-value">${mech.bulkModulus ? mech.bulkModulus.toFixed(2) : 'N/A'}</div></div>`;
-            html += `<div class="detail-item"><div class="detail-item-label">Shear Modulus (GPa)</div><div class="detail-item-value">${mech.shearModulus ? mech.shearModulus.toFixed(2) : 'N/A'}</div></div>`;
-            html += `<div class="detail-item"><div class="detail-item-label">Poisson's Ratio</div><div class="detail-item-value">${mech.poissonsRatio ? mech.poissonsRatio.toFixed(3) : 'N/A'}</div></div>`;
-            
-            html += '</div>';
-            
-            // Display stress-strain curve if available
-            if (mech.stressStrain) {
-              if (Array.isArray(mech.stressStrain) && mech.stressStrain.length > 0) {
-                // Array format - data points
-                html += '<div style="margin-top: 15px;">';
-                html += '<div class="detail-item-label" style="margin-bottom: 8px;">Stress-Strain Curve</div>';
-                html += '<div style="background: #f8f9fa; padding: 10px; border-radius: 4px; font-size: 12px;">';
-                html += '<div style="color: #666;">Data points available: ' + mech.stressStrain.length + '</div>';
-                html += '<div style="margin-top: 5px;"><a href="#" onclick="event.preventDefault(); alert(\'Stress-Strain data visualization coming soon!\');" style="color: #3498db; text-decoration: underline;">View Curve</a></div>';
-                html += '</div>';
-                html += '</div>';
-              } else if (typeof mech.stressStrain === 'object' && !Array.isArray(mech.stressStrain)) {
-                // Object format - directory paths
-                html += '<div style="margin-top: 15px;">';
-                html += '<div class="detail-item-label" style="margin-bottom: 8px;">Stress-Strain Data</div>';
-                html += '<div style="background: #f8f9fa; padding: 10px; border-radius: 4px; font-size: 12px;">';
-                html += '<div style="color: #666; margin-bottom: 8px;">Available strain directions:</div>';
-                html += '<div style="display: flex; flex-wrap: wrap; gap: 8px;">';
-                for (const [direction, path] of Object.entries(mech.stressStrain)) {
-                  html += `<div style="background: white; padding: 6px 12px; border-radius: 4px; border: 1px solid #ddd;"><span style="font-weight: 600;">[${direction}]</span> <a href="/${path}" target="_blank" style="color: #3498db; text-decoration: underline; margin-left: 8px;">View Data</a></div>`;
+
+            if (hasInterstitial) {
+              if (typeof defects.interstitialFormationEnergy === 'object' && !Array.isArray(defects.interstitialFormationEnergy)) {
+                html += '<div class="detail-item" style="grid-column: 1 / -1;"><div class="detail-item-label">Interstitial Formation Energy (eV)</div><div class="detail-item-value" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-top: 8px;">';
+                for (const [type, energy] of Object.entries(defects.interstitialFormationEnergy)) {
+                  const displayType = type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                  html += `<div style="background: #f8f9fa; padding: 8px; border-radius: 4px;"><span style="color: #666; font-size: 11px;">${escapeHtml(displayType)}:</span> <strong>${formatNumber(energy, 3)}</strong></div>`;
                 }
-                html += '</div>';
-                html += '</div>';
-                html += '</div>';
+                html += '</div></div>';
+              } else {
+                html += `<div class="detail-item"><div class="detail-item-label">Interstitial Formation Energy (eV)</div><div class="detail-item-value">${formatNumber(defects.interstitialFormationEnergy, 3)}</div></div>`;
               }
             }
-            
-            html += '</div>';
+
+            if (hasStackingFault) {
+              if (typeof defects.stackingFaultEnergy === 'object' && !Array.isArray(defects.stackingFaultEnergy)) {
+                html += '<div class="detail-item" style="grid-column: 1 / -1;"><div class="detail-item-label">Stacking Fault Energy (mJ/m²)</div><div class="detail-item-value" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-top: 8px;">';
+                for (const [type, val] of Object.entries(defects.stackingFaultEnergy)) {
+                  html += `<div style="background: #f8f9fa; padding: 8px; border-radius: 4px;"><span style="color: #666; font-size: 11px;">${escapeHtml(type)}:</span> <strong>${formatNumber(val, 3)}</strong></div>`;
+                }
+                html += '</div></div>';
+              } else {
+                html += `<div class="detail-item"><div class="detail-item-label">Stacking Fault Energy (mJ/m²)</div><div class="detail-item-value">${formatNumber(defects.stackingFaultEnergy, 3)}</div></div>`;
+              }
+            }
+
+            html += '</div></div>';
           }
-          
-          // Display defects properties
-          if (props.defects) {
-            const defects = props.defects;
-            const hasVacancy = defects.vacancyFormationEnergy != null;
-            const hasInterstitial = defects.interstitialFormationEnergy != null;
-            const hasStackingFault = defects.stackingFaultEnergy != null;
-            
-            if (hasVacancy || hasInterstitial || hasStackingFault) {
-              html += '<div class="detail-section">';
+        }
+      }
+
+      html += '</div>';
+      return html;
+    }
+
+    function updateStructureDisplay(selectElement, materialId) {
+      const selectedIdx = parseInt(selectElement.value, 10);
+      const structures = window['structures_' + materialId];
+
+      if (structures && structures[selectedIdx]) {
+        const structure = structures.find(s => s.idx === selectedIdx);
+        const infoDiv = document.getElementById('structure-info-' + materialId);
+
+        if (infoDiv && structure) {
+          infoDiv.innerHTML = `
+            <div class="detail-item">
+              <div class="detail-item-label">Structure Source</div>
+              <div class="detail-item-value">${formatDataSource(structure.poscarSource)}</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-label">Structure File</div>
+              <div class="detail-item-value">
+                <a href="${escapeHtml(structure.poscar)}" target="_blank" style="color: #3498db; text-decoration: underline;">View POSCAR</a>
+                <span style="color: #888; font-size: 11px;">(atomic structure file)</span>
+              </div>
+            </div>
+          `;
+        }
+      }
+    }
+
+    window.addEventListener('load', loadData);
+
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        performSearch();
+      }
+    });
+  </script>
               html += '<div class="detail-section-title">Defect Properties</div>';
               html += '<div class="detail-grid">';
               
