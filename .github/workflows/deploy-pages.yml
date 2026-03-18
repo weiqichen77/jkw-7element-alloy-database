@@ -85,6 +85,13 @@ jobs:
             cp -r data/intermetallic _site/data/
             echo "✓ Copied intermetallic directory"
           fi
+
+          # Copy amorphous RDF/structure data files
+          if [ -d "data/amorphous" ]; then
+            echo "Copying amorphous data files..."
+            cp -r data/amorphous _site/data/
+            echo "✓ Copied amorphous directory"
+          fi
           
           # Merge both data files directly in workflow
           node << 'NODEJS'
