@@ -98,6 +98,8 @@ Data-point-level = fraction of all 7542 `data[]` records with a valid value.
 - diffusion coefficient: 0.16%
 - stress-strain: 0.09%
 
+Web UI equivalent total (same counting logic as current frontend): **33,041**
+
 ## 5) Notes for Current Version
 
 - Main-table value selection now follows source-priority logic per property field.
