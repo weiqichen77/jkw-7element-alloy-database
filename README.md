@@ -29,6 +29,7 @@ Quick navigation to what you need:
 - [API.md](docs/API.md) - API interface documentation
 - [DATA_STRUCTURE_V2.md](docs/DATA_STRUCTURE_V2.md) - Detailed data schema
 - [DIRECTORY_STRUCTURE.md](docs/DIRECTORY_STRUCTURE.md) - File organization guide
+- [Database Coverage Summary (2026-03-18)](reports/database-coverage-20260318/README.md) - Material system and property coverage snapshot
 
 **⚙️ Administrator Documentation** (in `admin/` folder)
 - [DEPLOYMENT_GUIDE.md](admin/DEPLOYMENT_GUIDE.md) - Deployment instructions
@@ -209,6 +210,13 @@ MIT License - see [LICENSE](LICENSE) for details.
 - **高级导出**：JSON（完整）和CSV（扁平化），支持选择性筛选
 - **双语界面**：中英文支持
 - **数据统计**：实时材料和数据点计数
+
+### 数据覆盖总结
+
+- [数据库覆盖总结（2026-03-18）](reports/database-coverage-20260318/README.md)
+  - 材料体系构成
+  - 性质覆盖范围
+  - 数据来源分布与覆盖率快照
 
 ### 材料性质
 

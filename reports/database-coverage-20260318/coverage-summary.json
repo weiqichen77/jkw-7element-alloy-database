@@ -1,0 +1,425 @@
+{
+  "generatedAt": "2026-03-18T07:17:31.753Z",
+  "dataset": "_site/data/materials.json",
+  "totalMaterials": 3401,
+  "totalDataPoints": 7542,
+  "uniqueElements": [
+    "Al",
+    "Cd",
+    "Cr",
+    "Cu",
+    "Mo",
+    "Nb",
+    "Ni",
+    "Pt",
+    "Ta",
+    "V",
+    "W",
+    "Zn",
+    "Zr"
+  ],
+  "typeCounts": {
+    "element": 33,
+    "solid-solution": 3233,
+    "amorphous": 12,
+    "intermetallic": 123
+  },
+  "topLevelSourceBase": {
+    "Al-bcc": 1,
+    "Al-fcc": 1,
+    "Al-hcp": 1,
+    "Cd-hcp": 1,
+    "Cr-bcc": 1,
+    "Cr-fcc": 1,
+    "Cr-hcp": 1,
+    "Cu-bcc": 1,
+    "Cu-fcc": 1,
+    "Cu-hcp": 1,
+    "Mo-bcc": 1,
+    "Mo-fcc": 1,
+    "Mo-hcp": 1,
+    "Nb-bcc": 1,
+    "Nb-fcc": 1,
+    "Nb-hcp": 1,
+    "Ni-bcc": 1,
+    "Ni-fcc": 1,
+    "Ni-hcp": 1,
+    "Pt-fcc": 1,
+    "Ta-bcc": 1,
+    "Ta-fcc": 1,
+    "Ta-hcp": 1,
+    "V-bcc": 1,
+    "V-fcc": 1,
+    "V-hcp": 1,
+    "W-bcc": 1,
+    "W-fcc": 1,
+    "W-hcp": 1,
+    "Zn-hcp": 1,
+    "Zr-bcc": 1,
+    "Zr-fcc": 1,
+    "Zr-hcp": 1,
+    "bcc": 1872,
+    "fcc": 1119,
+    "hcp": 242,
+    "Al8Cu46Zr46": 1,
+    "Cu46Zr54": 1,
+    "Cu10Zr90": 1,
+    "Cu20Zr80": 1,
+    "Cu30Zr70": 1,
+    "Cu40Zr60": 1,
+    "Cu50Zr50": 1,
+    "Cu54Zr46": 1,
+    "Cu60Zr40": 1,
+    "Cu70Zr30": 1,
+    "Cu80Zr20": 1,
+    "Cu90Zr10": 1,
+    "mp-bbgt": 1,
+    "mp-be": 1,
+    "mp-beq": 1,
+    "mp-bgkwl": 1,
+    "mp-bgkwm": 1,
+    "mp-bq": 2,
+    "mp-bglxz": 1,
+    "mp-bgmiw": 1,
+    "mp-bhakt": 1,
+    "mp-bih": 1,
+    "mp-bjkld": 1,
+    "mp-bkfpt": 1,
+    "mp-crdwv": 2,
+    "mp-cpxpb": 2,
+    "mp-dvt": 2,
+    "mp-bor": 1,
+    "mp-mud": 2,
+    "mp-bsqx": 1,
+    "mp-bswu": 1,
+    "mp-bswv": 1,
+    "mp-bthb": 1,
+    "mp-by": 1,
+    "mp-cdsqz": 1,
+    "mp-cdv": 1,
+    "mp-syc": 2,
+    "mp-cpigf": 2,
+    "mp-ceieo": 1,
+    "mp-cep": 1,
+    "mp-fe": 2,
+    "mp-cewjq": 2,
+    "mp-cewki": 1,
+    "mp-crxwe": 2,
+    "mp-sxl": 2,
+    "mp-x": 2,
+    "mp-cgexl": 1,
+    "mp-cgiiu": 1,
+    "mp-ekwqy": 2,
+    "mp-cjatz": 1,
+    "mp-cjhtk": 1,
+    "mp-cjhvp": 1,
+    "mp-ckvmr": 1,
+    "mp-fzwer": 2,
+    "mp-cltys": 1,
+    "mp-cpcbn": 1,
+    "mp-cphvp": 1,
+    "mp-cpifo": 1,
+    "mp-syk": 2,
+    "mp-cpiiy": 1,
+    "mp-cpmtq": 1,
+    "mp-cppla": 1,
+    "mp-cpplg": 1,
+    "mp-cpplw": 1,
+    "mp-cppmj": 1,
+    "mp-cppnh": 1,
+    "mp-cpugr": 1,
+    "mp-cpxut": 1,
+    "mp-cpyjx": 1,
+    "mp-cpyrn": 1,
+    "mp-cqazd": 1,
+    "mp-crdqo": 1,
+    "mp-crdrc": 1,
+    "mp-fvs": 2,
+    "mp-fns": 2,
+    "mp-crebd": 1,
+    "mp-crebn": 1,
+    "mp-crhmq": 1,
+    "mp-crhmx": 1,
+    "mp-crhqa": 1,
+    "mp-crhqb": 1,
+    "mp-crhqj": 1,
+    "mp-crhuh": 1,
+    "mp-crhvt": 1,
+    "mp-crhxa": 1,
+    "mp-crhyd": 1,
+    "mp-crhyq": 1,
+    "mp-crlfg": 1,
+    "mp-crllk": 1,
+    "mp-crllp": 1,
+    "mp-crlls": 1,
+    "mp-crlmi": 1,
+    "mp-crtdv": 1,
+    "mp-crtec": 1,
+    "mp-crwtq": 1,
+    "mp-crxqf": 1,
+    "mp-crxrs": 1,
+    "mp-crxzu": 1,
+    "mp-cx": 1,
+    "mp-daq": 1,
+    "mp-dha": 1,
+    "mp-dio": 1,
+    "mp-dn": 1,
+    "mp-dse": 1,
+    "mp-sxh": 2,
+    "mp-ecq": 1,
+    "mp-fb": 1,
+    "mp-fupsa": 1,
+    "mp-fupug": 1,
+    "mp-hdd": 1,
+    "mp-imd": 1,
+    "mp-itt": 1,
+    "mp-pen": 1,
+    "mp-qty": 1,
+    "mp-sns": 1,
+    "mp-sr": 1,
+    "mp-zz": 1
+  },
+  "propertyCoverageByMaterial": {
+    "density": {
+      "count": 3245,
+      "pct": 95.41
+    },
+    "lattice": {
+      "count": 3389,
+      "pct": 99.65
+    },
+    "rdf": {
+      "count": 12,
+      "pct": 0.35
+    },
+    "specificHeat": {
+      "count": 0,
+      "pct": 0
+    },
+    "cv": {
+      "count": 7,
+      "pct": 0.21
+    },
+    "cp": {
+      "count": 7,
+      "pct": 0.21
+    },
+    "mixing": {
+      "count": 3356,
+      "pct": 98.68
+    },
+    "diffusion": {
+      "count": 12,
+      "pct": 0.35
+    },
+    "thermalExpansion": {
+      "count": 7,
+      "pct": 0.21
+    },
+    "elastic": {
+      "count": 3364,
+      "pct": 98.91
+    },
+    "young": {
+      "count": 2376,
+      "pct": 69.86
+    },
+    "bulk": {
+      "count": 2376,
+      "pct": 69.86
+    },
+    "shear": {
+      "count": 2377,
+      "pct": 69.89
+    },
+    "poisson": {
+      "count": 2377,
+      "pct": 69.89
+    },
+    "stress": {
+      "count": 7,
+      "pct": 0.21
+    },
+    "vacancy": {
+      "count": 7,
+      "pct": 0.21
+    },
+    "interstitial": {
+      "count": 3363,
+      "pct": 98.88
+    },
+    "stacking": {
+      "count": 4,
+      "pct": 0.12
+    },
+    "poscar": {
+      "count": 144,
+      "pct": 4.23
+    }
+  },
+  "propertyCoverageByDataPoint": {
+    "density": {
+      "count": 3962,
+      "pct": 52.53
+    },
+    "lattice": {
+      "count": 4183,
+      "pct": 55.46
+    },
+    "rdf": {
+      "count": 21,
+      "pct": 0.28
+    },
+    "specificHeat": {
+      "count": 0,
+      "pct": 0
+    },
+    "cv": {
+      "count": 29,
+      "pct": 0.38
+    },
+    "cp": {
+      "count": 29,
+      "pct": 0.38
+    },
+    "mixing": {
+      "count": 4062,
+      "pct": 53.86
+    },
+    "diffusion": {
+      "count": 12,
+      "pct": 0.16
+    },
+    "thermalExpansion": {
+      "count": 64,
+      "pct": 0.85
+    },
+    "elastic": {
+      "count": 4117,
+      "pct": 54.59
+    },
+    "young": {
+      "count": 3080,
+      "pct": 40.84
+    },
+    "bulk": {
+      "count": 3108,
+      "pct": 41.21
+    },
+    "shear": {
+      "count": 3130,
+      "pct": 41.5
+    },
+    "poisson": {
+      "count": 3130,
+      "pct": 41.5
+    },
+    "stress": {
+      "count": 7,
+      "pct": 0.09
+    },
+    "vacancy": {
+      "count": 28,
+      "pct": 0.37
+    },
+    "interstitial": {
+      "count": 4090,
+      "pct": 54.23
+    },
+    "stacking": {
+      "count": 11,
+      "pct": 0.15
+    },
+    "poscar": {
+      "count": 0,
+      "pct": 0
+    }
+  },
+  "dataPointSourceBase": {
+    "Alloy_tongqi": 49,
+    "DOI": 3,
+    "URL": 9,
+    "DFT": 244,
+    "DPA-1": 491,
+    "DPA-3": 3408,
+    "Other": 3338
+  },
+  "categoryCoverageByType": {
+    "element": {
+      "totalMaterials": 33,
+      "structure": {
+        "count": 33,
+        "pct": 100
+      },
+      "thermodynamics": {
+        "count": 7,
+        "pct": 21.21
+      },
+      "mechanics": {
+        "count": 8,
+        "pct": 24.24
+      },
+      "defects": {
+        "count": 8,
+        "pct": 24.24
+      }
+    },
+    "solid-solution": {
+      "totalMaterials": 3233,
+      "structure": {
+        "count": 3233,
+        "pct": 100
+      },
+      "thermodynamics": {
+        "count": 3233,
+        "pct": 100
+      },
+      "mechanics": {
+        "count": 3233,
+        "pct": 100
+      },
+      "defects": {
+        "count": 3233,
+        "pct": 100
+      }
+    },
+    "amorphous": {
+      "totalMaterials": 12,
+      "structure": {
+        "count": 12,
+        "pct": 100
+      },
+      "thermodynamics": {
+        "count": 12,
+        "pct": 100
+      },
+      "mechanics": {
+        "count": 0,
+        "pct": 0
+      },
+      "defects": {
+        "count": 0,
+        "pct": 0
+      }
+    },
+    "intermetallic": {
+      "totalMaterials": 123,
+      "structure": {
+        "count": 123,
+        "pct": 100
+      },
+      "thermodynamics": {
+        "count": 123,
+        "pct": 100
+      },
+      "mechanics": {
+        "count": 123,
+        "pct": 100
+      },
+      "defects": {
+        "count": 123,
+        "pct": 100
+      }
+    }
+  }
+}
