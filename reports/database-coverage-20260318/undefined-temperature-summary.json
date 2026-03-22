@@ -1,0 +1,13 @@
+{
+  "scannedFile": "data/materials.json",
+  "totalMaterials": 3278,
+  "undefinedTemperatureDataPoints": 3254,
+  "byProperty": {
+    "structure": 21,
+    "thermodynamics": 12,
+    "mechanics": 0,
+    "defects": 0,
+    "none": 3233
+  },
+  "recordsCount": 3254
+}

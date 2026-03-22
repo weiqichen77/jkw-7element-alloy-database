@@ -90,7 +90,13 @@
       try {
         const response = await fetch('./data/materials.json');
         if (!response.ok) throw new Error('Failed to load data');
-        allMaterials = await response.json();
+        const rawMaterials = await response.json();
+        const coreElements = new Set(['Al', 'Ni', 'Cu', 'Zr', 'Nb', 'Ta', 'W']);
+        allMaterials = rawMaterials.filter((material) => {
+          if (material.type !== 'element') return true;
+          const primary = Array.isArray(material.elements) ? material.elements[0] : null;
+          return coreElements.has(primary);
+        });
 
         document.getElementById('info').innerHTML = `
           <strong>✓ Database loaded successfully!</strong><br>
@@ -219,10 +225,13 @@
             let label;
             if (dataEntry.source === 'init') {
               label = 'Initial Structure';
-            } else if (dataEntry.temperature !== undefined && dataEntry.temperature !== null) {
-              label = `${dataEntry.temperature}K - ${formatDataSourceShort(dataEntry.source)}`;
             } else {
-              label = formatDataSourceShort(dataEntry.source);
+              const tempValue = Number(dataEntry.temperature);
+              if (Number.isFinite(tempValue)) {
+                label = `${tempValue}K - ${formatDataSourceShort(dataEntry.source)}`;
+              } else {
+                label = formatDataSourceShort(dataEntry.source);
+              }
             }
             const poscarSource = dataEntry.poscar_source || dataEntry.source;
             structures.push({ idx, label, poscarSource, ...dataEntry });
