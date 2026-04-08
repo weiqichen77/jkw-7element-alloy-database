@@ -59,9 +59,9 @@ module.exports=(req,res)=>{
   if(m==='GET'&&!id){
     const {q='',page=1,per_page=25,type,element} = req.query;
     const typeOrder = {
-      'amorphous': 0,
-      'solid-solution': 1,
-      'intermetallic': 2,
+      'solid-solution': 0,
+      'intermetallic': 1,
+      'amorphous': 2,
       'interface': 3,
       'element': 4,
     };

@@ -1,7 +1,7 @@
 const TYPE_CONFIG = [
-  { value: 'amorphous', en: 'Amorphous', zh: '非晶' },
   { value: 'solid-solution', en: 'Alloy-Solid Solution', zh: '合金-固溶体' },
   { value: 'intermetallic', en: 'Alloy-Intermetallic', zh: '合金-金属间化合物' },
+  { value: 'amorphous', en: 'Amorphous', zh: '非晶' },
   { value: 'interface', en: 'Interface', zh: '界面' },
   { value: 'element', en: 'Element', zh: '单质' },
 ];
