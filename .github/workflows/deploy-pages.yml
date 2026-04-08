@@ -232,6 +232,14 @@ jobs:
             async search(query = {}) {
               const allData = await loadMaterials();
               let results = allData;
+              const typeOrder = {
+                'solid-solution': 0,
+                'intermetallic': 1,
+                'amorphous': 2,
+                'interface': 3,
+                'element': 4,
+                'solid_solution': 0
+              };
               
               // Filter by query string
               if (query.q) {
@@ -252,6 +260,13 @@ jobs:
               if (query.element) {
                 results = results.filter(item => item.elements && item.elements.includes(query.element));
               }
+
+              results = [...results].sort((a, b) => {
+                const ta = typeOrder[a.type] ?? 999;
+                const tb = typeOrder[b.type] ?? 999;
+                if (ta !== tb) return ta - tb;
+                return (a.name || '').localeCompare(b.name || '');
+              });
               
               // Pagination
               const page = parseInt(query.page) || 1;
@@ -750,7 +765,7 @@ jobs:
               const rawData = await response.json();
               
               // Normalize all materials to V2 format
-              allData = rawData.map(m => normalizeMaterial(m));
+              allData = applyTypeDisplayOrder(rawData.map(m => normalizeMaterial(m)));
               
               console.log('Loaded ' + allData.length + ' materials');
               
@@ -841,7 +856,8 @@ jobs:
               'intermetallic': 1,
               'amorphous': 2,
               'interface': 3,
-              'element': 4
+              'element': 4,
+              'solid_solution': 0
             };
             return [...list].sort((a, b) => {
               const ta = typeOrder[a.type] ?? 999;

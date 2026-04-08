@@ -64,6 +64,7 @@ module.exports=(req,res)=>{
       'amorphous': 2,
       'interface': 3,
       'element': 4,
+      'solid_solution': 0,
     };
     let r=data.filter(x=>{
       const name = x.name || '';
