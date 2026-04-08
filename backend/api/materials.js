@@ -58,11 +58,26 @@ module.exports=(req,res)=>{
   let data=load();
   if(m==='GET'&&!id){
     const {q='',page=1,per_page=25,type,element} = req.query;
+    const typeOrder = {
+      'amorphous': 0,
+      'solid-solution': 1,
+      'intermetallic': 2,
+      'interface': 3,
+      'element': 4,
+    };
     let r=data.filter(x=>{
       const name = x.name || '';
       const elements = x.elements || [];
       const props = x.properties ? JSON.stringify(x.properties) : '';
       return (!type||x.type===type)&&(!element||elements.includes(element))&&((name+elements.join()+' '+props).toLowerCase().includes((q||'').toLowerCase()));
+    });
+    r=r.sort((a,b)=>{
+      const ta=typeOrder[a.type] ?? Number.MAX_SAFE_INTEGER;
+      const tb=typeOrder[b.type] ?? Number.MAX_SAFE_INTEGER;
+      if(ta!==tb) return ta-tb;
+      const an=(a.name||'').toLowerCase();
+      const bn=(b.name||'').toLowerCase();
+      return an.localeCompare(bn);
     });
     const total=r.length, p=+page,pp=+per_page; r=r.slice((p-1)*pp,p*pp);
     return res.json({total,page:p,per_page:pp,results:r});

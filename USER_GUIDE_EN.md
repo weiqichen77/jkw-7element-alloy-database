@@ -26,11 +26,11 @@ The database contains the following types of alloy materials:
 
 | Type | Description | ID Prefix | Examples |
 |------|-------------|-----------|----------|
-| Element | Pure elements | Alloy-E- | Al, Cu, Ni |
-| Solid Solution | Solid solution alloys | Alloy-SS- | Al-Ni, Al-Cu |
-| Intermetallic | Intermetallic compounds | Alloy-IM- | Al₃Ni₂, NbAl₃ |
 | Amorphous | Amorphous materials | Alloy-AM- | a-Al₂Cu₃ |
+| Alloy-Solid Solution | Solid solution alloys | Alloy-SS- | Al-Ni, Al-Cu |
+| Alloy-Intermetallic | Intermetallic compounds | Alloy-IM- | Al₃Ni₂, NbAl₃ |
 | Interface | Interface structures | Alloy-IF- | Al₂Cu₃/Nb₄Ta₅ |
+| Element | Pure elements | Alloy-E- | Al, Cu, Ni |
 
 ### Property Data
 
@@ -96,11 +96,13 @@ Visit: **https://weiqichen77.github.io/jkw-7element-alloy-database/**
 
 **Filter by material type**:
 - ☐ All
-- ☐ Element
-- ☐ Solid Solution
-- ☐ Intermetallic
 - ☐ Amorphous
+- ☐ Alloy-Solid Solution
+- ☐ Alloy-Intermetallic
 - ☐ Interface
+- ☐ Element
+
+> In "All" mode, materials are listed in the same type order above, with Element shown last.
 
 **Filter by property category**:
 - ☐ Structure

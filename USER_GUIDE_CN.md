@@ -31,11 +31,13 @@
 
 **按材料类型筛选**:
 - ☐ 全部 (All)
-- ☐ 单质 (Element)
-- ☐ 固溶体 (Solid Solution)
-- ☐ 金属间化合物 (Intermetallic)
 - ☐ 非晶 (Amorphous)
+- ☐ 合金-固溶体 (Alloy-Solid Solution)
+- ☐ 合金-金属间化合物 (Alloy-Intermetallic)
 - ☐ 界面 (Interface)
+- ☐ 单质 (Element)
+
+> 选择“全部”时，列表将按上述类型顺序展示，单质排在最后。
 
 **按性质分类筛选**:
 - ☐ 结构 (Structure)

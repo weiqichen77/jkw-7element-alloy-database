@@ -1,0 +1,57 @@
+# 云端数据库性质字段总结表（中文版，非空值口径）
+
+| 性质类别 | 英文字段 | 中文名称 | 非晶 | 合金-固溶体 | 合金-金属间化合物 | 单质 |
+|---|---|---|---:|---:|---:|---:|
+| 缺陷性质 | properties.defects | 缺陷性质对象 | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 28/106 (26.42%) |
+| 缺陷性质 | properties.defects.interstitialFormationEnergy | 间隙原子形成能 | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 28/106 (26.42%) |
+| 缺陷性质 | properties.defects.interstitialFormationEnergy.basal_crowdion | 间隙形成能-基面拥挤子 | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 2/106 (1.89%) |
+| 缺陷性质 | properties.defects.interstitialFormationEnergy.basal_octahedral | 间隙形成能-基面八面体位 | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 3/106 (2.83%) |
+| 缺陷性质 | properties.defects.interstitialFormationEnergy.basal_split | 间隙形成能-基面分裂位 | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 4/106 (3.77%) |
+| 缺陷性质 | properties.defects.interstitialFormationEnergy.basal_tetrahedral | 间隙形成能-基面四面体位 | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 2/106 (1.89%) |
+| 缺陷性质 | properties.defects.interstitialFormationEnergy.crowdion | 间隙形成能-拥挤子 | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 4/106 (3.77%) |
+| 缺陷性质 | properties.defects.interstitialFormationEnergy.crowdion111 | 间隙形成能-拥挤子111 | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 0/106 (0%) |
+| 缺陷性质 | properties.defects.interstitialFormationEnergy.crowdion_110 | 间隙形成能-拥挤子(110) | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 12/106 (11.32%) |
+| 缺陷性质 | properties.defects.interstitialFormationEnergy.crowdion_111 | 间隙形成能-拥挤子(111) | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 12/106 (11.32%) |
+| 缺陷性质 | properties.defects.interstitialFormationEnergy.dumbbell100 | 间隙形成能-哑铃位100 | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 0/106 (0%) |
+| 缺陷性质 | properties.defects.interstitialFormationEnergy.dumbbell111 | 间隙形成能-哑铃位111 | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 0/106 (0%) |
+| 缺陷性质 | properties.defects.interstitialFormationEnergy.dumbbell_100 | 间隙形成能-哑铃位(100) | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 24/106 (22.64%) |
+| 缺陷性质 | properties.defects.interstitialFormationEnergy.dumbbell_110 | 间隙形成能-哑铃位(110) | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 24/106 (22.64%) |
+| 缺陷性质 | properties.defects.interstitialFormationEnergy.dumbbell_111 | 间隙形成能-哑铃位(111) | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 24/106 (22.64%) |
+| 缺陷性质 | properties.defects.interstitialFormationEnergy.octahedral | 间隙形成能-八面体位 | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 27/106 (25.47%) |
+| 缺陷性质 | properties.defects.interstitialFormationEnergy.split_dumbbell | 间隙形成能-分裂哑铃位 | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 4/106 (3.77%) |
+| 缺陷性质 | properties.defects.interstitialFormationEnergy.tetrahedral | 间隙形成能-四面体位 | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 26/106 (24.53%) |
+| 缺陷性质 | properties.defects.stackingFaultEnergy | 层错能 | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 9/106 (8.49%) |
+| 缺陷性质 | properties.defects.stackingFaultEnergy.100_110_usf | 层错能(100_110_usf) | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 7/106 (6.6%) |
+| 缺陷性质 | properties.defects.stackingFaultEnergy.111_110_usf | 层错能(111_110_usf) | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 9/106 (8.49%) |
+| 缺陷性质 | properties.defects.stackingFaultEnergy.111_112_isf | 层错能(111_112_isf) | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 9/106 (8.49%) |
+| 缺陷性质 | properties.defects.stackingFaultEnergy.111_112_usf | 层错能(111_112_usf) | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 9/106 (8.49%) |
+| 缺陷性质 | properties.defects.vacancyFormationEnergy | 空位形成能 | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 28/106 (26.42%) |
+| 力学性质 | properties.mechanics | 力学性质对象 | 0/21 (0%) | 2476/6698 (36.97%) | 597/702 (85.04%) | 63/106 (59.43%) |
+| 力学性质 | properties.mechanics.bulkModulus | 体积模量 | 0/21 (0%) | 2476/6698 (36.97%) | 597/702 (85.04%) | 35/106 (33.02%) |
+| 力学性质 | properties.mechanics.elasticConstants | 弹性常数矩阵 | 0/21 (0%) | 2476/6698 (36.97%) | 597/702 (85.04%) | 56/106 (52.83%) |
+| 力学性质 | properties.mechanics.poissonsRatio | 泊松比 | 0/21 (0%) | 2476/6698 (36.97%) | 597/702 (85.04%) | 56/106 (52.83%) |
+| 力学性质 | properties.mechanics.shearModulus | 剪切模量 | 0/21 (0%) | 2476/6698 (36.97%) | 597/702 (85.04%) | 56/106 (52.83%) |
+| 力学性质 | properties.mechanics.stressStrain | 应力-应变数据 | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 7/106 (6.6%) |
+| 力学性质 | properties.mechanics.stressStrain.0001 | 应力-应变(0001方向) | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 1/106 (0.94%) |
+| 力学性质 | properties.mechanics.stressStrain.001 | 应力-应变(001方向) | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 3/106 (2.83%) |
+| 力学性质 | properties.mechanics.stressStrain.100 | 应力-应变(100方向) | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 3/106 (2.83%) |
+| 力学性质 | properties.mechanics.youngsModulus | 杨氏模量 | 0/21 (0%) | 2476/6698 (36.97%) | 597/702 (85.04%) | 7/106 (6.6%) |
+| 结构性质 | properties.structure | 结构性质对象 | 21/21 (100%) | 3465/6698 (51.73%) | 597/702 (85.04%) | 94/106 (88.68%) |
+| 结构性质 | properties.structure.density | 密度 | 0/21 (0%) | 3339/6698 (49.85%) | 525/702 (74.79%) | 84/106 (79.25%) |
+| 结构性质 | properties.structure.latticeParameters | 晶格参数 | 0/21 (0%) | 3465/6698 (51.73%) | 597/702 (85.04%) | 94/106 (88.68%) |
+| 结构性质 | properties.structure.latticeParameters.a | 晶格常数a | 0/21 (0%) | 3465/6698 (51.73%) | 597/702 (85.04%) | 84/106 (79.25%) |
+| 结构性质 | properties.structure.latticeParameters.alpha | 晶格角α | 0/21 (0%) | 3465/6698 (51.73%) | 597/702 (85.04%) | 94/106 (88.68%) |
+| 结构性质 | properties.structure.latticeParameters.b | 晶格常数b | 0/21 (0%) | 3465/6698 (51.73%) | 597/702 (85.04%) | 84/106 (79.25%) |
+| 结构性质 | properties.structure.latticeParameters.beta | 晶格角β | 0/21 (0%) | 3465/6698 (51.73%) | 597/702 (85.04%) | 94/106 (88.68%) |
+| 结构性质 | properties.structure.latticeParameters.c | 晶格常数c | 0/21 (0%) | 3465/6698 (51.73%) | 597/702 (85.04%) | 84/106 (79.25%) |
+| 结构性质 | properties.structure.latticeParameters.gamma | 晶格角γ | 0/21 (0%) | 3465/6698 (51.73%) | 597/702 (85.04%) | 94/106 (88.68%) |
+| 结构性质 | properties.structure.latticeParameters.pointGroup | 点群 | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 94/106 (88.68%) |
+| 结构性质 | properties.structure.rdf | 径向分布函数(RDF) | 21/21 (100%) | 0/6698 (0%) | 0/702 (0%) | 0/106 (0%) |
+| 热力学性质 | properties.thermodynamics | 热力学性质对象 | 12/21 (57.14%) | 3465/6698 (51.73%) | 597/702 (85.04%) | 69/106 (65.09%) |
+| 热力学性质 | properties.thermodynamics.cohesiveEnergy | 内聚能 | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 14/106 (13.21%) |
+| 热力学性质 | properties.thermodynamics.diffusionCoefficient | 扩散系数 | 12/21 (57.14%) | 0/6698 (0%) | 0/702 (0%) | 0/106 (0%) |
+| 热力学性质 | properties.thermodynamics.mixingEnthalpy | 混合焓 | 0/21 (0%) | 3465/6698 (51.73%) | 597/702 (85.04%) | 0/106 (0%) |
+| 热力学性质 | properties.thermodynamics.specificHeat | 比热容 | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 0/106 (0%) |
+| 热力学性质 | properties.thermodynamics.specificHeat_p | 定压比热(Cp) | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 29/106 (27.36%) |
+| 热力学性质 | properties.thermodynamics.specificHeat_v | 定容比热(Cv) | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 29/106 (27.36%) |
+| 热力学性质 | properties.thermodynamics.thermalExpansion | 热膨胀系数 | 0/21 (0%) | 0/6698 (0%) | 0/702 (0%) | 64/106 (60.38%) |
