@@ -983,6 +983,7 @@ jobs:
           
           function displayStructureTable(data) {
             const hideLatticeColumn = shouldHideLatticeParameters(currentType);
+            const hideDensityColumn = shouldHideStructureDensity(currentType);
             let html = '<div class="data-note">';
             html += currentLang === 'en' ? 
               'Note: Values shown are at 0K unless specified. Click row to expand other temperatures.' :
@@ -996,7 +997,9 @@ jobs:
             html += '<th>' + (currentLang === 'en' ? 'Source' : '来源') + '</th>';
             html += '<th>' + t('table.type') + '</th>';
             html += '<th>' + (currentLang === 'en' ? 'Composition' : '元素组成') + '</th>';
-            html += '<th>' + t('table.density') + '<br/>(g/cm³)</th>';
+            if (!hideDensityColumn) {
+              html += '<th>' + t('table.density') + '<br/>(g/cm³)</th>';
+            }
             if (!hideLatticeColumn) {
               html += '<th>' + (currentLang === 'en' ? 'Lattice Params' : '晶格参数') + '</th>';
             }
@@ -1038,9 +1041,11 @@ jobs:
               html += '<td>' + formatSourceLabel(material.source) + '</td>';
               html += '<td>' + translateType(material.type) + '</td>';
               html += '<td class="composition">' + formatComposition(material.composition) + '</td>';
-              html += '<td>' + formatValue(densityStruct.density, 3);
-              html += formatDataMeta(densityEntry);
-              html += '</td>';
+              if (!hideDensityColumn) {
+                html += '<td>' + formatValue(densityStruct.density, 3);
+                html += formatDataMeta(densityEntry);
+                html += '</td>';
+              }
               
               // Lattice parameters with dropdown (show even without pointGroup)
               if (!hideLatticeColumn) {
@@ -1122,7 +1127,9 @@ jobs:
                 html += '<table class="sub-table" data-material-id="' + material.id + '"><thead><tr>';
                 html += '<th>' + (currentLang === 'en' ? 'Temperature' : '温度') + '</th>';
                 html += '<th>' + (currentLang === 'en' ? 'Source' : '数据来源') + '</th>';
-                html += '<th>' + t('table.density') + '</th>';
+                if (!hideDensityColumn) {
+                  html += '<th>' + t('table.density') + '</th>';
+                }
                 if (!hideLatticeColumn) {
                   html += '<th>' + (currentLang === 'en' ? 'Lattice' : '晶格') + '</th>';
                 }
@@ -1136,7 +1143,9 @@ jobs:
                   html += '<tr data-temperature="' + dataPoint.temperature + '" data-source="' + normalizeSource(dataPoint.source) + '">';
                   html += '<td>' + dataPoint.temperature + 'K</td>';
                   html += '<td>' + normalizeSource(dataPoint.source) + '</td>';
-                  html += '<td>' + formatValue(s.density, 3) + '</td>';
+                  if (!hideDensityColumn) {
+                    html += '<td>' + formatValue(s.density, 3) + '</td>';
+                  }
                   
                   // Lattice with dropdown
                   if (!hideLatticeColumn) {
@@ -1901,6 +1910,11 @@ jobs:
             if (!shouldApplyTypeSpecificHiding()) return false;
             const normalized = normalizeMaterialType(type);
             return normalized === 'amorphous' || normalized === 'interface';
+          }
+
+          function shouldHideStructureDensity(type) {
+            if (!shouldApplyTypeSpecificHiding()) return false;
+            return normalizeMaterialType(type) === 'interface';
           }
 
           function shouldShowOnlyStressStrain(type) {
