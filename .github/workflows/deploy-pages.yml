@@ -1019,6 +1019,7 @@ jobs:
               const densityStruct = densityEntry ? ((densityEntry.properties || {}).structure || {}) : {};
               const latticeStruct = latticeEntry ? ((latticeEntry.properties || {}).structure || {}) : {};
               const rdfStruct = rdfEntry ? ((rdfEntry.properties || {}).structure || {}) : {};
+              const hideLatticeParams = shouldHideLatticeParameters(material.type);
               
               // Main row
               html += '<tr class="material-row" data-id="' + material.id + '">';
@@ -1042,7 +1043,7 @@ jobs:
               // Lattice parameters with dropdown (show even without pointGroup)
               html += '<td class="lattice-cell">';
               const lattice = latticeStruct.latticeParameters;
-              if (lattice && (lattice.a || lattice.b || lattice.c)) {
+              if (!hideLatticeParams && lattice && (lattice.a || lattice.b || lattice.c)) {
                 html += '<div class="lattice-display">';
                 if (lattice.pointGroup && lattice.pointGroup.trim() !== '') {
                   html += '<span class="point-group">' + lattice.pointGroup + '</span>';
@@ -1133,7 +1134,7 @@ jobs:
                   
                   // Lattice with dropdown
                   html += '<td class="lattice-cell">';
-                  if (lattice && lattice.pointGroup) {
+                  if (!hideLatticeParams && lattice && lattice.pointGroup) {
                     html += '<div class="lattice-display">';
                     html += '<span class="point-group">' + lattice.pointGroup + '</span>';
                     html += '<button class="lattice-expand" onclick="toggleLattice(this, event)">▼</button>';
@@ -1203,6 +1204,7 @@ jobs:
               const mixing = mixingEntry ? (((mixingEntry.properties || {}).thermodynamics) || {}) : {};
               const diffusion = diffusionEntry ? (((diffusionEntry.properties || {}).thermodynamics) || {}) : {};
               const thermalExp = thermalExpansionEntry ? (((thermalExpansionEntry.properties || {}).thermodynamics) || {}) : {};
+              const hideMixingEnthalpy = shouldHideMixingEnthalpy(material.type);
               
               html += '<tr class="material-row" data-id="' + material.id + '">';
               
@@ -1220,7 +1222,11 @@ jobs:
               html += '<td>' + formatSpecificHeatDisplay(specificHeat);
               html += formatDataMeta(specificHeatEntry);
               html += '</td>';
-              html += '<td>' + formatValue(mixing.mixingEnthalpy, 2) + formatDataMeta(mixingEntry) + '</td>';
+              if (hideMixingEnthalpy) {
+                html += '<td>-</td>';
+              } else {
+                html += '<td>' + formatValue(mixing.mixingEnthalpy, 2) + formatDataMeta(mixingEntry) + '</td>';
+              }
               html += '<td>' + formatScientific(diffusion.diffusionCoefficient) + formatDataMeta(diffusionEntry) + '</td>';
               html += '<td>' + formatScientific(thermalExp.thermalExpansion) + formatDataMeta(thermalExpansionEntry) + '</td>';
               html += '</tr>';
@@ -1283,7 +1289,7 @@ jobs:
                   html += '<td>' + dataPoint.temperature + 'K</td>';
                   html += '<td>' + normalizeSource(dataPoint.source) + '</td>';
                   html += '<td>' + formatSpecificHeatDisplay(th) + '</td>';
-                  html += '<td>' + formatValue(th.mixingEnthalpy, 2) + '</td>';
+                  html += '<td>' + (hideMixingEnthalpy ? '-' : formatValue(th.mixingEnthalpy, 2)) + '</td>';
                   html += '<td>' + formatScientific(th.diffusionCoefficient) + '</td>';
                   html += '<td>' + formatScientific(th.thermalExpansion) + '</td>';
                   html += '</tr>';
@@ -1335,6 +1341,7 @@ jobs:
               const poissonMech = poissonEntry ? (((poissonEntry.properties || {}).mechanics) || {}) : {};
               const stressMech = stressEntry ? (((stressEntry.properties || {}).mechanics) || {}) : {};
               const elastic = elasticMech.elasticConstants;
+              const interfaceStressOnly = shouldShowOnlyStressStrain(material.type);
               
               html += '<tr class="material-row" data-id="' + material.id + '">';
               
@@ -1352,7 +1359,7 @@ jobs:
               
               // Elastic constants with matrix view
               html += '<td class="elastic-cell">';
-              if (elastic && Array.isArray(elastic) && elastic.length === 6) {
+              if (!interfaceStressOnly && elastic && Array.isArray(elastic) && elastic.length === 6) {
                 html += '<div class="elastic-display">';
                 html += '<span>C₁₁=' + formatValue(elastic[0][0], 1) + '</span>';
                 html += '<button class="matrix-expand" onclick="toggleMatrix(this, event)">📊</button>';
@@ -1372,9 +1379,14 @@ jobs:
               }
               html += '</td>';
               
-              html += '<td>' + formatValue(youngMech.youngsModulus, 2) + formatDataMeta(youngEntry);
-              html += '</td>';
-              html += '<td>' + formatValue(poissonMech.poissonsRatio, 3) + formatDataMeta(poissonEntry) + '</td>';
+              if (interfaceStressOnly) {
+                html += '<td>-</td>';
+                html += '<td>-</td>';
+              } else {
+                html += '<td>' + formatValue(youngMech.youngsModulus, 2) + formatDataMeta(youngEntry);
+                html += '</td>';
+                html += '<td>' + formatValue(poissonMech.poissonsRatio, 3) + formatDataMeta(poissonEntry) + '</td>';
+              }
               html += '<td>' + formatFile(stressMech.stressStrain, material.id, stressEntry ? stressEntry.temperature : undefined, stressEntry ? stressEntry.source : undefined) + formatDataMeta(stressEntry) + '</td>';
               html += '</tr>';
               
@@ -1439,7 +1451,7 @@ jobs:
                   
                   // Elastic constants with matrix view
                   html += '<td class="elastic-cell">';
-                  if (elastic && Array.isArray(elastic) && elastic.length === 6) {
+                  if (!interfaceStressOnly && elastic && Array.isArray(elastic) && elastic.length === 6) {
                     html += '<div class="elastic-display">';
                     html += '<span>C₁₁=' + formatValue(elastic[0][0], 1) + '</span>';
                     html += '<button class="matrix-expand" onclick="toggleMatrix(this, event)">📊</button>';
@@ -1459,8 +1471,8 @@ jobs:
                   }
                   html += '</td>';
                   
-                  html += '<td>' + formatValue(m.youngsModulus, 2) + '</td>';
-                  html += '<td>' + formatValue(m.poissonsRatio, 3) + '</td>';
+                  html += '<td>' + (interfaceStressOnly ? '-' : formatValue(m.youngsModulus, 2)) + '</td>';
+                  html += '<td>' + (interfaceStressOnly ? '-' : formatValue(m.poissonsRatio, 3)) + '</td>';
                   html += '<td>' + formatFile(m.stressStrain, material.id, dataPoint.temperature, dataPoint.source) + '</td>';
                   html += '</tr>';
                 }
@@ -1501,6 +1513,7 @@ jobs:
               const stackingEntry = selectBestDataByPredicate(material, (d) => hasDataValue(d?.properties?.defects?.stackingFaultEnergy));
               const secondary = getSecondaryData(material);
               const hasSecondary = secondary.length > 0;
+              const hideDefectProps = shouldHideDefectProperties(material.type);
               
               if (!primary) continue;
               
@@ -1521,13 +1534,19 @@ jobs:
               html += '<td>' + formatSourceLabel(material.source) + '</td>';
               html += '<td>' + translateType(material.type) + '</td>';
               html += '<td class="composition">' + formatComposition(material.composition) + '</td>';
-              html += '<td>' + formatValue(vacancyDefects.vacancyFormationEnergy, 3);
-              html += formatDataMeta(vacancyEntry);
-              html += '</td>';
+              if (hideDefectProps) {
+                html += '<td>' + getPropertyNotMeaningfulText() + '</td>';
+              } else {
+                html += '<td>' + formatValue(vacancyDefects.vacancyFormationEnergy, 3);
+                html += formatDataMeta(vacancyEntry);
+                html += '</td>';
+              }
               
               // Interstitial with multiple sites
               html += '<td class="interstitial-cell">';
-              if (interstitialDefects.interstitialFormationEnergy != null) {
+              if (hideDefectProps) {
+                html += '-';
+              } else if (interstitialDefects.interstitialFormationEnergy != null) {
                 if (typeof interstitialDefects.interstitialFormationEnergy === 'object' && !Array.isArray(interstitialDefects.interstitialFormationEnergy)) {
                   // Multiple sites - check if object is not empty
                   const sites = Object.keys(interstitialDefects.interstitialFormationEnergy);
@@ -1552,12 +1571,14 @@ jobs:
               } else {
                 html += '-';
               }
-              html += formatDataMeta(interstitialEntry);
+              if (!hideDefectProps) html += formatDataMeta(interstitialEntry);
               html += '</td>';
               
               // Stacking fault energy with multiple types
               html += '<td class="stacking-cell">';
-              if (stackingDefects.stackingFaultEnergy != null) {
+              if (hideDefectProps) {
+                html += '-';
+              } else if (stackingDefects.stackingFaultEnergy != null) {
                 if (typeof stackingDefects.stackingFaultEnergy === 'object' && !Array.isArray(stackingDefects.stackingFaultEnergy)) {
                   const types = Object.keys(stackingDefects.stackingFaultEnergy);
                   if (types.length > 0) {
@@ -1581,7 +1602,7 @@ jobs:
               } else {
                 html += '-';
               }
-              html += formatDataMeta(stackingEntry);
+              if (!hideDefectProps) html += formatDataMeta(stackingEntry);
               html += '</td>';
               html += '</tr>';
               
@@ -1641,9 +1662,11 @@ jobs:
                   html += '<tr data-temperature="' + dataPoint.temperature + '" data-source="' + normalizeSource(dataPoint.source) + '">';
                   html += '<td>' + dataPoint.temperature + 'K</td>';
                   html += '<td>' + normalizeSource(dataPoint.source) + '</td>';
-                  html += '<td>' + formatValue(d.vacancyFormationEnergy, 3) + '</td>';
+                  html += '<td>' + (hideDefectProps ? getPropertyNotMeaningfulText() : formatValue(d.vacancyFormationEnergy, 3)) + '</td>';
                   html += '<td>';
-                  if (d.interstitialFormationEnergy != null && typeof d.interstitialFormationEnergy === 'object' && !Array.isArray(d.interstitialFormationEnergy)) {
+                  if (hideDefectProps) {
+                    html += '-';
+                  } else if (d.interstitialFormationEnergy != null && typeof d.interstitialFormationEnergy === 'object' && !Array.isArray(d.interstitialFormationEnergy)) {
                     const sites = Object.keys(d.interstitialFormationEnergy);
                     if (sites.length > 0) {
                       html += sites.map(s => s + ':' + formatValue(d.interstitialFormationEnergy[s], 3)).join(', ');
@@ -1657,7 +1680,9 @@ jobs:
                   }
                   html += '</td>';
                   html += '<td>';
-                  if (d.stackingFaultEnergy != null && typeof d.stackingFaultEnergy === 'object' && !Array.isArray(d.stackingFaultEnergy)) {
+                  if (hideDefectProps) {
+                    html += '-';
+                  } else if (d.stackingFaultEnergy != null && typeof d.stackingFaultEnergy === 'object' && !Array.isArray(d.stackingFaultEnergy)) {
                     const types = Object.keys(d.stackingFaultEnergy);
                     if (types.length > 0) {
                       html += types.map(t => t + ':' + formatValue(d.stackingFaultEnergy[t], 2)).join(', ');
@@ -1838,6 +1863,36 @@ jobs:
               }
             };
             return typeMap[currentLang][type] || type;
+          }
+
+          function normalizeMaterialType(type) {
+            if (type === 'solid_solution') return 'solid-solution';
+            return type;
+          }
+
+          function shouldHideLatticeParameters(type) {
+            const normalized = normalizeMaterialType(type);
+            return normalized === 'amorphous' || normalized === 'interface';
+          }
+
+          function shouldHideMixingEnthalpy(type) {
+            const normalized = normalizeMaterialType(type);
+            return normalized === 'amorphous' || normalized === 'interface';
+          }
+
+          function shouldShowOnlyStressStrain(type) {
+            return normalizeMaterialType(type) === 'interface';
+          }
+
+          function shouldHideDefectProperties(type) {
+            const normalized = normalizeMaterialType(type);
+            return normalized === 'amorphous' || normalized === 'interface';
+          }
+
+          function getPropertyNotMeaningfulText() {
+            return currentLang === 'en'
+              ? 'This property category lacks physical meaning for this material system.'
+              : '该材料体系下该性质缺乏物理意义';
           }
           
           // Toggle row expansion for multi-temperature data
@@ -2212,11 +2267,12 @@ jobs:
             sortedData.forEach((dataPoint, idx) => {
               const props = dataPoint.properties || {};
               const struct = props.structure || {};
+              const hideLatticeParams = shouldHideLatticeParameters(material.type);
               html += '<div class="data-subsection">';
               html += '<h4 class="subsection-header">' + dataPoint.temperature + 'K, ' + normalizeSource(dataPoint.source) + '</h4>';
               html += '<div class="detail-grid">';
               html += '<div class="detail-item"><label>' + t('table.density') + ':</label><span>' + formatValue(struct.density, 3) + ' g/cm³</span></div>';
-              if (struct.latticeParameters) {
+              if (!hideLatticeParams && struct.latticeParameters) {
                 html += '<div class="detail-item"><label>' + (currentLang === 'en' ? 'Point Group:' : '点群:') + '</label><span>' + (struct.latticeParameters.pointGroup || '-') + '</span></div>';
                 if (struct.latticeParameters.a) html += '<div class="detail-item"><label>a:</label><span>' + formatValue(struct.latticeParameters.a, 3) + ' Å</span></div>';
                 if (struct.latticeParameters.b) html += '<div class="detail-item"><label>b:</label><span>' + formatValue(struct.latticeParameters.b, 3) + ' Å</span></div>';
@@ -2242,13 +2298,16 @@ jobs:
             sortedData.forEach((dataPoint, idx) => {
               const props = dataPoint.properties || {};
               const thermo = props.thermodynamics || {};
+              const hideMixingEnthalpy = shouldHideMixingEnthalpy(material.type);
               html += '<div class="data-subsection">';
               html += '<h4 class="subsection-header">' + dataPoint.temperature + 'K, ' + normalizeSource(dataPoint.source) + '</h4>';
               html += '<div class="detail-grid">';
               html += '<div class="detail-item"><label>' + t('table.formationEnergy') + ':</label><span>' + formatValue(thermo.formationEnergy, 2) + ' eV</span></div>';
               html += '<div class="detail-item"><label>C_v:</label><span>' + formatValue(thermo.specificHeat_v !== undefined ? thermo.specificHeat_v : thermo.specificHeat, 2) + ' J/kg·K</span></div>';
               html += '<div class="detail-item"><label>C_p:</label><span>' + formatValue(thermo.specificHeat_p !== undefined ? thermo.specificHeat_p : thermo.specificHeat, 2) + ' J/kg·K</span></div>';
-              html += '<div class="detail-item"><label>' + t('table.mixingEnthalpy') + ':</label><span>' + formatValue(thermo.mixingEnthalpy, 2) + ' kJ/mol</span></div>';
+              if (!hideMixingEnthalpy) {
+                html += '<div class="detail-item"><label>' + t('table.mixingEnthalpy') + ':</label><span>' + formatValue(thermo.mixingEnthalpy, 2) + ' kJ/mol</span></div>';
+              }
               html += '<div class="detail-item"><label>' + t('table.diffusionCoeff') + ':</label><span>' + formatScientific(thermo.diffusionCoefficient) + ' m²/s</span></div>';
               html += '<div class="detail-item"><label>' + t('table.thermalExpansion') + ':</label><span>' + formatScientific(thermo.thermalExpansion) + ' 10⁻⁶/K</span></div>';
               html += '</div>';
@@ -2262,18 +2321,23 @@ jobs:
             sortedData.forEach((dataPoint, idx) => {
               const props = dataPoint.properties || {};
               const mech = props.mechanics || {};
+              const interfaceStressOnly = shouldShowOnlyStressStrain(material.type);
               html += '<div class="data-subsection">';
               html += '<h4 class="subsection-header">' + dataPoint.temperature + 'K, ' + normalizeSource(dataPoint.source) + '</h4>';
               html += '<div class="detail-grid">';
-              html += '<div class="detail-item"><label>' + t('table.youngsModulus') + ':</label><span>' + formatValue(mech.youngsModulus, 2) + ' GPa</span></div>';
-              html += '<div class="detail-item"><label>' + t('table.bulkModulus') + ':</label><span>' + formatValue(mech.bulkModulus, 2) + ' GPa</span></div>';
-              html += '<div class="detail-item"><label>' + t('table.shearModulus') + ':</label><span>' + formatValue(mech.shearModulus, 2) + ' GPa</span></div>';
-              html += '<div class="detail-item"><label>' + t('table.poissonsRatio') + ':</label><span>' + formatValue(mech.poissonsRatio, 3) + '</span></div>';
+              if (interfaceStressOnly) {
+                html += '<div class="detail-item full-width"><label>' + (currentLang === 'en' ? 'Note:' : '说明:') + '</label><span>' + getPropertyNotMeaningfulText() + '</span></div>';
+              } else {
+                html += '<div class="detail-item"><label>' + t('table.youngsModulus') + ':</label><span>' + formatValue(mech.youngsModulus, 2) + ' GPa</span></div>';
+                html += '<div class="detail-item"><label>' + t('table.bulkModulus') + ':</label><span>' + formatValue(mech.bulkModulus, 2) + ' GPa</span></div>';
+                html += '<div class="detail-item"><label>' + t('table.shearModulus') + ':</label><span>' + formatValue(mech.shearModulus, 2) + ' GPa</span></div>';
+                html += '<div class="detail-item"><label>' + t('table.poissonsRatio') + ':</label><span>' + formatValue(mech.poissonsRatio, 3) + '</span></div>';
+              }
               html += '</div>';
               
               // Elastic Constants Matrix
               const elasticMatrix = mech.elasticConstants?.matrix || mech.elasticConstants;
-              if (elasticMatrix && Array.isArray(elasticMatrix)) {
+              if (!interfaceStressOnly && elasticMatrix && Array.isArray(elasticMatrix)) {
                 html += '<div class="elastic-constants-section">';
                 html += '<h5>' + (currentLang === 'en' ? 'Elastic Constants Matrix C' : '弹性常数矩阵 C') + '<sub>ij</sub> (GPa)</h5>';
                 html += '<table class="cij-matrix">';
@@ -2310,40 +2374,45 @@ jobs:
             sortedData.forEach((dataPoint, idx) => {
               const props = dataPoint.properties || {};
               const defects = props.defects || {};
+              const hideDefectProps = shouldHideDefectProperties(material.type);
               html += '<div class="data-subsection">';
               html += '<h4 class="subsection-header">' + dataPoint.temperature + 'K, ' + normalizeSource(dataPoint.source) + '</h4>';
               html += '<div class="detail-grid">';
-              html += '<div class="detail-item"><label>' + t('table.vacancyEnergy') + ':</label><span>' + formatValue(defects.vacancyFormationEnergy, 3) + ' eV</span></div>';
-              
-              // Interstitial with multiple sites
-              if (defects.interstitialFormationEnergy != null) {
-                if (typeof defects.interstitialFormationEnergy === 'object' && !Array.isArray(defects.interstitialFormationEnergy)) {
-                  const entries = Object.entries(defects.interstitialFormationEnergy);
-                  if (entries.length > 0) {
-                    html += '<div class="detail-item full-width"><label>' + t('table.interstitialEnergy') + ':</label><div class="sites-list">';
-                    for (const [site, energy] of entries) {
-                      html += '<div><strong>' + site + ':</strong> ' + formatValue(energy, 3) + ' eV</div>';
+              if (hideDefectProps) {
+                html += '<div class="detail-item full-width"><label>' + (currentLang === 'en' ? 'Note:' : '说明:') + '</label><span>' + getPropertyNotMeaningfulText() + '</span></div>';
+              } else {
+                html += '<div class="detail-item"><label>' + t('table.vacancyEnergy') + ':</label><span>' + formatValue(defects.vacancyFormationEnergy, 3) + ' eV</span></div>';
+                
+                // Interstitial with multiple sites
+                if (defects.interstitialFormationEnergy != null) {
+                  if (typeof defects.interstitialFormationEnergy === 'object' && !Array.isArray(defects.interstitialFormationEnergy)) {
+                    const entries = Object.entries(defects.interstitialFormationEnergy);
+                    if (entries.length > 0) {
+                      html += '<div class="detail-item full-width"><label>' + t('table.interstitialEnergy') + ':</label><div class="sites-list">';
+                      for (const [site, energy] of entries) {
+                        html += '<div><strong>' + site + ':</strong> ' + formatValue(energy, 3) + ' eV</div>';
+                      }
+                      html += '</div></div>';
                     }
-                    html += '</div></div>';
+                  } else {
+                    html += '<div class="detail-item"><label>' + t('table.interstitialEnergy') + ':</label><span>' + formatValue(defects.interstitialFormationEnergy, 3) + ' eV</span></div>';
                   }
-                } else {
-                  html += '<div class="detail-item"><label>' + t('table.interstitialEnergy') + ':</label><span>' + formatValue(defects.interstitialFormationEnergy, 3) + ' eV</span></div>';
                 }
-              }
-              
-              // Stacking fault energy with multiple types
-              if (defects.stackingFaultEnergy != null) {
-                if (typeof defects.stackingFaultEnergy === 'object' && !Array.isArray(defects.stackingFaultEnergy)) {
-                  const entries = Object.entries(defects.stackingFaultEnergy);
-                  if (entries.length > 0) {
-                    html += '<div class="detail-item full-width"><label>' + t('table.stackingFault') + ':</label><div class="sites-list">';
-                    for (const [type, energy] of entries) {
-                      html += '<div><strong>' + type + ':</strong> ' + formatValue(energy, 2) + ' mJ/m²</div>';
+                
+                // Stacking fault energy with multiple types
+                if (defects.stackingFaultEnergy != null) {
+                  if (typeof defects.stackingFaultEnergy === 'object' && !Array.isArray(defects.stackingFaultEnergy)) {
+                    const entries = Object.entries(defects.stackingFaultEnergy);
+                    if (entries.length > 0) {
+                      html += '<div class="detail-item full-width"><label>' + t('table.stackingFault') + ':</label><div class="sites-list">';
+                      for (const [type, energy] of entries) {
+                        html += '<div><strong>' + type + ':</strong> ' + formatValue(energy, 2) + ' mJ/m²</div>';
+                      }
+                      html += '</div></div>';
                     }
-                    html += '</div></div>';
+                  } else {
+                    html += '<div class="detail-item"><label>' + t('table.stackingFault') + ':</label><span>' + formatValue(defects.stackingFaultEnergy, 2) + ' mJ/m²</span></div>';
                   }
-                } else {
-                  html += '<div class="detail-item"><label>' + t('table.stackingFault') + ':</label><span>' + formatValue(defects.stackingFaultEnergy, 2) + ' mJ/m²</span></div>';
                 }
               }
               
@@ -2358,6 +2427,10 @@ jobs:
           // Generate detail view for specific data point
           function generateDetailView(material, dataPoint) {
             const props = dataPoint.properties || {};
+            const hideLatticeParams = shouldHideLatticeParameters(material.type);
+            const hideMixingEnthalpy = shouldHideMixingEnthalpy(material.type);
+            const interfaceStressOnly = shouldShowOnlyStressStrain(material.type);
+            const hideDefectProps = shouldHideDefectProperties(material.type);
             let html = '';
             
             // Basic Information
@@ -2396,7 +2469,7 @@ jobs:
             
             html += '<div class="detail-grid">';
             html += '<div class="detail-item"><label>' + t('table.density') + ':</label><span>' + formatValue(struct.density, 3) + ' g/cm³</span></div>';
-            if (struct.latticeParameters) {
+            if (!hideLatticeParams && struct.latticeParameters) {
               html += '<div class="detail-item"><label>' + (currentLang === 'en' ? 'Point Group:' : '点群:') + '</label><span>' + (struct.latticeParameters.pointGroup || '-') + '</span></div>';
               if (struct.latticeParameters.a) html += '<div class="detail-item"><label>a:</label><span>' + formatValue(struct.latticeParameters.a, 3) + ' Å</span></div>';
               if (struct.latticeParameters.b) html += '<div class="detail-item"><label>b:</label><span>' + formatValue(struct.latticeParameters.b, 3) + ' Å</span></div>';
@@ -2421,7 +2494,9 @@ jobs:
             html += '<div class="detail-grid">';
             html += '<div class="detail-item"><label>C_v:</label><span>' + formatValue(thermo.specificHeat_v !== undefined ? thermo.specificHeat_v : thermo.specificHeat, 2) + ' J/kg·K</span></div>';
             html += '<div class="detail-item"><label>C_p:</label><span>' + formatValue(thermo.specificHeat_p !== undefined ? thermo.specificHeat_p : thermo.specificHeat, 2) + ' J/kg·K</span></div>';
-            html += '<div class="detail-item"><label>' + t('table.mixingEnthalpy') + ':</label><span>' + formatValue(thermo.mixingEnthalpy, 2) + ' kJ/mol</span></div>';
+            if (!hideMixingEnthalpy) {
+              html += '<div class="detail-item"><label>' + t('table.mixingEnthalpy') + ':</label><span>' + formatValue(thermo.mixingEnthalpy, 2) + ' kJ/mol</span></div>';
+            }
             html += '<div class="detail-item"><label>' + t('table.diffusionCoeff') + ':</label><span>' + formatScientific(thermo.diffusionCoefficient) + ' m²/s</span></div>';
             html += '<div class="detail-item"><label>' + t('table.thermalExpansion') + ':</label><span>' + formatScientific(thermo.thermalExpansion) + ' 10⁻⁶/K</span></div>';
             html += '</div></div>';
@@ -2431,15 +2506,19 @@ jobs:
             html += '<div class="detail-section">';
             html += '<h3>' + t('mechInfo') + '</h3>';
             html += '<div class="detail-grid">';
-            html += '<div class="detail-item"><label>' + t('table.youngsModulus') + ':</label><span>' + formatValue(mech.youngsModulus, 2) + ' GPa</span></div>';
-            html += '<div class="detail-item"><label>' + t('table.bulkModulus') + ':</label><span>' + formatValue(mech.bulkModulus, 2) + ' GPa</span></div>';
-            html += '<div class="detail-item"><label>' + t('table.shearModulus') + ':</label><span>' + formatValue(mech.shearModulus, 2) + ' GPa</span></div>';
-            html += '<div class="detail-item"><label>' + t('table.poissonsRatio') + ':</label><span>' + formatValue(mech.poissonsRatio, 3) + '</span></div>';
+            if (interfaceStressOnly) {
+              html += '<div class="detail-item full-width"><label>' + (currentLang === 'en' ? 'Note:' : '说明:') + '</label><span>' + getPropertyNotMeaningfulText() + '</span></div>';
+            } else {
+              html += '<div class="detail-item"><label>' + t('table.youngsModulus') + ':</label><span>' + formatValue(mech.youngsModulus, 2) + ' GPa</span></div>';
+              html += '<div class="detail-item"><label>' + t('table.bulkModulus') + ':</label><span>' + formatValue(mech.bulkModulus, 2) + ' GPa</span></div>';
+              html += '<div class="detail-item"><label>' + t('table.shearModulus') + ':</label><span>' + formatValue(mech.shearModulus, 2) + ' GPa</span></div>';
+              html += '<div class="detail-item"><label>' + t('table.poissonsRatio') + ':</label><span>' + formatValue(mech.poissonsRatio, 3) + '</span></div>';
+            }
             html += '</div>';
             
             // Elastic Constants Matrix - support both array and object format
             const elasticMatrix = mech.elasticConstants?.matrix || mech.elasticConstants;
-            if (elasticMatrix && Array.isArray(elasticMatrix)) {
+            if (!interfaceStressOnly && elasticMatrix && Array.isArray(elasticMatrix)) {
               html += '<div class="elastic-constants-section">';
               html += '<h4>' + (currentLang === 'en' ? 'Elastic Constants Matrix C' : '弹性常数矩阵 C') + '<sub>ij</sub> (GPa)</h4>';
               html += '<table class="cij-matrix">';
@@ -2473,37 +2552,41 @@ jobs:
             html += '<div class="detail-section">';
             html += '<h3>' + t('defectInfo') + '</h3>';
             html += '<div class="detail-grid">';
-            html += '<div class="detail-item"><label>' + t('table.vacancyEnergy') + ':</label><span>' + formatValue(defects.vacancyFormationEnergy, 3) + ' eV</span></div>';
-            
-            // Interstitial with multiple sites
-            if (defects.interstitialFormationEnergy != null) {
-              if (typeof defects.interstitialFormationEnergy === 'object' && !Array.isArray(defects.interstitialFormationEnergy)) {
-                const entries = Object.entries(defects.interstitialFormationEnergy);
-                if (entries.length > 0) {
-                  html += '<div class="detail-item full-width"><label>' + t('table.interstitialEnergy') + ':</label><div class="sites-list">';
-                  for (const [site, energy] of entries) {
-                    html += '<div><strong>' + site + ':</strong> ' + formatValue(energy, 3) + ' eV</div>';
+            if (hideDefectProps) {
+              html += '<div class="detail-item full-width"><label>' + (currentLang === 'en' ? 'Note:' : '说明:') + '</label><span>' + getPropertyNotMeaningfulText() + '</span></div>';
+            } else {
+              html += '<div class="detail-item"><label>' + t('table.vacancyEnergy') + ':</label><span>' + formatValue(defects.vacancyFormationEnergy, 3) + ' eV</span></div>';
+              
+              // Interstitial with multiple sites
+              if (defects.interstitialFormationEnergy != null) {
+                if (typeof defects.interstitialFormationEnergy === 'object' && !Array.isArray(defects.interstitialFormationEnergy)) {
+                  const entries = Object.entries(defects.interstitialFormationEnergy);
+                  if (entries.length > 0) {
+                    html += '<div class="detail-item full-width"><label>' + t('table.interstitialEnergy') + ':</label><div class="sites-list">';
+                    for (const [site, energy] of entries) {
+                      html += '<div><strong>' + site + ':</strong> ' + formatValue(energy, 3) + ' eV</div>';
+                    }
+                    html += '</div></div>';
                   }
-                  html += '</div></div>';
+                } else {
+                  html += '<div class="detail-item"><label>' + t('table.interstitialEnergy') + ':</label><span>' + formatValue(defects.interstitialFormationEnergy, 3) + ' eV</span></div>';
                 }
-              } else {
-                html += '<div class="detail-item"><label>' + t('table.interstitialEnergy') + ':</label><span>' + formatValue(defects.interstitialFormationEnergy, 3) + ' eV</span></div>';
               }
-            }
-            
-            // Stacking fault energy with multiple types
-            if (defects.stackingFaultEnergy != null) {
-              if (typeof defects.stackingFaultEnergy === 'object' && !Array.isArray(defects.stackingFaultEnergy)) {
-                const entries = Object.entries(defects.stackingFaultEnergy);
-                if (entries.length > 0) {
-                  html += '<div class="detail-item full-width"><label>' + t('table.stackingFault') + ':</label><div class="sites-list">';
-                  for (const [type, energy] of entries) {
-                    html += '<div><strong>' + type + ':</strong> ' + formatValue(energy, 2) + ' mJ/m²</div>';
+              
+              // Stacking fault energy with multiple types
+              if (defects.stackingFaultEnergy != null) {
+                if (typeof defects.stackingFaultEnergy === 'object' && !Array.isArray(defects.stackingFaultEnergy)) {
+                  const entries = Object.entries(defects.stackingFaultEnergy);
+                  if (entries.length > 0) {
+                    html += '<div class="detail-item full-width"><label>' + t('table.stackingFault') + ':</label><div class="sites-list">';
+                    for (const [type, energy] of entries) {
+                      html += '<div><strong>' + type + ':</strong> ' + formatValue(energy, 2) + ' mJ/m²</div>';
+                    }
+                    html += '</div></div>';
                   }
-                  html += '</div></div>';
+                } else {
+                  html += '<div class="detail-item"><label>' + t('table.stackingFault') + ':</label><span>' + formatValue(defects.stackingFaultEnergy, 2) + ' mJ/m²</span></div>';
                 }
-              } else {
-                html += '<div class="detail-item"><label>' + t('table.stackingFault') + ':</label><span>' + formatValue(defects.stackingFaultEnergy, 2) + ' mJ/m²</span></div>';
               }
             }
             
