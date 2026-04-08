@@ -901,11 +901,7 @@ jobs:
           
           function displayResults(data) {
             const container = document.getElementById('table');
-            
-            if (data.length === 0) {
-              container.innerHTML = '<p class="no-data">' + t('noData') + '</p>';
-              return;
-            }
+            const noData = data.length === 0;
             
             // Calculate total data points (accounting for all properties in each temperature/source entry)
             function countDataProperties(dataPoint) {
@@ -966,6 +962,9 @@ jobs:
               : `找到 ${data.length} 种材料，共 ${totalDataPoints} 条数据`;
             
             let html = '<div class="result-count">' + countText + '</div>';
+            if (noData) {
+              html += '<div class="data-note">' + (currentLang === 'en' ? 'No materials matched current filter; showing table template.' : '当前筛选下无材料数据，已显示表格模板。') + '</div>';
+            }
             
             // Display different tables based on selected property category
             if (currentProperty === 'structure') {
@@ -983,6 +982,7 @@ jobs:
           }
           
           function displayStructureTable(data) {
+            const hideLatticeColumn = shouldHideLatticeParameters(currentType);
             let html = '<div class="data-note">';
             html += currentLang === 'en' ? 
               'Note: Values shown are at 0K unless specified. Click row to expand other temperatures.' :
@@ -997,7 +997,9 @@ jobs:
             html += '<th>' + t('table.type') + '</th>';
             html += '<th>' + (currentLang === 'en' ? 'Composition' : '元素组成') + '</th>';
             html += '<th>' + t('table.density') + '<br/>(g/cm³)</th>';
-            html += '<th>' + (currentLang === 'en' ? 'Lattice Params' : '晶格参数') + '</th>';
+            if (!hideLatticeColumn) {
+              html += '<th>' + (currentLang === 'en' ? 'Lattice Params' : '晶格参数') + '</th>';
+            }
             html += '<th>' + t('table.rdf') + '</th>';
             html += '</tr></thead><tbody>';
             
@@ -1041,29 +1043,31 @@ jobs:
               html += '</td>';
               
               // Lattice parameters with dropdown (show even without pointGroup)
-              html += '<td class="lattice-cell">';
-              const lattice = latticeStruct.latticeParameters;
-              if (!hideLatticeParams && lattice && (lattice.a || lattice.b || lattice.c)) {
-                html += '<div class="lattice-display">';
-                if (lattice.pointGroup && lattice.pointGroup.trim() !== '') {
-                  html += '<span class="point-group">' + lattice.pointGroup + '</span>';
+              if (!hideLatticeColumn) {
+                html += '<td class="lattice-cell">';
+                const lattice = latticeStruct.latticeParameters;
+                if (!hideLatticeParams && lattice && (lattice.a || lattice.b || lattice.c)) {
+                  html += '<div class="lattice-display">';
+                  if (lattice.pointGroup && lattice.pointGroup.trim() !== '') {
+                    html += '<span class="point-group">' + lattice.pointGroup + '</span>';
+                  } else {
+                    html += '<span class="point-group">-</span>';
+                  }
+                  html += '<button class="lattice-expand" onclick="toggleLattice(this, event)">▼</button>';
+                  html += '</div>';
+                  html += '<div class="lattice-details hidden">';
+                  if (lattice.a) html += '<div>a = ' + formatValue(lattice.a, 3) + ' Å</div>';
+                  if (lattice.b) html += '<div>b = ' + formatValue(lattice.b, 3) + ' Å</div>';
+                  if (lattice.c) html += '<div>c = ' + formatValue(lattice.c, 3) + ' Å</div>';
+                  if (lattice.alpha) html += '<div>α = ' + formatValue(lattice.alpha, 1) + '°</div>';
+                  if (lattice.beta) html += '<div>β = ' + formatValue(lattice.beta, 1) + '°</div>';
+                  if (lattice.gamma) html += '<div>γ = ' + formatValue(lattice.gamma, 1) + '°</div>';
+                  html += '</div>';
                 } else {
-                  html += '<span class="point-group">-</span>';
+                  html += '-';
                 }
-                html += '<button class="lattice-expand" onclick="toggleLattice(this, event)">▼</button>';
-                html += '</div>';
-                html += '<div class="lattice-details hidden">';
-                if (lattice.a) html += '<div>a = ' + formatValue(lattice.a, 3) + ' Å</div>';
-                if (lattice.b) html += '<div>b = ' + formatValue(lattice.b, 3) + ' Å</div>';
-                if (lattice.c) html += '<div>c = ' + formatValue(lattice.c, 3) + ' Å</div>';
-                if (lattice.alpha) html += '<div>α = ' + formatValue(lattice.alpha, 1) + '°</div>';
-                if (lattice.beta) html += '<div>β = ' + formatValue(lattice.beta, 1) + '°</div>';
-                if (lattice.gamma) html += '<div>γ = ' + formatValue(lattice.gamma, 1) + '°</div>';
-                html += '</div>';
-              } else {
-                html += '-';
+                html += '</td>';
               }
-              html += '</td>';
               
               html += '<td>' + formatFile(rdfStruct.rdf, material.id, rdfEntry ? rdfEntry.temperature : undefined, rdfEntry ? rdfEntry.source : undefined) + formatDataMeta(rdfEntry) + '</td>';
               html += '</tr>';
@@ -1119,7 +1123,9 @@ jobs:
                 html += '<th>' + (currentLang === 'en' ? 'Temperature' : '温度') + '</th>';
                 html += '<th>' + (currentLang === 'en' ? 'Source' : '数据来源') + '</th>';
                 html += '<th>' + t('table.density') + '</th>';
-                html += '<th>' + (currentLang === 'en' ? 'Lattice' : '晶格') + '</th>';
+                if (!hideLatticeColumn) {
+                  html += '<th>' + (currentLang === 'en' ? 'Lattice' : '晶格') + '</th>';
+                }
                 html += '<th>' + t('table.rdf') + '</th>';
                 html += '</tr></thead><tbody>';
                 
@@ -1133,24 +1139,26 @@ jobs:
                   html += '<td>' + formatValue(s.density, 3) + '</td>';
                   
                   // Lattice with dropdown
-                  html += '<td class="lattice-cell">';
-                  if (!hideLatticeParams && lattice && lattice.pointGroup) {
-                    html += '<div class="lattice-display">';
-                    html += '<span class="point-group">' + lattice.pointGroup + '</span>';
-                    html += '<button class="lattice-expand" onclick="toggleLattice(this, event)">▼</button>';
-                    html += '</div>';
-                    html += '<div class="lattice-details hidden">';
-                    if (lattice.a) html += '<div>a = ' + formatValue(lattice.a, 3) + ' Å</div>';
-                    if (lattice.b) html += '<div>b = ' + formatValue(lattice.b, 3) + ' Å</div>';
-                    if (lattice.c) html += '<div>c = ' + formatValue(lattice.c, 3) + ' Å</div>';
-                    if (lattice.alpha) html += '<div>α = ' + formatValue(lattice.alpha, 1) + '°</div>';
-                    if (lattice.beta) html += '<div>β = ' + formatValue(lattice.beta, 1) + '°</div>';
-                    if (lattice.gamma) html += '<div>γ = ' + formatValue(lattice.gamma, 1) + '°</div>';
-                    html += '</div>';
-                  } else {
-                    html += '-';
+                  if (!hideLatticeColumn) {
+                    html += '<td class="lattice-cell">';
+                    if (!hideLatticeParams && lattice && lattice.pointGroup) {
+                      html += '<div class="lattice-display">';
+                      html += '<span class="point-group">' + lattice.pointGroup + '</span>';
+                      html += '<button class="lattice-expand" onclick="toggleLattice(this, event)">▼</button>';
+                      html += '</div>';
+                      html += '<div class="lattice-details hidden">';
+                      if (lattice.a) html += '<div>a = ' + formatValue(lattice.a, 3) + ' Å</div>';
+                      if (lattice.b) html += '<div>b = ' + formatValue(lattice.b, 3) + ' Å</div>';
+                      if (lattice.c) html += '<div>c = ' + formatValue(lattice.c, 3) + ' Å</div>';
+                      if (lattice.alpha) html += '<div>α = ' + formatValue(lattice.alpha, 1) + '°</div>';
+                      if (lattice.beta) html += '<div>β = ' + formatValue(lattice.beta, 1) + '°</div>';
+                      if (lattice.gamma) html += '<div>γ = ' + formatValue(lattice.gamma, 1) + '°</div>';
+                      html += '</div>';
+                    } else {
+                      html += '-';
+                    }
+                    html += '</td>';
                   }
-                  html += '</td>';
                   
                   html += '<td>' + formatFile(s.rdf, material.id, dataPoint.temperature, dataPoint.source) + '</td>';
                   html += '</tr>';
@@ -1486,6 +1494,7 @@ jobs:
           }
           
           function displayDefectsTable(data) {
+            const hideDefectColumns = shouldHideDefectProperties(currentType);
             let html = '<div class="data-note">';
             html += currentLang === 'en' ? 
               'Note: Values shown are at 0K unless specified. Click row to expand other temperatures. Interstitial shows all sites.' :
@@ -1499,10 +1508,18 @@ jobs:
             html += '<th>' + (currentLang === 'en' ? 'Source' : '来源') + '</th>';
             html += '<th>' + t('table.type') + '</th>';
             html += '<th>' + (currentLang === 'en' ? 'Composition' : '元素组成') + '</th>';
-            html += '<th>' + t('table.vacancyEnergy') + '<br/>(eV)</th>';
-            html += '<th>' + t('table.interstitialEnergy') + '<br/>(eV)</th>';
-            html += '<th>' + t('table.stackingFault') + '<br/>(mJ/m²)</th>';
+            if (!hideDefectColumns) {
+              html += '<th>' + t('table.vacancyEnergy') + '<br/>(eV)</th>';
+              html += '<th>' + t('table.interstitialEnergy') + '<br/>(eV)</th>';
+              html += '<th>' + t('table.stackingFault') + '<br/>(mJ/m²)</th>';
+            }
             html += '</tr></thead><tbody>';
+
+            if (hideDefectColumns) {
+              html += '<tr><td colspan="6" class="no-data">' + getPropertyNotMeaningfulText() + '</td></tr>';
+              html += '</tbody></table></div>';
+              return html;
+            }
             
             // Display materials with their Alloy IDs
             for (let idx = 0; idx < data.length; idx++) {
