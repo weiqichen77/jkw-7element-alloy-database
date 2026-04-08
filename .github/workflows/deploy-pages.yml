@@ -754,6 +754,32 @@ jobs:
             
             return false;
           }
+
+          // Fuzzy match query against any source text (material-level and data-point-level)
+          function matchesSourceFilter(material, query) {
+            if (!query) return true;
+
+            const q = query.trim().toLowerCase();
+            if (!q) return true;
+
+            const candidates = [];
+            const pushSource = (src) => {
+              if (!src || typeof src !== 'string') return;
+              candidates.push(src);
+              candidates.push(normalizeSource(src) || '');
+              candidates.push(formatSourceLabel(src, false) || '');
+            };
+
+            pushSource(material.source);
+
+            if (Array.isArray(material.data)) {
+              material.data.forEach(d => pushSource(d && d.source));
+            }
+
+            return candidates
+              .filter(Boolean)
+              .some(text => text.toLowerCase().includes(q));
+          }
           
           async function initApp() {
             try {
@@ -878,20 +904,21 @@ jobs:
               filtered = filtered.filter(item => item.type === currentType);
             }
             
-            // Filter by search term (name or element composition)
+            // Filter by search term (name, element composition, or source)
             if (searchTerm) {
               // Detect if search term is likely an element symbol (1-2 uppercase letters)
               const isElementSearch = /^[A-Z][a-z]?$/i.test(searchTerm);
               
               filtered = filtered.filter(item => {
+                const matchesSource = matchesSourceFilter(item, searchTerm);
                 if (isElementSearch) {
-                  // For element search, only match in elements array
-                  return matchesElementFilter(item, searchTerm);
+                  // Keep element-priority behavior while allowing source fuzzy match.
+                  return matchesElementFilter(item, searchTerm) || matchesSource;
                 } else {
-                  // For other searches, match in name or composition
+                  // For other searches, match in name, composition, or source.
                   const matchesName = item.name.toLowerCase().includes(searchTerm.toLowerCase());
                   const matchesElement = matchesElementFilter(item, searchTerm);
-                  return matchesName || matchesElement;
+                  return matchesName || matchesElement || matchesSource;
                 }
               });
             }
