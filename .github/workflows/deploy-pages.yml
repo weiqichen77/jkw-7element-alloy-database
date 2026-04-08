@@ -1870,21 +1870,29 @@ jobs:
             return type;
           }
 
+          function shouldApplyTypeSpecificHiding() {
+            return normalizeMaterialType(currentType) !== 'all';
+          }
+
           function shouldHideLatticeParameters(type) {
+            if (!shouldApplyTypeSpecificHiding()) return false;
             const normalized = normalizeMaterialType(type);
             return normalized === 'amorphous' || normalized === 'interface';
           }
 
           function shouldHideMixingEnthalpy(type) {
+            if (!shouldApplyTypeSpecificHiding()) return false;
             const normalized = normalizeMaterialType(type);
             return normalized === 'amorphous' || normalized === 'interface';
           }
 
           function shouldShowOnlyStressStrain(type) {
+            if (!shouldApplyTypeSpecificHiding()) return false;
             return normalizeMaterialType(type) === 'interface';
           }
 
           function shouldHideDefectProperties(type) {
+            if (!shouldApplyTypeSpecificHiding()) return false;
             const normalized = normalizeMaterialType(type);
             return normalized === 'amorphous' || normalized === 'interface';
           }
