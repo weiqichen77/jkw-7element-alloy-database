@@ -327,11 +327,11 @@ jobs:
               },
               type: {
                 all: 'All',
-                element: 'Element',
-                'solid-solution': 'Solid Solution',
-                intermetallic: 'Intermetallic',
                 amorphous: 'Amorphous',
-                interface: 'Interface'
+                'solid-solution': 'Alloy-Solid Solution',
+                intermetallic: 'Alloy-Intermetallic',
+                interface: 'Interface',
+                element: 'Element'
               },
               property: {
                 structure: 'Structure',
@@ -411,11 +411,11 @@ jobs:
               },
               type: {
                 all: '全部',
-                element: '单质',
-                'solid-solution': '固溶体',
-                intermetallic: '金属间化合物',
                 amorphous: '非晶',
-                interface: '界面'
+                'solid-solution': '合金-固溶体',
+                intermetallic: '合金-金属间化合物',
+                interface: '界面',
+                element: '单质'
               },
               property: {
                 structure: '结构信息',
@@ -835,6 +835,22 @@ jobs:
             });
           }
           
+          function applyTypeDisplayOrder(list) {
+            const typeOrder = {
+              'amorphous': 0,
+              'solid-solution': 1,
+              'intermetallic': 2,
+              'interface': 3,
+              'element': 4
+            };
+            return [...list].sort((a, b) => {
+              const ta = typeOrder[a.type] ?? 999;
+              const tb = typeOrder[b.type] ?? 999;
+              if (ta !== tb) return ta - tb;
+              return (a.name || '').localeCompare(b.name || '');
+            });
+          }
+
           function filterAndDisplay() {
             const searchTerm = document.getElementById('q').value.trim();
             
@@ -864,7 +880,7 @@ jobs:
               });
             }
             
-            displayResults(filtered);
+            displayResults(applyTypeDisplayOrder(filtered));
           }
           
           function displayResults(data) {
@@ -1789,19 +1805,19 @@ jobs:
           function translateType(type) {
             const typeMap = {
               en: {
-                'element': 'Element',
-                'solid-solution': 'Solid Solution',
-                'intermetallic': 'Intermetallic',
                 'amorphous': 'Amorphous',
+                'solid-solution': 'Alloy-Solid Solution',
+                'intermetallic': 'Alloy-Intermetallic',
                 'interface': 'Interface',
+                'element': 'Element',
                 'crystalline': 'Crystalline'
               },
               zh: {
-                'element': '单质',
-                'solid-solution': '固溶体',
-                'intermetallic': '金属间化合物',
                 'amorphous': '非晶态',
+                'solid-solution': '合金-固溶体',
+                'intermetallic': '合金-金属间化合物',
                 'interface': '界面',
+                'element': '单质',
                 'crystalline': '晶态'
               }
             };
@@ -2846,7 +2862,7 @@ jobs:
               });
             }
             
-            return filtered;
+            return applyTypeDisplayOrder(filtered);
           }
           
           function populateMaterialSelector() {
@@ -3220,11 +3236,11 @@ jobs:
                 <h3 id="typeTitle">Material Type</h3>
                 <div class="tabs">
                   <button class="type-tab active" data-type="all"><span data-i18n="type.all">All</span></button>
-                  <button class="type-tab" data-type="element"><span data-i18n="type.element">Element</span></button>
-                  <button class="type-tab" data-type="solid-solution"><span data-i18n="type.solid-solution">Solid Solution</span></button>
-                  <button class="type-tab" data-type="intermetallic"><span data-i18n="type.intermetallic">Intermetallic</span></button>
                   <button class="type-tab" data-type="amorphous"><span data-i18n="type.amorphous">Amorphous</span></button>
+                  <button class="type-tab" data-type="solid-solution"><span data-i18n="type.solid-solution">Alloy-Solid Solution</span></button>
+                  <button class="type-tab" data-type="intermetallic"><span data-i18n="type.intermetallic">Alloy-Intermetallic</span></button>
                   <button class="type-tab" data-type="interface"><span data-i18n="type.interface">Interface</span></button>
+                  <button class="type-tab" data-type="element"><span data-i18n="type.element">Element</span></button>
                 </div>
               </div>
               
