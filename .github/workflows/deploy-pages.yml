@@ -113,6 +113,8 @@ jobs:
           const typeCodeMap = {
             'element': 'E',
             'solid_solution': 'SS',
+            'solid-solution': 'SS',
+            'solid-element': 'E',
             'intermetallic': 'IM',
             'amorphous': 'AM',
             'interface': 'IF'
@@ -151,6 +153,21 @@ jobs:
             
             existingIDs.add(newID);
             return newID;
+          }
+
+          function pickMaterialSource(material) {
+            if (material.source) return material.source;
+            if (material.original_source) return material.original_source;
+
+            if (Array.isArray(material.data)) {
+              const preferred = material.data.find((d) => d && d.source && d.source !== 'init' && d.source !== 'DFT');
+              if (preferred && preferred.source) return preferred.source;
+
+              const first = material.data.find((d) => d && d.source);
+              if (first && first.source) return first.source;
+            }
+
+            return material.name || material.id || 'N/A';
           }
           
           let allMaterials = [];
@@ -212,6 +229,25 @@ jobs:
             }
           }
           
+          // Normalize all merged materials so UI always has top-level id/source/density.
+          allMaterials = allMaterials.map((material) => {
+            if (material.source && !material.original_source) {
+              material.original_source = material.source;
+            }
+
+            material.id = generateAlloyID(material, existingIDs);
+            material.source = pickMaterialSource(material);
+
+            if (!material.density && material.data && material.data.length > 0) {
+              const firstData = material.data[0];
+              if (firstData.properties && firstData.properties.structure) {
+                material.density = firstData.properties.structure.density;
+              }
+            }
+
+            return material;
+          });
+
           // Write merged data back to materials.json
           fs.writeFileSync(materialsPath, JSON.stringify(allMaterials, null, 2));
           console.log('✓ Successfully merged', allMaterials.length, 'total materials');
