@@ -75,7 +75,7 @@ Quick navigation to what you need:
 
 **View Online**
 
-Visit the live website: [https://wqchen007.github.io/jkw-7element-alloy-database/](https://wqchen007.github.io/jkw-7element-alloy-database/)
+Visit the live website: [https://weiqichen77.github.io/jkw-7element-alloy-database/](https://weiqichen77.github.io/jkw-7element-alloy-database/)
 
 **Add Your Data**
 

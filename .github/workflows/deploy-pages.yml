@@ -3541,10 +3541,10 @@ jobs:
             
             <footer>
               <p>
-                <a href="https://github.com/wqchen007/jkw-7element-alloy-database" target="_blank" id="githubLink">
+                <a href="https://github.com/weiqichen77/jkw-7element-alloy-database" target="_blank" id="githubLink">
                   GitHub Repository
                 </a> | 
-                <a href="https://github.com/wqchen007/jkw-7element-alloy-database/blob/main/README.md" target="_blank" id="docsLink">Documentation</a> |
+                <a href="https://github.com/weiqichen77/jkw-7element-alloy-database/blob/main/README.md" target="_blank" id="docsLink">Documentation</a> |
                 <span id="updateLabel">Data Updated:</span> <span id="updateTime"></span>
               </p>
             </footer>
