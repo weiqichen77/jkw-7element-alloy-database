@@ -1808,10 +1808,28 @@ jobs:
             return val;
           }
           
-          function formatScientific(val) {
+          function formatScientific(val, digits = 2) {
             if (val === null || val === undefined || val === '') return '-';
-            if (typeof val === 'number') return val.toExponential(2);
-            return val;
+
+            if (typeof val === 'number') {
+              return Number.isFinite(val) ? val.toExponential(digits) : '-';
+            }
+
+            if (typeof val === 'object') {
+              if (Array.isArray(val)) {
+                const parts = val.map(v => formatScientific(v, digits)).filter(v => v !== '-');
+                return parts.length ? parts.join(', ') : '-';
+              }
+
+              const parts = Object.entries(val)
+                .filter(([, v]) => hasDataValue(v))
+                .map(([k, v]) => k + ': ' + formatScientific(v, digits));
+              return parts.length ? parts.join(', ') : '-';
+            }
+
+            const n = Number(val);
+            if (Number.isFinite(n)) return n.toExponential(digits);
+            return String(val);
           }
 
           function isHttpUrl(value) {
@@ -3340,8 +3358,12 @@ jobs:
                 row.push(struct.latticeParameters?.gamma || '');
                 row.push(thermo.specificHeat || '');
                 row.push(thermo.mixingEnthalpy || '');
-                row.push(thermo.diffusionCoefficient || '');
-                row.push(thermo.thermalExpansion || '');
+                row.push(typeof thermo.diffusionCoefficient === 'object' ? 
+                  JSON.stringify(thermo.diffusionCoefficient) : 
+                  (thermo.diffusionCoefficient || ''));
+                row.push(typeof thermo.thermalExpansion === 'object' ? 
+                  JSON.stringify(thermo.thermalExpansion) : 
+                  (thermo.thermalExpansion || ''));
                 row.push(mech.youngsModulus || '');
                 row.push(mech.poissonsRatio || '');
                 row.push(defects.vacancyFormationEnergy || '');
