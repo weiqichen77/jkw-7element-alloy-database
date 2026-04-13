@@ -3,6 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alloy Materials Database</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+    header { background: #2c3e50; color: white; padding: 25px; margin: -20px -20px 20px -20px; }
+    h1 { margin: 0; font-size: 28px; }
+    .header-subtitle { font-size: 14px; opacity: 0.9; margin-top: 5px; }
+    .search-box { margin: 20px 0; display: flex; gap: 10px; }
+    input { padding: 10px 12px; border: 1px solid #ddd; border-radius: 4px; width: 300px; font-size: 14px; }
+    button { padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: 500; }
+    button:hover { background: #2980b9; }
+    .info { color: #555; font-size: 14px; margin: 15px 0; padding: 10px; background: #fff; border-left: 4px solid #3498db; }
+    .info.success { border-left-color: #27ae60; color: #27ae60; }
+    .info.error { border-left-color: #e74c3c; color: #e74c3c; }
+    
+    .table-container { background: white; border-radius: 4px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #34495e; color: white; padding: 12px; text-align: left; font-weight: 600; font-size: 13px; }
+    td { border-bottom: 1px solid #ecf0f1; padding: 12px; font-size: 13px; }
+    tr:hover { background: #f9f9f9; }
+    
+    .expandable-row { cursor: pointer; }
+    .expandable-row td:first-child { color: #3498db; font-weight: 500; }
+    .detail-row { display: none; background: #f8f9fa; }
+    .detail-row.show { display: table-row; }
+    .detail-content { padding: 20px; }
+    .detail-section { margin-bottom: 20px; }
+    .detail-section-title { font-weight: 600; color: #2c3e50; margin-bottom: 10px; font-size: 14px; }
+    .detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+    .detail-item { font-size: 12px; }
+    .detail-item-label { color: #7f8c8d; font-weight: 500; margin-bottom: 2px; }
+    .detail-item-value { color: #2c3e50; }
+    
+    #noResults { display: none; }
+    .expand-icon { display: inline-block; transition: transform 0.3s; margin-right: 8px; }
+    .expandable-row.expanded .expand-icon { transform: rotate(90deg); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Alloy Materials Database</h1>
+    <div class="header-subtitle">Material Properties Database - Al-Ni-Cu-Zr-Nb-Ta-W System</div>
+  </header>
+
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search: Al, Zr, Nb20Al10, mp-bbgt...">
+    <button onclick="performSearch()">Search</button>
+  </div>
+
+  <div class="info" id="info"></div>
+  
+  <div class="table-container">
+    <table id="resultsTable" style="display: none;">
+      <thead>
+        <tr>
+          <th style="width: 60px;">ID</th>
+          <th style="width: 150px;">Name</th>
+          <th style="width: 80px;">Type</th>
+          <th style="width: 150px;">Elements</th>
+          <th>Density (g/cm³)</th>
+          <th style="width: 80px;">Details</th>
+        </tr>
+      </thead>
+      <tbody id="resultsBody">
+      </tbody>
+    </table>
+    <div id="noResults" class="info error" style="display: none; margin: 20px;">No results found</div>
+  </div>
+
   <script>
     let allMaterials = [];
     let displayedMaterials = [];
@@ -88,6 +158,10 @@
 
     function normalizeType(type) {
       return type === 'solid-element' ? 'element' : type;
+    }
+
+    function getMaterialSourceId(material) {
+      return material.source || material.original_source || material.id || material.name || 'N/A';
     }
 
     function pickPrimaryPath(value) {
@@ -184,8 +258,7 @@
         info.className = 'info success';
 
         results.forEach((material, idx) => {
-          const displayNumber = idx + 1;
-          const sourceId = material.id || material.source || 'N/A';
+          const sourceId = getMaterialSourceId(material);
 
           let density = material.density;
           if (!density) {
@@ -201,7 +274,7 @@
           mainRow.className = 'expandable-row';
           mainRow.dataset.id = sourceId;
 
-          mainRow.insertCell(0).textContent = displayNumber;
+          mainRow.insertCell(0).textContent = sourceId;
           mainRow.insertCell(1).textContent = material.name || 'N/A';
           mainRow.insertCell(2).textContent = material.type || 'N/A';
           mainRow.insertCell(3).textContent = elements;
@@ -234,18 +307,13 @@
 
     function formatDetailContent(material) {
       let html = '<div class="detail-content">';
+      const materialKey = getMaterialSourceId(material);
 
-      if (material.source || material.id) {
-        html += '<div class="detail-section">';
-        html += '<div class="detail-section-title">Material Information</div>';
-        html += '<div class="detail-grid">';
-        if (material.source) {
-          html += `<div class="detail-item"><div class="detail-item-label">Source ID</div><div class="detail-item-value">${escapeHtml(material.source)}</div></div>`;
-        } else if (material.id) {
-          html += `<div class="detail-item"><div class="detail-item-label">ID</div><div class="detail-item-value">${escapeHtml(material.id)}</div></div>`;
-        }
-        html += '</div></div>';
-      }
+      html += '<div class="detail-section">';
+      html += '<div class="detail-section-title">Material Information</div>';
+      html += '<div class="detail-grid">';
+      html += `<div class="detail-item"><div class="detail-item-label">Source ID</div><div class="detail-item-value">${escapeHtml(materialKey)}</div></div>`;
+      html += '</div></div>';
 
       if (material.data && material.data.length > 0) {
         const structures = [];
@@ -278,7 +346,7 @@
 
           if (structures.length > 1) {
             html += '<div style="margin-bottom: 10px;">';
-            html += '<select id="structure-selector-' + (material.source || material.id) + '" onchange="updateStructureDisplay(this, \'' + (material.source || material.id) + '\')" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 13px;">';
+            html += '<select id="structure-selector-' + materialKey + '" onchange="updateStructureDisplay(this, \'' + materialKey + '\')" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 13px;">';
             structures.forEach((s, i) => {
               const selected = i === defaultIdx ? 'selected' : '';
               html += `<option value="${s.idx}" ${selected}>${escapeHtml(s.label)}</option>`;
@@ -287,14 +355,14 @@
             html += '</div>';
           }
 
-          html += '<div id="structure-info-' + (material.source || material.id) + '">';
+          html += '<div id="structure-info-' + materialKey + '">';
           const defaultStructure = structures[defaultIdx];
           html += `<div class="detail-item"><div class="detail-item-label">Structure Source</div><div class="detail-item-value">${formatDataSource(defaultStructure.poscarSource)}</div></div>`;
           html += `<div class="detail-item"><div class="detail-item-label">Structure File</div><div class="detail-item-value"><a href="${escapeHtml(defaultStructure.poscar)}" target="_blank" style="color: #3498db; text-decoration: underline;">View POSCAR</a> <span style="color: #888; font-size: 11px;">(atomic structure file)</span></div></div>`;
           html += '</div>';
           html += '</div>';
 
-          window['structures_' + (material.source || material.id)] = structures;
+          window['structures_' + materialKey] = structures;
         }
       }
 
@@ -383,7 +451,7 @@
               html += '<div style="color: #666; margin-bottom: 8px;">Available strain directions:</div>';
               html += '<div style="display: flex; flex-wrap: wrap; gap: 8px;">';
               for (const [direction, p] of Object.entries(mech.stressStrain)) {
-                html += `<div style="background: white; padding: 6px 12px; border-radius: 4px; border: 1px solid #ddd;"><span style="font-weight: 600;">[${escapeHtml(direction)}]</span> <a href="/${escapeHtml(p)}" target="_blank" style="color: #3498db; text-decoration: underline; margin-left: 8px;">View Data</a></div>`;
+                html += `<div style="background: white; padding: 6px 12px; border-radius: 4px; border: 1px solid #ddd;"><span style="font-weight: 600;">[${escapeHtml(direction)}]</span> <a href="${escapeHtml(p)}" target="_blank" style="color: #3498db; text-decoration: underline; margin-left: 8px;">View Data</a></div>`;
               }
               html += '</div>';
               html += '</div>';
@@ -472,76 +540,6 @@
 
     window.addEventListener('load', loadData);
 
-    document.getElementById('searchInput').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        performSearch();
-      }
-    });
-  </script>
-              html += '<div class="detail-section-title">Defect Properties</div>';
-              html += '<div class="detail-grid">';
-              
-              if (hasVacancy) {
-                html += `<div class="detail-item"><div class="detail-item-label">Vacancy Formation Energy (eV)</div><div class="detail-item-value">${defects.vacancyFormationEnergy.toFixed(3)}</div></div>`;
-              }
-              
-              if (hasInterstitial) {
-                // Check if interstitialFormationEnergy is an object with multiple types
-                if (typeof defects.interstitialFormationEnergy === 'object' && !Array.isArray(defects.interstitialFormationEnergy)) {
-                  html += '<div class="detail-item" style="grid-column: 1 / -1;"><div class="detail-item-label">Interstitial Formation Energy (eV)</div><div class="detail-item-value" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-top: 8px;">';
-                  for (const [type, energy] of Object.entries(defects.interstitialFormationEnergy)) {
-                    const displayType = type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-                    html += `<div style="background: #f8f9fa; padding: 8px; border-radius: 4px;"><span style="color: #666; font-size: 11px;">${displayType}:</span> <strong>${energy.toFixed(3)}</strong></div>`;
-                  }
-                  html += '</div></div>';
-                } else {
-                  // Single value
-                  html += `<div class="detail-item"><div class="detail-item-label">Interstitial Formation Energy (eV)</div><div class="detail-item-value">${defects.interstitialFormationEnergy.toFixed(3)}</div></div>`;
-                }
-              }
-              
-              if (hasStackingFault) {
-                html += `<div class="detail-item"><div class="detail-item-label">Stacking Fault Energy (mJ/m²)</div><div class="detail-item-value">${defects.stackingFaultEnergy.toFixed(3)}</div></div>`;
-              }
-              
-              html += '</div></div>';
-            }
-          }
-        }
-      }
-      
-      html += '</div>';
-      return html;
-    }
-    
-    function updateStructureDisplay(selectElement, materialId) {
-      const selectedIdx = parseInt(selectElement.value);
-      const structures = window['structures_' + materialId];
-      
-      if (structures && structures[selectedIdx]) {
-        const structure = structures.find(s => s.idx === selectedIdx);
-        const infoDiv = document.getElementById('structure-info-' + materialId);
-        
-        if (infoDiv && structure) {
-          infoDiv.innerHTML = `
-            <div class="detail-item">
-              <div class="detail-item-label">Structure Source</div>
-              <div class="detail-item-value">${structure.poscarSource}</div>
-            </div>
-            <div class="detail-item">
-              <div class="detail-item-label">Structure File</div>
-              <div class="detail-item-value">
-                <a href="${structure.poscar}" target="_blank" style="color: #3498db; text-decoration: underline;">View POSCAR</a>
-                <span style="color: #888; font-size: 11px;">(atomic structure file)</span>
-              </div>
-            </div>
-          `;
-        }
-      }
-    }
-    
-    window.addEventListener('load', loadData);
-    
     document.getElementById('searchInput').addEventListener('keypress', function(e) {
       if (e.key === 'Enter') {
         performSearch();
