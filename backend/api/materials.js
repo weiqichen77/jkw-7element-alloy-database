@@ -52,6 +52,10 @@ function load(){
 function save(data){fs.mkdirSync(DATA_DIR,{recursive:true});fs.writeFileSync(DATA_PATH,JSON.stringify(data,null,2));}
 function token(req){return req.headers['x-api-token']||req.query.token||process.env.ADMIN_TOKEN||'';}
 function checkAuth(req){const t=process.env.ADMIN_TOKEN;if(!t)return false;return token(req)===t;}
+function normalizeType(type){
+  if(type==='solid-element') return 'element';
+  return type;
+}
 module.exports=(req,res)=>{
   const m=req.method.toUpperCase();
   const [,,'materials',id]=req.url.split(/\/|\?/);
@@ -64,17 +68,20 @@ module.exports=(req,res)=>{
       'amorphous': 2,
       'interface': 3,
       'element': 4,
+      'solid-element': 4,
       'solid_solution': 0,
     };
+    const queryType = normalizeType(type);
     let r=data.filter(x=>{
       const name = x.name || '';
       const elements = x.elements || [];
       const props = x.properties ? JSON.stringify(x.properties) : '';
-      return (!type||x.type===type)&&(!element||elements.includes(element))&&((name+elements.join()+' '+props).toLowerCase().includes((q||'').toLowerCase()));
+      const normalizedType = normalizeType(x.type);
+      return (!queryType||normalizedType===queryType)&&(!element||elements.includes(element))&&((name+elements.join()+' '+props).toLowerCase().includes((q||'').toLowerCase()));
     });
     r=r.sort((a,b)=>{
-      const ta=typeOrder[a.type] ?? Number.MAX_SAFE_INTEGER;
-      const tb=typeOrder[b.type] ?? Number.MAX_SAFE_INTEGER;
+      const ta=typeOrder[normalizeType(a.type)] ?? Number.MAX_SAFE_INTEGER;
+      const tb=typeOrder[normalizeType(b.type)] ?? Number.MAX_SAFE_INTEGER;
       if(ta!==tb) return ta-tb;
       const an=(a.name||'').toLowerCase();
       const bn=(b.name||'').toLowerCase();

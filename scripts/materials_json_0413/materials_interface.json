@@ -1,0 +1,2362 @@
+[
+  {
+    "source": "if-7999",
+    "name": "Cu10Zr13Ta9_Ni2Cu13Ta7W10",
+    "type": "interface",
+    "composition": "Cu23Zr13Ta16Ni2W10",
+    "elements": [
+      "Cu",
+      "Zr",
+      "Ta",
+      "Ni",
+      "W"
+    ],
+    "atomCount": {
+      "Cu": 23,
+      "Zr": 13,
+      "Ta": 16,
+      "Ni": 2,
+      "W": 10
+    },
+    "data": [
+      {
+        "source": "init",
+        "poscar": "data/interface/7999_Cu10Zr13Ta9_Ni2Cu13Ta7W10/init/POSCAR"
+      },
+      {
+        "temperature": 300,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/7999_Cu10Zr13Ta9_Ni2Cu13Ta7W10/DPA1_7ele_cry260226/300k/1bar/POSCAR",
+          "20bar": null
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/7999_Cu10Zr13Ta9_Ni2Cu13Ta7W10/DPA1_7ele_cry260226/300k/1bar/rdf.txt",
+              "20bar": null
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 25.170499984375,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 9.379069840022299e-11,
+              "20bar": null
+            },
+            "thermalExpansion": 9.6482065e-06,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/7999_Cu10Zr13Ta9_Ni2Cu13Ta7W10/DPA1_7ele_cry260226/300k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/7999_Cu10Zr13Ta9_Ni2Cu13Ta7W10/DPA1_7ele_cry260226/300k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/7999_Cu10Zr13Ta9_Ni2Cu13Ta7W10/DPA1_7ele_cry260226/1500k/1bar/POSCAR",
+          "20bar": "data/interface/7999_Cu10Zr13Ta9_Ni2Cu13Ta7W10/DPA1_7ele_cry260226/1500k/20bar/POSCAR"
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/7999_Cu10Zr13Ta9_Ni2Cu13Ta7W10/DPA1_7ele_cry260226/1500k/1bar/rdf.txt",
+              "20bar": "data/interface/7999_Cu10Zr13Ta9_Ni2Cu13Ta7W10/DPA1_7ele_cry260226/1500k/20bar/rdf.txt"
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.110177078124998,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 8.286749802279043e-10,
+              "20bar": 6.178797981443697e-10
+            },
+            "thermalExpansion": 1.2887553328124999e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/7999_Cu10Zr13Ta9_Ni2Cu13Ta7W10/DPA1_7ele_cry260226/1500k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/7999_Cu10Zr13Ta9_Ni2Cu13Ta7W10/DPA1_7ele_cry260226/1500k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "source": "if-8666",
+    "name": "Ni3Ta26W3_Ni10Zr7Nb3Ta12",
+    "type": "interface",
+    "composition": "Ni13Ta38W3Zr7Nb3",
+    "elements": [
+      "Ni",
+      "Ta",
+      "W",
+      "Zr",
+      "Nb"
+    ],
+    "atomCount": {
+      "Ni": 13,
+      "Ta": 38,
+      "W": 3,
+      "Zr": 7,
+      "Nb": 3
+    },
+    "data": [
+      {
+        "source": "init",
+        "poscar": "data/interface/8666_Ni3Ta26W3_Ni10Zr7Nb3Ta12/init/POSCAR"
+      },
+      {
+        "temperature": 300,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/8666_Ni3Ta26W3_Ni10Zr7Nb3Ta12/DPA1_7ele_cry260226/300k/1bar/POSCAR",
+          "20bar": null
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/8666_Ni3Ta26W3_Ni10Zr7Nb3Ta12/DPA1_7ele_cry260226/300k/1bar/rdf.txt",
+              "20bar": null
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 24.799702890625003,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 6.168185486701581e-11,
+              "20bar": null
+            },
+            "thermalExpansion": 7.5598475937500004e-06,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/8666_Ni3Ta26W3_Ni10Zr7Nb3Ta12/DPA1_7ele_cry260226/300k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/8666_Ni3Ta26W3_Ni10Zr7Nb3Ta12/DPA1_7ele_cry260226/300k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/8666_Ni3Ta26W3_Ni10Zr7Nb3Ta12/DPA1_7ele_cry260226/1500k/1bar/POSCAR",
+          "20bar": "data/interface/8666_Ni3Ta26W3_Ni10Zr7Nb3Ta12/DPA1_7ele_cry260226/1500k/20bar/POSCAR"
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/8666_Ni3Ta26W3_Ni10Zr7Nb3Ta12/DPA1_7ele_cry260226/1500k/1bar/rdf.txt",
+              "20bar": "data/interface/8666_Ni3Ta26W3_Ni10Zr7Nb3Ta12/DPA1_7ele_cry260226/1500k/20bar/rdf.txt"
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.019427765625004,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 4.251801876651018e-10,
+              "20bar": 4.037280498623377e-10
+            },
+            "thermalExpansion": 9.239506046875e-06,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/8666_Ni3Ta26W3_Ni10Zr7Nb3Ta12/DPA1_7ele_cry260226/1500k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/8666_Ni3Ta26W3_Ni10Zr7Nb3Ta12/DPA1_7ele_cry260226/1500k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "source": "if-11999",
+    "name": "Al7Ni13Zr7Nb5_Cu6Nb14Ta12",
+    "type": "interface",
+    "composition": "Al7Ni13Zr7Nb19Cu6Ta12",
+    "elements": [
+      "Al",
+      "Ni",
+      "Zr",
+      "Nb",
+      "Cu",
+      "Ta"
+    ],
+    "atomCount": {
+      "Al": 7,
+      "Ni": 13,
+      "Zr": 7,
+      "Nb": 19,
+      "Cu": 6,
+      "Ta": 12
+    },
+    "data": [
+      {
+        "source": "init",
+        "poscar": "data/interface/11999_Al7Ni13Zr7Nb5_Cu6Nb14Ta12/init/POSCAR"
+      },
+      {
+        "temperature": 300,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/11999_Al7Ni13Zr7Nb5_Cu6Nb14Ta12/DPA1_7ele_cry260226/300k/1bar/POSCAR",
+          "20bar": null
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/11999_Al7Ni13Zr7Nb5_Cu6Nb14Ta12/DPA1_7ele_cry260226/300k/1bar/rdf.txt",
+              "20bar": null
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 25.3589454375,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 1.219640846416959e-10,
+              "20bar": null
+            },
+            "thermalExpansion": 1.1101398140624999e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/11999_Al7Ni13Zr7Nb5_Cu6Nb14Ta12/DPA1_7ele_cry260226/300k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/11999_Al7Ni13Zr7Nb5_Cu6Nb14Ta12/DPA1_7ele_cry260226/300k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/11999_Al7Ni13Zr7Nb5_Cu6Nb14Ta12/DPA1_7ele_cry260226/1500k/1bar/POSCAR",
+          "20bar": "data/interface/11999_Al7Ni13Zr7Nb5_Cu6Nb14Ta12/DPA1_7ele_cry260226/1500k/20bar/POSCAR"
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/11999_Al7Ni13Zr7Nb5_Cu6Nb14Ta12/DPA1_7ele_cry260226/1500k/1bar/rdf.txt",
+              "20bar": "data/interface/11999_Al7Ni13Zr7Nb5_Cu6Nb14Ta12/DPA1_7ele_cry260226/1500k/20bar/rdf.txt"
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.708380890625,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 8.105807954928838e-10,
+              "20bar": 6.041189156758629e-10
+            },
+            "thermalExpansion": 1.4491046140624996e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/11999_Al7Ni13Zr7Nb5_Cu6Nb14Ta12/DPA1_7ele_cry260226/1500k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/11999_Al7Ni13Zr7Nb5_Cu6Nb14Ta12/DPA1_7ele_cry260226/1500k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "source": "if-12666",
+    "name": "Zr3Ta2W27_Al4Ni7Zr12W9",
+    "type": "interface",
+    "composition": "Zr15Ta2W36Al4Ni7",
+    "elements": [
+      "Zr",
+      "Ta",
+      "W",
+      "Al",
+      "Ni"
+    ],
+    "atomCount": {
+      "Zr": 15,
+      "Ta": 2,
+      "W": 36,
+      "Al": 4,
+      "Ni": 7
+    },
+    "data": [
+      {
+        "source": "init",
+        "poscar": "data/interface/12666_Zr3Ta2W27_Al4Ni7Zr12W9/init/POSCAR"
+      },
+      {
+        "temperature": 300,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/12666_Zr3Ta2W27_Al4Ni7Zr12W9/DPA1_7ele_cry260226/300k/1bar/POSCAR",
+          "20bar": null
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/12666_Zr3Ta2W27_Al4Ni7Zr12W9/DPA1_7ele_cry260226/300k/1bar/rdf.txt",
+              "20bar": null
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 25.090231749999997,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 8.313761388267525e-11,
+              "20bar": null
+            },
+            "thermalExpansion": 6.34374534375e-06,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/12666_Zr3Ta2W27_Al4Ni7Zr12W9/DPA1_7ele_cry260226/300k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/12666_Zr3Ta2W27_Al4Ni7Zr12W9/DPA1_7ele_cry260226/300k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/12666_Zr3Ta2W27_Al4Ni7Zr12W9/DPA1_7ele_cry260226/1500k/1bar/POSCAR",
+          "20bar": "data/interface/12666_Zr3Ta2W27_Al4Ni7Zr12W9/DPA1_7ele_cry260226/1500k/20bar/POSCAR"
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/12666_Zr3Ta2W27_Al4Ni7Zr12W9/DPA1_7ele_cry260226/1500k/1bar/rdf.txt",
+              "20bar": "data/interface/12666_Zr3Ta2W27_Al4Ni7Zr12W9/DPA1_7ele_cry260226/1500k/20bar/rdf.txt"
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.213807109375,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 9.33226700370736e-10,
+              "20bar": 5.356263659553758e-10
+            },
+            "thermalExpansion": 9.7691501875e-06,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/12666_Zr3Ta2W27_Al4Ni7Zr12W9/DPA1_7ele_cry260226/1500k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/12666_Zr3Ta2W27_Al4Ni7Zr12W9/DPA1_7ele_cry260226/1500k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "source": "if-19999",
+    "name": "Al16Ni3Ta1W12_Al3Zr6Ta17W6",
+    "type": "interface",
+    "composition": "Al19Ni3Ta18W18Zr6",
+    "elements": [
+      "Al",
+      "Ni",
+      "Ta",
+      "W",
+      "Zr"
+    ],
+    "atomCount": {
+      "Al": 19,
+      "Ni": 3,
+      "Ta": 18,
+      "W": 18,
+      "Zr": 6
+    },
+    "data": [
+      {
+        "source": "init",
+        "poscar": "data/interface/19999_Al16Ni3Ta1W12_Al3Zr6Ta17W6/init/POSCAR"
+      },
+      {
+        "temperature": 300,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/19999_Al16Ni3Ta1W12_Al3Zr6Ta17W6/DPA1_7ele_cry260226/300k/1bar/POSCAR",
+          "20bar": null
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/19999_Al16Ni3Ta1W12_Al3Zr6Ta17W6/DPA1_7ele_cry260226/300k/1bar/rdf.txt",
+              "20bar": null
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 25.6847108125,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 1.2601643386819685e-10,
+              "20bar": null
+            },
+            "thermalExpansion": 1.3199165390624998e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/19999_Al16Ni3Ta1W12_Al3Zr6Ta17W6/DPA1_7ele_cry260226/300k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/19999_Al16Ni3Ta1W12_Al3Zr6Ta17W6/DPA1_7ele_cry260226/300k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/19999_Al16Ni3Ta1W12_Al3Zr6Ta17W6/DPA1_7ele_cry260226/1500k/1bar/POSCAR",
+          "20bar": "data/interface/19999_Al16Ni3Ta1W12_Al3Zr6Ta17W6/DPA1_7ele_cry260226/1500k/20bar/POSCAR"
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/19999_Al16Ni3Ta1W12_Al3Zr6Ta17W6/DPA1_7ele_cry260226/1500k/1bar/rdf.txt",
+              "20bar": "data/interface/19999_Al16Ni3Ta1W12_Al3Zr6Ta17W6/DPA1_7ele_cry260226/1500k/20bar/rdf.txt"
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 27.189938546875002,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 3.9231726202102836e-10,
+              "20bar": 4.376169608815424e-10
+            },
+            "thermalExpansion": 1.6747346671874998e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/19999_Al16Ni3Ta1W12_Al3Zr6Ta17W6/DPA1_7ele_cry260226/1500k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/19999_Al16Ni3Ta1W12_Al3Zr6Ta17W6/DPA1_7ele_cry260226/1500k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "source": "if-22999",
+    "name": "Al2Cu22Zr2Ta6_Zr15Nb14W3",
+    "type": "interface",
+    "composition": "Al2Cu22Zr17Ta6Nb14W3",
+    "elements": [
+      "Al",
+      "Cu",
+      "Zr",
+      "Ta",
+      "Nb",
+      "W"
+    ],
+    "atomCount": {
+      "Al": 2,
+      "Cu": 22,
+      "Zr": 17,
+      "Ta": 6,
+      "Nb": 14,
+      "W": 3
+    },
+    "data": [
+      {
+        "source": "init",
+        "poscar": "data/interface/22999_Al2Cu22Zr2Ta6_Zr15Nb14W3/init/POSCAR"
+      },
+      {
+        "temperature": 300,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/22999_Al2Cu22Zr2Ta6_Zr15Nb14W3/DPA1_7ele_cry260226/300k/1bar/POSCAR",
+          "20bar": null
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/22999_Al2Cu22Zr2Ta6_Zr15Nb14W3/DPA1_7ele_cry260226/300k/1bar/rdf.txt",
+              "20bar": null
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 25.305398421874997,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 7.900192765869414e-11,
+              "20bar": null
+            },
+            "thermalExpansion": 9.81388946875e-06,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/22999_Al2Cu22Zr2Ta6_Zr15Nb14W3/DPA1_7ele_cry260226/300k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/22999_Al2Cu22Zr2Ta6_Zr15Nb14W3/DPA1_7ele_cry260226/300k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/22999_Al2Cu22Zr2Ta6_Zr15Nb14W3/DPA1_7ele_cry260226/1500k/1bar/POSCAR",
+          "20bar": "data/interface/22999_Al2Cu22Zr2Ta6_Zr15Nb14W3/DPA1_7ele_cry260226/1500k/20bar/POSCAR"
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/22999_Al2Cu22Zr2Ta6_Zr15Nb14W3/DPA1_7ele_cry260226/1500k/1bar/rdf.txt",
+              "20bar": "data/interface/22999_Al2Cu22Zr2Ta6_Zr15Nb14W3/DPA1_7ele_cry260226/1500k/20bar/rdf.txt"
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.219940750000003,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 1.3297943665115434e-09,
+              "20bar": 1.459695200175764e-09
+            },
+            "thermalExpansion": 1.4173478765625e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/22999_Al2Cu22Zr2Ta6_Zr15Nb14W3/DPA1_7ele_cry260226/1500k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/22999_Al2Cu22Zr2Ta6_Zr15Nb14W3/DPA1_7ele_cry260226/1500k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "source": "if-32999",
+    "name": "Cu12Nb2Ta5W13_Al4Ni1Nb19W8",
+    "type": "interface",
+    "composition": "Cu12Nb21Ta5W21Al4Ni1",
+    "elements": [
+      "Cu",
+      "Nb",
+      "Ta",
+      "W",
+      "Al",
+      "Ni"
+    ],
+    "atomCount": {
+      "Cu": 12,
+      "Nb": 21,
+      "Ta": 5,
+      "W": 21,
+      "Al": 4,
+      "Ni": 1
+    },
+    "data": [
+      {
+        "source": "init",
+        "poscar": "data/interface/32999_Cu12Nb2Ta5W13_Al4Ni1Nb19W8/init/POSCAR"
+      },
+      {
+        "temperature": 300,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/32999_Cu12Nb2Ta5W13_Al4Ni1Nb19W8/DPA1_7ele_cry260226/300k/1bar/POSCAR",
+          "20bar": null
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/32999_Cu12Nb2Ta5W13_Al4Ni1Nb19W8/DPA1_7ele_cry260226/300k/1bar/rdf.txt",
+              "20bar": null
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 25.0587019375,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 4.855499169020863e-11,
+              "20bar": null
+            },
+            "thermalExpansion": 9.802398703125e-06,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/32999_Cu12Nb2Ta5W13_Al4Ni1Nb19W8/DPA1_7ele_cry260226/300k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/32999_Cu12Nb2Ta5W13_Al4Ni1Nb19W8/DPA1_7ele_cry260226/300k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/32999_Cu12Nb2Ta5W13_Al4Ni1Nb19W8/DPA1_7ele_cry260226/1500k/1bar/POSCAR",
+          "20bar": "data/interface/32999_Cu12Nb2Ta5W13_Al4Ni1Nb19W8/DPA1_7ele_cry260226/1500k/20bar/POSCAR"
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/32999_Cu12Nb2Ta5W13_Al4Ni1Nb19W8/DPA1_7ele_cry260226/1500k/1bar/rdf.txt",
+              "20bar": "data/interface/32999_Cu12Nb2Ta5W13_Al4Ni1Nb19W8/DPA1_7ele_cry260226/1500k/20bar/rdf.txt"
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 25.947404625,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 1.0190796585112031e-08,
+              "20bar": 4.426544761482607e-09
+            },
+            "thermalExpansion": 1.141220153125e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/32999_Cu12Nb2Ta5W13_Al4Ni1Nb19W8/DPA1_7ele_cry260226/1500k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/32999_Cu12Nb2Ta5W13_Al4Ni1Nb19W8/DPA1_7ele_cry260226/1500k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "source": "if-34666",
+    "name": "Al12Ni2Zr8Ta10_Al4Nb8Ta3W17",
+    "type": "interface",
+    "composition": "Al16Ni2Zr8Ta13Nb8W17",
+    "elements": [
+      "Al",
+      "Ni",
+      "Zr",
+      "Ta",
+      "Nb",
+      "W"
+    ],
+    "atomCount": {
+      "Al": 16,
+      "Ni": 2,
+      "Zr": 8,
+      "Ta": 13,
+      "Nb": 8,
+      "W": 17
+    },
+    "data": [
+      {
+        "source": "init",
+        "poscar": "data/interface/34666_Al12Ni2Zr8Ta10_Al4Nb8Ta3W17/init/POSCAR"
+      },
+      {
+        "temperature": 300,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/34666_Al12Ni2Zr8Ta10_Al4Nb8Ta3W17/DPA1_7ele_cry260226/300k/1bar/POSCAR",
+          "20bar": null
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/34666_Al12Ni2Zr8Ta10_Al4Nb8Ta3W17/DPA1_7ele_cry260226/300k/1bar/rdf.txt",
+              "20bar": null
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 25.5494390625,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 1.2708598034584037e-10,
+              "20bar": null
+            },
+            "thermalExpansion": 1.1780182359374997e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/34666_Al12Ni2Zr8Ta10_Al4Nb8Ta3W17/DPA1_7ele_cry260226/300k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/34666_Al12Ni2Zr8Ta10_Al4Nb8Ta3W17/DPA1_7ele_cry260226/300k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/34666_Al12Ni2Zr8Ta10_Al4Nb8Ta3W17/DPA1_7ele_cry260226/1500k/1bar/POSCAR",
+          "20bar": "data/interface/34666_Al12Ni2Zr8Ta10_Al4Nb8Ta3W17/DPA1_7ele_cry260226/1500k/20bar/POSCAR"
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/34666_Al12Ni2Zr8Ta10_Al4Nb8Ta3W17/DPA1_7ele_cry260226/1500k/1bar/rdf.txt",
+              "20bar": "data/interface/34666_Al12Ni2Zr8Ta10_Al4Nb8Ta3W17/DPA1_7ele_cry260226/1500k/20bar/rdf.txt"
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.912818609374998,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 7.999120446812848e-10,
+              "20bar": 7.667880104167645e-09
+            },
+            "thermalExpansion": 1.5416559312499997e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/34666_Al12Ni2Zr8Ta10_Al4Nb8Ta3W17/DPA1_7ele_cry260226/1500k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/34666_Al12Ni2Zr8Ta10_Al4Nb8Ta3W17/DPA1_7ele_cry260226/1500k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "source": "if-36666",
+    "name": "Al9Ni7W16_Al3Zr13Ta8W8",
+    "type": "interface",
+    "composition": "Al12Ni7W24Zr13Ta8",
+    "elements": [
+      "Al",
+      "Ni",
+      "W",
+      "Zr",
+      "Ta"
+    ],
+    "atomCount": {
+      "Al": 12,
+      "Ni": 7,
+      "W": 24,
+      "Zr": 13,
+      "Ta": 8
+    },
+    "data": [
+      {
+        "source": "init",
+        "poscar": "data/interface/36666_Al9Ni7W16_Al3Zr13Ta8W8/init/POSCAR"
+      },
+      {
+        "temperature": 300,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/36666_Al9Ni7W16_Al3Zr13Ta8W8/DPA1_7ele_cry260226/300k/1bar/POSCAR",
+          "20bar": null
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/36666_Al9Ni7W16_Al3Zr13Ta8W8/DPA1_7ele_cry260226/300k/1bar/rdf.txt",
+              "20bar": null
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 25.47899396875,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 5.89302308937892e-11,
+              "20bar": null
+            },
+            "thermalExpansion": 9.997319562499998e-06,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/36666_Al9Ni7W16_Al3Zr13Ta8W8/DPA1_7ele_cry260226/300k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/36666_Al9Ni7W16_Al3Zr13Ta8W8/DPA1_7ele_cry260226/300k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/36666_Al9Ni7W16_Al3Zr13Ta8W8/DPA1_7ele_cry260226/1500k/1bar/POSCAR",
+          "20bar": "data/interface/36666_Al9Ni7W16_Al3Zr13Ta8W8/DPA1_7ele_cry260226/1500k/20bar/POSCAR"
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/36666_Al9Ni7W16_Al3Zr13Ta8W8/DPA1_7ele_cry260226/1500k/1bar/rdf.txt",
+              "20bar": "data/interface/36666_Al9Ni7W16_Al3Zr13Ta8W8/DPA1_7ele_cry260226/1500k/20bar/rdf.txt"
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.868302703124996,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 4.019140464840609e-10,
+              "20bar": 3.2357388176891816e-10
+            },
+            "thermalExpansion": 1.4075652906249998e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/36666_Al9Ni7W16_Al3Zr13Ta8W8/DPA1_7ele_cry260226/1500k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/36666_Al9Ni7W16_Al3Zr13Ta8W8/DPA1_7ele_cry260226/1500k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "source": "if-36999",
+    "name": "Al3Ni3Cu4W22_Zr23Ta6W3",
+    "type": "interface",
+    "composition": "Al3Ni3Cu4W25Zr23Ta6",
+    "elements": [
+      "Al",
+      "Ni",
+      "Cu",
+      "W",
+      "Zr",
+      "Ta"
+    ],
+    "atomCount": {
+      "Al": 3,
+      "Ni": 3,
+      "Cu": 4,
+      "W": 25,
+      "Zr": 23,
+      "Ta": 6
+    },
+    "data": [
+      {
+        "source": "init",
+        "poscar": "data/interface/36999_Al3Ni3Cu4W22_Zr23Ta6W3/init/POSCAR"
+      },
+      {
+        "temperature": 300,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/36999_Al3Ni3Cu4W22_Zr23Ta6W3/DPA1_7ele_cry260226/300k/1bar/POSCAR",
+          "20bar": null
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/36999_Al3Ni3Cu4W22_Zr23Ta6W3/DPA1_7ele_cry260226/300k/1bar/rdf.txt",
+              "20bar": null
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 25.127213859374997,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 1.0168265643336734e-10,
+              "20bar": null
+            },
+            "thermalExpansion": 5.998850234375e-06,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/36999_Al3Ni3Cu4W22_Zr23Ta6W3/DPA1_7ele_cry260226/300k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/36999_Al3Ni3Cu4W22_Zr23Ta6W3/DPA1_7ele_cry260226/300k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/36999_Al3Ni3Cu4W22_Zr23Ta6W3/DPA1_7ele_cry260226/1500k/1bar/POSCAR",
+          "20bar": "data/interface/36999_Al3Ni3Cu4W22_Zr23Ta6W3/DPA1_7ele_cry260226/1500k/20bar/POSCAR"
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/36999_Al3Ni3Cu4W22_Zr23Ta6W3/DPA1_7ele_cry260226/1500k/1bar/rdf.txt",
+              "20bar": "data/interface/36999_Al3Ni3Cu4W22_Zr23Ta6W3/DPA1_7ele_cry260226/1500k/20bar/rdf.txt"
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.171826734375,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 8.300037799934097e-10,
+              "20bar": 2.0832454293341696e-09
+            },
+            "thermalExpansion": 1.0529679281249998e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/36999_Al3Ni3Cu4W22_Zr23Ta6W3/DPA1_7ele_cry260226/1500k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/36999_Al3Ni3Cu4W22_Zr23Ta6W3/DPA1_7ele_cry260226/1500k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "source": "if-37666",
+    "name": "Ni5Zr4Nb17W6_Cu10Nb9W13",
+    "type": "interface",
+    "composition": "Ni5Zr4Nb26W19Cu10",
+    "elements": [
+      "Ni",
+      "Zr",
+      "Nb",
+      "W",
+      "Cu"
+    ],
+    "atomCount": {
+      "Ni": 5,
+      "Zr": 4,
+      "Nb": 26,
+      "W": 19,
+      "Cu": 10
+    },
+    "data": [
+      {
+        "source": "init",
+        "poscar": "data/interface/37666_Ni5Zr4Nb17W6_Cu10Nb9W13/init/POSCAR"
+      },
+      {
+        "temperature": 300,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/37666_Ni5Zr4Nb17W6_Cu10Nb9W13/DPA1_7ele_cry260226/300k/1bar/POSCAR",
+          "20bar": null
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/37666_Ni5Zr4Nb17W6_Cu10Nb9W13/DPA1_7ele_cry260226/300k/1bar/rdf.txt",
+              "20bar": null
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 24.933350546875,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 4.5457796531231834e-11,
+              "20bar": null
+            },
+            "thermalExpansion": 7.96126034375e-06,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/37666_Ni5Zr4Nb17W6_Cu10Nb9W13/DPA1_7ele_cry260226/300k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/37666_Ni5Zr4Nb17W6_Cu10Nb9W13/DPA1_7ele_cry260226/300k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/37666_Ni5Zr4Nb17W6_Cu10Nb9W13/DPA1_7ele_cry260226/1500k/1bar/POSCAR",
+          "20bar": "data/interface/37666_Ni5Zr4Nb17W6_Cu10Nb9W13/DPA1_7ele_cry260226/1500k/20bar/POSCAR"
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/37666_Ni5Zr4Nb17W6_Cu10Nb9W13/DPA1_7ele_cry260226/1500k/1bar/rdf.txt",
+              "20bar": "data/interface/37666_Ni5Zr4Nb17W6_Cu10Nb9W13/DPA1_7ele_cry260226/1500k/20bar/rdf.txt"
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 25.791062703125,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 6.467193351867591e-10,
+              "20bar": 4.612853313130527e-10
+            },
+            "thermalExpansion": 9.967166359375e-06,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/37666_Ni5Zr4Nb17W6_Cu10Nb9W13/DPA1_7ele_cry260226/1500k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/37666_Ni5Zr4Nb17W6_Cu10Nb9W13/DPA1_7ele_cry260226/1500k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "source": "if-45666",
+    "name": "Ni11Nb2W19_Cu9Zr17W6",
+    "type": "interface",
+    "composition": "Ni11Nb2W25Cu9Zr17",
+    "elements": [
+      "Ni",
+      "Nb",
+      "W",
+      "Cu",
+      "Zr"
+    ],
+    "atomCount": {
+      "Ni": 11,
+      "Nb": 2,
+      "W": 25,
+      "Cu": 9,
+      "Zr": 17
+    },
+    "data": [
+      {
+        "source": "init",
+        "poscar": "data/interface/45666_Ni11Nb2W19_Cu9Zr17W6/init/POSCAR"
+      },
+      {
+        "temperature": 300,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/45666_Ni11Nb2W19_Cu9Zr17W6/DPA1_7ele_cry260226/300k/1bar/POSCAR",
+          "20bar": null
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/45666_Ni11Nb2W19_Cu9Zr17W6/DPA1_7ele_cry260226/300k/1bar/rdf.txt",
+              "20bar": null
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 25.138507218749996,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 1.3841289363740713e-10,
+              "20bar": null
+            },
+            "thermalExpansion": 6.96493246875e-06,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/45666_Ni11Nb2W19_Cu9Zr17W6/DPA1_7ele_cry260226/300k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/45666_Ni11Nb2W19_Cu9Zr17W6/DPA1_7ele_cry260226/300k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/45666_Ni11Nb2W19_Cu9Zr17W6/DPA1_7ele_cry260226/1500k/1bar/POSCAR",
+          "20bar": "data/interface/45666_Ni11Nb2W19_Cu9Zr17W6/DPA1_7ele_cry260226/1500k/20bar/POSCAR"
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/45666_Ni11Nb2W19_Cu9Zr17W6/DPA1_7ele_cry260226/1500k/1bar/rdf.txt",
+              "20bar": "data/interface/45666_Ni11Nb2W19_Cu9Zr17W6/DPA1_7ele_cry260226/1500k/20bar/rdf.txt"
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.25638759375,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 5.382558795072269e-10,
+              "20bar": 7.113976253610536e-10
+            },
+            "thermalExpansion": 1.0871177625e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/45666_Ni11Nb2W19_Cu9Zr17W6/DPA1_7ele_cry260226/1500k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/45666_Ni11Nb2W19_Cu9Zr17W6/DPA1_7ele_cry260226/1500k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "source": "if-46999",
+    "name": "Al7Zr21Nb2Ta2_Ni14Nb4Ta3W11",
+    "type": "interface",
+    "composition": "Al7Zr21Nb6Ta5Ni14W11",
+    "elements": [
+      "Al",
+      "Zr",
+      "Nb",
+      "Ta",
+      "Ni",
+      "W"
+    ],
+    "atomCount": {
+      "Al": 7,
+      "Zr": 21,
+      "Nb": 6,
+      "Ta": 5,
+      "Ni": 14,
+      "W": 11
+    },
+    "data": [
+      {
+        "source": "init",
+        "poscar": "data/interface/46999_Al7Zr21Nb2Ta2_Ni14Nb4Ta3W11/init/POSCAR"
+      },
+      {
+        "temperature": 300,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/46999_Al7Zr21Nb2Ta2_Ni14Nb4Ta3W11/DPA1_7ele_cry260226/300k/1bar/POSCAR",
+          "20bar": null
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/46999_Al7Zr21Nb2Ta2_Ni14Nb4Ta3W11/DPA1_7ele_cry260226/300k/1bar/rdf.txt",
+              "20bar": null
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 25.426642625,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 2.3486754747584764e-10,
+              "20bar": null
+            },
+            "thermalExpansion": 8.43416746875e-06,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/46999_Al7Zr21Nb2Ta2_Ni14Nb4Ta3W11/DPA1_7ele_cry260226/300k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/46999_Al7Zr21Nb2Ta2_Ni14Nb4Ta3W11/DPA1_7ele_cry260226/300k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/46999_Al7Zr21Nb2Ta2_Ni14Nb4Ta3W11/DPA1_7ele_cry260226/1500k/1bar/POSCAR",
+          "20bar": "data/interface/46999_Al7Zr21Nb2Ta2_Ni14Nb4Ta3W11/DPA1_7ele_cry260226/1500k/20bar/POSCAR"
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/46999_Al7Zr21Nb2Ta2_Ni14Nb4Ta3W11/DPA1_7ele_cry260226/1500k/1bar/rdf.txt",
+              "20bar": "data/interface/46999_Al7Zr21Nb2Ta2_Ni14Nb4Ta3W11/DPA1_7ele_cry260226/1500k/20bar/rdf.txt"
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.859718671874997,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 8.36522029276792e-10,
+              "20bar": 7.693053340800082e-10
+            },
+            "thermalExpansion": 1.3678556109374999e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/46999_Al7Zr21Nb2Ta2_Ni14Nb4Ta3W11/DPA1_7ele_cry260226/1500k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/46999_Al7Zr21Nb2Ta2_Ni14Nb4Ta3W11/DPA1_7ele_cry260226/1500k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "source": "if-48666",
+    "name": "Al9Ni14W9_Al12Ni2Zr18",
+    "type": "interface",
+    "composition": "Al21Ni16W9Zr18",
+    "elements": [
+      "Al",
+      "Ni",
+      "W",
+      "Zr"
+    ],
+    "atomCount": {
+      "Al": 21,
+      "Ni": 16,
+      "W": 9,
+      "Zr": 18
+    },
+    "data": [
+      {
+        "source": "init",
+        "poscar": "data/interface/48666_Al9Ni14W9_Al12Ni2Zr18/init/POSCAR"
+      },
+      {
+        "temperature": 300,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/48666_Al9Ni14W9_Al12Ni2Zr18/DPA1_7ele_cry260226/300k/1bar/POSCAR",
+          "20bar": null
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/48666_Al9Ni14W9_Al12Ni2Zr18/DPA1_7ele_cry260226/300k/1bar/rdf.txt",
+              "20bar": null
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.177680359375003,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 4.6946586769666955e-11,
+              "20bar": null
+            },
+            "thermalExpansion": 1.4179134046874997e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/48666_Al9Ni14W9_Al12Ni2Zr18/DPA1_7ele_cry260226/300k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/48666_Al9Ni14W9_Al12Ni2Zr18/DPA1_7ele_cry260226/300k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/48666_Al9Ni14W9_Al12Ni2Zr18/DPA1_7ele_cry260226/1500k/1bar/POSCAR",
+          "20bar": "data/interface/48666_Al9Ni14W9_Al12Ni2Zr18/DPA1_7ele_cry260226/1500k/20bar/POSCAR"
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/48666_Al9Ni14W9_Al12Ni2Zr18/DPA1_7ele_cry260226/1500k/1bar/rdf.txt",
+              "20bar": "data/interface/48666_Al9Ni14W9_Al12Ni2Zr18/DPA1_7ele_cry260226/1500k/20bar/rdf.txt"
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 28.0936241875,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 1.0572123435429858e-09,
+              "20bar": 7.806148629831887e-10
+            },
+            "thermalExpansion": 2.0764924187499997e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/48666_Al9Ni14W9_Al12Ni2Zr18/DPA1_7ele_cry260226/1500k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/48666_Al9Ni14W9_Al12Ni2Zr18/DPA1_7ele_cry260226/1500k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "source": "if-51666",
+    "name": "Al18Cu8Nb2Ta4_Cu16Ta9W7",
+    "type": "interface",
+    "composition": "Al18Cu24Nb2Ta13W7",
+    "elements": [
+      "Al",
+      "Cu",
+      "Nb",
+      "Ta",
+      "W"
+    ],
+    "atomCount": {
+      "Al": 18,
+      "Cu": 24,
+      "Nb": 2,
+      "Ta": 13,
+      "W": 7
+    },
+    "data": [
+      {
+        "source": "init",
+        "poscar": "data/interface/51666_Al18Cu8Nb2Ta4_Cu16Ta9W7/init/POSCAR"
+      },
+      {
+        "temperature": 300,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/51666_Al18Cu8Nb2Ta4_Cu16Ta9W7/DPA1_7ele_cry260226/300k/1bar/POSCAR",
+          "20bar": null
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/51666_Al18Cu8Nb2Ta4_Cu16Ta9W7/DPA1_7ele_cry260226/300k/1bar/rdf.txt",
+              "20bar": null
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 25.97809346875,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 3.913826250465451e-11,
+              "20bar": null
+            },
+            "thermalExpansion": 1.7664756265625e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/51666_Al18Cu8Nb2Ta4_Cu16Ta9W7/DPA1_7ele_cry260226/300k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/51666_Al18Cu8Nb2Ta4_Cu16Ta9W7/DPA1_7ele_cry260226/300k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/51666_Al18Cu8Nb2Ta4_Cu16Ta9W7/DPA1_7ele_cry260226/1500k/1bar/POSCAR",
+          "20bar": "data/interface/51666_Al18Cu8Nb2Ta4_Cu16Ta9W7/DPA1_7ele_cry260226/1500k/20bar/POSCAR"
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/51666_Al18Cu8Nb2Ta4_Cu16Ta9W7/DPA1_7ele_cry260226/1500k/1bar/rdf.txt",
+              "20bar": "data/interface/51666_Al18Cu8Nb2Ta4_Cu16Ta9W7/DPA1_7ele_cry260226/1500k/20bar/rdf.txt"
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 27.369463015625,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 1.338949702414677e-09,
+              "20bar": 1.4837939286105932e-09
+            },
+            "thermalExpansion": 2.11154025625e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/51666_Al18Cu8Nb2Ta4_Cu16Ta9W7/DPA1_7ele_cry260226/1500k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/51666_Al18Cu8Nb2Ta4_Cu16Ta9W7/DPA1_7ele_cry260226/1500k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "source": "if-53666",
+    "name": "Al1Zr5Ta7W3_Cu3Nb18W11",
+    "type": "interface",
+    "composition": "Al1Zr5Ta7W14Cu3Nb18",
+    "elements": [
+      "Al",
+      "Zr",
+      "Ta",
+      "W",
+      "Cu",
+      "Nb"
+    ],
+    "atomCount": {
+      "Al": 1,
+      "Zr": 5,
+      "Ta": 7,
+      "W": 14,
+      "Cu": 3,
+      "Nb": 18
+    },
+    "data": [
+      {
+        "source": "init",
+        "poscar": "data/interface/53666_Al1Zr5Ta7W3_Cu3Nb18W11/init/POSCAR"
+      },
+      {
+        "temperature": 300,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/53666_Al1Zr5Ta7W3_Cu3Nb18W11/DPA1_7ele_cry260226/300k/1bar/POSCAR",
+          "20bar": null
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/53666_Al1Zr5Ta7W3_Cu3Nb18W11/DPA1_7ele_cry260226/300k/1bar/rdf.txt",
+              "20bar": null
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 24.817614208333328,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 1.168074878259642e-11,
+              "20bar": null
+            },
+            "thermalExpansion": 6.807258833333332e-06,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/53666_Al1Zr5Ta7W3_Cu3Nb18W11/DPA1_7ele_cry260226/300k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/53666_Al1Zr5Ta7W3_Cu3Nb18W11/DPA1_7ele_cry260226/300k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/53666_Al1Zr5Ta7W3_Cu3Nb18W11/DPA1_7ele_cry260226/1500k/1bar/POSCAR",
+          "20bar": "data/interface/53666_Al1Zr5Ta7W3_Cu3Nb18W11/DPA1_7ele_cry260226/1500k/20bar/POSCAR"
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/53666_Al1Zr5Ta7W3_Cu3Nb18W11/DPA1_7ele_cry260226/1500k/1bar/rdf.txt",
+              "20bar": "data/interface/53666_Al1Zr5Ta7W3_Cu3Nb18W11/DPA1_7ele_cry260226/1500k/20bar/rdf.txt"
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 25.619787208333335,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 8.702825611276009e-10,
+              "20bar": 1.554259199899753e-09
+            },
+            "thermalExpansion": 8.766333270833333e-06,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/53666_Al1Zr5Ta7W3_Cu3Nb18W11/DPA1_7ele_cry260226/1500k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/53666_Al1Zr5Ta7W3_Cu3Nb18W11/DPA1_7ele_cry260226/1500k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "source": "if-55666",
+    "name": "Ni11Cu5Zr12Ta4_Al10Cu4Zr5Nb13",
+    "type": "interface",
+    "composition": "Ni11Cu9Zr17Ta4Al10Nb13",
+    "elements": [
+      "Ni",
+      "Cu",
+      "Zr",
+      "Ta",
+      "Al",
+      "Nb"
+    ],
+    "atomCount": {
+      "Ni": 11,
+      "Cu": 9,
+      "Zr": 17,
+      "Ta": 4,
+      "Al": 10,
+      "Nb": 13
+    },
+    "data": [
+      {
+        "source": "init",
+        "poscar": "data/interface/55666_Ni11Cu5Zr12Ta4_Al10Cu4Zr5Nb13/init/POSCAR"
+      },
+      {
+        "temperature": 300,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/55666_Ni11Cu5Zr12Ta4_Al10Cu4Zr5Nb13/DPA1_7ele_cry260226/300k/1bar/POSCAR",
+          "20bar": null
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/55666_Ni11Cu5Zr12Ta4_Al10Cu4Zr5Nb13/DPA1_7ele_cry260226/300k/1bar/rdf.txt",
+              "20bar": null
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 25.669069984375,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 1.4190299913425783e-10,
+              "20bar": null
+            },
+            "thermalExpansion": 1.16037224375e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/55666_Ni11Cu5Zr12Ta4_Al10Cu4Zr5Nb13/DPA1_7ele_cry260226/300k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/55666_Ni11Cu5Zr12Ta4_Al10Cu4Zr5Nb13/DPA1_7ele_cry260226/300k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      },
+      {
+        "temperature": 1500,
+        "source": "DPA1_7ele_cry260226",
+        "poscar": {
+          "1bar": "data/interface/55666_Ni11Cu5Zr12Ta4_Al10Cu4Zr5Nb13/DPA1_7ele_cry260226/1500k/1bar/POSCAR",
+          "20bar": "data/interface/55666_Ni11Cu5Zr12Ta4_Al10Cu4Zr5Nb13/DPA1_7ele_cry260226/1500k/20bar/POSCAR"
+        },
+        "properties": {
+          "structure": {
+            "density": null,
+            "latticeParameters": {
+              "a": null,
+              "b": null,
+              "c": null,
+              "alpha": null,
+              "beta": null,
+              "gamma": null,
+              "pointGroup": ""
+            },
+            "rdf": {
+              "1bar": "data/interface/55666_Ni11Cu5Zr12Ta4_Al10Cu4Zr5Nb13/DPA1_7ele_cry260226/1500k/1bar/rdf.txt",
+              "20bar": "data/interface/55666_Ni11Cu5Zr12Ta4_Al10Cu4Zr5Nb13/DPA1_7ele_cry260226/1500k/20bar/rdf.txt"
+            }
+          },
+          "thermodynamics": {
+            "specificHeat_v": 27.10205696875,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": {
+              "1bar": 1.035617037937772e-09,
+              "20bar": 4.963008206109718e-09
+            },
+            "thermalExpansion": 1.6980336703124996e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": null,
+            "bulkModulus": null,
+            "shearModulus": null,
+            "poissonsRatio": null,
+            "elasticConstants": null,
+            "stressStrain": {
+              "5.0e9": "data/interface/55666_Ni11Cu5Zr12Ta4_Al10Cu4Zr5Nb13/DPA1_7ele_cry260226/1500k/strain/5.0e9/stress_strain.dat",
+              "5.0e10": "data/interface/55666_Ni11Cu5Zr12Ta4_Al10Cu4Zr5Nb13/DPA1_7ele_cry260226/1500k/strain/5.0e10/stress_strain.dat"
+            }
+          },
+          "defects": {
+            "vacancyFormationEnergy": null,
+            "interstitialFormationEnergy": {
+              "dumbbell111": null,
+              "dumbbell100": null,
+              "crowdion111": null
+            },
+            "stackingFaultEnergy": null
+          }
+        }
+      }
+    ]
+  }
+]

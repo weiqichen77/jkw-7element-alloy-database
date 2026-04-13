@@ -86,6 +86,13 @@ jobs:
             echo "✓ Copied intermetallic directory"
           fi
 
+          # Copy interface POSCAR/RDF files
+          if [ -d "data/interface" ]; then
+            echo "Copying interface data files..."
+            cp -r data/interface _site/data/
+            echo "✓ Copied interface directory"
+          fi
+
           # Copy amorphous RDF/structure data files
           if [ -d "data/amorphous" ]; then
             echo "Copying amorphous data files..."

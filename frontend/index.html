@@ -86,6 +86,35 @@
       return Number.isFinite(n) ? n.toFixed(digits) : 'N/A';
     }
 
+    function normalizeType(type) {
+      return type === 'solid-element' ? 'element' : type;
+    }
+
+    function pickPrimaryPath(value) {
+      if (typeof value === 'string' && value) return value;
+      if (!value || typeof value !== 'object' || Array.isArray(value)) return '';
+      const preferred = ['1bar', 'default', 'primary'];
+      for (const key of preferred) {
+        if (typeof value[key] === 'string' && value[key]) return value[key];
+      }
+      for (const item of Object.values(value)) {
+        if (typeof item === 'string' && item) return item;
+      }
+      return '';
+    }
+
+    function formatScientificOrMap(value, digits) {
+      if (!hasValue(value)) return 'N/A';
+      if (typeof value === 'object' && !Array.isArray(value)) {
+        const rows = Object.entries(value)
+          .filter(([, v]) => hasValue(v))
+          .map(([k, v]) => `${escapeHtml(k)}: ${formatScientificOrMap(v, digits)}`);
+        return rows.length ? rows.join('<br>') : 'N/A';
+      }
+      const n = Number(value);
+      return Number.isFinite(n) ? n.toExponential(digits) : 'N/A';
+    }
+
     async function loadData() {
       try {
         const response = await fetch('./data/materials.json');
@@ -93,7 +122,7 @@
         const rawMaterials = await response.json();
         const coreElements = new Set(['Al', 'Ni', 'Cu', 'Zr', 'Nb', 'Ta', 'W']);
         allMaterials = rawMaterials.filter((material) => {
-          if (material.type !== 'element') return true;
+          if (normalizeType(material.type) !== 'element') return true;
           const primary = Array.isArray(material.elements) ? material.elements[0] : null;
           return coreElements.has(primary);
         });
@@ -221,7 +250,8 @@
       if (material.data && material.data.length > 0) {
         const structures = [];
         material.data.forEach((dataEntry, idx) => {
-          if (dataEntry.poscar) {
+          const poscarPath = pickPrimaryPath(dataEntry.poscar);
+          if (poscarPath) {
             let label;
             if (dataEntry.source === 'init') {
               label = 'Initial Structure';
@@ -234,7 +264,7 @@
               }
             }
             const poscarSource = dataEntry.poscar_source || dataEntry.source;
-            structures.push({ idx, label, poscarSource, ...dataEntry });
+            structures.push({ idx, label, poscarSource, ...dataEntry, poscar: poscarPath });
           }
         });
 
@@ -300,8 +330,9 @@
           }
 
           html += `<div class="detail-item"><div class="detail-item-label">Density (g/cm³)</div><div class="detail-item-value">${formatNumber(struct.density, 3)}</div></div>`;
-          if (typeof struct.rdf === 'string' && struct.rdf) {
-            html += `<div class="detail-item"><div class="detail-item-label">RDF</div><div class="detail-item-value"><a href="${escapeHtml(struct.rdf)}" target="_blank" style="color: #3498db; text-decoration: underline;">View RDF</a></div></div>`;
+          const rdfPath = pickPrimaryPath(struct.rdf);
+          if (rdfPath) {
+            html += `<div class="detail-item"><div class="detail-item-label">RDF</div><div class="detail-item-value"><a href="${escapeHtml(rdfPath)}" target="_blank" style="color: #3498db; text-decoration: underline;">View RDF</a></div></div>`;
           }
           html += '</div></div>';
         }
@@ -319,8 +350,8 @@
           const cp = thermo.specificHeat_p ?? thermo.specificHeat;
           html += `<div class="detail-item"><div class="detail-item-label">Specific Heat C_v (J/(g·K))</div><div class="detail-item-value">${formatNumber(cv, 4)}</div></div>`;
           html += `<div class="detail-item"><div class="detail-item-label">Specific Heat C_p (J/(g·K))</div><div class="detail-item-value">${formatNumber(cp, 4)}</div></div>`;
-          html += `<div class="detail-item"><div class="detail-item-label">Diffusion Coefficient (m²/s)</div><div class="detail-item-value">${hasValue(thermo.diffusionCoefficient) ? Number(thermo.diffusionCoefficient).toExponential(3) : 'N/A'}</div></div>`;
-          html += `<div class="detail-item"><div class="detail-item-label">Thermal Expansion (K⁻¹)</div><div class="detail-item-value">${hasValue(thermo.thermalExpansion) ? Number(thermo.thermalExpansion).toExponential(3) : 'N/A'}</div></div>`;
+          html += `<div class="detail-item"><div class="detail-item-label">Diffusion Coefficient (m²/s)</div><div class="detail-item-value">${formatScientificOrMap(thermo.diffusionCoefficient, 3)}</div></div>`;
+          html += `<div class="detail-item"><div class="detail-item-label">Thermal Expansion (K⁻¹)</div><div class="detail-item-value">${formatScientificOrMap(thermo.thermalExpansion, 3)}</div></div>`;
           html += '</div></div>';
         }
 

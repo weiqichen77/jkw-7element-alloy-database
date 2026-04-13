@@ -10,8 +10,12 @@ function isChineseUi() {
   return (document.documentElement.lang || '').toLowerCase().startsWith('zh');
 }
 
+function normalizeType(type) {
+  return type === 'solid-element' ? 'element' : type;
+}
+
 function getTypeLabel(type) {
-  const cfg = TYPE_CONFIG.find((x) => x.value === type);
+  const cfg = TYPE_CONFIG.find((x) => x.value === normalizeType(type));
   if (!cfg) return type || 'N/A';
   return isChineseUi() ? cfg.zh : cfg.en;
 }

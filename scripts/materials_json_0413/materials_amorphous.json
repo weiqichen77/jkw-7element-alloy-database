@@ -1,0 +1,1789 @@
+[
+  {
+    "name": "Al8Cu46Zr46",
+    "type": "amorphous",
+    "composition": "Al8Cu46Zr46",
+    "elements": [
+      "Al",
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Al": 8,
+      "Cu": 46,
+      "Zr": 46
+    },
+    "data": [
+      {
+        "temperature_start": null,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DFT",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Al/Cu/Zr/DFT/8_46_46/null_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat_v": 25.75345874,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": 1.3528538860000002e-05
+          },
+          "mechanics": {
+            "youngsModulus": 123.29532447221558,
+            "bulkModulus": 113.20452693333372,
+            "shearModulus": 46.756720320000056,
+            "poissonsRatio": 0.31847704060924414,
+            "elasticConstants": [
+              [
+                175.5468206933338,
+                82.03338005333369,
+                82.03338005333369,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                82.03338005333369,
+                175.5468206933338,
+                82.03338005333369,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                82.03338005333369,
+                82.03338005333369,
+                175.5468206933338,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                46.756720320000056,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                46.756720320000056,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                46.756720320000056
+              ]
+            ],
+            "stressStrain": null
+          }
+        }
+      },
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Al/Cu/Zr/DPA1_7ele_cry260226/8_46_46/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.84806478,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 3.186964966e-11,
+            "thermalExpansion": 1.3528538860000002e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": 105.55171320157721,
+            "bulkModulus": 128.56635768190742,
+            "shearModulus": 38.71558359617956,
+            "poissonsRatio": 0.3631683084326927,
+            "elasticConstants": [
+              [
+                180.18713581014683,
+                102.75596861778772,
+                102.75596861778772,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                102.75596861778772,
+                180.18713581014683,
+                102.75596861778772,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                102.75596861778772,
+                102.75596861778772,
+                180.18713581014683,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                38.71558359617956,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                38.71558359617956,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                38.71558359617956
+              ]
+            ],
+            "stressStrain": null
+          }
+        }
+      },
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Al/Cu/Zr/DPA3_7ele_cryfinal/8_46_46/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.84806478,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": 1.3528538860000002e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": 116.49785650743952,
+            "bulkModulus": 112.7065054826223,
+            "shearModulus": 43.87116979704582,
+            "poissonsRatio": 0.3277268083615609,
+            "elasticConstants": [
+              [
+                171.20139854535006,
+                83.45905895125843,
+                83.45905895125843,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                83.45905895125843,
+                171.20139854535006,
+                83.45905895125843,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                83.45905895125843,
+                83.45905895125843,
+                171.20139854535006,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                43.87116979704582,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                43.87116979704582,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                43.87116979704582
+              ]
+            ],
+            "stressStrain": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cu46Zr54",
+    "type": "amorphous",
+    "composition": "Cu46Zr54",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Cu": 46,
+      "Zr": 54
+    },
+    "data": [
+      {
+        "temperature_start": null,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DFT",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DFT/46_54/null_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat_v": 25.538296340000002,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": 1.1196234460000001e-05
+          },
+          "mechanics": {
+            "youngsModulus": 124.9830090424899,
+            "bulkModulus": 114.50301475555595,
+            "shearModulus": 47.411045866666726,
+            "poissonsRatio": 0.3180790125783924,
+            "elasticConstants": [
+              [
+                177.71774257777827,
+                82.8956508444448,
+                82.8956508444448,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                82.8956508444448,
+                177.71774257777827,
+                82.8956508444448,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                82.8956508444448,
+                82.8956508444448,
+                177.71774257777827,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                47.411045866666726,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                47.411045866666726,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                47.411045866666726
+              ]
+            ],
+            "stressStrain": null
+          }
+        }
+      },
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/46_54/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.49329358,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 3.232922567e-10,
+            "thermalExpansion": 1.1196234460000001e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": 101.07410536804227,
+            "bulkModulus": 131.28200376021033,
+            "shearModulus": 36.843093224953584,
+            "poissonsRatio": 0.37168321822101313,
+            "elasticConstants": [
+              [
+                180.40612806014843,
+                106.71994161024128,
+                106.71994161024128,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                106.71994161024128,
+                180.40612806014843,
+                106.71994161024128,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                106.71994161024128,
+                106.71994161024128,
+                180.40612806014843,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                36.843093224953584,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                36.843093224953584,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                36.843093224953584
+              ]
+            ],
+            "stressStrain": null
+          }
+        },
+        "poscar": null
+      },
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA3_7ele_cryfinal/46_54/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.49329358,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": 1.1196234460000001e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": 116.76911930873324,
+            "bulkModulus": 113.75617923134028,
+            "shearModulus": 43.933873518730294,
+            "poissonsRatio": 0.3289190089163337,
+            "elasticConstants": [
+              [
+                172.33467725631402,
+                84.46693021885342,
+                84.46693021885342,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                84.46693021885342,
+                172.33467725631402,
+                84.46693021885342,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                84.46693021885342,
+                84.46693021885342,
+                172.33467725631402,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                43.933873518730294,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                43.933873518730294,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                43.933873518730294
+              ]
+            ],
+            "stressStrain": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cu10Zr90",
+    "type": "amorphous",
+    "composition": "Cu10Zr90",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Cu": 10,
+      "Zr": 90
+    },
+    "data": [
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/10_90/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.389083300000003,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 3.284079301e-10,
+            "thermalExpansion": 5.9349420999999995e-06,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": 71.4342036748361,
+            "bulkModulus": 124.7318912448572,
+            "shearModulus": 25.429575534637742,
+            "poissonsRatio": 0.4045496665395622,
+            "elasticConstants": [
+              [
+                158.63799195770753,
+                107.77884088843203,
+                107.77884088843203,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                107.77884088843203,
+                158.63799195770753,
+                107.77884088843203,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                107.77884088843203,
+                107.77884088843203,
+                158.63799195770753,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                25.429575534637742,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                25.429575534637742,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                25.429575534637742
+              ]
+            ],
+            "stressStrain": null
+          }
+        },
+        "poscar": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/10_90/2000_1100K/50000K_per_ns/POSCAR"
+      }
+    ]
+  },
+  {
+    "name": "Cu20Zr80",
+    "type": "amorphous",
+    "composition": "Cu20Zr80",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Cu": 20,
+      "Zr": 80
+    },
+    "data": [
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/20_80/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.4180306,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 4.307108955e-10,
+            "thermalExpansion": 7.3964122e-06,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": 79.78932417231492,
+            "bulkModulus": 126.55136694356639,
+            "shearModulus": 28.599997115281028,
+            "poissonsRatio": 0.3949183954582177,
+            "elasticConstants": [
+              [
+                164.68469643060777,
+                107.4847022000457,
+                107.4847022000457,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                107.4847022000457,
+                164.68469643060777,
+                107.4847022000457,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                107.4847022000457,
+                107.4847022000457,
+                164.68469643060777,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                28.599997115281028,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                28.599997115281028,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                28.599997115281028
+              ]
+            ],
+            "stressStrain": null
+          }
+        },
+        "poscar": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/20_80/2000_1100K/50000K_per_ns/POSCAR"
+      }
+    ]
+  },
+  {
+    "name": "Cu30Zr70",
+    "type": "amorphous",
+    "composition": "Cu30Zr70",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Cu": 30,
+      "Zr": 70
+    },
+    "data": [
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/30_70/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.4469779,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 1.529004356e-10,
+            "thermalExpansion": 8.8578823e-06,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": 88.04763799815318,
+            "bulkModulus": 128.3708426422756,
+            "shearModulus": 31.77041869592432,
+            "poissonsRatio": 0.3856858299674911,
+            "elasticConstants": [
+              [
+                170.73140090350802,
+                107.19056351165938,
+                107.19056351165938,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                107.19056351165938,
+                170.73140090350802,
+                107.19056351165938,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                107.19056351165938,
+                107.19056351165938,
+                170.73140090350802,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                31.77041869592432,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                31.77041869592432,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                31.77041869592432
+              ]
+            ],
+            "stressStrain": null
+          }
+        },
+        "poscar": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/30_70/2000_1100K/50000K_per_ns/POSCAR"
+      },
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA3_7ele_cryfinal/30_70/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.4469779,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": 8.8578823e-06,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": 110.68637702997678,
+            "bulkModulus": 105.66674234697177,
+            "shearModulus": 41.755336637665266,
+            "poissonsRatio": 0.32541593414112846,
+            "elasticConstants": [
+              [
+                161.34052453052547,
+                77.82985125519492,
+                77.82985125519492,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                77.82985125519492,
+                161.34052453052547,
+                77.82985125519492,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                77.82985125519492,
+                77.82985125519492,
+                161.34052453052547,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                41.755336637665266,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                41.755336637665266,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                41.755336637665266
+              ]
+            ],
+            "stressStrain": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cu40Zr60",
+    "type": "amorphous",
+    "composition": "Cu40Zr60",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Cu": 40,
+      "Zr": 60
+    },
+    "data": [
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/40_60/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.475925200000002,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 2.293253828e-10,
+            "thermalExpansion": 1.0319352400000002e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": 96.21503450815517,
+            "bulkModulus": 130.1903183409848,
+            "shearModulus": 34.94084027656761,
+            "poissonsRatio": 0.3768277143105783,
+            "elasticConstants": [
+              [
+                176.77810537640826,
+                106.89642482327305,
+                106.89642482327305,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                106.89642482327305,
+                176.77810537640826,
+                106.89642482327305,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                106.89642482327305,
+                106.89642482327305,
+                176.77810537640826,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                34.94084027656761,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                34.94084027656761,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                34.94084027656761
+              ]
+            ],
+            "stressStrain": null
+          }
+        },
+        "poscar": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/40_60/2000_1100K/50000K_per_ns/POSCAR"
+      },
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA3_7ele_cryfinal/40_60/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.475925200000002,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": 1.0319352400000002e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": 114.48950308671806,
+            "bulkModulus": 110.72264039970209,
+            "shearModulus": 43.1169221883309,
+            "poissonsRatio": 0.32766321522948727,
+            "elasticConstants": [
+              [
+                168.21186998414328,
+                81.97802560748148,
+                81.97802560748148,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                81.97802560748148,
+                168.21186998414328,
+                81.97802560748148,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                81.97802560748148,
+                81.97802560748148,
+                168.21186998414328,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                43.1169221883309,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                43.1169221883309,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                43.1169221883309
+              ]
+            ],
+            "stressStrain": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cu50Zr50",
+    "type": "amorphous",
+    "composition": "Cu50Zr50",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Cu": 50,
+      "Zr": 50
+    },
+    "data": [
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/50_50/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.5048725,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 1.632909066e-10,
+            "thermalExpansion": 1.17808225e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": 104.29693483787685,
+            "bulkModulus": 132.009794039694,
+            "shearModulus": 38.1112618572109,
+            "poissonsRatio": 0.3683217211311409,
+            "elasticConstants": [
+              [
+                182.8248098493085,
+                106.60228613488673,
+                106.60228613488673,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                106.60228613488673,
+                182.8248098493085,
+                106.60228613488673,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                106.60228613488673,
+                106.60228613488673,
+                182.8248098493085,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                38.1112618572109,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                38.1112618572109,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                38.1112618572109
+              ]
+            ],
+            "stressStrain": null
+          }
+        },
+        "poscar": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/50_50/2000_1100K/50000K_per_ns/POSCAR"
+      },
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA3_7ele_cryfinal/50_50/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.5048725,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": 1.17808225e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": 118.28800146569912,
+            "bulkModulus": 115.7785384524324,
+            "shearModulus": 44.47850773899655,
+            "poissonsRatio": 0.3297208863191029,
+            "elasticConstants": [
+              [
+                175.08321543776114,
+                86.12619995976803,
+                86.12619995976803,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                86.12619995976803,
+                175.08321543776114,
+                86.12619995976803,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                86.12619995976803,
+                86.12619995976803,
+                175.08321543776114,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                44.47850773899655,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                44.47850773899655,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                44.47850773899655
+              ]
+            ],
+            "stressStrain": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cu54Zr46",
+    "type": "amorphous",
+    "composition": "Cu54Zr46",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Cu": 54,
+      "Zr": 46
+    },
+    "data": [
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/54_46/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.516451420000003,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 5.12718336e-10,
+            "thermalExpansion": 1.236541054e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": 107.50688895938787,
+            "bulkModulus": 132.7375843191777,
+            "shearModulus": 39.37943048946822,
+            "poissonsRatio": 0.36501325213603486,
+            "elasticConstants": [
+              [
+                185.24349163846867,
+                106.48463065953221,
+                106.48463065953221,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                106.48463065953221,
+                185.24349163846867,
+                106.48463065953221,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                106.48463065953221,
+                106.48463065953221,
+                185.24349163846867,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                39.37943048946822,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                39.37943048946822,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                39.37943048946822
+              ]
+            ],
+            "stressStrain": null
+          }
+        },
+        "poscar": null
+      }
+    ]
+  },
+  {
+    "name": "Cu60Zr40",
+    "type": "amorphous",
+    "composition": "Cu60Zr40",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Cu": 60,
+      "Zr": 40
+    },
+    "data": [
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/60_40/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.5338198,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 1.130322061e-10,
+            "thermalExpansion": 1.32422926e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": 112.29833752683588,
+            "bulkModulus": 133.82926973840318,
+            "shearModulus": 41.28168343785419,
+            "poissonsRatio": 0.36014726356655,
+            "elasticConstants": [
+              [
+                188.87151432220878,
+                106.30814744650039,
+                106.30814744650039,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                106.30814744650039,
+                188.87151432220878,
+                106.30814744650039,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                106.30814744650039,
+                106.30814744650039,
+                188.87151432220878,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                41.28168343785419,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                41.28168343785419,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                41.28168343785419
+              ]
+            ],
+            "stressStrain": null
+          }
+        },
+        "poscar": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/60_40/2000_1100K/50000K_per_ns/POSCAR"
+      },
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA3_7ele_cryfinal/60_40/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.5338198,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": 1.32422926e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": 122.08243413642589,
+            "bulkModulus": 120.83443650516273,
+            "shearModulus": 45.84009328966219,
+            "poissonsRatio": 0.3316119730057115,
+            "elasticConstants": [
+              [
+                181.95456089137897,
+                90.2743743120546,
+                90.2743743120546,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                90.2743743120546,
+                181.95456089137897,
+                90.2743743120546,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                90.2743743120546,
+                90.2743743120546,
+                181.95456089137897,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                45.84009328966219,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                45.84009328966219,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                45.84009328966219
+              ]
+            ],
+            "stressStrain": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cu70Zr30",
+    "type": "amorphous",
+    "composition": "Cu70Zr30",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Cu": 70,
+      "Zr": 30
+    },
+    "data": [
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/70_30/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.562767100000002,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 3.07250414e-10,
+            "thermalExpansion": 1.47037627e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": 120.22385890985709,
+            "bulkModulus": 135.64874543711238,
+            "shearModulus": 44.45210501849748,
+            "poissonsRatio": 0.35228532889307895,
+            "elasticConstants": [
+              [
+                194.91821879510903,
+                106.01400875811406,
+                106.01400875811406,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                106.01400875811406,
+                194.91821879510903,
+                106.01400875811406,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                106.01400875811406,
+                106.01400875811406,
+                194.91821879510903,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                44.45210501849748,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                44.45210501849748,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                44.45210501849748
+              ]
+            ],
+            "stressStrain": null
+          }
+        },
+        "poscar": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/70_30/2000_1100K/50000K_per_ns/POSCAR"
+      },
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA3_7ele_cryfinal",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA3_7ele_cryfinal/70_30/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.562767100000002,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": null,
+            "thermalExpansion": 1.47037627e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": 125.87327561678364,
+            "bulkModulus": 125.89033455789304,
+            "shearModulus": 47.20167884032782,
+            "poissonsRatio": 0.333355917726818,
+            "elasticConstants": [
+              [
+                188.8259063449968,
+                94.42254866434116,
+                94.42254866434116,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                94.42254866434116,
+                188.8259063449968,
+                94.42254866434116,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                94.42254866434116,
+                94.42254866434116,
+                188.8259063449968,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                47.20167884032782,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                47.20167884032782,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                47.20167884032782
+              ]
+            ],
+            "stressStrain": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cu80Zr20",
+    "type": "amorphous",
+    "composition": "Cu80Zr20",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Cu": 80,
+      "Zr": 20
+    },
+    "data": [
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/80_20/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.5917144,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 5.097591686e-10,
+            "thermalExpansion": 1.6165232800000003e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": 128.0777689626325,
+            "bulkModulus": 137.4682211358216,
+            "shearModulus": 47.62252659914077,
+            "poissonsRatio": 0.3447183308932556,
+            "elasticConstants": [
+              [
+                200.9649232680093,
+                105.71987006972776,
+                105.71987006972776,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                105.71987006972776,
+                200.9649232680093,
+                105.71987006972776,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                105.71987006972776,
+                105.71987006972776,
+                200.9649232680093,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                47.62252659914077,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                47.62252659914077,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                47.62252659914077
+              ]
+            ],
+            "stressStrain": null
+          }
+        },
+        "poscar": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/80_20/2000_1100K/50000K_per_ns/POSCAR"
+      }
+    ]
+  },
+  {
+    "name": "Cu90Zr10",
+    "type": "amorphous",
+    "composition": "Cu90Zr10",
+    "elements": [
+      "Cu",
+      "Zr"
+    ],
+    "atomFraction": {
+      "Cu": 90,
+      "Zr": 10
+    },
+    "data": [
+      {
+        "temperature_start": 2000,
+        "temperature_end": 1100,
+        "ramping_speed": 50000,
+        "source": "DPA1_7ele_cry260226",
+        "properties": {
+          "structure": {
+            "density": null,
+            "rdf": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/90_10/2000_1100K/50000K_per_ns/rdf.txt"
+          },
+          "thermodynamics": {
+            "specificHeat_v": 26.6206617,
+            "mixingEnthalpy": null,
+            "diffusionCoefficient": 1.622138705e-09,
+            "thermalExpansion": 1.7626702900000002e-05,
+            "specificHeat_p": null
+          },
+          "mechanics": {
+            "youngsModulus": 135.864023187372,
+            "bulkModulus": 139.2876968345308,
+            "shearModulus": 50.79294817978406,
+            "poissonsRatio": 0.33742997853240175,
+            "elasticConstants": [
+              [
+                207.01162774090955,
+                105.42573138134142,
+                105.42573138134142,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                105.42573138134142,
+                207.01162774090955,
+                105.42573138134142,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                105.42573138134142,
+                105.42573138134142,
+                207.01162774090955,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                50.79294817978406,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                50.79294817978406,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                50.79294817978406
+              ]
+            ],
+            "stressStrain": null
+          }
+        },
+        "poscar": "data/amorphous/Cu/Zr/DPA1_7ele_cry260226/90_10/2000_1100K/50000K_per_ns/POSCAR"
+      }
+    ]
+  }
+]

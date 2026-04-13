@@ -3,17 +3,12 @@
 from __future__ import annotations
 
 import math
-import re
 from pathlib import Path
 
 import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-
-
-RATE_PATTERN = re.compile(r"szz_([^_]+)")
-
 
 def load_curve(path: Path) -> tuple[list[float], list[float]]:
     strain: list[float] = []
@@ -32,18 +27,19 @@ def load_curve(path: Path) -> tuple[list[float], list[float]]:
 
 
 def rate_label(path: Path) -> str:
-    match = RATE_PATTERN.search(path.name)
-    if not match:
+    parts = path.parts
+    if len(parts) < 7:
         return path.stem
-    return match.group(1)
+    # <element>/<crystal>/<potential>/<temperature>/<mode>/<strain_rate>/stress_strain.dat
+    return parts[5]
 
 
 def element_key(path: Path) -> tuple[str, str, str]:
     parts = path.parts
-    if len(parts) < 6:
+    if len(parts) < 7:
         raise ValueError(f"{path}: unexpected directory layout")
-    element, crystal, potential, temperature, mode, orientation = parts[:6]
-    return element, crystal, orientation
+    element, crystal, potential = parts[:3]
+    return element, crystal, potential
 
 
 def main() -> int:
@@ -64,18 +60,16 @@ def main() -> int:
     fig, axes = plt.subplots(nrows, ncols, figsize=(15, 4.2 * nrows), constrained_layout=True)
     axes_list = list(axes.flat) if hasattr(axes, "flat") else [axes]
 
-    colors = ["#1f5aa6", "#d97706", "#15803d", "#b91c1c"]
-
-    for ax, ((element, crystal, orientation), paths) in zip(axes_list, groups):
-        for color, path in zip(colors, sorted(paths)):
+    for ax, ((element, crystal, potential), paths) in zip(axes_list, groups):
+        for path in sorted(paths):
             strain, stress = load_curve(path)
-            ax.plot(strain, stress, linewidth=2.2, color=color, label=rate_label(path))
+            ax.plot(strain, stress, linewidth=2.2, label=rate_label(path))
 
-        ax.set_title(f"{element}  {crystal}-{orientation}", fontsize=12, fontweight="bold")
+        ax.set_title(f"{element}  {crystal}  {potential}", fontsize=12, fontweight="bold")
         ax.set_xlabel("Strain")
         ax.set_ylabel("Stress")
         ax.grid(True, alpha=0.25, linewidth=0.6)
-        ax.legend(title="target szz", fontsize=9, title_fontsize=9, frameon=False)
+        ax.legend(title="strain rate", fontsize=9, title_fontsize=9, frameon=False)
 
     for ax in axes_list[n_panels:]:
         ax.axis("off")
