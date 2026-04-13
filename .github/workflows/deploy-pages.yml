@@ -4865,6 +4865,12 @@ jobs:
             }
           }
           EOF
+
+      - name: Re-apply repository frontend assets
+        run: |
+          # Ensure deployment uses source-controlled frontend files.
+          # This overrides any temporary/generated _site html/js/css created in prior steps.
+          cp -r frontend/* _site/
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
