@@ -160,8 +160,71 @@
       return type === 'solid-element' ? 'element' : type;
     }
 
+    function makeSafeKey(value) {
+      return String(value || 'material').replace(/[^a-zA-Z0-9_-]/g, '_');
+    }
+
+    function isPreferredSource(source) {
+      if (!source) return false;
+      const s = String(source).toLowerCase();
+      if (s === 'init' || s === 'dft') return false;
+      if (/^dpa\d+/i.test(s)) return false;
+      if (/^alloy_/i.test(s)) return false;
+      if (/^mace_/i.test(s)) return false;
+      return true;
+    }
+
     function getMaterialSourceId(material) {
-      return material.source || material.original_source || material.id || material.name || 'N/A';
+      const topLevel = material.source || material.original_source || material.id;
+      if (topLevel) return topLevel;
+
+      if (Array.isArray(material.data)) {
+        const preferred = material.data.find((entry) => isPreferredSource(entry && entry.source));
+        if (preferred && preferred.source) return preferred.source;
+      }
+
+      return material.name || 'N/A';
+    }
+
+    function getStructureFromEntry(entry) {
+      return entry && entry.properties ? entry.properties.structure : null;
+    }
+
+    function findBestStructureEntry(material) {
+      const best = selectBestDataEntry(material, 'structure');
+      if (best && getStructureFromEntry(best)) return best;
+      if (!Array.isArray(material.data)) return null;
+      return material.data.find((entry) => getStructureFromEntry(entry)) || null;
+    }
+
+    function pickLatticeParameters(material, preferredEntry) {
+      const entries = [];
+      if (preferredEntry) entries.push(preferredEntry);
+      if (Array.isArray(material.data)) entries.push(...material.data);
+
+      for (const entry of entries) {
+        const structure = getStructureFromEntry(entry);
+        if (!structure) continue;
+        const lp = structure.latticeParameters || structure.lattice_parameters;
+        if (lp && typeof lp === 'object') return lp;
+      }
+
+      return null;
+    }
+
+    function pickRdfPath(material, preferredEntry) {
+      const entries = [];
+      if (preferredEntry) entries.push(preferredEntry);
+      if (Array.isArray(material.data)) entries.push(...material.data);
+
+      for (const entry of entries) {
+        const structure = getStructureFromEntry(entry);
+        if (!structure) continue;
+        const path = pickPrimaryPath(structure.rdf);
+        if (path) return path;
+      }
+
+      return '';
     }
 
     function pickPrimaryPath(value) {
@@ -259,6 +322,7 @@
 
         results.forEach((material, idx) => {
           const sourceId = getMaterialSourceId(material);
+          const detailKey = makeSafeKey(sourceId + '_' + idx);
 
           let density = material.density;
           if (!density) {
@@ -272,14 +336,14 @@
 
           const mainRow = tbody.insertRow();
           mainRow.className = 'expandable-row';
-          mainRow.dataset.id = sourceId;
+          mainRow.dataset.id = detailKey;
 
           mainRow.insertCell(0).textContent = sourceId;
           mainRow.insertCell(1).textContent = material.name || 'N/A';
-          mainRow.insertCell(2).textContent = material.type || 'N/A';
+          mainRow.insertCell(2).textContent = normalizeType(material.type || '') || 'N/A';
           mainRow.insertCell(3).textContent = elements;
           mainRow.insertCell(4).textContent = Number.isFinite(Number(density)) ? Number(density).toFixed(2) : 'N/A';
-          mainRow.insertCell(5).innerHTML = '<span class="expand-icon">▶</span>View';
+          mainRow.insertCell(5).innerHTML = '<span class="expand-icon">▶</span>Details';
 
           mainRow.onclick = () => toggleDetail(mainRow, material);
 
@@ -307,12 +371,13 @@
 
     function formatDetailContent(material) {
       let html = '<div class="detail-content">';
-      const materialKey = getMaterialSourceId(material);
+      const materialSourceId = getMaterialSourceId(material);
+      const materialKey = makeSafeKey(materialSourceId + '_' + (material.name || 'material'));
 
       html += '<div class="detail-section">';
       html += '<div class="detail-section-title">Material Information</div>';
       html += '<div class="detail-grid">';
-      html += `<div class="detail-item"><div class="detail-item-label">Source ID</div><div class="detail-item-value">${escapeHtml(materialKey)}</div></div>`;
+      html += `<div class="detail-item"><div class="detail-item-label">Source ID</div><div class="detail-item-value">${escapeHtml(materialSourceId)}</div></div>`;
       html += '</div></div>';
 
       if (material.data && material.data.length > 0) {
@@ -367,20 +432,22 @@
       }
 
       if (material.data && material.data.length > 0) {
-        const structureEntry = selectBestDataEntry(material, 'structure');
+        const structureEntry = findBestStructureEntry(material);
         const thermoEntry = selectBestDataEntry(material, 'thermodynamics');
         const mechanicsEntry = selectBestDataEntry(material, 'mechanics');
         const defectsEntry = selectBestDataEntry(material, 'defects');
 
         if (structureEntry && structureEntry.properties && structureEntry.properties.structure) {
           const struct = structureEntry.properties.structure;
+          const latticeParams = pickLatticeParameters(material, structureEntry);
+          const rdfPath = pickRdfPath(material, structureEntry);
           html += '<div class="detail-section">';
           html += '<div class="detail-section-title">Structure Properties</div>';
           html += '<div class="detail-grid">';
           html += `<div class="detail-item"><div class="detail-item-label">Property Source</div><div class="detail-item-value">${formatDataSource(structureEntry.source)}</div></div>`;
 
-          if (struct.latticeParameters) {
-            const lp = struct.latticeParameters;
+          if (latticeParams) {
+            const lp = latticeParams;
             html += `<div class="detail-item"><div class="detail-item-label">Lattice a (Å)</div><div class="detail-item-value">${formatNumber(lp.a, 4)}</div></div>`;
             html += `<div class="detail-item"><div class="detail-item-label">Lattice b (Å)</div><div class="detail-item-value">${formatNumber(lp.b, 4)}</div></div>`;
             html += `<div class="detail-item"><div class="detail-item-label">Lattice c (Å)</div><div class="detail-item-value">${formatNumber(lp.c, 4)}</div></div>`;
@@ -398,7 +465,6 @@
           }
 
           html += `<div class="detail-item"><div class="detail-item-label">Density (g/cm³)</div><div class="detail-item-value">${formatNumber(struct.density, 3)}</div></div>`;
-          const rdfPath = pickPrimaryPath(struct.rdf);
           if (rdfPath) {
             html += `<div class="detail-item"><div class="detail-item-label">RDF</div><div class="detail-item-value"><a href="${escapeHtml(rdfPath)}" target="_blank" style="color: #3498db; text-decoration: underline;">View RDF</a></div></div>`;
           }
