@@ -169,6 +169,101 @@ jobs:
 
             return material.name || material.id || 'N/A';
           }
+
+          function normalizeDataSourceLabel(source) {
+            if (!source) return '';
+            const raw = String(source).trim();
+            const lower = raw.toLowerCase();
+
+            // Rule 1: remove all init entries completely.
+            if (lower === 'init') return '';
+
+            // Rule 2: unify DPA-3_* and DPA-1_* to DPA_alloy.
+            if (/^dpa[-_ ]?3/i.test(raw) || /^dpa[-_ ]?1/i.test(raw)) {
+              return 'DPA_alloy';
+            }
+
+            return raw;
+          }
+
+          function countPropertyFields(dataEntry) {
+            const props = (dataEntry && dataEntry.properties) || {};
+            const sections = ['structure', 'thermodynamics', 'mechanics', 'defects'];
+            let count = 0;
+
+            for (const section of sections) {
+              const obj = props[section];
+              if (!obj || typeof obj !== 'object') continue;
+              for (const v of Object.values(obj)) {
+                if (v === null || v === undefined || v === '') continue;
+                if (Array.isArray(v) && v.length === 0) continue;
+                if (typeof v === 'object' && !Array.isArray(v) && Object.keys(v).length === 0) continue;
+                count++;
+              }
+            }
+
+            return count;
+          }
+
+          function sourcePriority(source) {
+            const raw = String(source || '');
+            if (/^dpa[-_ ]?3/i.test(raw)) return 3;
+            if (/^dpa[-_ ]?1/i.test(raw)) return 2;
+            return 1;
+          }
+
+          function normalizeAndDedupeDataEntries(material) {
+            if (!Array.isArray(material.data) || material.data.length === 0) return material;
+
+            const deduped = new Map();
+
+            for (const entry of material.data) {
+              if (!entry || typeof entry !== 'object') continue;
+
+              const originalSource = entry.source || '';
+              const normalizedSource = normalizeDataSourceLabel(originalSource);
+              if (!normalizedSource) continue; // Drops init entries.
+
+              const temperature = (typeof entry.temperature === 'number' || typeof entry.temperature === 'string')
+                ? entry.temperature
+                : 'NA';
+              const key = `${temperature}__${normalizedSource}`;
+
+              const normalizedEntry = {
+                ...entry,
+                source: normalizedSource,
+                original_source: entry.original_source || originalSource || normalizedSource,
+              };
+
+              if (!deduped.has(key)) {
+                deduped.set(key, normalizedEntry);
+                continue;
+              }
+
+              // If dedupe collision happens (same temperature + normalized source),
+              // keep DPA-3-derived entry over DPA-1-derived entry.
+              const current = deduped.get(key);
+              const pCurrent = sourcePriority(current.original_source || current.source);
+              const pCandidate = sourcePriority(normalizedEntry.original_source || normalizedEntry.source);
+
+              if (pCandidate > pCurrent) {
+                deduped.set(key, normalizedEntry);
+                continue;
+              }
+
+              if (pCandidate === pCurrent) {
+                // Tie-breaker: keep the richer entry.
+                const cCurrent = countPropertyFields(current);
+                const cCandidate = countPropertyFields(normalizedEntry);
+                if (cCandidate > cCurrent) {
+                  deduped.set(key, normalizedEntry);
+                }
+              }
+            }
+
+            material.data = Array.from(deduped.values());
+            return material;
+          }
           
           let allMaterials = [];
           const existingIDs = new Set();
@@ -231,6 +326,8 @@ jobs:
           
           // Normalize all merged materials so UI always has top-level id/source/density.
           allMaterials = allMaterials.map((material) => {
+            normalizeAndDedupeDataEntries(material);
+
             if (material.source && !material.original_source) {
               material.original_source = material.source;
             }

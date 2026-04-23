@@ -15,6 +15,83 @@ const materialsPath = path.join(dataDir, 'materials.json');
 const intermetallicPath = path.join(dataDir, 'materials_intermetallic.json');
 const outputPath = path.join(__dirname, '..', '_site', 'data', 'materials.json');
 
+function normalizeDataSourceLabel(source) {
+  if (!source) return '';
+  const raw = String(source).trim();
+  const lower = raw.toLowerCase();
+  if (lower === 'init') return '';
+  if (/^dpa[-_ ]?3/i.test(raw) || /^dpa[-_ ]?1/i.test(raw)) return 'DPA_alloy';
+  return raw;
+}
+
+function countPropertyFields(dataEntry) {
+  const props = (dataEntry && dataEntry.properties) || {};
+  const sections = ['structure', 'thermodynamics', 'mechanics', 'defects'];
+  let count = 0;
+  for (const section of sections) {
+    const obj = props[section];
+    if (!obj || typeof obj !== 'object') continue;
+    for (const v of Object.values(obj)) {
+      if (v === null || v === undefined || v === '') continue;
+      if (Array.isArray(v) && v.length === 0) continue;
+      if (typeof v === 'object' && !Array.isArray(v) && Object.keys(v).length === 0) continue;
+      count++;
+    }
+  }
+  return count;
+}
+
+function sourcePriority(source) {
+  const raw = String(source || '');
+  if (/^dpa[-_ ]?3/i.test(raw)) return 3;
+  if (/^dpa[-_ ]?1/i.test(raw)) return 2;
+  return 1;
+}
+
+function normalizeAndDedupeMaterialData(material) {
+  if (!Array.isArray(material.data) || material.data.length === 0) return material;
+
+  const deduped = new Map();
+  for (const entry of material.data) {
+    if (!entry || typeof entry !== 'object') continue;
+    const originalSource = entry.source || '';
+    const normalizedSource = normalizeDataSourceLabel(originalSource);
+    if (!normalizedSource) continue;
+
+    const temperature = (typeof entry.temperature === 'number' || typeof entry.temperature === 'string')
+      ? entry.temperature
+      : 'NA';
+    const key = `${temperature}__${normalizedSource}`;
+
+    const normalizedEntry = {
+      ...entry,
+      source: normalizedSource,
+      original_source: entry.original_source || originalSource || normalizedSource,
+    };
+
+    if (!deduped.has(key)) {
+      deduped.set(key, normalizedEntry);
+      continue;
+    }
+
+    const current = deduped.get(key);
+    const pCurrent = sourcePriority(current.original_source || current.source);
+    const pCandidate = sourcePriority(normalizedEntry.original_source || normalizedEntry.source);
+
+    if (pCandidate > pCurrent) {
+      deduped.set(key, normalizedEntry);
+      continue;
+    }
+
+    if (pCandidate === pCurrent && countPropertyFields(normalizedEntry) > countPropertyFields(current)) {
+      deduped.set(key, normalizedEntry);
+    }
+  }
+
+  material.data = Array.from(deduped.values());
+  return material;
+}
+
 try {
   let allMaterials = [];
   
@@ -22,7 +99,7 @@ try {
   if (fs.existsSync(materialsPath)) {
     try {
       const data = JSON.parse(fs.readFileSync(materialsPath, 'utf8'));
-      allMaterials = allMaterials.concat(data);
+      allMaterials = allMaterials.concat(data.map(normalizeAndDedupeMaterialData));
       console.log(`✓ Loaded ${data.length} materials from materials.json`);
     } catch (e) {
       console.error('✗ Error parsing materials.json:', e.message);
@@ -37,6 +114,7 @@ try {
       const data = JSON.parse(fs.readFileSync(intermetallicPath, 'utf8'));
       // Normalize intermetallic materials
       const normalized = data.map(material => {
+        normalizeAndDedupeMaterialData(material);
         if (!material.density && material.data && material.data.length > 0) {
           const firstData = material.data[0];
           if (firstData.properties && firstData.properties.structure) {
