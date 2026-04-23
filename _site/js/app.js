@@ -338,8 +338,12 @@ function getSecondaryData(material) {
 
 function hasDataValue(val) {
   if (val === null || val === undefined || val === '' || val === '-') return false;
-  if (Array.isArray(val)) return val.length > 0;
-  if (typeof val === 'object') return Object.keys(val).length > 0;
+  if (Array.isArray(val)) return val.some((item) => hasDataValue(item));
+  if (typeof val === 'object') {
+    const keys = Object.keys(val);
+    if (keys.length === 0) return false;
+    return keys.some((k) => hasDataValue(val[k]));
+  }
   return true;
 }
 
@@ -1379,16 +1383,17 @@ function displayDefectsTable(data) {
       html += '-';
     } else if (interstitialDefects.interstitialFormationEnergy != null) {
       if (typeof interstitialDefects.interstitialFormationEnergy === 'object' && !Array.isArray(interstitialDefects.interstitialFormationEnergy)) {
-        // Multiple sites - check if object is not empty
-        const sites = Object.keys(interstitialDefects.interstitialFormationEnergy);
+        // Only show sites with non-null values.
+        const sites = Object.entries(interstitialDefects.interstitialFormationEnergy)
+          .filter(([, v]) => hasDataValue(v));
         if (sites.length > 0) {
           html += '<div class="interstitial-display">';
-          html += '<span>' + sites[0] + ': ' + formatValue(interstitialDefects.interstitialFormationEnergy[sites[0]], 3) + '</span>';
+          html += '<span>' + sites[0][0] + ': ' + formatValue(sites[0][1], 3) + '</span>';
           if (sites.length > 1) {
             html += '<button class="sites-expand" onclick="toggleSites(this, event)">▼</button>';
             html += '<div class="sites-details hidden">';
-            for (const site of sites.slice(1)) {
-              html += '<div>' + site + ': ' + formatValue(interstitialDefects.interstitialFormationEnergy[site], 3) + ' eV</div>';
+            for (const [site, value] of sites.slice(1)) {
+              html += '<div>' + site + ': ' + formatValue(value, 3) + ' eV</div>';
             }
             html += '</div>';
           }
@@ -1411,15 +1416,16 @@ function displayDefectsTable(data) {
       html += '-';
     } else if (stackingDefects.stackingFaultEnergy != null) {
       if (typeof stackingDefects.stackingFaultEnergy === 'object' && !Array.isArray(stackingDefects.stackingFaultEnergy)) {
-        const types = Object.keys(stackingDefects.stackingFaultEnergy);
+        const types = Object.entries(stackingDefects.stackingFaultEnergy)
+          .filter(([, v]) => hasDataValue(v));
         if (types.length > 0) {
           html += '<div class="stacking-display">';
-          html += '<span>' + types[0] + ': ' + formatValue(stackingDefects.stackingFaultEnergy[types[0]], 2) + '</span>';
+          html += '<span>' + types[0][0] + ': ' + formatValue(types[0][1], 2) + '</span>';
           if (types.length > 1) {
             html += '<button class="sites-expand" onclick="toggleSites(this, event)">▼</button>';
             html += '<div class="sites-details hidden">';
-            for (const type of types.slice(1)) {
-              html += '<div>' + type + ': ' + formatValue(stackingDefects.stackingFaultEnergy[type], 2) + ' mJ/m²</div>';
+            for (const [type, value] of types.slice(1)) {
+              html += '<div>' + type + ': ' + formatValue(value, 2) + ' mJ/m²</div>';
             }
             html += '</div>';
           }
@@ -1498,9 +1504,9 @@ function displayDefectsTable(data) {
         if (hideDefectProps) {
           html += '-';
         } else if (d.interstitialFormationEnergy != null && typeof d.interstitialFormationEnergy === 'object' && !Array.isArray(d.interstitialFormationEnergy)) {
-          const sites = Object.keys(d.interstitialFormationEnergy);
+          const sites = Object.entries(d.interstitialFormationEnergy).filter(([, v]) => hasDataValue(v));
           if (sites.length > 0) {
-            html += sites.map(s => s + ':' + formatValue(d.interstitialFormationEnergy[s], 3)).join(', ');
+            html += sites.map(([s, v]) => s + ':' + formatValue(v, 3)).join(', ');
           } else {
             html += '-';
           }
@@ -1514,9 +1520,9 @@ function displayDefectsTable(data) {
         if (hideDefectProps) {
           html += '-';
         } else if (d.stackingFaultEnergy != null && typeof d.stackingFaultEnergy === 'object' && !Array.isArray(d.stackingFaultEnergy)) {
-          const types = Object.keys(d.stackingFaultEnergy);
+          const types = Object.entries(d.stackingFaultEnergy).filter(([, v]) => hasDataValue(v));
           if (types.length > 0) {
-            html += types.map(t => t + ':' + formatValue(d.stackingFaultEnergy[t], 2)).join(', ');
+            html += types.map(([t, v]) => t + ':' + formatValue(v, 2)).join(', ');
           } else {
             html += '-';
           }
