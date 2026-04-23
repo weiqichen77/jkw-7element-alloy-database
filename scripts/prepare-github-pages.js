@@ -48,6 +48,38 @@ function sourcePriority(source) {
   return 1;
 }
 
+function isMissingValue(v) {
+  if (v === null || v === undefined || v === '') return true;
+  if (Array.isArray(v)) return v.length === 0;
+  if (typeof v === 'object') return Object.keys(v).length === 0;
+  return false;
+}
+
+function deepFillMissing(primary, fallback) {
+  if (isMissingValue(primary) && !isMissingValue(fallback)) return fallback;
+  if (typeof primary !== 'object' || primary === null || Array.isArray(primary)) return primary;
+  if (typeof fallback !== 'object' || fallback === null || Array.isArray(fallback)) return primary;
+
+  const merged = { ...primary };
+  for (const [k, v] of Object.entries(fallback)) {
+    if (!(k in merged)) {
+      merged[k] = v;
+      continue;
+    }
+    merged[k] = deepFillMissing(merged[k], v);
+  }
+  return merged;
+}
+
+function mergeMissingProperties(primaryEntry, fallbackEntry) {
+  const primaryProps = (primaryEntry && primaryEntry.properties) || {};
+  const fallbackProps = (fallbackEntry && fallbackEntry.properties) || {};
+  return {
+    ...primaryEntry,
+    properties: deepFillMissing(primaryProps, fallbackProps),
+  };
+}
+
 function normalizeAndDedupeMaterialData(material) {
   if (!Array.isArray(material.data) || material.data.length === 0) return material;
 
@@ -79,12 +111,19 @@ function normalizeAndDedupeMaterialData(material) {
     const pCandidate = sourcePriority(normalizedEntry.original_source || normalizedEntry.source);
 
     if (pCandidate > pCurrent) {
-      deduped.set(key, normalizedEntry);
+      deduped.set(key, mergeMissingProperties(normalizedEntry, current));
       continue;
     }
 
-    if (pCandidate === pCurrent && countPropertyFields(normalizedEntry) > countPropertyFields(current)) {
-      deduped.set(key, normalizedEntry);
+    if (pCurrent > pCandidate) {
+      deduped.set(key, mergeMissingProperties(current, normalizedEntry));
+      continue;
+    }
+
+    if (countPropertyFields(normalizedEntry) > countPropertyFields(current)) {
+      deduped.set(key, mergeMissingProperties(normalizedEntry, current));
+    } else {
+      deduped.set(key, mergeMissingProperties(current, normalizedEntry));
     }
   }
 
