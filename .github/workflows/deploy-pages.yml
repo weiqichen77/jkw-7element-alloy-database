@@ -936,6 +936,80 @@ jobs:
             });
           }
 
+          function getPropertyCompletenessScore(material, propertyKey) {
+            const entries = Array.isArray(material.data) && material.data.length > 0
+              ? material.data.map((d) => (d && d.properties) ? d.properties : {})
+              : [material.properties || material || {}];
+
+            const hasAny = (getter) => entries.some((props) => hasDataValue(getter(props || {})));
+
+            if (propertyKey === 'structure') {
+              let score = 0;
+              if (hasAny((p) => p.structure && p.structure.density)) score++;
+              if (hasAny((p) => p.structure && p.structure.latticeParameters)) score++;
+              if (hasAny((p) => p.structure && p.structure.rdf)) score++;
+              return score;
+            }
+
+            if (propertyKey === 'thermodynamics') {
+              let score = 0;
+              if (hasAny((p) => {
+                const th = p.thermodynamics || {};
+                return th.specificHeat ?? th.specificHeat_v ?? th.specificHeat_p;
+              })) score++;
+              if (hasAny((p) => p.thermodynamics && p.thermodynamics.mixingEnthalpy)) score++;
+              if (hasAny((p) => p.thermodynamics && p.thermodynamics.diffusionCoefficient)) score++;
+              if (hasAny((p) => p.thermodynamics && p.thermodynamics.thermalExpansion)) score++;
+              return score;
+            }
+
+            if (propertyKey === 'mechanics') {
+              let score = 0;
+              if (hasAny((p) => p.mechanics && p.mechanics.elasticConstants)) score++;
+              if (hasAny((p) => p.mechanics && p.mechanics.youngsModulus)) score++;
+              if (hasAny((p) => p.mechanics && p.mechanics.bulkModulus)) score++;
+              if (hasAny((p) => p.mechanics && p.mechanics.shearModulus)) score++;
+              if (hasAny((p) => p.mechanics && p.mechanics.poissonsRatio)) score++;
+              if (hasAny((p) => p.mechanics && p.mechanics.stressStrain)) score++;
+              return score;
+            }
+
+            if (propertyKey === 'defects') {
+              let score = 0;
+              if (hasAny((p) => p.defects && p.defects.vacancyFormationEnergy)) score++;
+              if (hasAny((p) => p.defects && p.defects.interstitialFormationEnergy)) score++;
+              if (hasAny((p) => p.defects && p.defects.stackingFaultEnergy)) score++;
+              return score;
+            }
+
+            return 0;
+          }
+
+          function sortForCurrentView(list) {
+            const typeOrder = {
+              'solid-solution': 0,
+              'intermetallic': 1,
+              'amorphous': 2,
+              'interface': 3,
+              'element': 4,
+              'solid_solution': 0
+            };
+
+            return [...list].sort((a, b) => {
+              if (currentType === 'all') {
+                const ta = typeOrder[a.type] ?? 999;
+                const tb = typeOrder[b.type] ?? 999;
+                if (ta !== tb) return ta - tb;
+              }
+
+              const sa = getPropertyCompletenessScore(a, currentProperty);
+              const sb = getPropertyCompletenessScore(b, currentProperty);
+              if (sa !== sb) return sb - sa;
+
+              return (a.name || '').localeCompare(b.name || '');
+            });
+          }
+
           function filterAndDisplay() {
             const searchTerm = document.getElementById('q').value.trim();
             
@@ -966,7 +1040,7 @@ jobs:
               });
             }
             
-            displayResults(applyTypeDisplayOrder(filtered));
+            displayResults(sortForCurrentView(filtered));
           }
           
           function displayResults(data) {
